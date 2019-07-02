@@ -1,39 +1,46 @@
-# oim-e
+<p align="center">
+    <img width="150" src="./build/icons/icon_128x128.png">
+</p>
 
-#### 介绍
-{**以下是码云平台说明，您可以替换此简介**
-码云是开源中国推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用码云实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+<h1 align="center">OIM-E</h1>
 
-#### 软件架构
-软件架构说明
+# 简介
+OIM-E是基于Electron实现的PC桌面聊天软件，可支持Windows、Linux、Mac等主流平台。
+主要采用了Vue、iView、TypeScript等技术实现，通讯协议主要是websocket。服务端支持私有部署，可用于企业内部管理通讯等功能。
 
+## 主要功能
+* 个人资料<br>
+  资料修改<br>
+  自定义头像
+* 联系人<br>
+    联系人分组<br>
+    联系人备注名<br>
+    联系人管理<br>
+* 群<br>
+    群分组<br>
+    群管理<br>
+* 聊天<br>
+    私聊<br>
+    群聊<br>
+    支持 图片、表情、文件、图文混排
+    
+## 截图
+<img src="./screenshot/1.png">
+<img src="./screenshot/2.png">
+<img src="./screenshot/3.png">
+<img src="./screenshot/4.png">
+<img src="./screenshot/5.png">
+<img src="./screenshot/6.png">
 
-#### 安装教程
+## 命令
 
-1. xxxx
-2. xxxx
-3. xxxx
+```
+初次下载源码后进行安装依赖
+npm install
 
-#### 使用说明
+开发调试
+npm run dev
 
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 参与贡献
-
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
-
-
-#### 码云特技
-
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+打包构建（分别在不同平台打不同的包）
+npm run electron:build
+```

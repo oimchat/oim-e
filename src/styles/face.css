@@ -1,0 +1,17 @@
+.face {
+    overflow: hidden;
+    width: 435px;
+    height: 202px;
+    margin-right: -1px
+}
+
+.face a {
+    float: left;
+    width: 28px;
+    height: 28px;
+    font-size: 0;
+    text-indent: -999em;
+    border-bottom: 1px solid #f0f0f0;
+    border-right: 1px solid #f0f0f0;
+    cursor: pointer;
+}

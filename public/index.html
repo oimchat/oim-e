@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- <link rel="icon" href="<%= BASE_URL %>favicon.ico">-->
+    <link rel="icon" href="favicon.ico">
+    <title>OIM</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            perspective: 800px;
+            -webkit-user-select: none;
+        }
+
+        a,
+        button,
+        input,
+        select,
+        textarea,
+        fieldset,
+        legend,
+        dd,
+        dl,
+        fieldset,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        ol,
+        p,
+        ul,
+        li,
+        img,
+        audio,
+        canvas,
+        video,
+        svg,
+        figure,
+        pre {
+            -webkit-app-region: no-drag;
+        }
+
+        .scroll-wrapper {
+            -webkit-app-region: no-drag;
+        }
+
+        ::-webkit-scrollbar {
+            -webkit-app-region: no-drag;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            -webkit-app-region: no-drag;
+        }
+
+        ::-webkit-scrollbar-track {
+            -webkit-app-region: no-drag;
+        }
+
+        .shadow {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+            position: absolute;
+            border-radius: 4px;
+        }
+
+        #root {
+            /*left: 10px;*/
+            /*top: 10px;*/
+            /*right: 10px;*/
+            /*bottom: 10px;*/
+            background-color: #ebf2f9;
+            /*border-radius: 4px;*/
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            overflow-x: hidden;
+            overflow-y: hidden;
+            position: absolute;
+            -webkit-transition: -webkit-transform .6s ease-in-out;
+            transition: transform .6s ease-in-out;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+        }
+
+        .table {
+            display: table;
+            table-layout: fixed;
+            width: 100%;
+            height: 100%;
+        }
+
+        .table-cell {
+            height: 100%;
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+<noscript>
+    <strong>We're sorry but OIM doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+</noscript>
+<div id="root" class="shadow">
+    <div id="app">
+        <div class="table" style="-webkit-app-region: drag">
+            <div class="table-cell" style="-webkit-app-region: drag">
+                <img src="assets/images/common/loading/loading_800_600.gif" style="vertical-align:middle;-webkit-app-region: drag"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- built files will be auto injected -->
+</body>
+<script type="text/javascript">
+  // <div id="loading">
+  //   启动中......
+  // </div>
+  // onload="load()"
+  // function load () {
+  //   document.getElementById('loading').style.visibility = 'hidden';
+  // }
+</script>
+</html>

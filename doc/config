@@ -1,0 +1,15 @@
+"build": {
+  "appId": "app",
+  "asar": false,
+  "artifactName": "${name}_${os}_${arch}-setup.${ext}",
+  "mac": {
+    "category": "public.app-category.business"
+  },
+  "nsis": {},
+  "publish": [
+    {
+      "provider": "generic",
+      "url": "http://app.com/downloads"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+// 导入元数据支持
+import 'reflect-metadata';
+import AbstractMaterial from './AbstractMaterial';
+import ActionBox from '@/business/base/box/ActionBox';
+import ActionType from './ActionType';
+
+export interface Constructor<T> extends Function {
+
+    new(): T;
+
+    new(...args: any): T;
+
+}
+
+
+class AppContext {
+
+    private actionBox: ActionBox = new ActionBox(this);
+    private objectMap: Map<any, any> = new Map<any, any>();
+
+    public getObject<T>(clazz: { new (...args: Array<any>): T }): T {
+    // public getObject<T>(clazz: Constructor<T>): T {
+
+        let o = this.objectMap.get(clazz);
+        if (!o) {
+            o = new clazz(this);
+
+            let c = Object.getPrototypeOf(clazz);
+            this.objectMap.set(clazz, o);
+
+            // let paramtypes = Reflect.getMetadata('design:paramtypes', target, propertyKey)
+            // let is: any = clazz.arguments;
+            // 通过反射机制，获取参数类型列表
+            // let paramsTypes: Array<Function> = Reflect.getMetadata('design:paramtypes', clazz);
+            let argtypes = Reflect.getMetadata("design:paramtypes", c.constructor) || [];
+            // If it depends on nothing, just newIt it.
+            if (argtypes.length === 0) {
+
+            }
+
+            //o =new clazz();
+            //this.objectMap.set(clazz, o);
+        }
+
+        if (o instanceof AbstractMaterial) {
+            let ab = <AbstractMaterial>o;
+
+        }
+        return o;
+    }
+
+    public putAction<T>(clazz: ActionType<AbstractMaterial>): void {
+        // new clazz(this);
+    }
+
+
+    public invokeAction(key: string, data: any): void {
+        this.actionBox.invokeAction(key, data);
+    }
+};
+
+export default AppContext;

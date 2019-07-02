@@ -1,0 +1,23 @@
+/***************侧边 begin*******************/
+.sidebar {
+    padding-top: 5px;
+}
+
+
+/***************侧边 end*******************/
+
+.panel {
+    padding-top: 15px;
+}
+
+.nav_view {
+    padding-top: 15px;
+}
+
+.box_hd {
+    /*top: 15px;*/
+}
+
+.chat .box_bd {
+    user-select: text;
+}
