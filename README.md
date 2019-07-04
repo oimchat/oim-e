@@ -23,6 +23,7 @@ OIM-E是基于Electron实现的PC桌面聊天软件，可支持Windows、Linux�
     私聊<br>
     群聊<br>
     支持 图片、表情、文件、图文混排
+
     
 ## 截图
 <img src="./screenshot/1.png">
@@ -31,6 +32,10 @@ OIM-E是基于Electron实现的PC桌面聊天软件，可支持Windows、Linux�
 <img src="./screenshot/4.png">
 <img src="./screenshot/5.png">
 <img src="./screenshot/6.png">
+
+## 关于服务端
+整个完整项目是包含服务端的，所以本项目是需要的服务端支持。服务端是采用Java开发，同样都是开源的。
+服务端源码地址：https://gitee.com/oimchat/oim-server 分支 1.0.0 
 
 ## 命令
 
