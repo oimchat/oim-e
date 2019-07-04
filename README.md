@@ -6,7 +6,7 @@
 
 # 简介
 OIM-E是基于Electron实现的PC桌面聊天软件，可支持Windows、Linux、Mac等主流平台。
-主要采用了Vue、iView、TypeScript等技术实现，通讯协议主要是websocket。服务端支持私有部署，可用于企业内部管理通讯等功能。
+主要采用了Vue、iView、TypeScript等技术实现，通讯协议主要是websocket。服务端支持私有部署，可用于企业内部管理通讯等功能。项目可用于任何商业、个人作品中并且希望能够保留作者信息。如果OIM能够帮助到您，请点赞好评，加个星。
 
 ## 主要功能
 * 个人资料<br>
