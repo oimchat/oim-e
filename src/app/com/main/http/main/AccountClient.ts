@@ -5,20 +5,27 @@ import Message from '@/app/base/message/Message';
 import User from '@/app/com/bean/User';
 import SecurityQuestion from '@/app/com/bean/SecurityQuestion';
 import BaseUtil from '@/app/lib/util/BaseUtil';
+import AbstractMaterial from '@/app/base/AbstractMaterial';
+import ServerBox from '@/app/com/main/box/ServerBox';
+import {Protocol, ServerType} from '@/app/common/config/constant/ServerConstant';
+import Info from '@/app/base/message/Info';
 
-class AccountClient {
+export default class AccountClient extends AbstractMaterial {
 
-    public static getSecurityQuestionList(value: string, back: (data: any) => void): void {
+    private action: string = '1.1.000';
+
+    public getSecurityQuestionList(value: string, back: (data: any) => void): void {
         const body: object = {
             account: value,
         };
         const m = Message.build(this.action, '1.1.0001');
         m.body = body;
-        http.post('/main/v1/web/api', m, back, true);
+
+        this.post(m, back, true);
     }
 
 
-    public static updatePassword(id: string, value: string, list: SecurityQuestion[], back: (success: boolean) => void): void {
+    public updatePassword(id: string, value: string, list: SecurityQuestion[], back: (success: boolean) => void): void {
 
         const updateBack = (data: any) => {
             let mark = false;
@@ -38,10 +45,11 @@ class AccountClient {
         };
         const m = Message.build(this.action, '1.1.0002');
         m.body = body;
-        http.post('/main/v1/web/api', m, updateBack, true);
+
+        this.post(m, back, true);
     }
 
-    public static isExistAccount(value: string, back: (exist: boolean) => void): void {
+    public isExistAccount(value: string, back: (exist: boolean) => void): void {
         if (BaseUtil.isEmpty(value)) {
             back(false);
             return;
@@ -62,10 +70,10 @@ class AccountClient {
         };
         const m = Message.build(this.action, '1.1.0005');
         m.body = body;
-        http.post('/main/v1/web/api', m, existBack, true);
+        this.post(m, existBack, true);
     }
 
-    public static isExistEmail(value: string, back: (exist: boolean) => void): void {
+    public isExistEmail(value: string, back: (exist: boolean) => void): void {
         if (BaseUtil.isEmpty(value)) {
             back(false);
             return;
@@ -86,10 +94,10 @@ class AccountClient {
         };
         const m = Message.build(this.action, '1.1.0006');
         m.body = body;
-        http.post('/main/v1/web/api', m, existBack, true);
+        this.post(m, existBack, true);
     }
 
-    public static isExistMobile(value: string, back: (exist: boolean) => void): void {
+    public isExistMobile(value: string, back: (exist: boolean) => void): void {
         if (BaseUtil.isEmpty(value)) {
             back(false);
             return;
@@ -110,10 +118,21 @@ class AccountClient {
         };
         const m = Message.build(this.action, '1.1.0005');
         m.body = body;
-        http.post('/main/v1/web/api', m, existBack, true);
+        this.post(m, existBack, true);
     }
 
-    private static action: string = '1.1.000';
+    private post(m: any, back: (data: any) => void, prompt?: boolean | null) {
+        const serverBox: ServerBox = this.appContext.getMaterial(ServerBox);
+        const address = serverBox.getAddress(ServerType.main, Protocol.HTTP);
+        if (!address || '0' === address.isEnabled) {
+            const message: any = m;
+            const info = new Info();
+            info.addError('0001', '服务器不可用！');
+            message.info = info;
+            back(message);
+        } else {
+            http.post(address.address + '/v1/api', m, back, true);
+        }
+    }
 }
 
-export default AccountClient;

@@ -146,8 +146,8 @@
                 this.uploadInfo.fileDisabled = true;
                 this.uploadInfo.imageDisabled = true;
             } else {
-                const fileHttp = address.address + '/file/v1/main/upload';
-                const imageHttp = address.address + '/file/v1/image/upload';
+                const fileHttp = address.address + '/v1/file/upload';
+                const imageHttp = address.address + '/v1/image/upload';
                 this.uploadInfo.fileDisabled = false;
                 this.uploadInfo.imageDisabled = false;
                 this.uploadInfo.fileAction = fileHttp;

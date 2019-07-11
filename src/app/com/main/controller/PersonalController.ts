@@ -13,6 +13,7 @@ import Message from '@/app/base/message/Message';
 import HeadUploadImageService from '@/app/com/main/service/HeadUploadImageService';
 import UploadResult from '@/app/com/main/data/UploadResult';
 import PersonalBox from '@/app/com/main/box/PersonalBox';
+import ServerService from '@/app/com/main/service/ServerService';
 
 export default class PersonalController extends AbstractMaterial {
 
@@ -32,7 +33,17 @@ export default class PersonalController extends AbstractMaterial {
             }
             back(mark);
         };
-        PersonalClient.register(u, list, registerBack);
+
+        const addressBack = (success: boolean, message?: string) => {
+            if (!success) {
+                back(success);
+            } else {
+                const client: PersonalClient = this.appContext.getMaterial(PersonalClient);
+                client.register(u, list, registerBack);
+            }
+        };
+        const serverService: ServerService = this.appContext.getMaterial(ServerService);
+        serverService.loadServerAddress(addressBack);
     }
 
     public loadUserData(): void {

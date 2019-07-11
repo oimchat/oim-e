@@ -12,7 +12,7 @@ export default class ConnectService extends AbstractMaterial {
 
         const mark: boolean = this.appContext.connect(host, onOpen);
         if (!mark) {
-            back(mark);
+            back(mark, '连接失败！');
         }
     }
 }

@@ -142,7 +142,8 @@
                     callback(new Error('用户名仅支持中英文、数字和下划线,且不能为纯数字！'));
                     return;
                 }
-                AccountClient.isExistAccount(this.user.account, (exist: boolean) => {
+                const client: AccountClient = app.appContext.getMaterial(AccountClient);
+                client.isExistAccount(this.user.account, (exist: boolean) => {
                     if (exist) {
                         callback(new Error('账号已存在！'));
                     } else {
@@ -152,7 +153,8 @@
             },
             isExistEmail: (rule: any, value: string, callback: (data?: any) => any) => {
                 if (!BaseUtil.isEmpty(value)) {
-                    AccountClient.isExistEmail(this.user.email, (exist: boolean) => {
+                    const client: AccountClient = app.appContext.getMaterial(AccountClient);
+                    client.isExistEmail(this.user.email, (exist: boolean) => {
                         if (exist) {
                             callback(new Error('邮箱已注册！'));
                         } else {
@@ -169,7 +171,8 @@
                         callback(new Error('手机格式不正确！'));
                         return;
                     }
-                    AccountClient.isExistMobile(this.user.mobile, (exist: boolean) => {
+                    const client: AccountClient = app.appContext.getMaterial(AccountClient);
+                    client.isExistMobile(this.user.mobile, (exist: boolean) => {
                         if (exist) {
                             callback(new Error('手机已注册！'));
                         } else {

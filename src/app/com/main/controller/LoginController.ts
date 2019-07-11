@@ -62,22 +62,23 @@ export default class LoginController extends AbstractMaterial {
             }
         };
 
-        const addressBack = (success: boolean, message?: string) => {
+        const loginBack = (success: boolean, message?: string) => {
+
             if (!success) {
                 back(success, message);
             } else {
                 this.connect(connectBack);
             }
         };
-        const loginBack = (success: boolean, message?: string) => {
 
+        const addressBack = (success: boolean, message?: string) => {
             if (!success) {
                 back(success, message);
             } else {
-                this.loadServerAddress(addressBack);
+                this.loadToken(account, password, loginBack);
             }
         };
-        this.loadToken(account, password, loginBack);
+        this.loadServerAddress(addressBack);
     }
 
 
@@ -105,22 +106,21 @@ export default class LoginController extends AbstractMaterial {
                 }
             };
 
-            const addressBack = (success: boolean, message?: string) => {
+            const loginBack = (success: boolean, message?: string) => {
                 if (!success) {
                     tempBack(success, message);
                 } else {
                     this.connect(connectBack);
                 }
             };
-            const loginBack = (success: boolean, message?: string) => {
-
+            const addressBack = (success: boolean, message?: string) => {
                 if (!success) {
                     tempBack(success, message);
                 } else {
-                    this.loadServerAddress(addressBack);
+                    this.loadToken(account, password, loginBack);
                 }
             };
-            this.loadToken(account, password, loginBack);
+            this.loadServerAddress(addressBack);
         }
     }
 
@@ -189,7 +189,9 @@ export default class LoginController extends AbstractMaterial {
             }
             back(mark);
         };
-        PersonalClient.login(account, password, loginBack);
+
+        const client: PersonalClient = this.appContext.getMaterial(PersonalClient);
+        client.login(account, password, loginBack);
     }
 
 

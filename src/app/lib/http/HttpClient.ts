@@ -85,13 +85,13 @@ class HttpClient {
 
     private responseError = (error: any) => {
         if (error.response) {
-
+            let message = error.message;
             const response = error.response;
             const status = response.status;
 
             switch (status) {
                 case 400:
-
+                    message = '404！';
                     break;
                 case 401:
 
@@ -103,11 +103,15 @@ class HttpClient {
 
                     break;
                 case 500:
-
+                    message = '服务异常！';
                     break;
                 default:
 
             }
+            Vue.prototype.$Notice.error({
+                title: '错误',
+                desc: message,
+            });
         } else {
             let message = error.message;
             if (message === 'Network Error') {
@@ -122,7 +126,7 @@ class HttpClient {
             });
         }
         return Promise.reject(error);
-    }
+    };
 
     private responseHandler = (response: any) => {
         const status = response.status;
@@ -155,7 +159,7 @@ class HttpClient {
             }
         }
         return response;
-    }
+    };
 
     private init(): void {
         // 错误处理

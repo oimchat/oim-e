@@ -115,8 +115,6 @@ export default class NetServer {
         this.connecting = false;
         if (mark) {
             this.doConnected = true;
-        } else {
-            this.prompt('您的浏览器不支持聊天功能.请更新到新版的浏览器！');
         }
         return mark;
     }

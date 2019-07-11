@@ -80,6 +80,7 @@
     import LoginController from '@/app/com/main/controller/LoginController';
     import AppSetting from '@/app/base/config/AppSetting';
     import AppSettingManager from '@/app/com/main/manager/AppSettingManager';
+    import ServerService from '@/app/com/main/service/ServerService';
 
     @Component({})
     export default class Login extends Vue {
@@ -136,6 +137,13 @@
         private setting(): void {
             const asm: AppSettingManager = app.appContext.getMaterial(AppSettingManager);
             let url = AppSetting.SERVER_URL;
+
+            const addressBack = (success: boolean, message?: string) => {
+                if (!success) {
+                    app.appContext.prompt('获取服务器地址失败！请检查网络是否正常');
+                }
+            };
+            const serverService: ServerService = app.appContext.getMaterial(ServerService);
             this.$Modal.confirm({
                 title: '设置服务地址',
                 render: (h: any) => {
@@ -155,6 +163,7 @@
                 onOk: () => {
                     if ('' !== url && null !== url) {
                         asm.setServerUrl(url);
+                        serverService.loadServerAddress(addressBack);
                     }
                 },
                 onCancel: () => {

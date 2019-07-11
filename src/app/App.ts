@@ -24,6 +24,7 @@ import GroupRelationAction from '@/app/com/main/action/GroupRelationAction';
 import PersonalAction from '@/app/com/main/action/PersonalAction';
 import UserAction from '@/app/com/main/action/UserAction';
 import UserChatAction from '@/app/com/main/action/UserChatAction';
+import ServerService from '@/app/com/main/service/ServerService';
 
 
 class App {
@@ -95,8 +96,17 @@ class App {
     }
 
     private initializeConfig() {
+        const own = this;
         const asm: AppSettingManager = this.appContext.getMaterial(AppSettingManager);
         asm.loadSetting();
+
+        const addressBack = (success: boolean, message?: string) => {
+            if (!success) {
+                own.appContext.prompt('获取服务器地址失败！请检查网络是否正常');
+            }
+        };
+        const serverService: ServerService = this.appContext.getMaterial(ServerService);
+        serverService.loadServerAddress(addressBack);
     }
 
     private initializeAction(): void {

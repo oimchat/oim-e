@@ -17,7 +17,7 @@ export default class HeadUploadImageService extends AbstractMaterial {
             if (!address || '0' === address.isEnabled) {
                 back(false, uploadResult, '没有可用的图片上传服务器！');
             } else {
-                const http = address.address + '/file/v1/head/user/upload';
+                const http = address.address + '/v1/head/user/upload';
 
                 const o: UploadOption = new UploadOption((result: any, f: File | null) => {
 
@@ -48,7 +48,7 @@ export default class HeadUploadImageService extends AbstractMaterial {
             if (!address || '0' === address.isEnabled) {
                 back(false, uploadResult, '没有可用的图片上传服务器！');
             } else {
-                const http = address.address + '/file/v1/head/group/upload';
+                const http = address.address + '/v1/head/group/upload';
 
                 const o: UploadOption = new UploadOption((result: any, f: File | null) => {
 
