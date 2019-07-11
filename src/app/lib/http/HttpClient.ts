@@ -126,7 +126,7 @@ class HttpClient {
             });
         }
         return Promise.reject(error);
-    };
+    }
 
     private responseHandler = (response: any) => {
         const status = response.status;
@@ -159,7 +159,7 @@ class HttpClient {
             }
         }
         return response;
-    };
+    }
 
     private init(): void {
         // 错误处理
