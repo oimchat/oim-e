@@ -31,7 +31,7 @@ export default class UserLastChatService extends AbstractMaterial {
         const dataBack: DataBackAction = {
             back(data: any): void {
                 if (data && data.body) {
-                    const list = data.body.list;
+                    const list = data.body.items;
                     own.setLastChatUserList(list);
                 }
             },

@@ -15,7 +15,6 @@ export enum AddressType {
 
 export enum ServerType {
     main= 'main',
-    api= 'api',
     file= 'file',
     video= 'video',
     voice= 'voice',

@@ -7,18 +7,8 @@ import SystemInformType from '@/app/com/main/data/SystemInformType';
 
 export default class ContactAction extends AbstractMaterial {
 
-    private static action: string = '1.2.101';
+    private static action: string = '1.2.001';
 
-    @MethodMapping(ContactAction, ContactAction.action, '1.1.0002')
-    public setList(data: any): void {
-        if (data && data.body) {
-            const list: User[] = data.body.list;
-            if (list) {
-                const ccs: ContactService = this.appContext.getMaterial(ContactService);
-                ccs.setList(list);
-            }
-        }
-    }
 
     @MethodMapping(ContactAction, ContactAction.action, '1.2.0001')
     public addApply(data: any): void {

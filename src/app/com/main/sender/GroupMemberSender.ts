@@ -1,32 +1,66 @@
 import AbstractMaterial from '@/app/base/AbstractMaterial';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import Message from '@/app/base/message/Message';
+import Page from '@/app/com/data/common/Page';
 
 export default class GroupMemberSender extends AbstractMaterial {
 
-    private action: string = '1.2.204';
+    private action: string = '1.3.004';
 
-    public getOwnerGroupMemberList(userId: string, back?: DataBackAction, parallel?: boolean): void {
-        const m = Message.build(this.action, '1.1.0002');
-        m.body = {};
-        m.body.userId = userId;
+    public getOwnerGroupMemberCountByUserId(userId: string, back?: DataBackAction, parallel?: boolean): void {
+        const m = Message.build(this.action, '1.1.0001');
+        m.body = {
+            query: {
+                userId: '',
+            },
+        };
+        m.body.query.userId = userId;
         this.appContext.netServer.send(m, back, parallel);
     }
+
+    public getOwnerGroupMemberListByUserId(userId: string, page: Page, back?: DataBackAction, parallel?: boolean): void {
+        const m = Message.build(this.action, '1.1.0002');
+        m.body = {
+            query: {
+                userId: '',
+            },
+        };
+        m.body.query.userId = userId;
+        m.body.page = page;
+        this.appContext.netServer.send(m, back, parallel);
+    }
+
+    public getOwnerGroupMemberPageListByUserId(userId: string, size: number, pageNumber: number, back?: DataBackAction, parallel?: boolean): void {
+        const page: Page = new Page();
+        page.number = pageNumber;
+        page.size = size;
+        this.getOwnerGroupMemberListByUserId(userId, page, back, parallel);
+    }
+
+
+    public getGroupMemberCount(groupId: string, back?: DataBackAction, parallel?: boolean): void {
+        const m = Message.build(this.action, '1.1.0003');
+        m.body = {
+            query: {
+                groupId: '',
+            },
+        };
+        m.body.query.groupId = groupId;
+        this.appContext.netServer.send(m, back, parallel);
+    }
+
 
     public getGroupMemberList(groupId: string, back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0004');
-        m.body = {};
-        m.body.groupId = groupId;
+        m.body = {
+            query: {
+                groupId: '',
+            },
+        };
+        m.body.query.groupId = groupId;
         this.appContext.netServer.send(m, back, parallel);
     }
 
-    public getGroupMember(groupId: string, userId: string, back?: DataBackAction, parallel?: boolean): void {
-        const m = Message.build(this.action, '1.1.0005');
-        m.body = {};
-        m.body.groupId = groupId;
-        m.body.userId = userId;
-        this.appContext.netServer.send(m, back, parallel);
-    }
 
     public getGroupMemberUserList(groupId: string, back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0006');
@@ -35,8 +69,18 @@ export default class GroupMemberSender extends AbstractMaterial {
         this.appContext.netServer.send(m, back, parallel);
     }
 
-    public updateNickname(groupId: string, userId: string, nickname: string, back?: DataBackAction, parallel?: boolean): void {
+
+    public getGroupMember(groupId: string, userId: string, back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0007');
+        m.body = {};
+        m.body.groupId = groupId;
+        m.body.userId = userId;
+        this.appContext.netServer.send(m, back, parallel);
+    }
+
+
+    public updateNickname(groupId: string, userId: string, nickname: string, back?: DataBackAction, parallel?: boolean): void {
+        const m = Message.build(this.action, '1.1.0010');
         m.body = {};
         m.body.groupId = groupId;
         m.body.userId = userId;
@@ -46,7 +90,7 @@ export default class GroupMemberSender extends AbstractMaterial {
 
 
     public updatePosition(groupId: string, userId: string, position: string, back?: DataBackAction, parallel?: boolean): void {
-        const m = Message.build(this.action, '1.1.0009');
+        const m = Message.build(this.action, '1.1.0011');
         m.body = {};
         m.body.groupId = groupId;
         m.body.userId = userId;
@@ -56,7 +100,7 @@ export default class GroupMemberSender extends AbstractMaterial {
 
 
     public delete(groupId: string, userId: string, back?: DataBackAction, parallel?: boolean): void {
-        const m = Message.build(this.action, '1.1.0010');
+        const m = Message.build(this.action, '1.1.0012');
         m.body = {};
         m.body.groupId = groupId;
         m.body.userId = userId;

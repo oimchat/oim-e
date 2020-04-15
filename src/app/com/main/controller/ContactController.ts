@@ -4,7 +4,7 @@ import Message from '@/app/base/message/Message';
 import ContactAddApplyData from '@/app/com/data/ContactAddApplyData';
 import ContactVerifyAnswer from '@/app/com/data/ContactVerifyAnswer';
 import ContactSender from '@/app/com/main/sender/ContactSender';
-import Page from '@/app/com/data/Page';
+import Page from '@/app/com/data/common/Page';
 import ContactAddHandleData from '@/app/com/data/ContactAddHandleData';
 import ContactAddApplyQuery from '@/app/com/data/ContactAddApplyQuery';
 

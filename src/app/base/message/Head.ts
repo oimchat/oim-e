@@ -13,7 +13,7 @@ export default class Head {
     /**
      * 请求动作类型
      */
-    public action: string = AppInfo.API_VERSION;
+    public action: string = '';
     /**
      * 请求方法
      */
@@ -21,7 +21,7 @@ export default class Head {
     /**
      * 请求接口版本
      */
-    public version: string = '';
+    public version: string = AppInfo.API_VERSION;
     /**
      * 响应时间
      */

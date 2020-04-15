@@ -6,9 +6,11 @@ import NetServer from '@/app/base/net/NetServer';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import ActionType from '@/app/base/ActionType';
 import InvokeAction from '@/app/base/net/InvokeAction';
-import PromptHandler from '@/app/base/net/PromptHandler';
+import PromptHandler from '@/app/base/PromptHandler';
 import ViewType from '@/app/base/view/ViewType';
 import View from '@/app/com/main/view/View';
+import DataPrompt from '@/app/base/DataPrompt';
+import DefaultDataBackAction from '@/app/common/back/DefaultDataBackAction';
 
 
 type Material<T extends AbstractMaterial> = new(appContext: AppContext) => T;
@@ -24,6 +26,12 @@ class AppContext {
             // do nothing
         },
     } as PromptHandler;
+
+    private dataPrompt: DataPrompt = {
+        prompt(data: any): void {
+            // do nothing
+        },
+    } as DataPrompt;
 
     constructor() {
         this.initialize();
@@ -83,6 +91,10 @@ class AppContext {
         this.promptHandler = promptHandler;
     }
 
+    public setDataPrompt(dataPrompt: DataPrompt): void {
+        this.dataPrompt = dataPrompt;
+    }
+
     public putAction<T>(clazz: ActionType<AbstractMaterial>): void {
         // new clazz(this);
     }
@@ -114,7 +126,30 @@ class AppContext {
     }
 
     public invokeAction(key: string, data: any): void {
-        this.actionBox.invokeAction(key, data);
+        const own = this;
+        this.actionBox.invokeAction(key, data, (d) => {
+            own.dataPrompt.prompt(d);
+        });
+    }
+
+    public createDataBackAction(back: (data: any) => void): DataBackAction {
+        const own = this;
+        const dataBack: DataBackAction = {
+            back(value: any): void {
+                if (typeof (back) === 'function') {
+                    back(value);
+                }
+            },
+
+            lost(data: any): void {
+                own.prompt('请求失败!', undefined, 'warn');
+            },
+
+            timeOut(data: any): void {
+                own.prompt('请求超时!', undefined, 'warn');
+            },
+        } as DataBackAction;
+        return dataBack;
     }
 
     private initialize(): void {
@@ -129,9 +164,9 @@ class AppContext {
                 own.invokeAction(key, data);
             },
         } as InvokeAction);
-        this.netServer.setPromptHandler({
-            prompt(message: string, title?: string, type?: string): void {
-                own.promptHandler.prompt(message, title, type);
+        this.netServer.setErrorPrompt({
+            prompt(message: string): void {
+                own.promptHandler.prompt(message);
             },
         } as PromptHandler);
     }

@@ -4,6 +4,7 @@ import ContactListManager from '@/app/com/main/manager/ContactListManager';
 import ContactCategorySender from '@/app/com/main/sender/ContactCategorySender';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
+import ContactCategoryHandler from '@/app/com/main/handler/ContactCategoryHandler';
 
 export default class ContactCategoryService extends AbstractMaterial {
 
@@ -47,8 +48,8 @@ export default class ContactCategoryService extends AbstractMaterial {
     }
 
     public updateRank() {
-        const ccs: ContactCategorySender = this.appContext.getMaterial(ContactCategorySender);
-        ccs.getList();
+        const handler: ContactCategoryHandler = this.appContext.getMaterial(ContactCategoryHandler);
+        handler.loadAllList();
     }
 
     public delete(categoryId: string) {

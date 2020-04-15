@@ -1,5 +1,5 @@
 export default class ServerAddress {
-    public serverTypeId: string = '';
+    public serverTypeCode: string = '';
     /**
      *
      * IPv4<br>
@@ -22,5 +22,5 @@ export default class ServerAddress {
     /**
      * 是否启用：0：否、1：是
      */
-    public isEnabled: string = '0';
+    public enabled: boolean = true;
 }

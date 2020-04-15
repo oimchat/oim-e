@@ -1,12 +1,20 @@
 import AbstractMaterial from '@/app/base/AbstractMaterial';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import Message from '@/app/base/message/Message';
+import Page from '@/app/com/data/common/Page';
 
 export default class GroupRelationSender extends AbstractMaterial {
 
-    private action: string = '1.2.203';
+    private action: string = '1.3.003';
 
-    public getList(back?: DataBackAction, parallel?: boolean): void {
+    public getCount(back?: DataBackAction, parallel?: boolean): void {
+        const m = Message.build(this.action, '1.1.0001');
+        m.body = {};
+        this.appContext.netServer.send(m, back, parallel);
+    }
+
+
+    public getList(page: Page, back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0002');
         m.body = {};
         this.appContext.netServer.send(m, back, parallel);

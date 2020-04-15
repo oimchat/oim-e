@@ -4,7 +4,7 @@ import DataBackAction from '@/app/base/net/DataBackAction';
 import GroupChatSender from '@/app/com/main/sender/GroupChatSender';
 import PersonalBox from '@/app/com/main/box/PersonalBox';
 import ChatQuery from '@/app/com/data/chat/ChatQuery';
-import Page from '@/app/com/data/Page';
+import Page from '@/app/com/data/common/Page';
 import GroupChatService from '@/app/com/main/service/GroupChatService';
 import GroupLastChatService from '@/app/com/main/service/GroupLastChatService';
 

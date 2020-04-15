@@ -14,6 +14,14 @@ import GroupRelationSender from '@/app/com/main/sender/GroupRelationSender';
 import GroupBusinessSender from '@/app/com/main/sender/GroupBusinessSender';
 import GroupMemberSender from '@/app/com/main/sender/GroupMemberSender';
 import PersonalBox from '@/app/com/main/box/PersonalBox';
+import DataBackAction from '@/app/base/net/DataBackAction';
+import DefaultDataBackAction from '@/app/common/back/DefaultDataBackAction';
+import Page from '@/app/com/data/common/Page';
+import ContactCategoryHandler from '@/app/com/main/handler/ContactCategoryHandler';
+import ContactRelationHandler from '@/app/com/main/handler/ContactRelationHandler';
+import GroupCategoryHandler from '@/app/com/main/handler/GroupCategoryHandler';
+import GroupRelationHandler from '@/app/com/main/handler/GroupRelationHandler';
+import GroupMemberHandler from '@/app/com/main/handler/GroupMemberHandler';
 
 export default class AppService extends AbstractMaterial {
 
@@ -22,6 +30,7 @@ export default class AppService extends AbstractMaterial {
         this.updateStatus();
         this.loadList();
     }
+
     public loadPersonalData(): void {
         const ps: PersonalSender = this.appContext.getMaterial(PersonalSender);
         ps.getUser();
@@ -33,29 +42,43 @@ export default class AppService extends AbstractMaterial {
     }
 
     public loadList(): void {
-        const ccs: ContactCategorySender = this.appContext.getMaterial(ContactCategorySender);
-        ccs.getList();
 
-        const cs: ContactSender = this.appContext.getMaterial(ContactSender);
-        cs.getList();
+        // 这里只发送请求，因为请求是异步方式，服务端返回的数据由Action处理
+        // 加载联系人分组列表
+        this.loadContactCategoryList();
+        // 加载联系人
+        this.loadContactRelationList();
 
-        const crs: ContactRelationSender = this.appContext.getMaterial(ContactRelationSender);
-        crs.getList();
-
+        this.loadGroupCategoryList();
+        this.loadGroupRelationList();
+        this.loadOwnerGroupMemberList();
 
         const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
+    }
 
-        const gms: GroupMemberSender = this.appContext.getMaterial(GroupMemberSender);
-        gms.getOwnerGroupMemberList(pb.getUserId());
+    public loadContactCategoryList(): void {
+        const handler: ContactCategoryHandler = this.appContext.getMaterial(ContactCategoryHandler);
+        handler.loadAllList();
+    }
+
+    public loadContactRelationList(): void {
+        const handler: ContactRelationHandler = this.appContext.getMaterial(ContactRelationHandler);
+        handler.loadAllList();
+    }
 
 
-        const gcs: GroupCategorySender = this.appContext.getMaterial(GroupCategorySender);
-        gcs.getList();
+    public loadGroupCategoryList(): void {
+        const handler: GroupCategoryHandler = this.appContext.getMaterial(GroupCategoryHandler);
+        handler.loadAllList();
+    }
 
-        const groupBusinessSender: GroupBusinessSender = this.appContext.getMaterial(GroupBusinessSender);
-        groupBusinessSender.getList();
+    public loadGroupRelationList(): void {
+        const handler: GroupRelationHandler = this.appContext.getMaterial(GroupRelationHandler);
+        handler.loadAllList();
+    }
 
-        const grs: GroupRelationSender = this.appContext.getMaterial(GroupRelationSender);
-        grs.getList();
+    public loadOwnerGroupMemberList(): void {
+        const handler: GroupMemberHandler = this.appContext.getMaterial(GroupMemberHandler);
+        handler.loadAllOwnerGroupMemberList();
     }
 }

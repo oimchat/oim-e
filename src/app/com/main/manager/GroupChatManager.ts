@@ -8,7 +8,7 @@ import PersonalBox from '@/app/com/main/box/PersonalBox';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
 import ChatQuery from '@/app/com/data/chat/ChatQuery';
-import Page from '@/app/com/data/Page';
+import Page from '@/app/com/data/common/Page';
 import GroupChatHistory from '@/app/com/data/chat/GroupChatHistory';
 import Group from '@/app/com/bean/Group';
 import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';

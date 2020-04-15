@@ -162,7 +162,7 @@
                     if (info) {
                         if (info.success && data.body) {
                             const userId = data.body.userId;
-                            const list = data.body.list;
+                            const list = data.body.items;
                             own.userId = userId;
                             own.questionData.questions = list;
                             own.setCurrent(1);

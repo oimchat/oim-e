@@ -166,7 +166,7 @@
                         const info = data.info;
                         if (info) {
                             if (info.success && data.body) {
-                                const list: User[] = data.body.list;
+                                const list: User[] = data.body.items;
                                 own.setUserList(list);
                             }
                         }
@@ -187,7 +187,7 @@
                         const info = data.info;
                         if (info) {
                             if (info.success && data.body) {
-                                const list: GroupMember[] = data.body.list;
+                                const list: GroupMember[] = data.body.items;
                                 own.setGroupMemberList(list);
                                 groupMemberSender.getGroupMemberUserList(groupId, userBack);
                             }

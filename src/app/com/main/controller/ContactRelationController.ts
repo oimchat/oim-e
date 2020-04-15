@@ -4,10 +4,6 @@ import ContactRelationSender from '@/app/com/main/sender/ContactRelationSender';
 
 export default class ContactRelationController extends AbstractMaterial {
 
-    public getList(back?: DataBackAction, parallel?: boolean): void {
-        const contactRelationSender: ContactRelationSender = this.appContext.getMaterial(ContactRelationSender);
-        contactRelationSender.getList(back, parallel);
-    }
 
     public getRelation(contactUserId: string, back?: DataBackAction, parallel?: boolean): void {
         const contactRelationSender: ContactRelationSender = this.appContext.getMaterial(ContactRelationSender);

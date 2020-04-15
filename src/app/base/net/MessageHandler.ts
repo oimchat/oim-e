@@ -1,7 +1,7 @@
-import BaseUtil from '@/app/lib/util/BaseUtil';
 import HandleData from '@/app/base/net/HandleData';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import InvokeAction from '@/app/base/net/InvokeAction';
+import NetUtil from '@/app/base/net/NetUtil';
 
 export default class MessageHandler {
 
@@ -24,7 +24,7 @@ export default class MessageHandler {
     public putHandleData(key: string, data: any, sendTimestamp: number, back?: DataBackAction, parallel?: boolean): void {
         if (key) {
             const hd = new HandleData();
-            hd.sendTimestamp = (BaseUtil.isEmpty(sendTimestamp) || 0 === sendTimestamp) ? new Date().getTime() : sendTimestamp;
+            hd.sendTimestamp = (NetUtil.isEmpty(sendTimestamp) || 0 === sendTimestamp) ? new Date().getTime() : sendTimestamp;
             hd.data = data;
             hd.back = back;
             hd.parallel = parallel || true;
@@ -38,7 +38,7 @@ export default class MessageHandler {
             const back: DataBackAction | any = object.back; // 信息发送后都回调
             const parallel: boolean = object.parallel;
             this.dataMap.delete(key);
-            if (!BaseUtil.isEmpty(back)) {
+            if (!NetUtil.isEmpty(back)) {
                 back.back(data);
             }
             if (parallel) {

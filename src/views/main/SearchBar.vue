@@ -104,7 +104,7 @@
     import ItemData from '@/views/common/list/ItemData';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import UserQuery from '@/app/com/data/UserQuery';
-    import Page from '@/app/com/data/Page';
+    import Page from '@/app/com/data/common/Page';
     import UserController from '@/app/com/main/controller/UserController';
     import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
     import GroupInfoUtil from '@/app/com/main/util/GroupInfoUtil';
@@ -207,7 +207,7 @@
                         const info = data.info;
                         if (info) {
                             if (info.success && data.body) {
-                                const list: User[] = data.body.list;
+                                const list: User[] = data.body.items;
                                 own.setFindUserList(list);
                             }
                         }
@@ -264,7 +264,7 @@
                         const info = data.info;
                         if (info) {
                             if (info.success && data.body) {
-                                const list: Group[] = data.body.list;
+                                const list: Group[] = data.body.items;
                                 own.setFindGroupList(list);
                             }
                         }

@@ -4,6 +4,7 @@ import GroupListManager from '@/app/com/main/manager/GroupListManager';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
 import GroupCategorySender from '@/app/com/main/sender/GroupCategorySender';
+import GroupCategoryHandler from '@/app/com/main/handler/GroupCategoryHandler';
 
 
 export default class GroupCategoryService extends AbstractMaterial {
@@ -48,8 +49,8 @@ export default class GroupCategoryService extends AbstractMaterial {
     }
 
     public updateRank() {
-        const ccs: GroupCategorySender = this.appContext.getMaterial(GroupCategorySender);
-        ccs.getList();
+        const handler: GroupCategoryHandler = this.appContext.getMaterial(GroupCategoryHandler);
+        handler.loadAllList();
     }
 
     public delete(categoryId: string) {

@@ -1,6 +1,6 @@
 import AbstractMaterial from '@/app/base/AbstractMaterial';
 import DataBackAction from '@/app/base/net/DataBackAction';
-import Page from '@/app/com/data/Page';
+import Page from '@/app/com/data/common/Page';
 import GroupJoinHandleData from '@/app/com/data/GroupJoinHandleData';
 import GroupJoinApplyData from '@/app/com/data/GroupJoinApplyData';
 import GroupJoinVerifyAnswer from '@/app/com/bean/GroupJoinVerifyAnswer';

@@ -103,7 +103,7 @@
     import app from '@/app/App';
     import GroupJoinController from '@/app/com/main/controller/GroupJoinController';
     import GroupJoinApply from '@/app/com/bean/GroupJoinApply';
-    import Page from '@/app/com/data/Page';
+    import Page from '@/app/com/data/common/Page';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/component/common/Prompt';
     import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
@@ -156,7 +156,7 @@
                         const info = data.info;
                         if (info) {
                             if (info.success && data.body) {
-                                const list: GroupJoinApplyDetail[] = data.body.list;
+                                const list: GroupJoinApplyDetail[] = data.body.items;
                                 const p: Page = data.body.page;
                                 own.setList(list, p);
                             }

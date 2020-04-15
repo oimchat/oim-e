@@ -9,7 +9,7 @@ import SystemInformType from '@/app/com/main/data/SystemInformType';
 
 export default class GroupJoinAction extends AbstractMaterial {
 
-    private static action: string = '1.2.206';
+    private static action: string = '1.3.007';
 
     @MethodMapping(GroupJoinAction, GroupJoinAction.action, '1.2.0001')
     public inviteApply(data: any): void {

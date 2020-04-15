@@ -59,7 +59,7 @@
     import AddUser from '@/views/find/AddUser.vue';
 
     import UserQuery from '@/app/com/data/UserQuery';
-    import Page from '@/app/com/data/Page';
+    import Page from '@/app/com/data/common/Page';
     import app from '@/app/App';
     import UserController from '@/app/com/main/controller/UserController';
     import User from '@/app/com/bean/User';
@@ -113,7 +113,7 @@
                         const info = data.info;
                         if (info) {
                             if (info.success && data.body) {
-                                const list: User[] = data.body.list;
+                                const list: User[] = data.body.items;
                                 const p: Page = data.body.page;
                                 own.setList(list, p);
                             }

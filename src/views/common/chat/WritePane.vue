@@ -142,7 +142,7 @@
 
             const serverController: ServerController = app.appContext.getMaterial(ServerController);
             const address = serverController.getAddress(ServerType.file, Protocol.HTTP);
-            if (!address || '0' === address.isEnabled) {
+            if (!address || !address.enabled) {
                 this.uploadInfo.fileDisabled = true;
                 this.uploadInfo.imageDisabled = true;
             } else {

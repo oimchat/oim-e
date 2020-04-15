@@ -4,30 +4,21 @@ import PersonalService from '@/app/com/main/service/PersonalService';
 import User from '@/app/com/bean/User';
 import PersonalSender from '@/app/com/main/sender/PersonalSender';
 import Client from '@/app/base/message/client/Client';
+import auth from '@/app/common/auth/Auth';
 
 export default class PersonalAction extends AbstractMaterial {
 
-    private static action: string = '1.1.001';
+    private static action: string = '1.1.002';
 
     @MethodMapping(PersonalAction, PersonalAction.action, '1.1.0007')
     public setUser(data: any): void {
         if (data && data.body) {
-            const user: User = data.body.user;
+            const user: User = data.body;
             if (user) {
                 const ps: PersonalService = this.appContext.getMaterial(PersonalService);
                 ps.setUser(user);
-            }
-        }
-    }
 
-    @MethodMapping(PersonalAction, PersonalAction.action, '1.2.0001')
-    public otherOnline(data: any): void {
-        if (data && data.body) {
-            const client: Client = data.body.client;
-            const offline: boolean = data.body.offline;
-            if (client) {
-                const ps: PersonalService = this.appContext.getMaterial(PersonalService);
-                ps.otherOnline(offline, client);
+                auth.setUserId(user.id);
             }
         }
     }

@@ -57,7 +57,7 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import JoinGroup from '@/views/find/JoinGroup.vue';
     import GroupQuery from '@/app/com/data/GroupQuery';
-    import Page from '@/app/com/data/Page';
+    import Page from '@/app/com/data/common/Page';
     import app from '@/app/App';
     import GroupInfoController from '@/app/com/main/controller/GroupInfoController';
     import Group from '@/app/com/bean/Group';
@@ -111,7 +111,7 @@
                         const info = data.info;
                         if (info) {
                             if (info.success && data.body) {
-                                const list: Group[] = data.body.list;
+                                const list: Group[] = data.body.items;
                                 const p: Page = data.body.page;
                                 own.setList(list, p);
                             }

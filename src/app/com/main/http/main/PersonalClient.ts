@@ -10,26 +10,14 @@ import AbstractMaterial from '@/app/base/AbstractMaterial';
 import ServerBox from '@/app/com/main/box/ServerBox';
 import {Protocol, ServerType} from '@/app/common/config/constant/ServerConstant';
 import Info from '@/app/base/message/Info';
+import LoginData from '@/app/com/data/LoginData';
 
 export default class PersonalClient extends AbstractMaterial {
-    private action: string = '1.1.001';
+    private action: string = '1.1.002';
 
-    public login(a: string, p: string, back: any): void {
-        const body: object = {
-            account: a,
-            password: p,
-        };
+    public login(loginData: LoginData, back: any): void {
+        const body = loginData;
         const m = Message.build(this.action, '1.1.0005');
-        m.body = body;
-        this.post(m, back, true);
-    }
-
-    public register(u: User, list: SecurityQuestion[], back: (data: any) => void) {
-        const body: object = {
-            user: u,
-            questions: list,
-        };
-        const m = Message.build(this.action, '1.1.0001');
         m.body = body;
         this.post(m, back, true);
     }
@@ -38,7 +26,7 @@ export default class PersonalClient extends AbstractMaterial {
     private post(m: any, back: (data: any) => void, prompt?: boolean | null) {
         const serverBox: ServerBox = this.appContext.getMaterial(ServerBox);
         const address = serverBox.getAddress(ServerType.main, Protocol.HTTP);
-        if (!address || '0' === address.isEnabled) {
+        if (!address || !address.enabled) {
             const message: any = m;
             const info = new Info();
             info.addError('0001', '服务器不可用！');

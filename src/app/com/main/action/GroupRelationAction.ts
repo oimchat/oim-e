@@ -7,15 +7,22 @@ import GroupMemberService from '@/app/com/main/service/GroupMemberService';
 
 export default class GroupRelationAction extends AbstractMaterial {
 
-    private static action: string = '1.2.203';
+    private static action: string = '1.3.003';
 
     @MethodMapping(GroupRelationAction, GroupRelationAction.action, '1.1.0002')
     public setList(data: any): void {
         if (data && data.body) {
-            const list: GroupRelation[] = data.body.list;
+            const list: GroupRelation[] = data.body.items;
             if (list) {
                 const ccs: GroupRelationService = this.appContext.getMaterial(GroupRelationService);
                 ccs.setList(list);
+
+                const groupIds: string[] = [];
+                for (const value of list) {
+                    groupIds.push(value.groupId);
+                }
+                const gbs: GroupBusinessService = this.appContext.getMaterial(GroupBusinessService);
+                gbs.loadGroups(groupIds);
             }
         }
     }

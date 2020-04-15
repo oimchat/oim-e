@@ -118,8 +118,8 @@
                         const info = d.info;
                         if (info) {
                             if (info.success && d.body) {
-                                const questionList: GroupJoinVerifyQuestion[] = d.body.questionList;
-                                const joinSetting: GroupJoinSetting = d.body.joinSetting;
+                                const questionList: GroupJoinVerifyQuestion[] = d.body.questions;
+                                const joinSetting: GroupJoinSetting = d.body.setting;
                                 own.setSetting(joinSetting, questionList);
                             }
                         }

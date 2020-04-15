@@ -35,9 +35,9 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import app from '@/app/App';
     import Group from '@/app/com/bean/Group';
-    import GroupInfoController from '@/app/com/main/controller/GroupInfoController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/component/common/Prompt';
+    import GroupBusinessController from '@/app/com/main/controller/GroupBusinessController';
 
 
     @Component({
@@ -88,14 +88,14 @@
                     Prompt.notice('请求超时！');
                 },
             } as DataBackAction;
-            const groupInfoController: GroupInfoController = app.appContext.getMaterial(GroupInfoController);
+            const groupBusinessController: GroupBusinessController = app.appContext.getMaterial(GroupBusinessController);
             const group = this.group;
             const groupForm: any = this.$refs[this.groupFormName];
 
 
             groupForm.validate((valid: boolean) => {
                 if (valid) {
-                    groupInfoController.add(group, back);
+                    groupBusinessController.add(group, back);
                 }
             });
         }

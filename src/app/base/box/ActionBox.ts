@@ -1,5 +1,4 @@
 import AppContext from '@/app/base/AppContext';
-import AbstractMaterial from '@/app/base/AbstractMaterial';
 import actionMappingBox from '@/app/base/box/ActionMappingBox';
 
 class ActionBox {
@@ -24,11 +23,15 @@ class ActionBox {
         return action;
     }
 
-    public invokeAction(key: string, data: any): void {
+    public invokeAction(key: string, data: any, notFound: (d: any) => void): void {
         const action: any = this.getAction(key);
         const methodKey: string = actionMappingBox.getMethod(key);
         if (action && methodKey) {
             action[methodKey](data);
+        } else {
+            if (typeof (notFound) === 'function') {
+                notFound(data);
+            }
         }
     }
 }

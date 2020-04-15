@@ -4,7 +4,7 @@ import GroupInfoService from '@/app/com/main/service/GroupInfoService';
 
 export default class GroupInfoAction extends AbstractMaterial {
 
-    private static action: string = '1.2.200';
+    private static action: string = '1.3.001';
 
     @MethodMapping(GroupInfoAction, GroupInfoAction.action, '1.2.0001')
     public update(data: any): void {

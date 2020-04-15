@@ -35,6 +35,9 @@ import GroupInviteApplyQuery from '@/app/com/data/GroupInviteApplyQuery';
 import GroupInviteeApplyQuery from '@/app/com/data/GroupInviteeApplyQuery';
 import GroupInviteApply from '@/app/com/bean/GroupInviteApply';
 import InitializeFunction from '@/app/com/main/function/InitializeFunction';
+import Client from '@/app/base/message/client/Client';
+import LoginData from '@/app/com/data/LoginData';
+import LoginUser from '@/app/com/data/LoginUser';
 
 export default class LoginController extends AbstractMaterial {
 
@@ -182,6 +185,7 @@ export default class LoginController extends AbstractMaterial {
                         if (mark) {
                             auth.setToken(token);
                         }
+                        auth.setUserId(user.id);
                         const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
                         pb.setUser(user);
                     }
@@ -189,9 +193,11 @@ export default class LoginController extends AbstractMaterial {
             }
             back(mark);
         };
-
+        const loginData: LoginData = new LoginData();
+        loginData.user.account = account;
+        loginData.user.password = password;
         const client: PersonalClient = this.appContext.getMaterial(PersonalClient);
-        client.login(account, password, loginBack);
+        client.login(loginData, loginBack);
     }
 
 
@@ -205,7 +211,7 @@ export default class LoginController extends AbstractMaterial {
         const serverService: ServerService = this.appContext.getMaterial(ServerService);
         const connectService: ConnectService = this.appContext.getMaterial(ConnectService);
         const address = serverService.getAddress(ServerType.main, Protocol.WebSocket);
-        if (!address || '0' === address.isEnabled) {
+        if (!address || !address.enabled) {
             back(false, '没有可用的服务器！');
         } else {
             connectService.connect(address.address, back);
@@ -233,8 +239,9 @@ export default class LoginController extends AbstractMaterial {
                 back(false, '请求失败！');
             },
         } as AbstractDataBackAction;
+        const client: Client = new Client();
         const token: string = auth.getToken();
         const sam: SystemAuthManager = this.appContext.getMaterial(SystemAuthManager);
-        sam.auth(token, dataBack);
+        sam.auth(token, client, dataBack);
     }
 }

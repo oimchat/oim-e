@@ -1,6 +1,6 @@
 import AbstractMaterial from '@/app/base/AbstractMaterial';
 import DataBackAction from '@/app/base/net/DataBackAction';
-import Page from '@/app/com/data/Page';
+import Page from '@/app/com/data/common/Page';
 import GroupInviteApplyQuery from '@/app/com/data/GroupInviteApplyQuery';
 import GroupInviteVerifyHandleData from '@/app/com/data/GroupInviteVerifyHandleData';
 import GroupInviteeApplyQuery from '@/app/com/data/GroupInviteeApplyQuery';

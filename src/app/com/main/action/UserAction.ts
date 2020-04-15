@@ -5,7 +5,7 @@ import ContactRelationService from '@/app/com/main/service/ContactRelationServic
 import UserService from '@/app/com/main/service/UserService';
 
 export default class UserAction extends AbstractMaterial {
-    private static action: string = '1.1.002';
+    private static action: string = '1.1.003';
 
     @MethodMapping(UserAction, UserAction.action, '1.2.0001')
     public update(data: any): void {

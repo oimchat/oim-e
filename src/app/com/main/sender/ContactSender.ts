@@ -3,13 +3,13 @@ import DataBackAction from '@/app/base/net/DataBackAction';
 import Message from '@/app/base/message/Message';
 import ContactAddApplyData from '@/app/com/data/ContactAddApplyData';
 import ContactVerifyAnswer from '@/app/com/data/ContactVerifyAnswer';
-import Page from '@/app/com/data/Page';
+import Page from '@/app/com/data/common/Page';
 import ContactAddHandleData from '@/app/com/data/ContactAddHandleData';
 import ContactAddApplyQuery from '@/app/com/data/ContactAddApplyQuery';
 
 export default class ContactSender extends AbstractMaterial {
 
-    private action: string = '1.2.101';
+    private action: string = '1.2.001';
 
     public getList(back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0002');
@@ -20,7 +20,7 @@ export default class ContactSender extends AbstractMaterial {
     public getContactAddVerifySetting(userId: string, back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0006');
         m.body = {};
-        m.body.userId = userId;
+        m.body.targetUserId = userId;
         this.appContext.netServer.send(m, back, parallel);
     }
 
@@ -28,7 +28,7 @@ export default class ContactSender extends AbstractMaterial {
         const m = Message.build(this.action, '1.1.0007');
         m.body = {};
         m.body.apply = apply;
-        m.body.answerList = answerList;
+        m.body.answers = answerList;
         this.appContext.netServer.send(m, back, parallel);
     }
 
@@ -48,7 +48,7 @@ export default class ContactSender extends AbstractMaterial {
     }
 
     public sendAddResponse(handle: ContactAddHandleData, back?: DataBackAction): void {
-        const m = Message.build(this.action, '1.1.0011');
+        const m = Message.build(this.action, '1.1.0012');
         m.body = {};
         m.body.handle = handle;
         this.appContext.netServer.send(m, back);

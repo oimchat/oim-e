@@ -1,20 +1,14 @@
-import BaseUtil from '@/app/lib/util/BaseUtil';
-import NetSocket from './NetSocket';
+import NetSocket from '@/app/base/net/NetSocket';
 import Handler from '@/app/base/net/Handler';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import MessageHandler from '@/app/base/net/MessageHandler';
 import ConnectHandler from '@/app/base/net/ConnectHandler';
-import PromptHandler from '@/app/base/net/PromptHandler';
 import InvokeAction from '@/app/base/net/InvokeAction';
 import LogHandler from '@/app/base/log/LogHandler';
-import logger from 'vuex/dist/logger';
+import NetUtil from '@/app/base/net/NetUtil';
+import ErrorPrompt from '@/app/base/net/ErrorPrompt';
 
 export default class NetServer {
-
-
-    private codeFail: string = '0';
-    private codeSuccess: string = '1';
-
 
     /**
      * 记录打开页面后第几次成功连接
@@ -52,7 +46,7 @@ export default class NetServer {
 
     private readonly netSocket: NetSocket;
     private connectHandler: ConnectHandler = {} as ConnectHandler;
-    private promptHandler: PromptHandler = {} as PromptHandler;
+    private errorPrompt: ErrorPrompt = {} as ErrorPrompt;
 
 
     constructor() {
@@ -97,8 +91,8 @@ export default class NetServer {
         this.messageHandler.setInvokeAction(invokeAction);
     }
 
-    public setPromptHandler(promptHandler: PromptHandler): void {
-        this.promptHandler = promptHandler;
+    public setErrorPrompt(errorPrompt: ErrorPrompt): void {
+        this.errorPrompt = errorPrompt;
     }
 
     public setSocketHost(socketHost: string): void {
@@ -128,22 +122,22 @@ export default class NetServer {
     public send(data: any, back?: DataBackAction, parallel?: boolean): void {
         if (data && data.head) {
             const head = data.head;
-            if (0 === head.timestamp || BaseUtil.isEmpty(head.timestamp) || BaseUtil.isEmpty(head.key)) {
+            if (0 === head.timestamp || NetUtil.isEmpty(head.timestamp) || NetUtil.isEmpty(head.key)) {
                 const timestamp = new Date().getTime();
-                if (0 === head.timestamp || BaseUtil.isEmpty(head.timestamp)) {
+                if (0 === head.timestamp || NetUtil.isEmpty(head.timestamp)) {
                     head.timestamp = timestamp;
                 }
-                if (BaseUtil.isEmpty(head.key)) {
+                if (NetUtil.isEmpty(head.key)) {
                     this.messageKeyCount++;
                     head.key = (this.messageKeyCount + timestamp) + '';
                 }
             }
-            this.messageHandler.putHandleData(head.key, data, head.timestamp, back);
+            this.messageHandler.putHandleData(head.key, data, head.timestamp, back, parallel);
             const lost: () => void = (): void => {
                 if (back) {
                     back.lost(data);
                 } else {
-                    this.promptMessage('消息发送失败！');
+                    this.prompt('消息发送失败！');
                 }
             };
             this.sendMessage(data, lost);
@@ -153,25 +147,16 @@ export default class NetServer {
 
     public onMessage(value: any): void {
 
-
         let response = true;
         this.activeTimestamp = new Date().getTime();
-        const data: any = BaseUtil.jsonToObject(value);
+        const data: any = NetUtil.jsonToObject(value);
         if (data) {
             const head = data.head;
             const action = head.action;
             const method = head.method;
-            let resultCode: string = this.codeSuccess;
-            if (head && head.result) {
-                const result = head.result;
-                resultCode = result.code;
-            }
-            if ('1' !== resultCode) {
-                this.showErrorMessage(data);
-            } else {
-                const actionPath = action + method;
-                this.messageHandler.backMessage(actionPath, head.key, data);
-            }
+
+            const actionPath = action + method;
+            this.messageHandler.backMessage(actionPath, head.key, data);
 
             if (data.info) {
                 response = false;
@@ -212,7 +197,7 @@ export default class NetServer {
     }
 
     private sendMessage(message: any, lost: any): void {
-        const json = BaseUtil.objectToJson(message);
+        const json = NetUtil.objectToJson(message);
         LogHandler.debug('request:' + json);
         if (this.netSocket) {
             this.netSocket.send(json, lost);
@@ -302,34 +287,34 @@ export default class NetServer {
     }
 
     private canAutoConnect(): boolean {
-        const can: boolean = (this.autoConnect && !BaseUtil.isEmpty(this.socketHost) && !this.isConnected());
+        const can: boolean = (this.autoConnect && !NetUtil.isEmpty(this.socketHost) && !this.isConnected());
         return can && !this.connecting;
     }
 
     private prompt(message: string): void {
-        if (typeof (this.promptMessage) === 'function') {
-            this.promptMessage(message);
+        if (typeof (this.errorMessage) === 'function') {
+            this.errorMessage(message);
         }
     }
 
-    private showErrorMessage(data: any): void {
-        if (data && data.head) {
-            const head = data.head;
-            const info = data.info;
-            if (head && head.result) {
-                const result = head.result;
-                const code: string = result.code;
-                const message: string = result.message;
-                if ('1' !== code) {
-                    this.prompt(message);
-                }
-            }
-        }
-    }
+    // private showErrorMessage(data: any): void {
+    //     if (data && data.head) {
+    //         const head = data.head;
+    //         const info = data.info;
+    //         if (head && head.result) {
+    //             const result = head.result;
+    //             const code: string = result.code;
+    //             const message: string = result.message;
+    //             if ('1' !== code) {
+    //                 this.prompt(message);
+    //             }
+    //         }
+    //     }
+    // }
 
 
-    private promptMessage(message: string): void {
-        this.promptHandler.prompt(message);
+    private errorMessage(message: string): void {
+        this.errorPrompt.prompt(message);
     }
 
     private onIdle(): void {

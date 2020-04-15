@@ -32,7 +32,7 @@ export default class ServerBox extends AbstractMaterial {
         let list: ServerAddress[] = [];
         const data: ServerData | any = this.getServer(code);
         // if (data instanceof ServerData) {
-        list = data.addressList;
+        list = data.addresses;
         // }
         if (!list) {
             list = [];
@@ -45,7 +45,7 @@ export default class ServerBox extends AbstractMaterial {
         const list: ServerAddress[] = this.getAddressList(code);
         if (list) {
             for (const data of list) {
-                if ((protocol === data.protocol) && '1' === data.isEnabled) {
+                if ((protocol === data.protocol) && data.enabled) {
                     address = data;
                     break;
                 }
@@ -57,11 +57,7 @@ export default class ServerBox extends AbstractMaterial {
     public hasAddress(code: string, protocol: string): boolean {
         let has = false;
         const address = this.getAddress(ServerType.file, Protocol.HTTP);
-        if (!address || '0' === address.isEnabled) {
-            has = false;
-        } else {
-            has = true;
-        }
+        has = !(!address || !address.enabled);
         return has;
     }
 }

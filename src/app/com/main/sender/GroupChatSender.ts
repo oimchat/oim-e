@@ -1,6 +1,6 @@
 import AbstractMaterial from '@/app/base/AbstractMaterial';
 import Message from '@/app/base/message/Message';
-import Page from '@/app/com/data/Page';
+import Page from '@/app/com/data/common/Page';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import Content from '@/app/com/data/chat/content/Content';
 import ChatQuery from '@/app/com/data/chat/ChatQuery';

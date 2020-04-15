@@ -16,7 +16,7 @@ export default class ServerData {
     /**
      * 是否启用：0：否、1：是
      */
-    public isEnabled: string = '0';
+    public enabled: boolean = true;
 
-    public addressList: ServerAddress[] = [];
+    public addresses: ServerAddress[] = [];
 }

@@ -77,7 +77,7 @@ export default class GroupMemberService extends AbstractMaterial {
                     const info = data.info;
                     if (info) {
                         if (info.success && data.body) {
-                            const list: User[] = data.body.list;
+                            const list: User[] = data.body.items;
                             if (list) {
                                 for (const u of list) {
                                     UserInfoUtil.handleAvatar(u);
@@ -106,7 +106,7 @@ export default class GroupMemberService extends AbstractMaterial {
                     const info = data.info;
                     if (info) {
                         if (info.success && data.body) {
-                            members = data.body.list;
+                            members = data.body.items;
                             memberBox.putGroupMemberList(members);
                             sender.getGroupMemberUserList(groupId, userBack);
                         } else {

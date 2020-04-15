@@ -133,8 +133,8 @@
                         const info = data.info;
                         if (info) {
                             if (info.success && data.body) {
-                                const questionList: GroupJoinVerifyQuestion[] = data.body.questionList;
-                                const joinSetting: GroupJoinSetting = data.body.joinSetting;
+                                const questionList: GroupJoinVerifyQuestion[] = data.body.questions;
+                                const joinSetting: GroupJoinSetting = data.body.setting;
                                 own.setSetting(joinSetting, questionList);
                             }
                         }

@@ -9,16 +9,27 @@ import AbstractMaterial from '@/app/base/AbstractMaterial';
 import ServerBox from '@/app/com/main/box/ServerBox';
 import {Protocol, ServerType} from '@/app/common/config/constant/ServerConstant';
 import Info from '@/app/base/message/Info';
+import PromptHandlerType from '@/app/base/PromptHandlerType';
 
 export default class AccountClient extends AbstractMaterial {
 
-    private action: string = '1.1.000';
+    private action: string = '1.1.001';
+
+    public register(u: User, list: SecurityQuestion[], back: (data: any) => void) {
+        const body: object = {
+            user: u,
+            questions: list,
+        };
+        const m = Message.build(this.action, '1.1.0001');
+        m.body = body;
+        this.post(m, back, true);
+    }
 
     public getSecurityQuestionList(value: string, back: (data: any) => void): void {
         const body: object = {
             account: value,
         };
-        const m = Message.build(this.action, '1.1.0001');
+        const m = Message.build(this.action, '1.1.0002');
         m.body = body;
 
         this.post(m, back, true);
@@ -43,7 +54,7 @@ export default class AccountClient extends AbstractMaterial {
             password: value,
             answers: list,
         };
-        const m = Message.build(this.action, '1.1.0002');
+        const m = Message.build(this.action, '1.1.0003');
         m.body = body;
 
         this.post(m, back, true);
@@ -68,7 +79,7 @@ export default class AccountClient extends AbstractMaterial {
         const body: object = {
             account: value,
         };
-        const m = Message.build(this.action, '1.1.0005');
+        const m = Message.build(this.action, '1.1.0006');
         m.body = body;
         this.post(m, existBack, true);
     }
@@ -92,7 +103,7 @@ export default class AccountClient extends AbstractMaterial {
         const body: object = {
             email: value,
         };
-        const m = Message.build(this.action, '1.1.0006');
+        const m = Message.build(this.action, '1.1.0007');
         m.body = body;
         this.post(m, existBack, true);
     }
@@ -116,7 +127,7 @@ export default class AccountClient extends AbstractMaterial {
         const body: object = {
             mobile: value,
         };
-        const m = Message.build(this.action, '1.1.0005');
+        const m = Message.build(this.action, '1.1.0008');
         m.body = body;
         this.post(m, existBack, true);
     }
@@ -124,14 +135,17 @@ export default class AccountClient extends AbstractMaterial {
     private post(m: any, back: (data: any) => void, prompt?: boolean | null) {
         const serverBox: ServerBox = this.appContext.getMaterial(ServerBox);
         const address = serverBox.getAddress(ServerType.main, Protocol.HTTP);
-        if (!address || '0' === address.isEnabled) {
+        if (!address || !address.enabled) {
             const message: any = m;
             const info = new Info();
             info.addError('0001', '服务器不可用！');
             message.info = info;
             back(message);
+            if (prompt) {
+                this.appContext.prompt('服务器不可用！', '错误', PromptHandlerType.error);
+            }
         } else {
-            http.post(address.address + '/v1/api', m, back, true);
+            http.post(address.address + '', m, back, true);
         }
     }
 }

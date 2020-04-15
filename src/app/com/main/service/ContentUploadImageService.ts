@@ -15,7 +15,7 @@ export default class ContentUploadImageService extends AbstractMaterial {
             const resultMap: Map<string, UploadResult> = new Map<string, UploadResult>();
             const serverBox: ServerBox = this.appContext.getMaterial(ServerBox);
             const address = serverBox.getAddress(ServerType.file, Protocol.HTTP);
-            if (!address || '0' === address.isEnabled) {
+            if (!address || !address.enabled) {
                 back(false, resultMap, '没有可用的图片上传服务器！');
             } else {
                 const http = address.address + '/v1/image/upload';

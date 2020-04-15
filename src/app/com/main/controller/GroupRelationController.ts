@@ -1,6 +1,6 @@
 import AbstractMaterial from '@/app/base/AbstractMaterial';
 import DataBackAction from '@/app/base/net/DataBackAction';
-import Page from '@/app/com/data/Page';
+import Page from '@/app/com/data/common/Page';
 import GroupJoinHandleData from '@/app/com/data/GroupJoinHandleData';
 import GroupJoinApplyData from '@/app/com/data/GroupJoinApplyData';
 import GroupJoinVerifyAnswer from '@/app/com/bean/GroupJoinVerifyAnswer';
@@ -11,10 +11,6 @@ import GroupRelation from '@/app/com/bean/GroupRelation';
 
 export default class GroupRelationController extends AbstractMaterial {
 
-    public getList(back?: DataBackAction, parallel?: boolean): void {
-        const groupRelationSender: GroupRelationSender = this.appContext.getMaterial(GroupRelationSender);
-        groupRelationSender.getList(back, parallel);
-    }
 
     public getRelation(groupId: string, back?: DataBackAction, parallel?: boolean): void {
         const groupRelationSender: GroupRelationSender = this.appContext.getMaterial(GroupRelationSender);

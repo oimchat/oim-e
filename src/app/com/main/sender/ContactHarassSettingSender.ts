@@ -5,7 +5,7 @@ import ContactHarassSetting from '@/app/com/bean/ContactHarassSetting';
 import ContactVerifyQuestion from '@/app/com/data/ContactVerifyQuestion';
 
 export default class ContactHarassSettingSender extends AbstractMaterial {
-    private action: string = '1.2.104';
+    private action: string = '1.2.004';
 
     public get(back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0001');
@@ -13,11 +13,11 @@ export default class ContactHarassSettingSender extends AbstractMaterial {
         this.appContext.netServer.send(m, back, parallel);
     }
 
-    public update(data: ContactHarassSetting, questionList: ContactVerifyQuestion[], back?: DataBackAction, parallel?: boolean): void {
+    public update(setting: ContactHarassSetting, questionList: ContactVerifyQuestion[], back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0002');
         m.body = {};
-        m.body.data = data;
-        m.body.questionList = questionList;
+        m.body.setting = setting;
+        m.body.questions = questionList;
         this.appContext.netServer.send(m, back, parallel);
     }
 }

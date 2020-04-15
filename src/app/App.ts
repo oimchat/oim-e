@@ -1,14 +1,15 @@
 import AppContext from '@/app/base/AppContext';
 import Prompt from '@/component/common/Prompt';
 import ConnectHandler from '@/app/base/net/ConnectHandler';
-import PromptHandler from '@/app/base/net/PromptHandler';
+import PromptHandler from '@/app/base/PromptHandler';
 import auth from '@/app/common/auth/Auth';
 
 import SystemNetController from '@/app/com/main/controller/SystemNetController';
 import LoginController from '@/app/com/main/controller/LoginController';
 
 import AppSettingManager from '@/app/com/main/manager/AppSettingManager';
-
+import ServerService from '@/app/com/main/service/ServerService';
+import DataPrompt from '@/app/base/DataPrompt';
 
 import ContactAction from '@/app/com/main/action/ContactAction';
 import ContactCategoryAction from '@/app/com/main/action/ContactCategoryAction';
@@ -24,7 +25,7 @@ import GroupRelationAction from '@/app/com/main/action/GroupRelationAction';
 import PersonalAction from '@/app/com/main/action/PersonalAction';
 import UserAction from '@/app/com/main/action/UserAction';
 import UserChatAction from '@/app/com/main/action/UserChatAction';
-import ServerService from '@/app/com/main/service/ServerService';
+import SystemAuthAction from '@/app/com/main/action/SystemAuthAction';
 
 
 class App {
@@ -56,6 +57,13 @@ class App {
                 Prompt.notice(message, title, type);
             },
         } as PromptHandler);
+        this.appContext.setDataPrompt({
+            prompt(data: any): void {
+                if (data.info) {
+                    Prompt.message(data.info, '', '消息异常！');
+                }
+            },
+        } as DataPrompt);
         const connectHandler: ConnectHandler = {
             onIdle(): void {
                 // TODO
@@ -124,6 +132,7 @@ class App {
         this.appContext.putAction(PersonalAction);
         this.appContext.putAction(UserAction);
         this.appContext.putAction(UserChatAction);
+        this.appContext.putAction(SystemAuthAction);
     }
 }
 

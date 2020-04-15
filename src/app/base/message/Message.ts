@@ -1,7 +1,6 @@
 import ClientHead from './client/ClientHead';
 import Head from '@/app/base/message/Head';
 
-
 export default class Message<H extends Head> {
 
     public static build(action: string, method: string): Message<ClientHead> {

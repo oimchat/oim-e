@@ -14,7 +14,4 @@ export default class ClientHead extends Head {
         head.method = method;
         return head;
     }
-
-    public client: Client = new Client();
-
 }

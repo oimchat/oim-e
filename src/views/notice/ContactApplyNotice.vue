@@ -82,7 +82,7 @@
     import app from '@/app/App';
     import ContactController from '@/app/com/main/controller/ContactController';
     import ContactAddApply from '@/app/com/bean/ContactAddApply';
-    import Page from '@/app/com/data/Page';
+    import Page from '@/app/com/data/common/Page';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/component/common/Prompt';
     import ContactAddApplyDetail from '@/app/com/data/ContactAddApplyDetail';
@@ -136,7 +136,7 @@
                         const info = data.info;
                         if (info) {
                             if (info.success && data.body) {
-                                const list: ContactAddApplyDetail[] = data.body.list;
+                                const list: ContactAddApplyDetail[] = data.body.items;
                                 const p: Page = data.body.page;
                                 own.setList(list, p);
                             }

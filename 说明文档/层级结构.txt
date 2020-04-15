@@ -1,0 +1,8 @@
+来自服务器推送处理逻辑
+Action->Service->
+                Manager->View
+                Handler->Sender
+来自界面操作逻辑处理
+Controller->Service->
+                Manager->View
+                Handler->Sender

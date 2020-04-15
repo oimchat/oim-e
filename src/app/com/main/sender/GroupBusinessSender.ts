@@ -1,14 +1,12 @@
 import AbstractMaterial from '@/app/base/AbstractMaterial';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import Message from '@/app/base/message/Message';
-import ContactAddApplyData from '@/app/com/data/ContactAddApplyData';
-import ContactVerifyAnswer from '@/app/com/data/ContactVerifyAnswer';
-import Page from '@/app/com/data/Page';
-import ContactAddHandleData from '@/app/com/data/ContactAddHandleData';
+import Group from '@/app/com/bean/Group';
+import GroupHead from '@/app/com/bean/GroupHead';
 
 export default class GroupBusinessSender extends AbstractMaterial {
 
-    private action: string = '1.2.201';
+    private action: string = '1.3.005';
 
     public getList(back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0002');
@@ -16,23 +14,41 @@ export default class GroupBusinessSender extends AbstractMaterial {
         this.appContext.netServer.send(m, back, parallel);
     }
 
+    public addGroup(group: Group, back?: DataBackAction): void {
+        const m = Message.build(this.action, '1.1.0005');
+        m.body = group;
+        this.appContext.netServer.send(m, back);
+    }
+
+    public updateGroup(group: Group, back?: DataBackAction): void {
+        const m = Message.build(this.action, '1.1.0006');
+        m.body = group;
+        this.appContext.netServer.send(m, back);
+    }
+
+    public uploadHead(head: GroupHead, back?: DataBackAction): void {
+        const m = Message.build(this.action, '1.1.0007');
+        m.body = head;
+        this.appContext.netServer.send(m, back);
+    }
+
     public changeGroupOwner(groupId: string, newOwnerUserId: string, back?: DataBackAction, parallel?: boolean): void {
-        const m = Message.build(this.action, '1.1.0003');
+        const m = Message.build(this.action, '1.1.0008');
         m.body = {};
         m.body.groupId = groupId;
         m.body.newOwnerUserId = newOwnerUserId;
         this.appContext.netServer.send(m, back, parallel);
     }
 
-    public quit(groupId: string, back?: DataBackAction, parallel?: boolean): void {
-        const m = Message.build(this.action, '1.1.0004');
+    public disband(groupId: string, back?: DataBackAction, parallel?: boolean): void {
+        const m = Message.build(this.action, '1.1.0009');
         m.body = {};
         m.body.groupId = groupId;
         this.appContext.netServer.send(m, back, parallel);
     }
 
-    public disband(groupId: string, back?: DataBackAction, parallel?: boolean): void {
-        const m = Message.build(this.action, '1.1.0005');
+    public quit(groupId: string, back?: DataBackAction, parallel?: boolean): void {
+        const m = Message.build(this.action, '1.1.0010');
         m.body = {};
         m.body.groupId = groupId;
         this.appContext.netServer.send(m, back, parallel);

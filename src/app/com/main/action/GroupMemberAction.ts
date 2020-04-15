@@ -5,13 +5,13 @@ import GroupMemberService from '@/app/com/main/service/GroupMemberService';
 
 export default class GroupMemberAction extends AbstractMaterial {
 
-    private static action: string = '1.2.204';
+    private static action: string = '1.3.004';
 
     /*********************************** back **********************************************/
     @MethodMapping(GroupMemberAction, GroupMemberAction.action, '1.1.0002')
     public setOwnerGroupMemberList(data: any): void {
         if (data && data.body) {
-            const list: GroupMember[] = data.body.list;
+            const list: GroupMember[] = data.body.items;
             if (list) {
                 const ccs: GroupMemberService = this.appContext.getMaterial(GroupMemberService);
                 ccs.setOwnerGroupMemberList(list);

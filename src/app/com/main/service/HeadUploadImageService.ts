@@ -14,7 +14,7 @@ export default class HeadUploadImageService extends AbstractMaterial {
             const uploadResult: UploadResult = new UploadResult();
             const serverBox: ServerBox = this.appContext.getMaterial(ServerBox);
             const address = serverBox.getAddress(ServerType.file, Protocol.HTTP);
-            if (!address || '0' === address.isEnabled) {
+            if (!address || !address.enabled) {
                 back(false, uploadResult, '没有可用的图片上传服务器！');
             } else {
                 const http = address.address + '/v1/head/user/upload';
@@ -45,7 +45,7 @@ export default class HeadUploadImageService extends AbstractMaterial {
             const uploadResult: UploadResult = new UploadResult();
             const serverBox: ServerBox = this.appContext.getMaterial(ServerBox);
             const address = serverBox.getAddress(ServerType.file, Protocol.HTTP);
-            if (!address || '0' === address.isEnabled) {
+            if (!address || !address.enabled) {
                 back(false, uploadResult, '没有可用的图片上传服务器！');
             } else {
                 const http = address.address + '/v1/head/group/upload';

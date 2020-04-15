@@ -22,7 +22,7 @@
     import CropperPane from '@/views/common/cropper/CropperPane.vue';
 
     import app from '@/app/App';
-    import GroupInfoController from '@/app/com/main/controller/GroupInfoController';
+    import GroupBusinessController from '@/app/com/main/controller/GroupBusinessController';
 
     @Component({
         components: {
@@ -57,9 +57,9 @@
 
 
                 const file = new File([blob], 'head.png', fp);
-                const pc: GroupInfoController = app.appContext.getMaterial(GroupInfoController);
+                const controller: GroupBusinessController = app.appContext.getMaterial(GroupBusinessController);
 
-                pc.updateHead(groupId, file, (success: boolean, url: string) => {
+                controller.updateHead(groupId, file, (success: boolean, url: string) => {
                     if (success) {
                         own.$Notice.success({
                             title: '成功',

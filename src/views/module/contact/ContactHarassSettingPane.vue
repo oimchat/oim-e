@@ -104,7 +104,7 @@
                         const info = d.info;
                         if (info) {
                             if (info.success && d.body) {
-                                const questionList: ContactVerifyQuestion[] = d.body.questionList;
+                                const questionList: ContactVerifyQuestion[] = d.body.questions;
                                 const data: ContactHarassSetting = d.body.data;
                                 own.setSetting(data, questionList);
                             }

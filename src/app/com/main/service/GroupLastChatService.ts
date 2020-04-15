@@ -22,7 +22,7 @@ export default class GroupLastChatService extends AbstractMaterial {
         const dataBack: DataBackAction = {
             back(data: any): void {
                 if (data && data.body) {
-                    const list = data.body.list;
+                    const list = data.body.items;
                     own.setLastChatGroupList(list);
                 }
             },

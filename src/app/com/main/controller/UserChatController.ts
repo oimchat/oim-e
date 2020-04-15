@@ -4,7 +4,7 @@ import DataBackAction from '@/app/base/net/DataBackAction';
 import UserChatSender from '@/app/com/main/sender/UserChatSender';
 import PersonalBox from '@/app/com/main/box/PersonalBox';
 import ChatQuery from '@/app/com/data/chat/ChatQuery';
-import Page from '@/app/com/data/Page';
+import Page from '@/app/com/data/common/Page';
 import UserChatService from '@/app/com/main/service/UserChatService';
 import UserLastChatService from '@/app/com/main/service/UserLastChatService';
 import ContentUploadImageService from '@/app/com/main/service/ContentUploadImageService';

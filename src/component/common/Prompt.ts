@@ -10,25 +10,31 @@ export default class Prompt {
                 if (!message || '' === message) {
                     message = successText;
                 }
-                Vue.prototype.$Notice.success({
-                    title: '成功',
-                    desc: message,
-                });
+                if (message) {
+                    Vue.prototype.$Notice.success({
+                        title: '成功',
+                        desc: message,
+                    });
+                }
             } else {
                 message = Prompt.getDefaultErrorText(info);
                 if (!message || '' === message) {
                     message = warningText;
                 }
-                Vue.prototype.$Notice.warning({
-                    title: '警告',
-                    desc: message,
-                });
+                if (message) {
+                    Vue.prototype.$Notice.warning({
+                        title: '警告',
+                        desc: message,
+                    });
+                }
             }
         } else {
-            Vue.prototype.$Notice.error({
-                title: '错误',
-                desc: warningText,
-            });
+            if (warningText) {
+                Vue.prototype.$Notice.error({
+                    title: '错误',
+                    desc: warningText,
+                });
+            }
         }
     }
 
@@ -48,7 +54,6 @@ export default class Prompt {
             });
         }
         if ('warn' === type) {
-
             Vue.prototype.$Notice.warning({
                 title: title || '警告',
                 desc: message,
@@ -60,6 +65,34 @@ export default class Prompt {
                 desc: message,
             });
         }
+    }
+
+    public static info(message: string, title?: string) {
+        Vue.prototype.$Notice.info({
+            title: title || '信息',
+            desc: message,
+        });
+    }
+
+    public static success(message: string, title?: string) {
+        Vue.prototype.$Notice.success({
+            title: title || '成功',
+            desc: message,
+        });
+    }
+
+    public static warning(message: string, title?: string) {
+        Vue.prototype.$Notice.warning({
+            title: title || '警告',
+            desc: message,
+        });
+    }
+
+    public static error(message: string, title?: string) {
+        Vue.prototype.$Notice.error({
+            title: title || '错误',
+            desc: message,
+        });
     }
 
     public static getDefaultErrorText(info: any) {

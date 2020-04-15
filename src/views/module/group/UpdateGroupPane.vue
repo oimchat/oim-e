@@ -42,10 +42,10 @@
     import GroupUpdateHeadPane from '@/views/module/group/GroupUpdateHeadPane.vue';
     import app from '@/app/App';
     import Group from '@/app/com/bean/Group';
-    import GroupInfoController from '@/app/com/main/controller/GroupInfoController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/component/common/Prompt';
     import GroupBox from '@/app/com/main/box/GroupBox';
+    import GroupBusinessController from '@/app/com/main/controller/GroupBusinessController';
 
 
     @Component({
@@ -114,7 +114,7 @@
                     Prompt.notice('请求超时！');
                 },
             } as DataBackAction;
-            const groupInfoController: GroupInfoController = app.appContext.getMaterial(GroupInfoController);
+            const groupBusinessController: GroupBusinessController = app.appContext.getMaterial(GroupBusinessController);
             const groupId = this.groupId;
             const group = this.group;
 
@@ -127,7 +127,7 @@
 
             groupForm.validate((valid: boolean) => {
                 if (valid) {
-                    groupInfoController.updateGroup(g, back);
+                    groupBusinessController.updateGroup(g, back);
                 }
             });
         }

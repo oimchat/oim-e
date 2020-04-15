@@ -32,7 +32,7 @@ export default class GroupBusinessService extends AbstractMaterial {
             const back: DataBackAction = {
                 back(data: any): void {
                     if (data && data.body) {
-                        const group: Group = data.body.group;
+                        const group: Group = data.body;
                         if (group) {
                             own.add(group);
                         }
@@ -48,6 +48,24 @@ export default class GroupBusinessService extends AbstractMaterial {
         if (group) {
             const ccm: GroupListManager = this.appContext.getMaterial(GroupListManager);
             ccm.addOrUpdateGroup(group);
+        }
+    }
+
+    public loadGroups(groupIds: string[]) {
+        if (groupIds) {
+            const own = this;
+            const back: DataBackAction = {
+                back(data: any): void {
+                    if (data && data.body) {
+                        const items: Group[] = data.body.items;
+                        if (items) {
+                            own.setList(items);
+                        }
+                    }
+                },
+            } as AbstractDataBackAction;
+            const groupSender: GroupInfoSender = this.appContext.getMaterial(GroupInfoSender);
+            groupSender.getGroups(groupIds, back, false);
         }
     }
 }

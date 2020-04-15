@@ -105,6 +105,7 @@
     import AccountClient from '@/app/com/main/http/main/AccountClient';
     import StringUtil from '@/app/common/util/StringUtil';
     import BaseUtil from '@/app/lib/util/BaseUtil';
+    import AccountController from '@/app/com/main/controller/AccountController';
 
     @Component({
         components: {},
@@ -227,7 +228,7 @@
                     });
                 }
             };
-            const pc: PersonalController = app.appContext.getMaterial(PersonalController);
+            const controller: AccountController = app.appContext.getMaterial(AccountController);
             const user = this.user;
             const questions = this.questionData.questions;
             const questionDataForm: any = this.$refs[this.questionDataFormName];
@@ -239,11 +240,11 @@
                 if (size > 0) {
                     questionDataForm.validate((v: boolean) => {
                         if (v) {
-                            pc.register(user, questions, back);
+                            controller.register(user, questions, back);
                         }
                     });
                 } else {
-                    pc.register(user, questions, back);
+                    controller.register(user, questions, back);
                 }
             };
             userForm.validate((valid: boolean) => {

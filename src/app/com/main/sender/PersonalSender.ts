@@ -6,7 +6,7 @@ import UserHead from '@/app/com/bean/UserHead';
 
 export default class PersonalSender extends AbstractMaterial {
 
-    private action: string = '1.1.001';
+    private action: string = '1.1.002';
 
     public getUser(back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0007');

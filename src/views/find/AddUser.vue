@@ -130,7 +130,7 @@
                         const info = data.info;
                         if (info) {
                             if (info.success && data.body) {
-                                const questionList: ContactVerifyQuestion[] = data.body.questionList;
+                                const questionList: ContactVerifyQuestion[] = data.body.questions;
                                 const verifySetting: ContactAddVerifySetting = data.body.verifySetting;
                                 own.setSetting(verifySetting, questionList);
                             }

@@ -14,7 +14,7 @@ export default class ServerService extends AbstractMaterial {
                 const info = data.info;
                 if (info.success && data.body) {
                     success = true;
-                    const list: ServerData[] = data.body.list as ServerData[];
+                    const list: ServerData[] = data.body.items as ServerData[];
                     serverBox.addList(list);
                 }
             }

@@ -53,7 +53,7 @@ function createWindow() {
         minWidth: 500,
         minHeight: 460,
         frame: isDevelopment,
-        // transparent: true,
+        transparent: true,
         webPreferences: {
             nodeIntegration: true,
             webSecurity: false,

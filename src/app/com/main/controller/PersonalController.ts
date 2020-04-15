@@ -17,35 +17,6 @@ import ServerService from '@/app/com/main/service/ServerService';
 
 export default class PersonalController extends AbstractMaterial {
 
-
-    public register(u: RegisterData, list: SecurityQuestion[], back: (success: boolean) => void) {
-        if (u && u.tempPassword) {
-            u.password = Md5.init(u.tempPassword);
-        }
-        const registerBack = (data: any) => {
-            let mark = false;
-            if (!BaseUtil.isEmpty(data)) {
-                const head = data.head;
-                const info = data.info;
-                if (info) {
-                    mark = (info.success);
-                }
-            }
-            back(mark);
-        };
-
-        const addressBack = (success: boolean, message?: string) => {
-            if (!success) {
-                back(success);
-            } else {
-                const client: PersonalClient = this.appContext.getMaterial(PersonalClient);
-                client.register(u, list, registerBack);
-            }
-        };
-        const serverService: ServerService = this.appContext.getMaterial(ServerService);
-        serverService.loadServerAddress(addressBack);
-    }
-
     public loadUserData(): void {
         const ps: PersonalSender = this.appContext.getMaterial(PersonalSender);
         ps.getUser();

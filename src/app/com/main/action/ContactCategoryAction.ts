@@ -5,13 +5,13 @@ import ContactCategoryService from '@/app/com/main/service/ContactCategoryServic
 
 export default class ContactCategoryAction extends AbstractMaterial {
 
-    private static action: string = '1.2.102';
+    private static action: string = '1.2.002';
 
     /*********************************** back **********************************************/
     @MethodMapping(ContactCategoryAction, ContactCategoryAction.action, '1.1.0002')
     public setList(data: any): void {
         if (data && data.body) {
-            const list: ContactCategory[] = data.body.list;
+            const list: ContactCategory[] = data.body.items;
             if (list) {
                 const ccs: ContactCategoryService = this.appContext.getMaterial(ContactCategoryService);
                 ccs.setList(list);
@@ -23,7 +23,7 @@ export default class ContactCategoryAction extends AbstractMaterial {
     @MethodMapping(ContactCategoryAction, ContactCategoryAction.action, '1.2.0001')
     public add(data: any): void {
         if (data && data.body) {
-            const categoryId: string = data.body.categoryId;
+            const categoryId: string = data.body.id;
             if (categoryId) {
                 const ccs: ContactCategoryService = this.appContext.getMaterial(ContactCategoryService);
                 ccs.addById(categoryId);
@@ -34,7 +34,7 @@ export default class ContactCategoryAction extends AbstractMaterial {
     @MethodMapping(ContactCategoryAction, ContactCategoryAction.action, '1.2.0003')
     public updateName(data: any): void {
         if (data && data.body) {
-            const categoryId: string = data.body.categoryId;
+            const categoryId: string = data.body.id;
             const name: string = data.body.name;
             if (categoryId) {
                 const ccs: ContactCategoryService = this.appContext.getMaterial(ContactCategoryService);
@@ -52,7 +52,7 @@ export default class ContactCategoryAction extends AbstractMaterial {
     @MethodMapping(ContactCategoryAction, ContactCategoryAction.action, '1.2.0005')
     public delete(data: any): void {
         if (data && data.body) {
-            const categoryId: string = data.body.categoryId;
+            const categoryId: string = data.body.id;
             if (categoryId) {
                 const ccs: ContactCategoryService = this.appContext.getMaterial(ContactCategoryService);
                 ccs.delete(categoryId);

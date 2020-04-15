@@ -6,19 +6,27 @@ import ContactService from '@/app/com/main/service/ContactService';
 
 export default class ContactRelationAction extends AbstractMaterial {
 
-    private static action: string = '1.2.103';
+    private static action: string = '1.2.003';
 
     @MethodMapping(ContactRelationAction, ContactRelationAction.action, '1.1.0002')
     public setList(data: any): void {
         if (data && data.body) {
-            const list: ContactRelation[] = data.body.list;
+            const list: ContactRelation[] = data.body.items;
             if (list) {
                 const ccs: ContactRelationService = this.appContext.getMaterial(ContactRelationService);
                 ccs.setList(list);
+
+                const userIds: string[] = [];
+                for (const value of list) {
+                    userIds.push(value.contactUserId);
+                }
+                const cs: ContactService = this.appContext.getMaterial(ContactService);
+                cs.loadUsers(userIds);
             }
         }
     }
 
+    /***********************************************************************/
 
     @MethodMapping(ContactRelationAction, ContactRelationAction.action, '1.2.0001')
     public add(data: any): void {

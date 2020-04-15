@@ -5,13 +5,13 @@ import GroupCategoryService from '@/app/com/main/service/GroupCategoryService';
 
 export default class GroupCategoryAction extends AbstractMaterial {
 
-    private static action: string = '1.2.202';
+    private static action: string = '1.3.002';
 
     /*********************************** back **********************************************/
     @MethodMapping(GroupCategoryAction, GroupCategoryAction.action, '1.1.0002')
     public setList(data: any): void {
         if (data && data.body) {
-            const list: GroupCategory[] = data.body.list;
+            const list: GroupCategory[] = data.body.items;
             if (list) {
                 const ccs: GroupCategoryService = this.appContext.getMaterial(GroupCategoryService);
                 ccs.setList(list);

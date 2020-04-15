@@ -2,10 +2,11 @@ import axios from 'axios';
 import Vue from 'vue';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import auth from '@/app/common/auth/Auth';
-import Message from '@/app/base/message/Message';
-import ServerHead from '@/app/base/message/server/ServerHead';
 import AppSetting from '@/app/base/config/AppSetting';
 import LogHandler from '@/app/base/log/LogHandler';
+import Head from '@/app/base/message/Head';
+import Info from '@/app/base/message/Info';
+import InfoMessage from '@/app/base/message/InfoMessage';
 
 class HttpClient {
 
@@ -54,9 +55,11 @@ class HttpClient {
                 }
             }
         }).catch((error: any) => {
-            const serverHead: ServerHead = ServerHead.buildResult('0', '请求失败！');
-            const message: Message<ServerHead> = new Message<ServerHead>();
+            const serverHead: Head = new Head();
+            const message: InfoMessage<Head> = new InfoMessage<Head>();
             message.head = serverHead;
+            message.info = new Info();
+            message.info.addError('1.000', '请求异常！');
             if (typeof (back) === 'function') {
                 back(message);
             }
@@ -132,31 +135,31 @@ class HttpClient {
         const status = response.status;
         const headers = response.headers;
         if (200 === status) {
-            const data = response.data;
-            if (!BaseUtil.isEmpty(data)) {
-                const head = data.head;
-                const info = data.info;
-                if (head && head.result) {
-                    const result = head.result;
-                    const code: string = result.code;
-                    const message: string = result.message;
-                    if ('1' !== code) {
-                        if ('101' === code) {
-                            // TODO
-                        } else if ('0' === code) {
-                            Vue.prototype.$Notice.warning({
-                                title: '错误',
-                                desc: message,
-                            });
-                        } else {
-                            Vue.prototype.$Notice.warning({
-                                title: '错误',
-                                desc: message,
-                            });
-                        }
-                    }
-                }
-            }
+            // const data = response.data;
+            // if (!BaseUtil.isEmpty(data)) {
+            //     const head = data.head;
+            //     const info = data.info;
+            //     if (head && head.result) {
+            //         const result = head.result;
+            //         const code: string = result.code;
+            //         const message: string = result.message;
+            //         if ('1' !== code) {
+            //             if ('101' === code) {
+            //                 // TODO
+            //             } else if ('0' === code) {
+            //                 Vue.prototype.$Notice.warning({
+            //                     title: '错误',
+            //                     desc: message,
+            //                 });
+            //             } else {
+            //                 Vue.prototype.$Notice.warning({
+            //                     title: '错误',
+            //                     desc: message,
+            //                 });
+            //             }
+            //         }
+            //     }
+            // }
         }
         return response;
     }
@@ -165,7 +168,8 @@ class HttpClient {
         // 错误处理
         this.client.interceptors.response.use(this.responseHandler, this.responseError);
         this.client.interceptors.request.use((request) => {
-            request.headers['X-Token'] = auth.getToken(); // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
+            request.headers.token = auth.getToken(); // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
+            request.headers.key = auth.getUserId();
             return request;
         }, (error) => {
             return Promise.reject(error);
