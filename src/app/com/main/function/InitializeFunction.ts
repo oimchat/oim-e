@@ -40,7 +40,7 @@ export default class InitializeFunction extends AbstractMaterial {
         const groupJoinApplyQuery: GroupJoinApplyQuery = new GroupJoinApplyQuery();
         groupJoinApplyQuery.handleType = GroupJoinApply.HANDLE_TYPE_UNTREATED;
         const groupJoinSender: GroupJoinSender = this.appContext.getMaterial(GroupJoinSender);
-        groupJoinSender.getJoinApplyCount(groupJoinApplyQuery, groupJoinBack);
+        groupJoinSender.queryJoinApplyReceiveCount(groupJoinApplyQuery, groupJoinBack);
 
 
         const groupInviteABack: DataBackAction = {
@@ -62,7 +62,7 @@ export default class InitializeFunction extends AbstractMaterial {
         const groupInviteQuery: GroupInviteApplyQuery = new GroupInviteApplyQuery();
         groupInviteQuery.verifyHandleType = GroupInviteApply.VERIFY_HANDLE_TYPE_UNTREATED;
         const groupInviteSender: GroupInviteSender = this.appContext.getMaterial(GroupInviteSender);
-        groupInviteSender.getInviteApplyCount(groupInviteQuery, groupInviteABack);
+        groupInviteSender.queryInviteApplyReceiveCount(groupInviteQuery, groupInviteABack);
 
 
         const groupInviteeBack: DataBackAction = {
@@ -85,7 +85,7 @@ export default class InitializeFunction extends AbstractMaterial {
         const groupInviteeQuery: GroupInviteeApplyQuery = new GroupInviteeApplyQuery();
         groupInviteeQuery.inviteeHandleType = GroupInviteApply.INVITEE_HANDLE_TYPE_UNTREATED;
 
-        groupInviteSender.getInviteeCount(groupInviteeQuery, groupInviteeBack);
+        groupInviteSender.queryInviteeCount(groupInviteeQuery, groupInviteeBack);
 
         const applyBack: DataBackAction = {
             back(data: any): void {

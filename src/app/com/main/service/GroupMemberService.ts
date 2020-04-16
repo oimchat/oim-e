@@ -10,6 +10,9 @@ import GroupMemberUserBox from '@/app/com/main/box/GroupMemberUserBox';
 import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
 import GroupMemberListManager from '@/app/com/main/manager/GroupMemberListManager';
 import PersonalBox from '@/app/com/main/box/PersonalBox';
+import Page from '@/app/com/data/common/Page';
+import UserSender from '@/app/com/main/sender/UserSender';
+import GroupJoinApply from '@/app/com/bean/GroupJoinApply';
 
 export default class GroupMemberService extends AbstractMaterial {
 
@@ -31,7 +34,7 @@ export default class GroupMemberService extends AbstractMaterial {
                     const info = data.info;
                     if (info) {
                         if (info.success && data.body) {
-                            const member = data.body.data;
+                            const member = data.body;
                             memberBox.putGroupMember(member);
                             memberUserBox.putGroupMemberUser(groupId, personalBox.getUser());
                             box.putGroupMember(member);
@@ -66,10 +69,38 @@ export default class GroupMemberService extends AbstractMaterial {
         return box.hasGroup(groupId);
     }
 
-    public loadMemberList(groupId: string, back: (success: boolean, memberList: GroupMember[], userList: User[], message: string) => void) {
+    public getAllMemberList(groupId: string, back: (success: boolean, memberList: GroupMember[], userList: User[], message: string) => void) {
+        const own = this;
+        const sender: GroupMemberSender = this.appContext.getMaterial(GroupMemberSender);
+        const countBack = this.appContext.createDataBackAction((data: any) => {
+            if (data.body && data.body.count) {
+                const count: number = data.body.count;
+                own.getAllMemberListByCount(groupId, count, back);
+            }
+        });
+        sender.getGroupMemberCount(groupId, countBack);
+    }
+
+    public getAllMemberListByCount(groupId: string, count: number, back: (success: boolean, memberList: GroupMember[], userList: User[], message: string) => void): void {
+        const own = this;
+        const page: Page = new Page();
+        page.setTotalCount(count);
+        const totalPage = page.getTotalPage();
+        const sender: GroupMemberSender = this.appContext.getMaterial(GroupMemberSender);
+        for (let i = 0; i < totalPage; i++) {
+            page.number = (i + 1);
+            own.getMemberPageList(groupId, page, back);
+        }
+    }
+
+    public getMemberPageList(groupId: string, page: Page, back: (success: boolean, memberList: GroupMember[], userList: User[], message: string) => void) {
         const memberBox: GroupMemberBox = this.appContext.getMaterial(GroupMemberBox);
         const memberUserBox: GroupMemberUserBox = this.appContext.getMaterial(GroupMemberUserBox);
         const sender: GroupMemberSender = this.appContext.getMaterial(GroupMemberSender);
+        const userSender: UserSender = this.appContext.getMaterial(UserSender);
+
+        let members: GroupMember[];
+
 
         const userBack: DataBackAction = {
             back(data: any): void {
@@ -99,7 +130,7 @@ export default class GroupMemberService extends AbstractMaterial {
             },
         } as DataBackAction;
 
-        let members: GroupMember[];
+
         const memberBack: DataBackAction = {
             back(data: any): void {
                 if (data) {
@@ -108,7 +139,15 @@ export default class GroupMemberService extends AbstractMaterial {
                         if (info.success && data.body) {
                             members = data.body.items;
                             memberBox.putGroupMemberList(members);
-                            sender.getGroupMemberUserList(groupId, userBack);
+
+                            const userIds: string[] = [];
+                            for (const value of members) {
+                                if (value) {
+                                    const userId = value.userId;
+                                    userIds.push(userId);
+                                }
+                            }
+                            userSender.getUsers(userIds, userBack, false);
                         } else {
                             back(false, [], [], '请求失败！');
                         }
@@ -122,7 +161,7 @@ export default class GroupMemberService extends AbstractMaterial {
                 back(false, [], [], '请求超时！');
             },
         } as DataBackAction;
-        sender.getGroupMemberList(groupId, memberBack);
+        sender.getGroupMemberList(groupId, page, memberBack);
     }
 
     public getGroupMemberList(groupId: string): GroupMember[] {
@@ -137,7 +176,7 @@ export default class GroupMemberService extends AbstractMaterial {
 
     public addMemberByUserId(groupId: string, userId: string) {
         const manager: GroupMemberListManager = this.appContext.getMaterial(GroupMemberListManager);
-        this.loadMemberList(groupId, (success: boolean, memberList: GroupMember[], userList: User[], message: string) => {
+        this.getAllMemberList(groupId, (success: boolean, memberList: GroupMember[], userList: User[], message: string) => {
             if (success) {
                 manager.setGroupMembers(groupId, memberList, userList);
             }
@@ -154,7 +193,7 @@ export default class GroupMemberService extends AbstractMaterial {
                     const info = data.info;
                     if (info) {
                         if (info.success && data.body) {
-                            const member = data.body.data;
+                            const member = data.body;
                             memberBox.putGroupMember(member);
                             const user = memberUserBox.getGroupMemberUser(groupId, userId);
                             if (user) {

@@ -16,7 +16,7 @@
                             <div class="members_inner">
                                 <div v-for='item in users' class="member">
                                     <Radio :label="item.id">&nbsp;</Radio>
-                                    <Avatar :src="item.avatar" size="large" />
+                                    <Avatar :src="item.avatar" size="large"/>
                                     <p class="nickname" style="text-align: center;">{{getNickname(item)}}</p>
                                 </div>
                             </div>
@@ -45,6 +45,7 @@
     import GroupBox from '@/app/com/main/box/GroupBox';
     import GroupMemberSender from '@/app/com/main/sender/GroupMemberSender';
     import GroupBusinessController from '@/app/com/main/controller/GroupBusinessController';
+    import GroupMemberListController from '@/app/com/main/controller/GroupMemberListController';
 
 
     @Component({
@@ -103,48 +104,16 @@
             const groupId = this.groupId;
 
             const own = this;
-            const userBack: DataBackAction = {
-                back(data: any): void {
-                    if (data) {
-                        const info = data.info;
-                        if (info) {
-                            if (info.success && data.body) {
-                                const list: User[] = data.body.items;
-                                own.setUserList(list);
-                            }
-                        }
-                    }
-                },
-                lost(data: any): void {
-                    Prompt.notice('请求失败！');
-                },
-                timeOut(data: any): void {
-                    Prompt.notice('请求超时！');
-                },
-            } as DataBackAction;
+            const controller: GroupMemberListController = app.appContext.getMaterial(GroupMemberListController);
 
-
-            const memberBack: DataBackAction = {
-                back(data: any): void {
-                    if (data) {
-                        const info = data.info;
-                        if (info) {
-                            if (info.success && data.body) {
-                                const list: GroupMember[] = data.body.items;
-                                own.setGroupMemberList(list);
-                                groupMemberSender.getGroupMemberUserList(groupId, userBack);
-                            }
-                        }
-                    }
-                },
-                lost(data: any): void {
-                    Prompt.notice('请求失败！');
-                },
-                timeOut(data: any): void {
-                    Prompt.notice('请求超时！');
-                },
-            } as DataBackAction;
-            groupMemberSender.getGroupMemberList(groupId, memberBack);
+            controller.getAllMemberDataList(groupId, (success, memberList, userList, message) => {
+                if (success) {
+                    own.setGroupMemberList(memberList);
+                    own.setUserList(userList);
+                } else {
+                    Prompt.notice('群成员加载失败！');
+                }
+            });
         }
 
         private getNickname(user: User): string {

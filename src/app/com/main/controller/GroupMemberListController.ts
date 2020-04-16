@@ -1,6 +1,4 @@
 import AbstractMaterial from '@/app/base/AbstractMaterial';
-import DataBackAction from '@/app/base/net/DataBackAction';
-import GroupMemberSender from '@/app/com/main/sender/GroupMemberSender';
 import GroupMemberService from '@/app/com/main/service/GroupMemberService';
 import GroupMemberListService from '@/app/com/main/service/GroupMemberListService';
 import GroupMember from '@/app/com/bean/GroupMember';
@@ -17,7 +15,7 @@ export default class GroupMemberListController extends AbstractMaterial {
             const users: User[] = groupMemberService.getGroupMemberUserList(groupId);
             groupMemberListService.setGroupMembers(groupId, members, users);
         } else {
-            groupMemberService.loadMemberList(groupId, (success: boolean, memberList: GroupMember[], userList: User[], message: string) => {
+            groupMemberService.getAllMemberList(groupId, (success: boolean, memberList: GroupMember[], userList: User[], message: string) => {
                     if (success) {
                         groupMemberListService.setGroupMembers(groupId, memberList, userList);
                     } else {
@@ -26,5 +24,24 @@ export default class GroupMemberListController extends AbstractMaterial {
                 },
             );
         }
+    }
+
+    public getAllMemberUserList(groupId: string, back: (success: boolean, userList: User[], message: string) => void) {
+        const own = this;
+        const groupMemberService: GroupMemberService = this.appContext.getMaterial(GroupMemberService);
+
+        groupMemberService.getAllMemberList(groupId, (success: boolean, memberList: GroupMember[], userList: User[], message: string) => {
+                if (success) {
+                    back(success, userList, message);
+                } else {
+                    this.appContext.prompt('群成员加载失败');
+                }
+            },
+        );
+    }
+
+    public getAllMemberDataList(groupId: string, back: (success: boolean, memberList: GroupMember[], userList: User[], message: string) => void) {
+        const service: GroupMemberService = this.appContext.getMaterial(GroupMemberService);
+        service.getAllMemberList(groupId, back);
     }
 }

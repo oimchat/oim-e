@@ -22,7 +22,7 @@ export default class GroupCategoryService extends AbstractMaterial {
             const back: DataBackAction = {
                 back(data: any): void {
                     if (data && data.body) {
-                        const category: GroupCategory = data.body.category;
+                        const category: GroupCategory = data.body;
                         if (category) {
                             own.add(category);
                         }

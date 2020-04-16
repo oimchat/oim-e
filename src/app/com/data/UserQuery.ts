@@ -5,7 +5,7 @@ export default class UserQuery {
     public spell: string = '';
     public simpleSpell: string = '';
     public gender: string = ''; // 性别
-    public constellation: string = '';
+    public constellationCode: string = '';
     public blood: string = '';
     public startBirthDate: string = ''; //
     public endBirthDate: string = ''; //

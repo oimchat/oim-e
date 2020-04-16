@@ -21,7 +21,7 @@ export default class ContactCategoryService extends AbstractMaterial {
             const back: DataBackAction = {
                 back(data: any): void {
                     if (data && data.body) {
-                        const category: ContactCategory = data.body.category;
+                        const category: ContactCategory = data.body;
                         if (category) {
                             own.add(category);
                         }

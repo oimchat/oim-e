@@ -21,7 +21,7 @@ export default class ContactRelationService extends AbstractMaterial {
             const back: DataBackAction = {
                 back(data: any): void {
                     if (data && data.body) {
-                        const relation: ContactRelation = data.body.data;
+                        const relation: ContactRelation = data.body;
                         if (relation) {
                             own.add(relation);
                         }

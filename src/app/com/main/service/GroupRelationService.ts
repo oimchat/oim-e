@@ -22,7 +22,7 @@ export default class GroupRelationService extends AbstractMaterial {
             const back: DataBackAction = {
                 back(data: any): void {
                     if (data && data.body) {
-                        const relation: GroupRelation = data.body.data;
+                        const relation: GroupRelation = data.body;
                         if (relation) {
                             own.add(relation);
                         }

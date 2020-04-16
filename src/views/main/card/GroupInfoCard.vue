@@ -80,6 +80,7 @@
     import GroupMember from '@/app/com/bean/GroupMember';
     import GroupRelationController from '@/app/com/main/controller/GroupRelationController';
     import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
+    import GroupMemberListController from '@/app/com/main/controller/GroupMemberListController';
 
     @Component({
         components: {},
@@ -152,56 +153,21 @@
         }
 
         public loadList() {
-            const userBox: GroupBox = app.appContext.getMaterial(UserBox);
-            const groupBox: GroupBox = app.appContext.getMaterial(GroupBox);
-            const groupMemberSender: GroupMemberSender = app.appContext.getMaterial(GroupMemberSender);
-
+            const own = this;
             const groupId = this.groupId;
 
+            const userBox: GroupBox = app.appContext.getMaterial(UserBox);
+            const groupBox: GroupBox = app.appContext.getMaterial(GroupBox);
+            const controller: GroupMemberListController = app.appContext.getMaterial(GroupMemberListController);
 
-            const own = this;
-            const userBack: DataBackAction = {
-                back(data: any): void {
-                    if (data) {
-                        const info = data.info;
-                        if (info) {
-                            if (info.success && data.body) {
-                                const list: User[] = data.body.items;
-                                own.setUserList(list);
-                            }
-                        }
-                    }
-                },
-                lost(data: any): void {
-                    Prompt.notice('请求失败！');
-                },
-                timeOut(data: any): void {
-                    Prompt.notice('请求超时！');
-                },
-            } as DataBackAction;
-
-
-            const memberBack: DataBackAction = {
-                back(data: any): void {
-                    if (data) {
-                        const info = data.info;
-                        if (info) {
-                            if (info.success && data.body) {
-                                const list: GroupMember[] = data.body.items;
-                                own.setGroupMemberList(list);
-                                groupMemberSender.getGroupMemberUserList(groupId, userBack);
-                            }
-                        }
-                    }
-                },
-                lost(data: any): void {
-                    Prompt.notice('请求失败！');
-                },
-                timeOut(data: any): void {
-                    Prompt.notice('请求超时！');
-                },
-            } as DataBackAction;
-            groupMemberSender.getGroupMemberList(groupId, memberBack);
+            controller.getAllMemberDataList(groupId, (success, memberList, userList, message) => {
+                if (success) {
+                    own.setGroupMemberList(memberList);
+                    own.setUserList(userList);
+                } else {
+                    Prompt.notice('群成员加载失败！');
+                }
+            });
         }
 
         private getNickname(user: User): string {

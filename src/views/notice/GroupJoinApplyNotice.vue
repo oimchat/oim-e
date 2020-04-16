@@ -109,7 +109,7 @@
     import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
     import User from '@/app/com/bean/User';
     import GroupJoinHandleData from '@/app/com/data/GroupJoinHandleData';
-    import GroupJoinApplyDetail from '@/app/com/data/GroupJoinApplyDetail';
+    import GroupJoinApplyEntityCase from '@/app/com/data/GroupJoinApplyEntityCase';
     import GroupJoinApplyQuery from '@/app/com/data/GroupJoinApplyQuery';
     import GroupBox from '@/app/com/main/box/GroupBox';
 
@@ -118,7 +118,7 @@
     })
     export default class GroupJoinApplyNotice extends Vue {
 
-        private list: GroupJoinApplyDetail[] = [];
+        private list: GroupJoinApplyEntityCase[] = [];
         private page: Page = new Page();
 
         public mounted() {
@@ -150,35 +150,16 @@
 
         private loadList(): void {
             const own = this;
-            const back: DataBackAction = {
-                back(data: any): void {
-                    if (data) {
-                        const info = data.info;
-                        if (info) {
-                            if (info.success && data.body) {
-                                const list: GroupJoinApplyDetail[] = data.body.items;
-                                const p: Page = data.body.page;
-                                own.setList(list, p);
-                            }
-                        }
-                    }
-                },
-                lost(data: any): void {
-                    Prompt.notice('请求失败！');
-                },
-                timeOut(data: any): void {
-                    Prompt.notice('请求超时！');
-                },
-            } as DataBackAction;
-
             const page: Page = this.page;
             const query: GroupJoinApplyQuery = new GroupJoinApplyQuery();
             query.handleType = GroupJoinApply.HANDLE_TYPE_UNTREATED;
             const groupJoinController: GroupJoinController = app.appContext.getMaterial(GroupJoinController);
-            groupJoinController.getJoinApplyList(query, page, back);
+            groupJoinController.queryApplyDataReceiveList(query, page, (p, items) => {
+                own.setList(items, p);
+            });
         }
 
-        private setList(list: GroupJoinApplyDetail[], page: Page) {
+        private setList(list: GroupJoinApplyEntityCase[], page: Page) {
             if (!list) {
                 list = [];
             }

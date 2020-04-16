@@ -113,7 +113,7 @@
     import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
     import User from '@/app/com/bean/User';
     import GroupJoinHandleData from '@/app/com/data/GroupJoinHandleData';
-    import GroupJoinApplyDetail from '@/app/com/data/GroupJoinApplyDetail';
+    import GroupJoinApplyEntityCase from '@/app/com/data/GroupJoinApplyEntityCase';
     import GroupJoinApplyQuery from '@/app/com/data/GroupJoinApplyQuery';
     import GroupInviteController from '@/app/com/main/controller/GroupInviteController';
     import GroupInviteApplyQuery from '@/app/com/data/GroupInviteApplyQuery';
@@ -158,32 +158,13 @@
 
         private loadList(): void {
             const own = this;
-            const back: DataBackAction = {
-                back(data: any): void {
-                    if (data) {
-                        const info = data.info;
-                        if (info) {
-                            if (info.success && data.body) {
-                                const list: any[] = data.body.items;
-                                const p: Page = data.body.page;
-                                own.setList(list, p);
-                            }
-                        }
-                    }
-                },
-                lost(data: any): void {
-                    Prompt.notice('请求失败！');
-                },
-                timeOut(data: any): void {
-                    Prompt.notice('请求超时！');
-                },
-            } as DataBackAction;
-
             const page: Page = this.page;
             const query: GroupInviteApplyQuery = new GroupInviteApplyQuery();
             query.verifyHandleType = GroupInviteApply.VERIFY_HANDLE_TYPE_UNTREATED;
             const groupInviteController: GroupInviteController = app.appContext.getMaterial(GroupInviteController);
-            groupInviteController.getInviteApplyList(query, page, back);
+            groupInviteController.queryInviteApplyDataReceiveList(query, page, (p, items) => {
+                own.setList(items, p);
+            });
         }
 
         private setList(list: any[], page: Page) {

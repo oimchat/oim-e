@@ -1,8 +1,8 @@
 import AbstractMaterial from '@/app/base/AbstractMaterial';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import Message from '@/app/base/message/Message';
-import ContactCategory from '@/app/com/bean/ContactCategory';
 import Page from '@/app/com/data/common/Page';
+import GroupCategory from '@/app/com/bean/GroupCategory';
 
 export default class GroupCategorySender extends AbstractMaterial {
 
@@ -28,7 +28,7 @@ export default class GroupCategorySender extends AbstractMaterial {
         this.appContext.netServer.send(m, back, parallel);
     }
 
-    public addCategory(category: ContactCategory, back?: DataBackAction, parallel?: boolean): void {
+    public addCategory(category: GroupCategory, back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0004');
         m.body = {};
         m.body = category;

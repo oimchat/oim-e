@@ -11,11 +11,6 @@ export default class ContactSender extends AbstractMaterial {
 
     private action: string = '1.2.001';
 
-    public getList(back?: DataBackAction, parallel?: boolean): void {
-        const m = Message.build(this.action, '1.1.0002');
-        m.body = {};
-        this.appContext.netServer.send(m, back, parallel);
-    }
 
     public getContactAddVerifySetting(userId: string, back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0006');
@@ -24,7 +19,7 @@ export default class ContactSender extends AbstractMaterial {
         this.appContext.netServer.send(m, back, parallel);
     }
 
-    public sendAddRequest(apply: ContactAddApplyData, answerList: ContactVerifyAnswer[], back?: DataBackAction, parallel?: boolean): void {
+    public sendAddApply(apply: ContactAddApplyData, answerList: ContactVerifyAnswer[], back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0007');
         m.body = {};
         m.body.apply = apply;
@@ -39,7 +34,7 @@ export default class ContactSender extends AbstractMaterial {
         this.appContext.netServer.send(m, back);
     }
 
-    public getApplyList(query: ContactAddApplyQuery, page: Page, back?: DataBackAction): void {
+    public queryApplyReceiveList(query: ContactAddApplyQuery, page: Page, back?: DataBackAction): void {
         const m = Message.build(this.action, '1.1.0009');
         m.body = {};
         m.body.page = page;
@@ -47,7 +42,15 @@ export default class ContactSender extends AbstractMaterial {
         this.appContext.netServer.send(m, back);
     }
 
-    public sendAddResponse(handle: ContactAddHandleData, back?: DataBackAction): void {
+    public queryApplyDataReceiveList(query: ContactAddApplyQuery, page: Page, back?: DataBackAction): void {
+        const m = Message.build(this.action, '1.1.0010');
+        m.body = {};
+        m.body.page = page;
+        m.body.query = query;
+        this.appContext.netServer.send(m, back);
+    }
+
+    public applyHandle(handle: ContactAddHandleData, back?: DataBackAction): void {
         const m = Message.build(this.action, '1.1.0012');
         m.body = {};
         m.body.handle = handle;

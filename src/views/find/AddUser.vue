@@ -77,7 +77,7 @@
     import ContactController from '@/app/com/main/controller/ContactController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/component/common/Prompt';
-    import ContactAddVerifySetting from '@/app/com/data/ContactAddVerifySetting';
+    import ContactVerifySettingData from '@/app/com/data/ContactVerifySettingData';
     import ContactVerifyQuestion from '@/app/com/data/ContactVerifyQuestion';
     import PersonalBox from '@/app/com/main/box/PersonalBox';
 
@@ -131,7 +131,7 @@
                         if (info) {
                             if (info.success && data.body) {
                                 const questionList: ContactVerifyQuestion[] = data.body.questions;
-                                const verifySetting: ContactAddVerifySetting = data.body.verifySetting;
+                                const verifySetting: ContactVerifySettingData = data.body.setting;
                                 own.setSetting(verifySetting, questionList);
                             }
                         }
@@ -148,7 +148,7 @@
             contactController.getContactAddVerifySetting(userId, back);
         }
 
-        private setSetting(verifySetting: ContactAddVerifySetting, questionList: ContactVerifyQuestion[]) {
+        private setSetting(verifySetting: ContactVerifySettingData, questionList: ContactVerifyQuestion[]) {
 
             if (verifySetting) {
                 this.verifyType = verifySetting.verifyType;

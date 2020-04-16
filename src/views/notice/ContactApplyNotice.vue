@@ -85,11 +85,12 @@
     import Page from '@/app/com/data/common/Page';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/component/common/Prompt';
-    import ContactAddApplyDetail from '@/app/com/data/ContactAddApplyDetail';
+    import ContactAddApplyEntityCase from '@/app/com/data/ContactAddApplyEntityCase';
     import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
     import User from '@/app/com/bean/User';
     import ContactAddHandleData from '@/app/com/data/ContactAddHandleData';
     import ContactAddApplyQuery from '@/app/com/data/ContactAddApplyQuery';
+    import ContactAddApplyController from '@/app/com/main/controller/ContactAddApplyController';
 
     @Component({
         components: {
@@ -98,7 +99,7 @@
     })
     export default class ContactApplyNotice extends Vue {
 
-        private list: ContactAddApplyDetail[] = [];
+        private list: ContactAddApplyEntityCase[] = [];
         private page: Page = new Page();
 
         public mounted() {
@@ -130,36 +131,18 @@
 
         private loadList(): void {
             const own = this;
-            const back: DataBackAction = {
-                back(data: any): void {
-                    if (data) {
-                        const info = data.info;
-                        if (info) {
-                            if (info.success && data.body) {
-                                const list: ContactAddApplyDetail[] = data.body.items;
-                                const p: Page = data.body.page;
-                                own.setList(list, p);
-                            }
-                        }
-                    }
-                },
-                lost(data: any): void {
-                    Prompt.notice('请求失败！');
-                },
-                timeOut(data: any): void {
-                    Prompt.notice('请求超时！');
-                },
-            } as DataBackAction;
-
-
             const query: ContactAddApplyQuery = new ContactAddApplyQuery();
             const page: Page = this.page;
             query.handleType = ContactAddApply.HANDLE_TYPE_UNTREATED;
-            const contactController: ContactController = app.appContext.getMaterial(ContactController);
-            contactController.getApplyList(query, page, back);
+
+            const controller: ContactAddApplyController = app.appContext.getMaterial(ContactAddApplyController);
+            controller.queryApplyDataReceiveList(query, page, (p, items) => {
+                own.setList(items, p);
+            });
+
         }
 
-        private setList(list: ContactAddApplyDetail[], page: Page) {
+        private setList(list: ContactAddApplyEntityCase[], page: Page) {
             if (!list) {
                 list = [];
             }

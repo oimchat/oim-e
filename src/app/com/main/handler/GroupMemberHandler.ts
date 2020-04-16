@@ -16,7 +16,7 @@ export default class GroupMemberHandler extends AbstractMaterial {
                 own.loadOwnerGroupMemberListByCount(count);
             }
         });
-        sender.getGroupMemberCount(userId, dataBack);
+        sender.getOwnerGroupMemberCountByUserId(userId, dataBack);
     }
 
     public loadOwnerGroupMemberListByCount(count: number): void {

@@ -5,19 +5,14 @@ import GroupMemberSender from '@/app/com/main/sender/GroupMemberSender';
 export default class GroupMemberController extends AbstractMaterial {
 
 
-    public getGroupMemberList(groupId: string, back?: DataBackAction, parallel?: boolean): void {
-        const sender: GroupMemberSender = this.appContext.getMaterial(GroupMemberSender);
-        sender.getGroupMemberList(groupId, back, parallel);
-    }
+    // public getGroupMemberList(groupId: string, back?: DataBackAction, parallel?: boolean): void {
+    //     const sender: GroupMemberSender = this.appContext.getMaterial(GroupMemberSender);
+    //     sender.getGroupMemberList(groupId, back, parallel);
+    // }
 
     public getGroupMember(groupId: string, userId: string, back?: DataBackAction, parallel?: boolean): void {
         const sender: GroupMemberSender = this.appContext.getMaterial(GroupMemberSender);
         sender.getGroupMember(groupId, userId, back, parallel);
-    }
-
-    public getGroupMemberUserList(groupId: string, back?: DataBackAction, parallel?: boolean): void {
-        const sender: GroupMemberSender = this.appContext.getMaterial(GroupMemberSender);
-        sender.getGroupMemberUserList(groupId, back, parallel);
     }
 
     public updateNickname(groupId: string, userId: string, nickname: string, back?: DataBackAction, parallel?: boolean): void {

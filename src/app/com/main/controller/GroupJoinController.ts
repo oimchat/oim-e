@@ -6,17 +6,17 @@ import GroupJoinApplyData from '@/app/com/data/GroupJoinApplyData';
 import GroupJoinVerifyAnswer from '@/app/com/bean/GroupJoinVerifyAnswer';
 import GroupJoinSender from '@/app/com/main/sender/GroupJoinSender';
 import GroupJoinApplyQuery from '@/app/com/data/GroupJoinApplyQuery';
+import GroupJoinApplyService from '@/app/com/main/service/GroupJoinApplyService';
+import GroupJoinApplyEntityCase from '@/app/com/data/GroupJoinApplyEntityCase';
 
 export default class GroupJoinController extends AbstractMaterial {
 
-    public getJoinApplyCount(query: GroupJoinApplyQuery, back?: DataBackAction, parallel?: boolean): void {
-        const groupJoinSender: GroupJoinSender = this.appContext.getMaterial(GroupJoinSender);
-        groupJoinSender.getJoinApplyCount(query, back, parallel);
-    }
 
-    public getJoinApplyList(query: GroupJoinApplyQuery, page: Page, back?: DataBackAction, parallel?: boolean): void {
-        const groupJoinSender: GroupJoinSender = this.appContext.getMaterial(GroupJoinSender);
-        groupJoinSender.getJoinApplyList(query, page, back, parallel);
+    public queryApplyDataReceiveList(query: GroupJoinApplyQuery,
+                                     page: Page,
+                                     back: (p: Page, applicants: GroupJoinApplyEntityCase[]) => void): void {
+        const service: GroupJoinApplyService = this.appContext.getMaterial(GroupJoinApplyService);
+        service.queryApplyDataReceiveList(query, page, back);
     }
 
     public joinHandle(handle: GroupJoinHandleData, back?: DataBackAction, parallel?: boolean): void {

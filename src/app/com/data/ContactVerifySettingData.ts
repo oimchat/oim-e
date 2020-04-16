@@ -1,4 +1,4 @@
-export default class ContactAddVerifySetting {
+export default class ContactVerifySettingData {
     public userId: string = '';
     /**
      * 1：允许任何人添加 <br>

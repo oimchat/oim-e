@@ -17,21 +17,11 @@ export default class ContactController extends AbstractMaterial {
 
     public sendAddRequest(apply: ContactAddApplyData, answerList: ContactVerifyAnswer[], back?: DataBackAction, parallel?: boolean): void {
         const contactSender: ContactSender = this.appContext.getMaterial(ContactSender);
-        contactSender.sendAddRequest(apply, answerList, back, parallel);
-    }
-
-    public getApplyCount(query: ContactAddApplyQuery, back?: DataBackAction): void {
-        const contactSender: ContactSender = this.appContext.getMaterial(ContactSender);
-        contactSender.getApplyCount(query, back);
-    }
-
-    public getApplyList(query: ContactAddApplyQuery, page: Page, back?: DataBackAction): void {
-        const contactSender: ContactSender = this.appContext.getMaterial(ContactSender);
-        contactSender.getApplyList(query, page, back);
+        contactSender.sendAddApply(apply, answerList, back, parallel);
     }
 
     public sendAddResponse(handle: ContactAddHandleData, back?: DataBackAction): void {
         const contactSender: ContactSender = this.appContext.getMaterial(ContactSender);
-        contactSender.sendAddResponse(handle, back);
+        contactSender.applyHandle(handle, back);
     }
 }

@@ -23,7 +23,7 @@ export default class GroupCategoryAction extends AbstractMaterial {
     @MethodMapping(GroupCategoryAction, GroupCategoryAction.action, '1.2.0001')
     public add(data: any): void {
         if (data && data.body) {
-            const categoryId: string = data.body.categoryId;
+            const categoryId: string = data.body.id;
             if (categoryId) {
                 const ccs: GroupCategoryService = this.appContext.getMaterial(GroupCategoryService);
                 ccs.addById(categoryId);
@@ -34,7 +34,7 @@ export default class GroupCategoryAction extends AbstractMaterial {
     @MethodMapping(GroupCategoryAction, GroupCategoryAction.action, '1.2.0003')
     public updateName(data: any): void {
         if (data && data.body) {
-            const categoryId: string = data.body.categoryId;
+            const categoryId: string = data.body.id;
             const name: string = data.body.name;
             if (categoryId) {
                 const ccs: GroupCategoryService = this.appContext.getMaterial(GroupCategoryService);
@@ -52,7 +52,7 @@ export default class GroupCategoryAction extends AbstractMaterial {
     @MethodMapping(GroupCategoryAction, GroupCategoryAction.action, '1.2.0005')
     public delete(data: any): void {
         if (data && data.body) {
-            const categoryId: string = data.body.categoryId;
+            const categoryId: string = data.body.id;
             if (categoryId) {
                 const ccs: GroupCategoryService = this.appContext.getMaterial(GroupCategoryService);
                 ccs.delete(categoryId);

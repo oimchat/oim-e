@@ -11,14 +11,14 @@ export default class GroupJoinSender extends AbstractMaterial {
 
     private action: string = '1.3.007';
 
-    public getJoinApplyCount(query: GroupJoinApplyQuery, back?: DataBackAction, parallel?: boolean): void {
+    public queryJoinApplyReceiveCount(query: GroupJoinApplyQuery, back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0001');
         m.body = {};
         m.body.query = query;
         this.appContext.netServer.send(m, back, parallel);
     }
 
-    public getJoinApplyList(query: GroupJoinApplyQuery, page: Page, back?: DataBackAction, parallel?: boolean): void {
+    public queryJoinApplyReceiveList(query: GroupJoinApplyQuery, page: Page, back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0002');
         m.body = {};
         m.body.page = page;
@@ -26,7 +26,7 @@ export default class GroupJoinSender extends AbstractMaterial {
         this.appContext.netServer.send(m, back, parallel);
     }
 
-    public getJoinApplyDataList(query: GroupJoinApplyQuery, page: Page, back?: DataBackAction, parallel?: boolean): void {
+    public queryJoinApplyDataReceiveList(query: GroupJoinApplyQuery, page: Page, back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0003');
         m.body = {};
         m.body.page = page;

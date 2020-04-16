@@ -92,7 +92,7 @@
     import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
     import User from '@/app/com/bean/User';
     import GroupJoinHandleData from '@/app/com/data/GroupJoinHandleData';
-    import GroupJoinApplyDetail from '@/app/com/data/GroupJoinApplyDetail';
+    import GroupJoinApplyEntityCase from '@/app/com/data/GroupJoinApplyEntityCase';
     import GroupJoinApplyQuery from '@/app/com/data/GroupJoinApplyQuery';
     import GroupInviteController from '@/app/com/main/controller/GroupInviteController';
     import GroupInviteApplyQuery from '@/app/com/data/GroupInviteApplyQuery';
@@ -103,6 +103,7 @@
     import GroupInfoUtil from '@/app/com/main/util/GroupInfoUtil';
     import GroupInviteeApplyQuery from '@/app/com/data/GroupInviteeApplyQuery';
     import GroupInviteeHandleData from '@/app/com/data/GroupInviteeHandleData';
+    import GroupInviteeController from '@/app/com/main/controller/GroupInviteeController';
 
     @Component({
         components: {},
@@ -141,32 +142,13 @@
 
         private loadList(): void {
             const own = this;
-            const back: DataBackAction = {
-                back(data: any): void {
-                    if (data) {
-                        const info = data.info;
-                        if (info) {
-                            if (info.success && data.body) {
-                                const list: any[] = data.body.items;
-                                const p: Page = data.body.page;
-                                own.setList(list, p);
-                            }
-                        }
-                    }
-                },
-                lost(data: any): void {
-                    Prompt.notice('请求失败！');
-                },
-                timeOut(data: any): void {
-                    Prompt.notice('请求超时！');
-                },
-            } as DataBackAction;
-
             const page: Page = this.page;
             const query: GroupInviteeApplyQuery = new GroupInviteeApplyQuery();
             query.inviteeHandleType = GroupInviteApply.INVITEE_HANDLE_TYPE_UNTREATED;
-            const groupInviteController: GroupInviteController = app.appContext.getMaterial(GroupInviteController);
-            groupInviteController.getInviteeList(query, page, back);
+            const controller: GroupInviteeController = app.appContext.getMaterial(GroupInviteeController);
+            controller.queryInviteeDataList(query, page, (p, items) => {
+                own.setList(items, p);
+            });
         }
 
         private setList(list: any[], page: Page) {
@@ -224,10 +206,10 @@
             } as DataBackAction;
 
             const handle: GroupInviteeHandleData = new GroupInviteeHandleData();
-            const groupInviteController: GroupInviteController = app.appContext.getMaterial(GroupInviteController);
+            const controller: GroupInviteeController = app.appContext.getMaterial(GroupInviteeController);
             handle.inviteeHandleType = handleType;
             handle.applyIds.push(apply.id);
-            groupInviteController.inviteeHandle(handle, back);
+            controller.inviteeHandle(handle, back);
         }
     }
 

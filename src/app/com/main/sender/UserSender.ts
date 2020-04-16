@@ -8,10 +8,10 @@ export default class UserSender extends AbstractMaterial {
 
     private action: string = '1.1.003';
 
-    public queryUserList(userQuery: UserQuery, page: Page, back?: DataBackAction, parallel?: boolean): void {
+    public queryUserList(query: UserQuery, page: Page, back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0001');
         m.body = {};
-        m.body.query = userQuery;
+        m.body.query = query;
         m.body.page = page;
         this.appContext.netServer.send(m, back, parallel);
     }

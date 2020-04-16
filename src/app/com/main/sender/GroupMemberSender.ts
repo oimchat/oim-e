@@ -50,7 +50,7 @@ export default class GroupMemberSender extends AbstractMaterial {
     }
 
 
-    public getGroupMemberList(groupId: string, back?: DataBackAction, parallel?: boolean): void {
+    public getGroupMemberList(groupId: string, page: Page, back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0004');
         m.body = {
             query: {
@@ -58,14 +58,15 @@ export default class GroupMemberSender extends AbstractMaterial {
             },
         };
         m.body.query.groupId = groupId;
+        m.body.page = page;
         this.appContext.netServer.send(m, back, parallel);
     }
 
 
-    public getGroupMemberUserList(groupId: string, back?: DataBackAction, parallel?: boolean): void {
-        const m = Message.build(this.action, '1.1.0006');
+    public getGroupMemberById(id: string, back?: DataBackAction, parallel?: boolean): void {
+        const m = Message.build(this.action, '1.1.0005');
         m.body = {};
-        m.body.groupId = groupId;
+        m.body.id = id;
         this.appContext.netServer.send(m, back, parallel);
     }
 
