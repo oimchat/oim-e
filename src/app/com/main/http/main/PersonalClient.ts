@@ -33,7 +33,7 @@ export default class PersonalClient extends AbstractMaterial {
             message.info = info;
             back(message);
         } else {
-            http.post(address.address + '/v1/api', m, back, true);
+            http.post(address.address + '/main/api', m, back, true);
         }
     }
 }

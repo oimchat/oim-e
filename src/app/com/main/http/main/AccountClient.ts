@@ -145,7 +145,7 @@ export default class AccountClient extends AbstractMaterial {
                 this.appContext.prompt('服务器不可用！', '错误', PromptHandlerType.error);
             }
         } else {
-            http.post(address.address + '', m, back, true);
+            http.post(address.address + '/main/api', m, back, true);
         }
     }
 }

@@ -4,7 +4,7 @@ import GroupChatService from '@/app/com/main/service/GroupChatService';
 import Content from '@/app/com/data/chat/content/Content';
 
 export default class GroupChatAction extends AbstractMaterial {
-    private static action: string = '1.3.102';
+    private static action: string = '1.8.003';
 
     @MethodMapping(GroupChatAction, GroupChatAction.action, '1.2.0001')
     public update(data: any): void {

@@ -7,7 +7,7 @@ import ChatQuery from '@/app/com/data/chat/ChatQuery';
 
 export default class UserChatSender extends AbstractMaterial {
 
-    private action: string = '1.3.101';
+    private action: string = '1.8.002';
 
     public userChat(sendUserId: string, receiveUserId: string, content: Content, back?: DataBackAction): void {
         const m = Message.build(this.action, '1.1.0001');
