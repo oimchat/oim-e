@@ -120,7 +120,7 @@ export default class ContentUtil {
         const FILE_SERVER_HTTP_URL = '';
 
 
-        let text = '[不支持的消息]';
+        let text = '[不支持的消息,请升级到最新版本！]';
 
         if ('text' === type) {
             text = ContentUtil.htmlEncode(value);

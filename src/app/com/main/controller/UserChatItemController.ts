@@ -5,7 +5,7 @@ import Page from '@/app/com/data/common/Page';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import UserChatItemService from '@/app/com/main/service/UserChatItemService';
 import UserChatInfoService from '@/app/com/main/service/UserChatInfoService';
-import UserChatItemEvent from '@/app/com/main/function/UserChatItemEvent';
+import UserChatItemEvent from '@/app/com/main/event/UserChatItemEvent';
 
 
 export default class UserChatItemController extends AbstractMaterial {

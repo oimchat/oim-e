@@ -6,9 +6,16 @@ export default class AbstractMessageUnreadBox extends AbstractMaterial {
     private totalUnreadCount: number = 0;
 
     public plusUnread(key: string): void {
-        let count: number = this.getOrDefault(this.map, key, 0); // 获取聊天对象未读消息数量
-        count++;
-        this.map.set(key, count);
+        this.plusUnreadCount(key, 1);
+    }
+
+    public plusUnreadCount(key: string, unreadCount: number): void {
+        if (unreadCount < 0) {
+            unreadCount = 0;
+        }
+        const count: number = this.getOrDefault(this.map, key, 0); // 获取聊天对象未读消息数量
+        const allCount = count + unreadCount;
+        this.map.set(key, allCount);
     }
 
     public setUnreadCount(key: string, count: number) {

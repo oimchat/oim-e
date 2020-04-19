@@ -3,14 +3,14 @@ import User from '@/app/com/bean/User';
 import ViewEnum from '@/app/com/main/view/ViewEnum';
 import Content from '@/app/com/data/chat/content/Content';
 import UserChatView from '@/app/com/main/view/UserChatView';
-import UserChatSender from '@/app/com/main/sender/UserChatSender';
 import PersonalBox from '@/app/com/main/box/PersonalBox';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
-import ChatQuery from '@/app/com/data/chat/ChatQuery';
 import Page from '@/app/com/data/common/Page';
-import UserChatHistory from '@/app/com/data/chat/UserChatHistory';
 import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
+import UserChatDataSender from '@/app/com/main/sender/UserChatDataSender';
+import UserChatData from '@/app/com/data/chat/UserChatData';
+import DirectionEnum from '@/app/com/data/chat/type/DirectionEnum';
 
 export default class UserChatManager extends AbstractMaterial {
 
@@ -32,15 +32,15 @@ export default class UserChatManager extends AbstractMaterial {
     public loadHistory(userId: string, startMessageKey: string, count: number) {
         const own = this;
         const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
-        const userChatSender: UserChatSender = this.appContext.getMaterial(UserChatSender);
+        const userChatSender: UserChatDataSender = this.appContext.getMaterial(UserChatDataSender);
 
         const back: DataBackAction = {
             back(data: any): void {
                 if (data) {
                     const info = data.info;
                     if (info && info.success) {
-                        const contents: UserChatHistory[] = data.body.contents as UserChatHistory[];
-                        own.setHistory(contents);
+                        const items: UserChatData[] = data.body.items;
+                        own.setHistory(items);
                     }
                 }
             },
@@ -51,14 +51,13 @@ export default class UserChatManager extends AbstractMaterial {
                 // no
             },
         } as AbstractDataBackAction;
-        const chatQuery = new ChatQuery();
         const page = new Page();
         // userChatSender.queryList(userId, pb.getUserId(), chatQuery, page, back);
-        const direction = 'history';
-        userChatSender.getListByMessageKey(userId, pb.getUserId(), startMessageKey, direction, count, back);
+        const direction = DirectionEnum.before;
+        userChatSender.getListByStartMessageKey(userId, pb.getUserId(), startMessageKey, direction, count, back);
     }
 
-    public setHistory(contents: UserChatHistory[]) {
+    public setHistory(contents: UserChatData[]) {
         if (contents) {
             // contents.sort((a: UserChatHistory, b: UserChatHistory) => {
             //     return 0;
@@ -70,8 +69,8 @@ export default class UserChatManager extends AbstractMaterial {
             const length = contents.length;
             for (let i = length - 1; i >= 0; i--) {
                 const data = contents[i];
-                const messageKey: string = data.messageKey;
-                const contentId: string = data.contentId;
+                // const messageKey: string = data.messageKey;
+                // const contentId: string = data.contentId;
                 const content: Content = data.content;
                 const receiveUser: User = data.receiveUser;
                 const sendUser: User = data.sendUser;

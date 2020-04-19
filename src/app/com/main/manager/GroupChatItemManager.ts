@@ -7,7 +7,7 @@ import BaseUtil from '@/app/lib/util/BaseUtil';
 import GroupInfoUtil from '@/app/com/main/util/GroupInfoUtil';
 import GroupListBox from '@/app/com/main/box/GroupListBox';
 import GroupBox from '@/app/com/main/box/GroupBox';
-import GroupChatItemEvent from '@/app/com/main/function/GroupChatItemEvent';
+import GroupChatItemEvent from '@/app/com/main/event/GroupChatItemEvent';
 
 export default class GroupChatItemManager extends AbstractMaterial {
     private type = 'group_chat';

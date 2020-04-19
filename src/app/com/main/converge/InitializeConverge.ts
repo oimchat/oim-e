@@ -13,10 +13,16 @@ import SystemInformType from '@/app/com/main/data/SystemInformType';
 import ContactAddApplyQuery from '@/app/com/data/ContactAddApplyQuery';
 import ContactAddApply from '@/app/com/bean/ContactAddApply';
 import ContactSender from '@/app/com/main/sender/ContactSender';
-import UserLastChatService from '@/app/com/main/service/UserLastChatService';
-import GroupLastChatService from '@/app/com/main/service/GroupLastChatService';
+import RecentChatService from '@/app/com/main/service/RecentChatService';
+import AppService from '@/app/com/main/service/AppService';
+import UserChatUnreadService from '@/app/com/main/service/UserChatUnreadService';
 
-export default class InitializeFunction extends AbstractMaterial {
+export default class InitializeConverge extends AbstractMaterial {
+
+    public initializeApp() {
+        const appService: AppService = this.appContext.getMaterial(AppService);
+        appService.initializeApp();
+    }
 
     public loadSystemInformation() {
         const systemInformationService: SystemInformationService = this.appContext.getMaterial(SystemInformationService);
@@ -111,9 +117,12 @@ export default class InitializeFunction extends AbstractMaterial {
     }
 
     public loadLastList() {
-        const userLastChatService: UserLastChatService = this.appContext.getMaterial(UserLastChatService);
-        const groupLastChatService: GroupLastChatService = this.appContext.getMaterial(GroupLastChatService);
-        userLastChatService.loadLastChatWithContentList(10);
-        groupLastChatService.loadLastChatWithContentList(10);
+        const recentChatService: RecentChatService = this.appContext.getMaterial(RecentChatService);
+        recentChatService.loadListByCount(20);
+    }
+
+    public loadUnreadList() {
+        const userChatUnreadService: UserChatUnreadService = this.appContext.getMaterial(UserChatUnreadService);
+        userChatUnreadService.loadAllList();
     }
 }

@@ -48,6 +48,7 @@
     import Section from '@/app/com/data/chat/content/Section';
     import Item from '@/app/com/data/chat/content/Item';
     import FileValue from '@/app/com/data/chat/content/item/FileValue';
+    import UserChatDataController from '@/app/com/main/controller/UserChatDataController';
 
     @Component({
         components: {
@@ -285,7 +286,7 @@
                 messageKey = this.messageInfo.list[0].key;
                 const length = this.messageInfo.list.length;
                 if (length < 500) {
-                    const userChatController: UserChatController = app.appContext.getMaterial(UserChatController);
+                    const userChatController: UserChatDataController = app.appContext.getMaterial(UserChatDataController);
                     userChatController.loadHistory(userId, messageKey, 20);
                 } else {
                     this.messageInfo.prompt = '更多内容请看历史记录。';

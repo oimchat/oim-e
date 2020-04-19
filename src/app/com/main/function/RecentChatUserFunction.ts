@@ -1,52 +1,18 @@
 import AbstractMaterial from '@/app/base/AbstractMaterial';
 import User from '@/app/com/bean/User';
 import UserBox from '@/app/com/main/box/UserBox';
-import ViewEnum from '@/app/com/main/view/ViewEnum';
-import UserChatView from '@/app/com/main/view/UserChatView';
-import MessageAreaView from '@/app/com/main/view/MessageAreaView';
-import UserChatManager from '@/app/com/main/manager/UserChatManager';
 import Content from '@/app/com/data/chat/content/Content';
 import PersonalBox from '@/app/com/main/box/PersonalBox';
-import DataBackAction from '@/app/base/net/DataBackAction';
-import UserSender from '@/app/com/main/sender/UserSender';
-import UserChatService from '@/app/com/main/service/UserChatService';
-import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
-import LastChatUser from '@/app/com/data/chat/LastChatUser';
-import UserChatInfoService from '@/app/com/main/service/UserChatInfoService';
-import UserChatItemService from '@/app/com/main/service/UserChatItemService';
-import UserChatSender from '@/app/com/main/sender/UserChatSender';
 import UserChatItemManager from '@/app/com/main/manager/UserChatItemManager';
 import UserChatInfoManager from '@/app/com/main/manager/UserChatInfoManager';
-import UserChatItemEvent from '@/app/com/main/function/UserChatItemEvent';
 import CoreContentUtil from '@/app/com/main/util/CoreContentUtil';
+import UserChatData from '@/app/com/data/chat/UserChatData';
 
 
-export default class UserLastChatService extends AbstractMaterial {
+export default class RecentChatUserFunction extends AbstractMaterial {
 
-    public loadLastChatWithContentList(count: number) {
 
-        const own = this;
-        const userChatSender: UserChatSender = this.appContext.getMaterial(UserChatSender);
-
-        const dataBack: DataBackAction = {
-            back(data: any): void {
-                if (data && data.body) {
-                    const list = data.body.items;
-                    own.setLastChatUserList(list);
-                }
-            },
-            timeOut(data: any): void {
-                // no
-            },
-            lost(data: any): void {
-                // no
-            },
-        } as AbstractDataBackAction;
-
-        userChatSender.getLastChatWithContentList(10, dataBack);
-    }
-
-    private setLastChatUserList(list: LastChatUser[]) {
+    public setRecentChatList(list: UserChatData[]) {
         if (list) {
             const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
             const ownUserId = pb.getUserId();
@@ -57,8 +23,8 @@ export default class UserLastChatService extends AbstractMaterial {
             const userBox: UserBox = this.appContext.getMaterial(UserBox);
 
             for (const data of list) {
-                const messageKey: string = data.messageKey;
-                const contentId: string = data.contentId;
+                // const messageKey: string = data.messageKey;
+                // const contentId: string = data.contentId;
                 const content: Content = data.content;
                 const receiveUser: User = data.receiveUser;
                 const sendUser: User = data.sendUser;

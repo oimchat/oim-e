@@ -11,6 +11,9 @@ import UserChatViewImpl from '@/impl/view/UserChatViewImpl';
 import MessageListViewImpl from '@/impl/view/MessageListViewImpl';
 import GroupChatViewImpl from '@/impl/view/GroupChatViewImpl';
 import GroupMemberListViewImpl from '@/impl/view/GroupMemberListViewImpl';
+import AllMessageUnreadBox from '@/app/com/main/box/AllMessageUnreadBox';
+import DataChange from '@/app/base/event/DataChange';
+import systemTrayBlinkDetection from '@/platform/SystemTrayBlinkDetection';
 
 class AppInitialize {
 
@@ -21,6 +24,7 @@ class AppInitialize {
     public initialize(): void {
         this.initializeConfig();
         this.initializeView();
+        this.initializeUnread();
     }
 
     private initializeView(): void {
@@ -36,6 +40,21 @@ class AppInitialize {
     private initializeConfig() {
         const osName = Platform.getName();
         AppInfo.APP_PLATFORM = osName;
+    }
+
+    private initializeUnread() {
+        // tslint:disable-next-line:max-classes-per-file new-parens
+        const change: DataChange<number> = new class implements DataChange<number> {
+            public change(count: number): void {
+                if (count > 0) {
+                    systemTrayBlinkDetection.setBlink(true);
+                } else {
+                    systemTrayBlinkDetection.setBlink(false);
+                }
+            }
+        };
+        const allMessageUnreadBox: AllMessageUnreadBox = app.appContext.getMaterial(AllMessageUnreadBox);
+        allMessageUnreadBox.addChangeEvent(change);
     }
 }
 

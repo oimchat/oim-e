@@ -7,7 +7,7 @@ import BaseUtil from '@/app/lib/util/BaseUtil';
 import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
 import ContactListBox from '@/app/com/main/box/ContactListBox';
 import UserBox from '@/app/com/main/box/UserBox';
-import UserChatItemEvent from '@/app/com/main/function/UserChatItemEvent';
+import UserChatItemEvent from '@/app/com/main/event/UserChatItemEvent';
 
 export default class UserChatItemManager extends AbstractMaterial {
     private type = 'user_chat';

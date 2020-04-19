@@ -31,9 +31,6 @@
     import ContentData from './ContentData';
     import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
     import app from '@/app/App';
-    import ContactService from '@/app/com/main/service/ContactService';
-    import Section from '@/app/com/data/chat/content/Section';
-    import Item from '@/app/com/data/chat/content/Item';
     import ContentUtil from '@/impl/util/ContentUtil';
     import FileDownload from '@/app/com/main/component/FileDownload';
 

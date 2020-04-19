@@ -8,15 +8,5 @@ export default class GroupBusinessAction extends AbstractMaterial {
 
     private static action: string = '1.3.005';
 
-    @MethodMapping(GroupBusinessAction, GroupBusinessAction.action, '1.1.0002')
-    public setList(data: any): void {
-        if (data && data.body) {
-            const list: Group[] = data.body.items;
-            if (list) {
-                const ccs: GroupBusinessService = this.appContext.getMaterial(GroupBusinessService);
-                ccs.setList(list);
-            }
-        }
-    }
 }
 

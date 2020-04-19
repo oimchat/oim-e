@@ -5,6 +5,10 @@ export default class Content {
     /**
      * 聊天消息的id
      */
+    public id: string = '';
+    /**
+     * 聊天消息的key
+     */
     public key: string = '';
     /**
      * 字体信息

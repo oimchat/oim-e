@@ -90,6 +90,7 @@
     import PersonalGroupMemberListBox from '@/app/com/main/box/PersonalGroupMemberListBox';
     import GroupMemberService from '@/app/com/main/service/GroupMemberService';
     import DocumentUtil from '@/app/common/util/DocumentUtil';
+    import GroupChatDataController from '@/app/com/main/controller/GroupChatDataController';
 
     @Component({
         components: {
@@ -347,7 +348,7 @@
                 messageKey = this.messageInfo.list[0].key;
                 const length = this.messageInfo.list.length;
                 if (length < 500) {
-                    const groupChatController: GroupChatController = app.appContext.getMaterial(GroupChatController);
+                    const groupChatController: GroupChatDataController = app.appContext.getMaterial(GroupChatDataController);
                     groupChatController.loadHistory(groupId, messageKey, 20);
                 } else {
                     this.messageInfo.prompt = '更多内容请看历史记录。';

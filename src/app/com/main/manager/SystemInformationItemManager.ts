@@ -1,7 +1,7 @@
 import AbstractMaterial from '@/app/base/AbstractMaterial';
 import ViewEnum from '@/app/com/main/view/ViewEnum';
 import MessageListView from '@/app/com/main/view/MessageListView';
-import SystemInformationItemEvent from '@/app/com/main/function/SystemInformationItemEvent';
+import SystemInformationItemEvent from '@/app/com/main/event/SystemInformationItemEvent';
 
 export default class SystemInformationItemManager extends AbstractMaterial {
     private type = 'system_information';

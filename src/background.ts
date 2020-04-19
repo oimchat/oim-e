@@ -10,6 +10,7 @@ import MainHandle from './platform/MainHandle';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
+app.allowRendererProcessReuse = true;
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win: BrowserWindow | null;

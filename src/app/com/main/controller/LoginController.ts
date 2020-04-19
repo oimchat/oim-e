@@ -1,43 +1,23 @@
 import {Md5} from 'md5-typescript';
 
 import AbstractMaterial from '@/app/base/AbstractMaterial';
-import AppContext from '@/app/base/AppContext';
-import serverClient from '@/app/com/main/http/api/ServerClient';
-import ServerData from '@/app/com/data/ServerData';
 import ServerService from '@/app/com/main/service/ServerService';
 import PersonalClient from '@/app/com/main/http/main/PersonalClient';
-import Prompt from '@/component/common/Prompt';
 import BaseUtil from '@/app/lib/util/BaseUtil';
-import Vue from 'vue/types/vue';
 import ConnectService from '@/app/com/main/service/ConnectService';
 import {Protocol, ServerType} from '@/app/common/config/constant/ServerConstant';
-import ServerAddress from '@/app/com/bean/ServerAddress';
 import auth from '@/app/common/auth/Auth';
 import SystemAuthManager from '@/app/com/main/manager/SystemAuthManager';
 import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import AppService from '@/app/com/main/service/AppService';
 import PersonalBox from '@/app/com/main/box/PersonalBox';
-import UserLastChatService from '@/app/com/main/service/UserLastChatService';
-import GroupLastChatService from '@/app/com/main/service/GroupLastChatService';
 import MessageListView from '@/app/com/main/view/MessageListView';
 import ViewEnum from '@/app/com/main/view/ViewEnum';
-import GroupJoinSender from '@/app/com/main/sender/GroupJoinSender';
-import ContactSender from '@/app/com/main/sender/ContactSender';
-import ContactAddApplyQuery from '@/app/com/data/ContactAddApplyQuery';
-import GroupJoinApplyQuery from '@/app/com/data/GroupJoinApplyQuery';
-import SystemInformationService from '@/app/com/main/service/SystemInformationService';
-import SystemInformType from '@/app/com/main/data/SystemInformType';
-import GroupJoinApply from '@/app/com/bean/GroupJoinApply';
-import ContactAddApply from '@/app/com/bean/ContactAddApply';
-import GroupInviteSender from '@/app/com/main/sender/GroupInviteSender';
-import GroupInviteApplyQuery from '@/app/com/data/GroupInviteApplyQuery';
-import GroupInviteeApplyQuery from '@/app/com/data/GroupInviteeApplyQuery';
-import GroupInviteApply from '@/app/com/bean/GroupInviteApply';
-import InitializeFunction from '@/app/com/main/function/InitializeFunction';
 import Client from '@/app/base/message/client/Client';
 import LoginData from '@/app/com/data/LoginData';
-import LoginUser from '@/app/com/data/LoginUser';
+import InitializeConverge from '@/app/com/main/converge/InitializeConverge';
+
 
 export default class LoginController extends AbstractMaterial {
 
@@ -153,15 +133,14 @@ export default class LoginController extends AbstractMaterial {
     }
 
     public initializeApp(): void {
-        const appService: AppService = this.appContext.getMaterial(AppService);
-        const initializeFunction: InitializeFunction = this.appContext.getMaterial(InitializeFunction);
+        const initializeConverge: InitializeConverge = this.appContext.getMaterial(InitializeConverge);
         const messageListView: MessageListView = this.appContext.getView(ViewEnum.MessageListView);
         messageListView.clear();
-
+        initializeConverge.initializeApp();
         setTimeout(() => {
-            appService.initializeApp();
-            initializeFunction.loadLastList();
-            initializeFunction.loadSystemInformation();
+            initializeConverge.loadLastList();
+            initializeConverge.loadUnreadList();
+            initializeConverge.loadSystemInformation();
         }, 1000);
     }
 
