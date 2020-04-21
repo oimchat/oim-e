@@ -6,6 +6,7 @@ import ImageValue from '@/app/com/data/chat/content/item/ImageValue';
 import FaceValue from '@/app/com/data/chat/content/item/FaceValue';
 import emojiImageBox from '@/app/lib/EmojiImageBox';
 import FileNameUtil from '@/app/common/util/FileNameUtil';
+import FileSeverApi from '@/app/com/main/constant/FileSeverApi';
 
 export default class ContentUtil {
 
@@ -143,7 +144,7 @@ export default class ContentUtil {
             if (!BaseUtil.isEmpty(value)) {
                 const json = ContentUtil.isJson(value);
                 if (json) {
-                    const imageServer = '/file/v1/image/download.do?id=';
+                    const imageServer = FileSeverApi.IMAGE_DOWNLOAD;
                     const imageData: any = BaseUtil.jsonToObject(value);
                     const url = imageData.url;
                     const id = imageData.id;
@@ -158,7 +159,7 @@ export default class ContentUtil {
                     } else {
                         const array = value.split(','); // b9b7c2b4-c611-481a-9e09-31ca06d1f026,jpg
                         if (array.length >= 2) {
-                            const imageServer = '/file/v1/image/download.do?id=';
+                            const imageServer = FileSeverApi.IMAGE_DOWNLOAD;
                             const id = array[0];
                             httpUrl = FILE_SERVER_HTTP_URL + imageServer + id;
                         } else {

@@ -44,7 +44,7 @@ export default class GroupChatService extends AbstractMaterial {
                 back(data: any): void {
                     if (data && data.body) {
 
-                        const user: User = data.body.user;
+                        const user: User = data.body;
                         if (null != user) {
                             ub.putUser(user);
                             const chatUser = (isOwn) ? ownUser : user;

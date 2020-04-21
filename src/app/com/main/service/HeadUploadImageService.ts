@@ -4,6 +4,7 @@ import UploadTool from '@/app/lib/upload/UploadTool';
 import {Protocol, ServerType} from '@/app/common/config/constant/ServerConstant';
 import {UploadOption} from '@/app/lib/upload/UploadOption';
 import UploadResult from '@/app/com/main/data/UploadResult';
+import FileSeverApi from '@/app/com/main/constant/FileSeverApi';
 
 export default class HeadUploadImageService extends AbstractMaterial {
 
@@ -17,7 +18,7 @@ export default class HeadUploadImageService extends AbstractMaterial {
             if (!address || !address.enabled) {
                 back(false, uploadResult, '没有可用的图片上传服务器！');
             } else {
-                const http = address.address + '/v1/head/user/upload';
+                const http = address.address + FileSeverApi.USER_HEAD_UPLOAD;
 
                 const o: UploadOption = new UploadOption((result: any, f: File | null) => {
 
@@ -48,7 +49,7 @@ export default class HeadUploadImageService extends AbstractMaterial {
             if (!address || !address.enabled) {
                 back(false, uploadResult, '没有可用的图片上传服务器！');
             } else {
-                const http = address.address + '/v1/head/group/upload';
+                const http = address.address + FileSeverApi.GROUP_HEAD_UPLOAD;
 
                 const o: UploadOption = new UploadOption((result: any, f: File | null) => {
 

@@ -77,8 +77,8 @@ export default class PersonalController extends AbstractMaterial {
         const hu: HeadUploadImageService = this.appContext.getMaterial(HeadUploadImageService);
         hu.uploadUserHead(file, (success: boolean, ur: UploadResult, message?: string) => {
             if (success) {
-                if (ur && ur.result && ur.result.body && ur.result.body.data) {
-                    const data = ur.result.body.data;
+                if (ur && ur.result && ur.result.body) {
+                    const data = ur.result.body;
                     const id = data.id;
                     const name = data.name;
                     const size = data.size;

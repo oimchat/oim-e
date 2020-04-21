@@ -54,6 +54,7 @@
     import {ServerType, Protocol} from '@/app/common/config/constant/ServerConstant';
     import ServerController from '@/app/com/main/controller/ServerController';
     import emojiImageBox from '@/app/lib/EmojiImageBox';
+    import FileSeverApi from '@/app/com/main/constant/FileSeverApi';
 
     @Component({
         components: {
@@ -146,8 +147,8 @@
                 this.uploadInfo.fileDisabled = true;
                 this.uploadInfo.imageDisabled = true;
             } else {
-                const fileHttp = address.address + '/v1/file/upload';
-                const imageHttp = address.address + '/v1/image/upload';
+                const fileHttp = address.address + FileSeverApi.FILE_UPLOAD;
+                const imageHttp = address.address + FileSeverApi.IMAGE_UPLOAD;
                 this.uploadInfo.fileDisabled = false;
                 this.uploadInfo.imageDisabled = false;
                 this.uploadInfo.fileAction = fileHttp;
@@ -244,10 +245,10 @@
                 }
             }
 
-            if (data && data.body && data.body.data) {
+            if (data && data.body) {
 
 
-                const imageData = data.body.data;
+                const imageData = data.body;
                 const id = imageData.id;
                 const name = imageData.name;
                 const size = imageData.size;

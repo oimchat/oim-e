@@ -10,5 +10,7 @@ export default class ContentData {
      * 0:发送中 1:发送成功 2:发送失败
      */
     public status: number = 0;
+    public showNameVisible: boolean = false;
+    public timeVisible: boolean = true;
     public content: Content = new Content();
 }

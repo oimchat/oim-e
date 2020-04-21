@@ -175,8 +175,8 @@
                                             if (iv) {
                                                 const key = iv.url;
                                                 const ur = rm.get(key);
-                                                if (ur && ur.result && ur.result.body && ur.result.body.data) {
-                                                    const data = ur.result.body.data;
+                                                if (ur && ur.result && ur.result.body) {
+                                                    const data = ur.result.body;
                                                     const id = data.id;
                                                     const name = data.name;
                                                     const size = data.size;
@@ -216,7 +216,7 @@
 
         private onSendFile(result: any, file: File) {
 
-            if (result && result.body && result.body.data) {
+            if (result && result.body) {
 
                 const content: Content = new Content();
                 const section: Section = new Section();
@@ -227,7 +227,7 @@
                 item.type = Item.TYPE_FILE;
 
 
-                const data = result.body.data;
+                const data = result.body;
                 const id = data.id;
                 const name = data.name;
                 const size = data.size;

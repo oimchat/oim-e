@@ -10,7 +10,7 @@ export default class TempAction extends AbstractMaterial {
     @MethodMapping(TempAction, TempAction.action, '')
     public setUserData(data: any): void {
         if (data && data.body) {
-            const user: User = data.body.user;
+            const user: User = data.body;
             if (user) {
                 const ps: PersonalService = this.appContext.getMaterial(PersonalService);
                 ps.setUser(user);

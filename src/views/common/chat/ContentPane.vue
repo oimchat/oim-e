@@ -3,7 +3,7 @@
         <div class="clear_fix">
             <div style="overflow: hidden;">
                 <div :class="data.isOwn?'message right':'message left'">
-                    <div class="message_system ">
+                    <div v-if="data.timeVisible" class="message_system ">
                         <div class="content">{{getTime}}</div>
                     </div>
                     <img class="avatar" :src="getAvatar" :title="getName">
@@ -11,9 +11,9 @@
                         <div :class="data.isOwn?'bubble bubble_primary right':'bubble bubble_default left'">
                             <div class="bubble_cont ">
                                 <div class="plain" @click="contentClick($event)">
-                                        <div v-html="getContent" style="padding: 0px">
-                                        </div>
-<!--                                    <img class="ico_loading ng-hide" src="" alt="">-->
+                                    <div v-html="getContent" style="padding: 0px">
+                                    </div>
+                                    <!--                                    <img class="ico_loading ng-hide" src="" alt="">-->
                                     <i v-if="data.isOwn && data.status===2" class="ico_fail oim_chat_message_fail"
                                        title="重新发送"></i>
                                 </div>

@@ -18,7 +18,7 @@ export default class ContentUploadImageService extends AbstractMaterial {
             if (!address || !address.enabled) {
                 back(false, resultMap, '没有可用的图片上传服务器！');
             } else {
-                const http = address.address + '/v1/image/upload';
+                const http = address.address + '/v1/picture/image/upload';
                 const keys = fileMap.keys();
 
                 for (const key of  keys) {

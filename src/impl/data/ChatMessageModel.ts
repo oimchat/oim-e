@@ -11,6 +11,7 @@ export default class ChatMessageModel {
         key: '',
         showPrompt: false,
         prompt: '',
+        lastTimestamp: 0,
         list: [] as ContentData[],
     };
 
@@ -96,6 +97,8 @@ export default class ChatMessageModel {
                 data.status = status;
             }
         } else {
+            const lastTimestamp = this.messageInfo.lastTimestamp;
+            const timestamp = content.timestamp;
 
             data = new ContentData();
             data.key = messageKey;
@@ -103,6 +106,9 @@ export default class ChatMessageModel {
             data.showName = showName;
             data.user = chatUser;
             data.isOwn = isOwn;
+            data.timeVisible = (timestamp - lastTimestamp > (1000 * 60 * 5));
+
+            this.messageInfo.lastTimestamp = content.timestamp;
 
             if (isOwn) {
                 const status: number = (isReceive) ? 1 : 0;

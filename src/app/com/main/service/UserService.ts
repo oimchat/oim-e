@@ -17,7 +17,7 @@ export default class UserService extends AbstractMaterial {
             const back: DataBackAction = {
                 back(data: any): void {
                     if (data && data.body) {
-                        const user: User = data.body.user;
+                        const user: User = data.body;
                         if (user) {
                             own.updateUser(user);
                         }

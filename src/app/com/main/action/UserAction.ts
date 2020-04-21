@@ -10,7 +10,7 @@ export default class UserAction extends AbstractMaterial {
     @MethodMapping(UserAction, UserAction.action, '1.2.0001')
     public update(data: any): void {
         if (data && data.body) {
-            const userId: string = data.body.userId;
+            const userId: string = data.body.id;
             if (userId) {
                 const userService: UserService = this.appContext.getMaterial(UserService);
                 userService.updateUserById(userId);
@@ -21,7 +21,7 @@ export default class UserAction extends AbstractMaterial {
     @MethodMapping(UserAction, UserAction.action, '1.2.0002')
     public updateHead(data: any): void {
         if (data && data.body) {
-            const userId: string = data.body.userId;
+            const userId: string = data.body.id;
             if (userId) {
                 const userService: UserService = this.appContext.getMaterial(UserService);
                 userService.updateUserById(userId);
@@ -32,7 +32,7 @@ export default class UserAction extends AbstractMaterial {
     @MethodMapping(UserAction, UserAction.action, '1.2.0003')
     public updateSignature(data: any): void {
         if (data && data.body) {
-            const userId: string = data.body.userId;
+            const userId: string = data.body.id;
             if (userId) {
                 const userService: UserService = this.appContext.getMaterial(UserService);
                 userService.updateUserById(userId);
@@ -43,7 +43,7 @@ export default class UserAction extends AbstractMaterial {
     @MethodMapping(UserAction, UserAction.action, '1.2.0004')
     public updateStatus(data: any): void {
         if (data && data.body) {
-            const userId: string = data.body.userId;
+            const userId: string = data.body.id;
             if (userId) {
                 const userService: UserService = this.appContext.getMaterial(UserService);
                 userService.updateUserById(userId);
