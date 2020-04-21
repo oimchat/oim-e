@@ -6,6 +6,8 @@ import UserMessageUnreadBox from '@/app/com/main/box/UserMessageUnreadBox';
 import AllMessageUnreadBox from '@/app/com/main/box/AllMessageUnreadBox';
 import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadManager';
 import UserChatManager from '@/app/com/main/manager/UserChatManager';
+import UserChatDataSender from '@/app/com/main/sender/UserChatDataSender';
+import PersonalBox from '@/app/com/main/box/PersonalBox';
 
 
 export default class UserChatInfoService extends AbstractMaterial {
@@ -31,30 +33,17 @@ export default class UserChatInfoService extends AbstractMaterial {
         userChatItemManager.setItemRed(userId, false, 0);
 
         userChatManager.firstLoadHistory(userId, '', 10);
+
+        const personalBox: PersonalBox = this.appContext.getMaterial(PersonalBox);
+        const receiveUserId = personalBox.getUserId();
+        const sendUserId = userId;
+        // 标记消息已读
+        const userChatDataSender: UserChatDataSender = this.appContext.getMaterial(UserChatDataSender);
+        userChatDataSender.updateToReadBySendUserId(receiveUserId, sendUserId);
     }
 
     public showUserChat(user: User) {
-        const userChatInfoManager: UserChatInfoManager = this.appContext.getMaterial(UserChatInfoManager);
-        userChatInfoManager.showUserChat(user);
-
         const userId = user.id;
-
-        const userChatManager: UserChatManager = this.appContext.getMaterial(UserChatManager);
-        const userChatItemManager: UserChatItemManager = this.appContext.getMaterial(UserChatItemManager);
-        const userMessageUnreadBox: UserMessageUnreadBox = this.appContext.getMaterial(UserMessageUnreadBox);
-        const allMessageUnreadBox: AllMessageUnreadBox = this.appContext.getMaterial(AllMessageUnreadBox);
-        const messageAllUnreadManager: MessageAllUnreadManager = this.appContext.getMaterial(MessageAllUnreadManager);
-
-        const unreadCount = userMessageUnreadBox.getUnreadCount(userId);
-        allMessageUnreadBox.minusUnread(unreadCount);
-
-        const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
-        const totalRed = totalUnreadCount > 0;
-        messageAllUnreadManager.setMessageItemRed(totalRed, totalUnreadCount);
-
-        userMessageUnreadBox.setUnreadCount(userId, 0);
-        userChatItemManager.setItemRed(userId, false, 0);
-
-        userChatManager.firstLoadHistory(userId, '', 10);
+        this.showUserChatById(userId);
     }
 }

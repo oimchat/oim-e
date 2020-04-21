@@ -8,8 +8,8 @@ export default class AllMessageUnreadBox extends AbstractMaterial {
 
     private changeEvents: Array<DataChange<number>> = [];
 
-    public plusUnread(count?: number): number {
-        if (count && count > 0) {
+    public plusUnread(count: number): number {
+        if (count >= 0) {
             this.totalUnreadCount = this.totalUnreadCount + count;
         } else {
             this.plusTotalUnread();
@@ -18,8 +18,8 @@ export default class AllMessageUnreadBox extends AbstractMaterial {
         return this.totalUnreadCount;
     }
 
-    public minusUnread(count?: number): number {
-        if (count && count > 0) {
+    public minusUnread(count: number): number {
+        if (count >= 0) {
             this.totalUnreadCount = this.totalUnreadCount - count;
         } else {
             this.minusTotalUnread();

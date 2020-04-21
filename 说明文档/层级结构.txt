@@ -1,8 +1,20 @@
+为了代码重用，将代理分成以下层次，原则上上层可以调用下次（可以跨层），而底层不能调用上层
+
 来自服务器推送处理逻辑
-Action->Service->
-                Manager->View
-                Handler->Sender
+Action->
+    Converge->
+        Service->
+            Function->
+                Manager->
+                    Handler->
+                        View
+                        Sender
 来自界面操作逻辑处理
-Controller->Service->
-                Manager->View
-                Handler->Sender
+Controller->
+    Converge
+        Service->
+            Function->
+                Manager->
+                    Handler->
+                        View
+                        Sender

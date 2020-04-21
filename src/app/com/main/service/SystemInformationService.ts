@@ -32,11 +32,11 @@ export default class SystemInformationService extends AbstractMaterial {
             if (count) {
                 for (let j = 0; j < count; j++) {
                     systemMessageUnreadBox.plusUnread(type);
-                    allMessageUnreadBox.plusUnread();
+                    allMessageUnreadBox.plusUnread(1);
                 }
             } else {
                 systemMessageUnreadBox.plusUnread(type);
-                allMessageUnreadBox.plusUnread();
+                allMessageUnreadBox.plusUnread(1);
             }
 
 

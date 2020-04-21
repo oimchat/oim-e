@@ -45,4 +45,22 @@ export default class UserChatUnreadFunction extends AbstractMaterial {
             messageAllUnreadManager.setMessageItemRed(totalRed, totalUnreadCount);
         }
     }
+
+    public read(userId: string) {
+
+        const userChatInfoManager: UserChatInfoManager = this.appContext.getMaterial(UserChatInfoManager);
+        const userChatItemManager: UserChatItemManager = this.appContext.getMaterial(UserChatItemManager);
+        const userMessageUnreadBox: UserMessageUnreadBox = this.appContext.getMaterial(UserMessageUnreadBox);
+        const allMessageUnreadBox: AllMessageUnreadBox = this.appContext.getMaterial(AllMessageUnreadBox);
+        const messageAllUnreadManager: MessageAllUnreadManager = this.appContext.getMaterial(MessageAllUnreadManager);
+
+        userMessageUnreadBox.setUnreadCount(userId, 0);
+
+        const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
+        const unreadCount = userMessageUnreadBox.getUnreadCount(userId);
+        const red = unreadCount > 0;
+        const totalRed = totalUnreadCount > 0;
+        userChatItemManager.setItemRed(userId, red, unreadCount);
+        messageAllUnreadManager.setMessageItemRed(totalRed, totalUnreadCount);
+    }
 }

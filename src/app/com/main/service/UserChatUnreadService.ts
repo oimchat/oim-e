@@ -5,6 +5,9 @@ import UserChatData from '@/app/com/data/chat/UserChatData';
 import UserChatUnread from '@/app/com/bean/UserChatUnread';
 import UserChatUnreadHandler from '@/app/com/main/handler/UserChatUnreadHandler';
 import UserChatUnreadFunction from '@/app/com/main/function/UserChatUnreadFunction';
+import Content from '@/app/com/data/chat/content/Content';
+import PersonalBox from '@/app/com/main/box/PersonalBox';
+import User from '@/app/com/bean/User';
 
 export default class UserChatUnreadService extends AbstractMaterial {
 
@@ -62,5 +65,25 @@ export default class UserChatUnreadService extends AbstractMaterial {
                 own.appContext.prompt('请求失败！');
             }
         }), false);
+    }
+
+    public readByUser(sendUserId: string, receiveUserId: string): void {
+        const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
+        const ownUserId = pb.getUserId();
+        const isOwn: boolean = sendUserId === ownUserId;
+        if (!isOwn) {
+            const unreadWork: UserChatUnreadFunction = this.appContext.getMaterial(UserChatUnreadFunction);
+            unreadWork.read(sendUserId);
+        }
+    }
+
+    public readByContent(sendUserId: string, receiveUserId: string, contentId: string): void {
+        const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
+        const ownUserId = pb.getUserId();
+        const isOwn: boolean = sendUserId === ownUserId;
+        if (!isOwn) {
+            const unreadWork: UserChatUnreadFunction = this.appContext.getMaterial(UserChatUnreadFunction);
+            unreadWork.read(sendUserId);
+        }
     }
 }

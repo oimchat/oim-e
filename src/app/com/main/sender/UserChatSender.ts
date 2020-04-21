@@ -15,4 +15,13 @@ export default class UserChatSender extends AbstractMaterial {
         m.body.content = content;
         this.appContext.netServer.send(m, back);
     }
+
+    public read(sendUserId: string, receiveUserId: string, contentId: string, back?: DataBackAction): void {
+        const m = Message.build(this.action, '1.1.0002');
+        m.body = {};
+        m.body.sendUserId = sendUserId;
+        m.body.receiveUserId = receiveUserId;
+        m.body.contentId = contentId;
+        this.appContext.netServer.send(m, back);
+    }
 }

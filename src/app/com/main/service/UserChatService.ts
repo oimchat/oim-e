@@ -14,6 +14,7 @@ import PromptManager from '@/app/com/main/manager/PromptManager';
 import SoundType from '@/app/com/main/component/SoundType';
 import AllMessageUnreadBox from '@/app/com/main/box/AllMessageUnreadBox';
 import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadManager';
+import UserChatDataSender from '@/app/com/main/sender/UserChatDataSender';
 
 
 export default class UserChatService extends AbstractMaterial {
@@ -43,7 +44,7 @@ export default class UserChatService extends AbstractMaterial {
                             ub.putUser(user);
                             const showUser = user;
                             const chatUser = (isOwn) ? ownUser : user;
-                            own.showChatMessage(isReceive, isOwn, showUser, chatUser, content);
+                            own.showChatMessage(isReceive, sendUserId, receiveUserId, isOwn, showUser, chatUser, content);
                         }
                     }
                 },
@@ -51,11 +52,18 @@ export default class UserChatService extends AbstractMaterial {
             const userSender: UserSender = this.appContext.getMaterial(UserSender);
             userSender.getUser(showUserId, dataBackAction);
         } else {
-            this.showChatMessage(isReceive, isOwn, showUserData, chatUserData, content);
+            this.showChatMessage(isReceive, sendUserId, receiveUserId, isOwn, showUserData, chatUserData, content);
         }
     }
 
-    public showChatMessage(isReceive: boolean, isOwn: boolean, showUser: User, chatUser: User, content: Content) {
+    public showChatMessage(
+        isReceive: boolean,
+        sendUserId: string,
+        receiveUserId: string,
+        isOwn: boolean,
+        showUser: User,
+        chatUser: User,
+        content: Content) {
         const userId = showUser.id;
         const ucm: UserChatManager = this.appContext.getMaterial(UserChatManager);
         ucm.chat(isReceive, isOwn, showUser, chatUser, content);
@@ -78,7 +86,7 @@ export default class UserChatService extends AbstractMaterial {
         const isTabShowing: boolean = messageAllUnreadManager.isMessageItemShowing();
         if ((!isChatShowing || !isTabShowing) && !isOwn) {
             userMessageUnreadBox.plusUnread(userId);
-            allMessageUnreadBox.plusUnread();
+            allMessageUnreadBox.plusUnread(1);
 
             const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
             const unreadCount = userMessageUnreadBox.getUnreadCount(userId);
@@ -90,6 +98,10 @@ export default class UserChatService extends AbstractMaterial {
             const promptManager: PromptManager = this.appContext.getMaterial(PromptManager);
             promptManager.playSound(SoundType.TYPE_MESSAGE);
             // promptManager.put()
+        } else if (!isOwn) {
+            const contentId = content.id;
+            const userChatDataSender: UserChatDataSender = this.appContext.getMaterial(UserChatDataSender);
+            userChatDataSender.updateToReadByContentId(receiveUserId, sendUserId, contentId);
         }
     }
 

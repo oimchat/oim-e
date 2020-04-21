@@ -68,10 +68,11 @@ export default class UserChatDataSender extends AbstractMaterial {
         this.appContext.netServer.send(m, back, parallel);
     }
 
-    public updateToReadByContentId(receiveUserId: string, contentId: string, back?: DataBackAction, parallel?: boolean): void {
+    public updateToReadByContentId(receiveUserId: string, sendUserId: string, contentId: string, back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0011');
         m.body = {};
         m.body.receiveUserId = receiveUserId;
+        m.body.sendUserId = sendUserId;
         m.body.contentId = contentId;
         this.appContext.netServer.send(m, back, parallel);
     }

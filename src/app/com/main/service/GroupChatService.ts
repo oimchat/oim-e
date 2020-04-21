@@ -83,7 +83,7 @@ export default class GroupChatService extends AbstractMaterial {
         const isTabShowing: boolean = messageAllUnreadManager.isMessageItemShowing();
         if ((!isChatShowing || !isTabShowing) && !isOwn) {
             groupMessageUnreadBox.plusUnread(groupId);
-            allMessageUnreadBox.plusUnread();
+            allMessageUnreadBox.plusUnread(1);
 
             const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
             const unreadCount = groupMessageUnreadBox.getUnreadCount(groupId);
