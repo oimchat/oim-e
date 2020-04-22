@@ -84,6 +84,17 @@
                 const writePane: any = this.$refs[writePaneName];
                 writePane.setInnerHTML(html);
             };
+            userChatViewModel.cacheData.updateScrollIntoView = (viewId: string) => {
+                // no
+                const messageListPaneName = 'messageListPane';
+                const messageListPane: any = this.$refs[messageListPaneName];
+                // const height = messageListPane.scrollHeight;
+                const v = document.getElementById(viewId);
+                if (v) {
+                    const offsetTop = v.offsetTop;
+                    messageListPane.scrollTop = offsetTop;
+                }
+            };
         }
 
         private initialize() {
@@ -284,6 +295,10 @@
             const userId = this.chatData.key;
             if (this.messageInfo.list && this.messageInfo.list.length > 0) {
                 messageKey = this.messageInfo.list[0].key;
+                // 历史记录时记录当前聊天界面的id
+                const contentId = this.messageInfo.list[0].id;
+                this.cacheData.data.lastContentId = contentId;
+
                 const length = this.messageInfo.list.length;
                 if (length < 500) {
                     const userChatController: UserChatDataController = app.appContext.getMaterial(UserChatDataController);

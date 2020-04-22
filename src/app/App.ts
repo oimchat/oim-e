@@ -26,6 +26,7 @@ import PersonalAction from '@/app/com/main/action/PersonalAction';
 import UserAction from '@/app/com/main/action/UserAction';
 import UserChatAction from '@/app/com/main/action/UserChatAction';
 import SystemAuthAction from '@/app/com/main/action/SystemAuthAction';
+import UserChatDataAction from '@/app/com/main/action/UserChatDataAction';
 
 
 class App {
@@ -132,6 +133,7 @@ class App {
         this.appContext.putAction(PersonalAction);
         this.appContext.putAction(UserAction);
         this.appContext.putAction(UserChatAction);
+        this.appContext.putAction(UserChatDataAction);
         this.appContext.putAction(SystemAuthAction);
     }
 }

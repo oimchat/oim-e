@@ -346,6 +346,9 @@
             const groupId = this.chatData.key;
             if (this.messageInfo.list && this.messageInfo.list.length > 0) {
                 messageKey = this.messageInfo.list[0].key;
+                // 历史记录时记录当前聊天界面的id
+                const contentId = this.messageInfo.list[0].id;
+                this.cacheData.data.lastContentId = contentId;
                 const length = this.messageInfo.list.length;
                 if (length < 500) {
                     const groupChatController: GroupChatDataController = app.appContext.getMaterial(GroupChatDataController);

@@ -2,6 +2,7 @@ import Content from '@/app/com/data/chat/content/Content';
 import User from '@/app/com/bean/User';
 
 export default class ContentData {
+    public id: string = '';
     public key: string = '';
     public isOwn: boolean = false;
     public showName: string = '';

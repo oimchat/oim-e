@@ -17,7 +17,7 @@ export default class PersonalSender extends AbstractMaterial {
     public updateUser(u: User, back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0009');
         m.body = {};
-        m.body.user = u;
+        m.body = u;
         this.appContext.netServer.send(m, back, parallel);
     }
 
@@ -32,7 +32,7 @@ export default class PersonalSender extends AbstractMaterial {
     public uploadHead(head: UserHead, back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0011');
         m.body = {};
-        m.body.head = head;
+        m.body = head;
         this.appContext.netServer.send(m, back, parallel);
     }
 

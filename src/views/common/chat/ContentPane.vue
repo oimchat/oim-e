@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div :id="data.content.id" class="">
         <div class="clear_fix">
             <div style="overflow: hidden;">
                 <div :class="data.isOwn?'message right':'message left'">
@@ -8,6 +8,7 @@
                     </div>
                     <img class="avatar" :src="getAvatar" :title="getName">
                     <div class="content">
+                        <h4 v-if="data.showNameVisible && !data.isOwn" class="nickname">{{data.showName}}</h4>
                         <div :class="data.isOwn?'bubble bubble_primary right':'bubble bubble_default left'">
                             <div class="bubble_cont ">
                                 <div class="plain" @click="contentClick($event)">

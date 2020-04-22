@@ -12,6 +12,7 @@ export default class ChatMessageModel {
         showPrompt: false,
         prompt: '',
         lastTimestamp: 0,
+        showNameVisible: false,
         list: [] as ContentData[],
     };
 
@@ -19,6 +20,9 @@ export default class ChatMessageModel {
         key: '',
         data: new ChatCacheData(),
         updateScroll: (size: number) => {
+            // no
+        },
+        updateScrollIntoView: (viewId: string) => {
             // no
         },
         getScrollHeight: () => {
@@ -59,6 +63,14 @@ export default class ChatMessageModel {
 
     public insertBefore(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content): void {
         this.insert(isReceive, isOwn, key, showName, chatUser, content, true);
+        if (typeof this.cacheData.updateScrollIntoView === 'function') {
+            const lastContentId = this.cacheData.data.lastContentId;
+            if (lastContentId) {
+                setTimeout(() => {
+                    this.cacheData.updateScrollIntoView(lastContentId);
+                }, 50);
+            }
+        }
     }
 
     public insertLast(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content): void {
@@ -87,6 +99,7 @@ export default class ChatMessageModel {
 
     public insert(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content, isBefore?: boolean): void {
 
+        const contentId = content.id;
         const messageKey = content.key;
         const map = this.getMap(key);
         const list = this.getList(key);
@@ -102,11 +115,13 @@ export default class ChatMessageModel {
 
             data = new ContentData();
             data.key = messageKey;
+            data.id = contentId;
             data.content = content;
             data.showName = showName;
             data.user = chatUser;
             data.isOwn = isOwn;
             data.timeVisible = (timestamp - lastTimestamp > (1000 * 60 * 5));
+            data.showNameVisible = this.messageInfo.showNameVisible;
 
             this.messageInfo.lastTimestamp = content.timestamp;
 

@@ -5,6 +5,6 @@ export default class UserHead {
     public userId: string = '';
     public headId: string = '';
     public fileName: string = '';
-    public type: string = '';
+    public type: string = UserHead.TYPE_CUSTOM;
     public url: string = '';
 }

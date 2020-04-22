@@ -19,6 +19,7 @@ class GroupChatViewModel extends ChatViewModel {
 
         const users: User[] = this.getMemberUserList(groupId);
         this.groupMemberData.users = users;
+        this.messageInfo.showNameVisible = true;
     }
 
     public setName(name: string) {
