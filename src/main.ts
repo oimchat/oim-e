@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router/router';
-import store from './store/store';
+import store from './common/store/store';
 import iView from 'iview';
 import 'iview/dist/styles/iview.css'; // 使用 CSS
 
@@ -10,7 +10,7 @@ import './styles/iview/theme/index.less';
 import './styles/compatible.less';
 import './styles/drag.less';
 // @ts-ignore
-import i18n from './locale';
+import i18n from './common/locale';
 
 import 'viewerjs/dist/viewer.css';
 // @ts-ignore
@@ -37,3 +37,7 @@ new Vue({
     store,
     render: (h) => h(App),
 }).$mount('#app');
+
+import platformInitialize from '@/platform/initialize/PlatformInitialize';
+
+platformInitialize.initialize();

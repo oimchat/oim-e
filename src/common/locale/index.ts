@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
-import localLangUtil from '../app/lib/util/LocalLangUtil';
+import localLangUtil from '../../app/lib/util/LocalLangUtil';
 import customZhCn from './lang/zh-CN';
 import customEnUs from './lang/en-US';
 

@@ -35,11 +35,9 @@
     import userChatViewModel from '@/impl/data/UserChatViewModel';
 
     import app from '@/app/App';
-    import User from '@/app/com/bean/User';
     import UserChatController from '@/app/com/main/controller/UserChatController';
     import ContentUtil from '@/impl/util/ContentUtil';
     import CoreContentUtil from '@/app/com/main/util/CoreContentUtil';
-    import ImagePathFile from '@/platform/util/ImagePathFile';
     import ContentUploadImageService from '@/app/com/main/service/ContentUploadImageService';
     import UploadResult from '@/app/com/main/data/UploadResult';
     import ImageValue from '@/app/com/data/chat/content/item/ImageValue';
@@ -49,6 +47,7 @@
     import Item from '@/app/com/data/chat/content/Item';
     import FileValue from '@/app/com/data/chat/content/item/FileValue';
     import UserChatDataController from '@/app/com/main/controller/UserChatDataController';
+    import WebImageFileHandler from '@/app/define/file/WebImageFileHandler';
 
     @Component({
         components: {
@@ -176,7 +175,8 @@
                     } else {
                         const items = CoreContentUtil.getImageItemList(content);
                         try {
-                            const map: Map<string, File> = ImagePathFile.getFileMapByItems(items);
+                            const wuh: WebImageFileHandler = app.appContext.getObject(WebImageFileHandler.name);
+                            const map: Map<string, File> = (wuh) ? wuh.getFileMapByItems(items) : new Map<string, File>(); // ImagePathFile.getFileMapByItems(items);
                             if (map.size > 0) {
                                 const cuis: ContentUploadImageService = app.appContext.getMaterial(ContentUploadImageService);
                                 cuis.uploadImages(map, (success: boolean, rm: Map<string, UploadResult>, message?: string) => {

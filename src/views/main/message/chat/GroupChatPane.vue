@@ -91,6 +91,7 @@
     import GroupMemberService from '@/app/com/main/service/GroupMemberService';
     import DocumentUtil from '@/app/common/util/DocumentUtil';
     import GroupChatDataController from '@/app/com/main/controller/GroupChatDataController';
+    import WebImageFileHandler from '@/app/define/file/WebImageFileHandler';
 
     @Component({
         components: {
@@ -100,7 +101,7 @@
             GroupMemberContextMenu,
         },
     })
-    export default class UserChatPane extends Vue {
+    export default class GroupChatPane extends Vue {
         private chatData = groupChatViewModel.chatData;
         private messageInfo = groupChatViewModel.messageInfo;
         private cacheData = groupChatViewModel.cacheData;
@@ -226,7 +227,8 @@
                     } else {
                         const items = CoreContentUtil.getImageItemList(content);
                         try {
-                            const map: Map<string, File> = ImagePathFile.getFileMapByItems(items);
+                            const wuh: WebImageFileHandler = app.appContext.getObject(WebImageFileHandler.name);
+                            const map: Map<string, File> = (wuh) ? wuh.getFileMapByItems(items) : new Map<string, File>(); //
                             if (map.size > 0) {
                                 const cuis: ContentUploadImageService = app.appContext.getMaterial(ContentUploadImageService);
                                 cuis.uploadImages(map, (success: boolean, rm: Map<string, UploadResult>, message?: string) => {
