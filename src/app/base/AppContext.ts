@@ -125,6 +125,11 @@ class AppContext {
         this.promptHandler.prompt(message, title, type);
     }
 
+    public promptData(data: any) {
+        const own = this;
+        own.dataPrompt.prompt(data);
+    }
+
     public invokeAction(key: string, data: any): void {
         const own = this;
         this.actionBox.invokeAction(key, data, (d) => {

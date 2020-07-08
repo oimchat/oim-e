@@ -4,7 +4,7 @@ export default class ServerAddress {
      *
      * IPv4<br>
      * IPv6 <br>
-     * Domain<br>
+     * URL<br>
      *
      */
     public addressType: string = '';

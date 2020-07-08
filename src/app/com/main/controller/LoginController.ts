@@ -17,6 +17,7 @@ import ViewEnum from '@/app/com/main/view/ViewEnum';
 import Client from '@/app/base/message/client/Client';
 import LoginData from '@/app/com/data/LoginData';
 import InitializeConverge from '@/app/com/main/converge/InitializeConverge';
+import InfoUtil from '@/app/base/message/util/InfoUtil';
 
 
 export default class LoginController extends AbstractMaterial {
@@ -152,6 +153,7 @@ export default class LoginController extends AbstractMaterial {
     private loadToken(account: string, password: string, back: (success: boolean, message?: string) => void): void {
         const loginBack = (data: any) => {
             let mark = false;
+            let m = '';
             if (!BaseUtil.isEmpty(data)) {
                 const head = data.head;
                 const info = data.info;
@@ -168,9 +170,10 @@ export default class LoginController extends AbstractMaterial {
                         const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
                         pb.setUser(user);
                     }
+                    m = InfoUtil.getDefaultErrorText(info);
                 }
             }
-            back(mark);
+            back(mark, m);
         };
         const loginData: LoginData = new LoginData();
         loginData.user.account = account;

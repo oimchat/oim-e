@@ -43,9 +43,10 @@ export default class GroupInfoUtil {
     }
 
     public static handleAvatar(group: Group): void {
-        const head = group.head;
+        let head = group.head;
         const avatar = group.avatar;
         if (BaseUtil.isEmpty(avatar)) {
+            head = (head) ? head : '1';
             group.avatar = GroupInfoUtil.GROUP_HEAD_IMAGES + head + '.png';
         }
     }

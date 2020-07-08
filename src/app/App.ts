@@ -1,15 +1,8 @@
 import AppContext from '@/app/base/AppContext';
-import Prompt from '@/component/common/Prompt';
 import ConnectHandler from '@/app/base/net/ConnectHandler';
-import PromptHandler from '@/app/base/PromptHandler';
 import auth from '@/app/common/auth/Auth';
-
 import SystemNetController from '@/app/com/main/controller/SystemNetController';
 import LoginController from '@/app/com/main/controller/LoginController';
-
-import AppSettingManager from '@/app/com/main/manager/AppSettingManager';
-import ServerService from '@/app/com/main/service/ServerService';
-import DataPrompt from '@/app/base/DataPrompt';
 
 import ContactAction from '@/app/com/main/action/ContactAction';
 import ContactCategoryAction from '@/app/com/main/action/ContactCategoryAction';
@@ -53,18 +46,6 @@ class App {
 
     private initialize(): void {
         const own = this;
-        this.appContext.setPromptHandler({
-            prompt(message: string, title?: string, type?: string): void {
-                Prompt.notice(message, title, type);
-            },
-        } as PromptHandler);
-        this.appContext.setDataPrompt({
-            prompt(data: any): void {
-                if (data.info) {
-                    Prompt.message(data.info, '', '消息异常！');
-                }
-            },
-        } as DataPrompt);
         const connectHandler: ConnectHandler = {
             onIdle(): void {
                 // TODO
@@ -105,17 +86,7 @@ class App {
     }
 
     private initializeConfig() {
-        const own = this;
-        const asm: AppSettingManager = this.appContext.getMaterial(AppSettingManager);
-        asm.loadSetting();
-
-        const addressBack = (success: boolean, message?: string) => {
-            if (!success) {
-                own.appContext.prompt('获取服务器地址失败！请检查网络是否正常');
-            }
-        };
-        const serverService: ServerService = this.appContext.getMaterial(ServerService);
-        serverService.loadServerAddress(addressBack);
+        // no
     }
 
     private initializeAction(): void {

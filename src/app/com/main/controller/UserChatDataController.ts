@@ -4,13 +4,15 @@ import Page from '@/app/com/data/common/Page';
 import UserChatService from '@/app/com/main/service/UserChatService';
 import UserChatDataSender from '@/app/com/main/sender/UserChatDataSender';
 import UserChatQuery from '@/app/com/data/chat/UserChatQuery';
+import UserChatDataService from '@/app/com/main/service/UserChatDataService';
+import ContentData from '@/views/common/chat/ContentData';
 
 
 export default class UserChatDataController extends AbstractMaterial {
 
-    public queryList(query: UserChatQuery, page: Page, back?: DataBackAction): void {
-        const userChatSender: UserChatDataSender = this.appContext.getMaterial(UserChatDataSender);
-        userChatSender.queryList(query, page, back);
+    public queryList(query: UserChatQuery, page: Page, back: (page: Page, contents: ContentData[]) => void): void {
+        const userChatDataService: UserChatDataService = this.appContext.getMaterial(UserChatDataService);
+        userChatDataService.queryList(query, page, back);
     }
 
     public getListByStartId(sendUserId: string, receiveUserId: string, startId: string, direction: string, count: number, back?: DataBackAction): void {

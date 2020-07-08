@@ -1,4 +1,4 @@
-import AppInfo from '@/app/base/config/AppInfo';
+import AppData from '@/app/base/config/AppData';
 
 export default class Head {
 
@@ -21,7 +21,7 @@ export default class Head {
     /**
      * 请求接口版本
      */
-    public version: string = AppInfo.API_VERSION;
+    public version: string = AppData.API_VERSION;
     /**
      * 响应时间
      */

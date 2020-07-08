@@ -11,6 +11,7 @@ import ServerBox from '@/app/com/main/box/ServerBox';
 import {Protocol, ServerType} from '@/app/common/config/constant/ServerConstant';
 import Info from '@/app/base/message/Info';
 import LoginData from '@/app/com/data/LoginData';
+import ServerAddressUtil from '@/app/com/main/util/ServerAddressUtil';
 
 export default class PersonalClient extends AbstractMaterial {
     private action: string = '1.1.002';
@@ -33,7 +34,8 @@ export default class PersonalClient extends AbstractMaterial {
             message.info = info;
             back(message);
         } else {
-            http.post(address.address + '/main/api', m, back, true);
+            const url = ServerAddressUtil.convertHttpUrl(address);
+            http.post(url, m, back, true);
         }
     }
 }

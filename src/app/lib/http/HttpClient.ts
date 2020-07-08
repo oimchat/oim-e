@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Vue from 'vue';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import auth from '@/app/common/auth/Auth';
 import AppSetting from '@/app/base/config/AppSetting';
@@ -7,6 +6,8 @@ import LogHandler from '@/app/base/log/LogHandler';
 import Head from '@/app/base/message/Head';
 import Info from '@/app/base/message/Info';
 import InfoMessage from '@/app/base/message/InfoMessage';
+import app from '@/app/App';
+import PromptHandlerType from '@/app/base/PromptHandlerType';
 
 class HttpClient {
 
@@ -45,11 +46,7 @@ class HttpClient {
                     const info = value.info;
                     if (info && prompt) {
                         if (!info.success) {
-                            const error = this.getDefaultErrorText(info);
-                            Vue.prototype.$Notice.warning({
-                                title: '错误',
-                                desc: error,
-                            });
+                            app.appContext.promptData(value);
                         }
                     }
                 }
@@ -64,25 +61,6 @@ class HttpClient {
                 back(message);
             }
         });
-    }
-
-
-    public getDefaultErrorText(info: any): string {
-        let text = '';
-        if (!BaseUtil.isEmpty(info)) {
-            const warnings = info.warnings;
-            const errors = info.errors;
-            if (warnings && warnings.length > 0) {
-                for (const warning of warnings) {
-                    text = text + warning.text + '\n';
-                }
-            } else if (errors && errors.length > 0) {
-                for (const error of errors) {
-                    text = text + error.text + '\n';
-                }
-            }
-        }
-        return text;
     }
 
 
@@ -111,10 +89,7 @@ class HttpClient {
                 default:
 
             }
-            Vue.prototype.$Notice.error({
-                title: '错误',
-                desc: message,
-            });
+            app.appContext.prompt(message, '错误', PromptHandlerType.error);
         } else {
             let message = error.message;
             if (message === 'Network Error') {
@@ -123,13 +98,10 @@ class HttpClient {
                 message = '网络连接超时请稍后重试！';
             }
             // 请求超时处理
-            Vue.prototype.$Notice.error({
-                title: '错误',
-                desc: message,
-            });
+            app.appContext.prompt(message, '错误', PromptHandlerType.error);
         }
         return Promise.reject(error);
-    }
+    };
 
     private responseHandler = (response: any) => {
         const status = response.status;
@@ -162,7 +134,7 @@ class HttpClient {
             // }
         }
         return response;
-    }
+    };
 
     private init(): void {
         // 错误处理

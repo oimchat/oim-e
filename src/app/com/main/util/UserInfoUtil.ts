@@ -82,9 +82,10 @@ export default class UserInfoUtil {
 
     public static handleAvatar(user: User): void {
         if (user) {
-            const head = user.head;
+            let head = user.head;
             const avatar = user.avatar;
             if (BaseUtil.isEmpty(avatar)) {
+                head = (head) ? head : '1';
                 user.avatar = UserInfoUtil.USER_HEAD_IMAGES + head + '.png';
             }
         }
