@@ -175,44 +175,53 @@
                     } else {
                         const items = CoreContentUtil.getImageItemList(content);
                         try {
-                            const wuh: WebImageFileHandler = app.appContext.getObject(WebImageFileHandler.name);
-                            const map: Map<string, File> = (wuh) ? wuh.getFileMapByItems(items) : new Map<string, File>(); // ImagePathFile.getFileMapByItems(items);
-                            if (map.size > 0) {
-                                const cuis: ContentUploadImageService = app.appContext.getMaterial(ContentUploadImageService);
-                                cuis.uploadImages(map, (success: boolean, rm: Map<string, UploadResult>, message?: string) => {
-                                    if (success) {
-                                        for (const item of items) {
-                                            const iv: ImageValue = BaseUtil.jsonToObject(item.value);
-                                            if (iv) {
-                                                const key = iv.url;
-                                                const ur = rm.get(key);
-                                                if (ur && ur.result && ur.result.body) {
-                                                    const data = ur.result.body;
-                                                    const id = data.id;
-                                                    const name = data.name;
-                                                    const size = data.size;
-                                                    const url = data.url;
-                                                    iv.id = id;
-                                                    iv.name = name;
-                                                    iv.size = size;
-                                                    iv.url = url;
+                            // const map: Map<string, File> = (wuh) ? wuh.getFileMapByItems(items) : new Map<string, File>(); // ImagePathFile.getFileMapByItems(items);
 
-                                                    item.value = BaseUtil.objectToJson(iv);
+                            const handleItemsBack = (map: Map<string, File>) => {
+                                if (map.size > 0) {
+                                    const cuis: ContentUploadImageService = app.appContext.getMaterial(ContentUploadImageService);
+                                    cuis.uploadImages(map, (success: boolean, rm: Map<string, UploadResult>, message?: string) => {
+                                        if (success) {
+                                            for (const item of items) {
+                                                const iv: ImageValue = BaseUtil.jsonToObject(item.value);
+                                                if (iv) {
+                                                    const key = iv.url;
+                                                    const ur = rm.get(key);
+                                                    if (ur && ur.result && ur.result.body) {
+                                                        const data = ur.result.body;
+                                                        const id = data.id;
+                                                        const name = data.name;
+                                                        const size = data.size;
+                                                        const url = data.url;
+                                                        iv.id = id;
+                                                        iv.name = name;
+                                                        iv.size = size;
+                                                        iv.url = url;
+
+                                                        item.value = BaseUtil.objectToJson(iv);
+                                                    }
                                                 }
                                             }
-                                        }
 
-                                        const userChatController: UserChatController = app.appContext.getMaterial(UserChatController);
-                                        userChatController.userChat(userId, content);
-                                        inputArea.innerHTML = '';
-                                        this.cacheData.data.html = '';
-                                    }
-                                });
+                                            const userChatController: UserChatController = app.appContext.getMaterial(UserChatController);
+                                            userChatController.userChat(userId, content);
+                                            inputArea.innerHTML = '';
+                                            this.cacheData.data.html = '';
+                                        }
+                                    });
+                                } else {
+                                    const userChatController: UserChatController = app.appContext.getMaterial(UserChatController);
+                                    userChatController.userChat(userId, content);
+                                    inputArea.innerHTML = '';
+                                    this.cacheData.data.html = '';
+                                }
+                            };
+
+                            const wuh: WebImageFileHandler = app.appContext.getObject(WebImageFileHandler.name);
+                            if (wuh) {
+                                wuh.handleItems(items, handleItemsBack);
                             } else {
-                                const userChatController: UserChatController = app.appContext.getMaterial(UserChatController);
-                                userChatController.userChat(userId, content);
-                                inputArea.innerHTML = '';
-                                this.cacheData.data.html = '';
+                                handleItemsBack(new Map<string, File>());
                             }
                         } catch (e) {
                             this.$Notice.warning({

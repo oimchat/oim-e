@@ -81,6 +81,9 @@
     import AppSetting from '@/app/base/config/AppSetting';
     import AppSettingManager from '@/app/com/main/manager/AppSettingManager';
     import ServerService from '@/app/com/main/service/ServerService';
+    import LoginSaveBox from '@/app/com/main/box/LoginSaveBox';
+    import LoginUser from '@/app/com/data/LoginUser';
+    import SecurityUtil from '@/app/com/main/util/SecurityUtil';
 
     @Component({})
     export default class Login extends Vue {
@@ -91,6 +94,20 @@
         private hasPassword: boolean = true;
 
         private hasLogin: boolean = false;
+
+        public mounted() {
+            // no
+            this.initializeData();
+        }
+
+        private initializeData() {
+            const loginSaveBox: LoginSaveBox = app.appContext.getMaterial(LoginSaveBox);
+            if (loginSaveBox.has()) {
+                const loginUser: LoginUser = loginSaveBox.getLoginUser();
+                this.account = loginUser.account;
+                this.password = SecurityUtil.un(loginUser.password);
+            }
+        }
 
         private accountChange(): void {
             const own = this;

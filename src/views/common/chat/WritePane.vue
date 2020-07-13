@@ -26,6 +26,13 @@
                         :action="uploadInfo.imageAction">
                     <Icon type="ios-image" style="font-size: 30px" title="图片"/>
                 </Upload>
+                <div class='chat_send_file_list' style="display: inline;height: 30px">
+                    <div style="position: absolute;display: inline;padding-top: 2px;padding-left: 3px;">
+                        <i @click="shot" class="fa fa-scissors fa-2x" aria-hidden="true"
+                           style="color: #2b2b2b;"
+                        ></i>
+                    </div>
+                </div>
             </div>
             <FacePane ref="facePane" @on-selected="onFaceSelected"></FacePane>
             <div class="content ">
@@ -55,6 +62,10 @@
     import ServerController from '@/app/com/main/controller/ServerController';
     import emojiImageBox from '@/app/lib/EmojiImageBox';
     import FileSeverApi from '@/app/com/main/constant/FileSeverApi';
+    import ContentUploadImageService from '@/app/com/main/service/ContentUploadImageService';
+    import UploadResult from '@/app/com/main/data/UploadResult';
+    import screenShot from '@/platform/module/ScreenShotInvoke';
+    import BaseUtil from '@/app/lib/util/BaseUtil';
 
     @Component({
         components: {
@@ -116,7 +127,25 @@
                             text = (clipboardData).getData('text/plain');
 
                             const items = clipboardData.items;
-                            for (const item of items) {
+
+                            const length = items.length;
+                            const hasText = (BaseUtil.isNotEmpty(html)) && (BaseUtil.isNotEmpty(text));
+                            if (length == 1 && !hasText) {
+                                const item = items[0];
+                                if (item.kind === 'file') {
+                                    const file = item.getAsFile();
+                                    if (file) {
+                                        if (item.type.match(/^image\//i)) {
+                                            own.uploadImage(file);
+                                        } else {
+                                            // 文件上传
+                                        }
+                                    }
+                                    return;
+                                }
+                            }
+                            for (let i = 0; i < length; i++) {
+                                const item = items[i];
                                 if (item.kind === 'file') {
                                     const file = item.getAsFile();
                                     if (file) {
@@ -179,6 +208,18 @@
             facePane.setShow(true);
         }
 
+        private shot(e: Event) {
+            const own = this;
+            // const path=screenShot.getPath();
+            // this.$Notice.warning({
+            //     title: 'Path',
+            //     desc: path,
+            // });
+            screenShot.shot((file: File) => {
+                own.uploadImage(file);
+            });
+        }
+
         private onFaceSelected(categoryId: string, value: string) {
             if (categoryId === 'emoji') {
                 const p = emojiImageBox.getPictureByKey(value);
@@ -202,6 +243,21 @@
             const inputArea = this.$refs[inputAreaPaneName];
             this.onSend(inputArea as Element);
         }
+
+        private imageReader(item: DataTransferItem) {
+            // var file = item.getAsFile(),
+            //     reader = new FileReader();
+            //
+            // // 读取文件后将其显示在网页中
+            // reader.onload = function( e ){
+            //     var img = new Image();
+            //
+            //     img.src = e.target.result;
+            //     document.body.appendChild( img );
+            // };
+            // // 读取文件
+            // reader.readAsDataURL( file );
+        };
 
         @Emit('on-send')
         private onSend(e: Element, files?: File[]) {
@@ -271,6 +327,28 @@
             this.$Notice.warning({
                 title: '图片过大',
                 desc: '图片文件  ' + file.name + ' 过大, 不能超过 2M！',
+            });
+        }
+
+        private uploadImage(file: File): void {
+            const own = this;
+            const key = '1.png';
+            const map: Map<string, File> = new Map<string, File>();
+            map.set(key, file);
+            const cuis: ContentUploadImageService = app.appContext.getMaterial(ContentUploadImageService);
+            cuis.uploadImages(map, (success: boolean, rm: Map<string, UploadResult>, message?: string) => {
+                if (success) {
+                    const ur = rm.get(key);
+                    if (ur && ur.result && ur.result.body) {
+                        const data = ur.result.body;
+                        const id = data.id;
+                        const name = data.name;
+                        const size = data.size;
+                        const url = data.url;
+                        const html = '<img style="max-width: 60%" src="' + url + '"/>';
+                        own.insertHtmlAtCursor(html);
+                    }
+                }
             });
         }
     }

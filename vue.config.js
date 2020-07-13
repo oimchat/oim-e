@@ -62,6 +62,10 @@ module.exports = {
             'from': './public/assets',
             'to': './app/assets',
           },
+          { // 拷贝dll等静态文件到指定位置
+            'from': './public/lib',
+            'to': './app/lib',
+          },
         ],
         'nsis': {
           'oneClick': false,

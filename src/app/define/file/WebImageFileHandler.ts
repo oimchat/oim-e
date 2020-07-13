@@ -3,7 +3,7 @@ import AbstractMaterial from '@/app/base/AbstractMaterial';
 
 abstract class WebImageFileHandler extends AbstractMaterial {
 
-    public abstract getFileMapByItems(items: Item[]): Map<string, File>;
+    public abstract handleItems(items: Item[], back: (map: Map<string, File>) => void): void;
 }
 
 export default WebImageFileHandler;

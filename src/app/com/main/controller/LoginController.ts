@@ -18,6 +18,9 @@ import Client from '@/app/base/message/client/Client';
 import LoginData from '@/app/com/data/LoginData';
 import InitializeConverge from '@/app/com/main/converge/InitializeConverge';
 import InfoUtil from '@/app/base/message/util/InfoUtil';
+import LoginUser from '@/app/com/data/LoginUser';
+import LoginSaveBox from '@/app/com/main/box/LoginSaveBox';
+import SecurityUtil from '@/app/com/main/util/SecurityUtil';
 
 
 export default class LoginController extends AbstractMaterial {
@@ -26,13 +29,17 @@ export default class LoginController extends AbstractMaterial {
     public login(account: string, password: string, back: (success: boolean, message?: string) => void): void {
 
         const own = this;
-        password = Md5.init(password);
+        const securityPassword = Md5.init(password);
 
         const authBack = (success: boolean, message?: string) => {
             if (success) {
                 auth.setLogin(true);
                 auth.account = account;
-                auth.password = password;
+                auth.password = securityPassword;
+                const data: LoginUser = new LoginUser();
+                data.account = account;
+                data.password = SecurityUtil.en(password);
+                this.saveLoginInfo(data);
                 this.initializeApp();
             }
             back(success, message);
@@ -59,7 +66,7 @@ export default class LoginController extends AbstractMaterial {
             if (!success) {
                 back(success, message);
             } else {
-                this.loadToken(account, password, loginBack);
+                this.loadToken(account, securityPassword, loginBack);
             }
         };
         this.loadServerAddress(addressBack);
@@ -106,6 +113,11 @@ export default class LoginController extends AbstractMaterial {
             };
             this.loadServerAddress(addressBack);
         }
+    }
+
+    public saveLoginInfo(data: LoginUser) {
+        const loginSaveBox: LoginSaveBox = this.appContext.getMaterial(LoginSaveBox);
+        loginSaveBox.save(data);
     }
 
     public reAuth(): void {

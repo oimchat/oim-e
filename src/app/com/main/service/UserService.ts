@@ -8,6 +8,7 @@ import User from '@/app/com/bean/User';
 import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
 import UserSender from '@/app/com/main/sender/UserSender';
 import ContactListManager from '@/app/com/main/manager/ContactListManager';
+import UserChatItemManager from '@/app/com/main/manager/UserChatItemManager';
 
 export default class UserService extends AbstractMaterial {
 
@@ -33,6 +34,13 @@ export default class UserService extends AbstractMaterial {
         if (user) {
             const ccm: ContactListManager = this.appContext.getMaterial(ContactListManager);
             ccm.addOrUpdateUser(user);
+
+            const userChatItemManager: UserChatItemManager = this.appContext.getMaterial(UserChatItemManager);
+            const id = user.id;
+
+            if (userChatItemManager.hasItem(id)) {
+                userChatItemManager.addOrUpdateChatItemById(id);
+            }
         }
     }
 }
