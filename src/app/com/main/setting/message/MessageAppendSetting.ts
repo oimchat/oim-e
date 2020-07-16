@@ -1,9 +1,9 @@
 import AbstractMaterial from '@/app/base/AbstractMaterial';
-import VoicePromptType from '@/app/com/main/setting/type/VoicePromptType';
+import MessageAppendType from '@/app/com/main/setting/message/type/MessageAppendType';
 
-class VoicePromptSetting extends AbstractMaterial {
+class MessageAppendSetting extends AbstractMaterial {
 
-    private defaultType: number = VoicePromptType.unread;
+    private defaultType: number = MessageAppendType.last;
     private map: Map<string, number> = new Map<string, number>();
 
     public getType(key: string): number {
@@ -33,5 +33,5 @@ class VoicePromptSetting extends AbstractMaterial {
     }
 }
 
-export default VoicePromptSetting;
+export default MessageAppendSetting;
 

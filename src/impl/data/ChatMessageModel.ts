@@ -86,7 +86,10 @@ export default class ChatMessageModel {
             }
         }
         if (scrollPosition !== 'bottom') {
-            const text = CoreContentUtil.getText(content);
+            let text = CoreContentUtil.getText(content);
+            if (text && text.length > 100) {
+                text = text.substring(0, 99) + '...';
+            }
             this.messageInfo.prompt = showName + ':' + text;
             if (!this.messageInfo.showPrompt) {
                 this.messageInfo.showPrompt = true;

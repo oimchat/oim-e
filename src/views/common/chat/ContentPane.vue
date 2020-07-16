@@ -7,7 +7,7 @@
                         <div class="content">{{getTime}}</div>
                     </div>
                     <img class="avatar" :src="getAvatar" :title="getName">
-                    <div class="content">
+                    <div class="content message-font">
                         <h4 v-if="data.showNameVisible && !data.isOwn" class="nickname">{{data.showName}}</h4>
                         <div :class="data.isOwn?'bubble bubble_primary right':'bubble bubble_default left'">
                             <div class="bubble_cont ">
@@ -113,5 +113,8 @@
 </script>
 
 <style scoped>
-
+    .message-font {
+        color: #000000;
+        font-size: 15px;
+    }
 </style>

@@ -46,7 +46,9 @@ export default class AllMessageUnreadBox extends AbstractMaterial {
     }
 
     public addChangeEvent(e: DataChange<number>) {
-        this.changeEvents.push(e);
+        if (this.changeEvents.includes(e)) {
+            this.changeEvents.push(e);
+        }
     }
 
     private plusTotalUnread(): void {

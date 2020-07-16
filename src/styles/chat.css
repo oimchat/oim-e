@@ -747,3 +747,32 @@
     display: -webkit-box;
     -webkit-line-clamp: 1
 }
+
+
+.message-attach {
+    background-color: #5ceebb;
+    overflow: hidden;
+    position: relative;
+}
+
+.message-attach-icon {
+    float: left;
+    margin-left: 10px;
+    margin-top: 25px;
+    position: relative;
+    width: 60px;
+    height: 60px;
+}
+
+.message-attach-info {
+    padding-left: 102px;
+}
+
+.message-attach-download {
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    height: 1.5em;
+}

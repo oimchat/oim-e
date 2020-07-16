@@ -7,6 +7,7 @@ import FaceValue from '@/app/com/data/chat/content/item/FaceValue';
 import emojiImageBox from '@/app/lib/EmojiImageBox';
 import FileNameUtil from '@/app/common/util/FileNameUtil';
 import FileSeverApi from '@/app/com/main/constant/FileSeverApi';
+import TextJudgeUtil from '@/app/lib/util/TextJudgeUtil';
 
 export default class ContentUtil {
 
@@ -109,7 +110,7 @@ export default class ContentUtil {
                         text += ContentUtil.createChatSectionItem(type, value);
                     }
                 }
-                text += '<br>';
+                text = '<pre>' + text + '</pre>';
             }
         }
         return text;
@@ -124,11 +125,19 @@ export default class ContentUtil {
         let text = '[不支持的消息,请升级到最新版本！]';
 
         if ('text' === type) {
-            text = ContentUtil.htmlEncode(value);
+            if (TextJudgeUtil.hasHtml(value)) {
+                text = ContentUtil.htmlEncode(value);
+            } else {
+                text = value;
+            }
             const array = text.match(/[\uD83C|\uD83D|\uD83E][\uDC00-\uDFFF][\u200D|\uFE0F]|[\uD83C|\uD83D|\uD83E][\uDC00-\uDFFF]|[0-9|*|#]\uFE0F\u20E3|[0-9|#]\u20E3|[\u203C-\u3299]\uFE0F\u200D|[\u203C-\u3299]\uFE0F|[\u2122-\u2B55]|\u303D|[\A9|\AE]\u3030|\uA9|\uAE|\u3030/ig);
 
             if (array && array.length > 0) {
+                const map: Map<string, string> = new Map<string, string>();
                 for (const code of array) {
+                    map.set(code, code);
+                }
+                for (const code of map.keys()) {
                     const img = emojiImageBox.getPictureByKey(code);
                     if (img) {
                         const faceUrl = 'assets/images/common/face/emoji/' + img;
@@ -137,6 +146,7 @@ export default class ContentUtil {
                     }
                 }
             }
+            // text = '<pre>' + text + '</pre>';
         }
 
         if ('image' === type) {
@@ -268,14 +278,52 @@ export default class ContentUtil {
                 // text += '</div>';
 
                 // text += '<div class="bubble_cont primary ">';
-                text += '	<div class="attach">';
-                text += '		<div class="attach_bd">';
-                text += '			<div class="cover" >';
+                // const tag = '' +
+                //     '<div class="chat_item">\n' +
+                //     '            <div class="avatar">\n' +
+                //     '                <i class="' + icon + '"></i>\n' +
+                //     '            </div>\n' +
+                //     '            <div class="info">\n' +
+                //     '                <h3 class="nickname">\n' +
+                //     '                    <span class="nickname_text">+ fileName + </span>\n' +
+                //     '                </h3>\n' +
+                //     '                <p class="msg">\n' +
+                //     '                    <a file-url="' + httpUrl + '" target="_blank" href="' + httpUrl + '" download="' + fileName + '" class="">下载</a>\n' +
+                //     '                </p>\n' +
+                //     '            </div>\n' +
+                //     '        </div>';
+                // text += tag;
+
+
+                // text += '<div class="bubble_cont primary ">';
+                // text += '	<div class="attach">';
+                // text += '		<div class="attach_bd">';
+                // text += '			<div class="cover" >';
+                // text += '				<i class="' + icon + '"></i>';
+                // text += '			</div>';
+                // text += '			<div class="cont">';
+                // text += '				<p class="title ">' + fileName + '</p>';
+                // text += '				<div class="opr">';
+                // text += '					<span class="">' + fz + '</span>';
+                // text += '					<span class="sep">|</span>';
+                // text += '					<a file-url="' + httpUrl + '" target="_blank" href="' + httpUrl + '" download="' + fileName + '" class="">下载</a>';
+                // text += '				</div>';
+                // text += '			</div>';
+                // text += '		</div>';
+                // text += '	</div>';
+                // text += '</div>'
+
+
+
+
+                // text += '	<div class="message-attach">';
+                text += '		<div class="message-attach">';
+                text += '			<div class="message-attach-icon" >';
                 text += '				<i class="' + icon + '"></i>';
                 text += '			</div>';
-                text += '			<div class="cont">';
-                text += '				<p class="title ">' + fileName + '</p>';
-                text += '				<div class="opr">';
+                text += '			<div class="message-attach-info">';
+                text += '				<h3 class="message-attach-title ">' + fileName + '</h3>';
+                text += '				<div class="message-attach-download">';
                 text += '					<span class="">' + fz + '</span>';
                 text += '					<span class="sep">|</span>';
                 text += '					<a file-url="' + httpUrl + '" target="_blank" href="' + httpUrl + '" download="' + fileName + '" class="">下载</a>';
@@ -397,14 +445,18 @@ export default class ContentUtil {
     public static htmlEncode(text: string): string {
         let value = '';
         if (!BaseUtil.isEmpty(text)) {
-            value = text.replace('&', '&amp;');
-            value = value.replace('\t', '&nbsp;&nbsp;'); // 替换跳格
-            value = value.replace('<', '&lt;');
-            value = value.replace('>', '&gt;');
-            value = value.replace(' ', '&nbsp;');
-            value = value.replace('\'', '&#39;');
-            value = value.replace('"', '&quot;');
-            value = value.replace('\n', '<br>');
+            const divElement = document.createElement('div');
+            (divElement.textContent != null) ? (divElement.textContent = text) : (divElement.innerText = text);
+            value = divElement.innerHTML;
+
+            // value = text.replace('&', '&amp;');
+            // value = value.replace('\t', '&nbsp;&nbsp;'); // 替换跳格
+            // value = value.replace('<', '&lt;');
+            // value = value.replace('>', '&gt;');
+            // value = value.replace(' ', '&nbsp;');
+            // value = value.replace('\'', '&#39;');
+            // value = value.replace('"', '&quot;');
+            // value = value.replace('\n', '<br>');
         }
         return value;
     }

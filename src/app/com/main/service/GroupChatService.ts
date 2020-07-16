@@ -16,8 +16,8 @@ import AllMessageUnreadBox from '@/app/com/main/box/AllMessageUnreadBox';
 import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadManager';
 import Group from '@/app/com/bean/Group';
 import GroupBox from '@/app/com/main/box/GroupBox';
-import VoicePromptType from '@/app/com/main/setting/type/VoicePromptType';
-import GroupVoicePromptSetting from '@/app/com/main/setting/GroupVoicePromptSetting';
+import VoicePromptType from '@/app/com/main/setting/prompt/type/VoicePromptType';
+import VoicePromptGroupSetting from '@/app/com/main/setting/prompt/VoicePromptGroupSetting';
 
 
 export default class GroupChatService extends AbstractMaterial {
@@ -98,18 +98,19 @@ export default class GroupChatService extends AbstractMaterial {
             promptManager.playSound(SoundType.TYPE_MESSAGE);
             // promptManager.put()
         }
+        if (!isOwn) {
+            const groupVoicePromptSetting: VoicePromptGroupSetting = this.appContext.getMaterial(VoicePromptGroupSetting);
 
-        const groupVoicePromptSetting: GroupVoicePromptSetting = this.appContext.getMaterial(GroupVoicePromptSetting);
-
-        const voicePromptType = groupVoicePromptSetting.getType(groupId);
-        if (VoicePromptType.unread === voicePromptType) {
-            if ((!isChatShowing || !isTabShowing) && !isOwn) {
+            const voicePromptType = groupVoicePromptSetting.getType(groupId);
+            if (VoicePromptType.unread === voicePromptType) {
+                if ((!isChatShowing || !isTabShowing) && !isOwn) {
+                    const promptManager: PromptManager = this.appContext.getMaterial(PromptManager);
+                    promptManager.playSound(SoundType.TYPE_MESSAGE);
+                }
+            } else if (VoicePromptType.always === voicePromptType) {
                 const promptManager: PromptManager = this.appContext.getMaterial(PromptManager);
                 promptManager.playSound(SoundType.TYPE_MESSAGE);
             }
-        } else if (VoicePromptType.always === voicePromptType) {
-            const promptManager: PromptManager = this.appContext.getMaterial(PromptManager);
-            promptManager.playSound(SoundType.TYPE_MESSAGE);
         }
     }
 

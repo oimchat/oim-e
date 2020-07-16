@@ -2,6 +2,10 @@ import Group from '@/app/com/bean/Group';
 import ChatViewModel from '@/impl/data/ChatViewModel';
 import GroupMember from '@/app/com/bean/GroupMember';
 import User from '@/app/com/bean/User';
+import Content from '@/app/com/data/chat/content/Content';
+import app from '@/app/App';
+import MessageAppendType from '@/app/com/main/setting/message/type/MessageAppendType';
+import MessageAppendGroupSetting from '@/app/com/main/setting/message/MessageAppendGroupSetting';
 
 class GroupChatViewModel extends ChatViewModel {
 
@@ -24,6 +28,20 @@ class GroupChatViewModel extends ChatViewModel {
 
     public setName(name: string) {
         this.chatData.name = name;
+    }
+
+    public insertLast(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content): void {
+        super.insertLast(isReceive, isOwn, key, showName, chatUser, content);
+        const setting: MessageAppendGroupSetting = app.appContext.getMaterial(MessageAppendGroupSetting);
+        const type = setting.getType(key);
+        if (MessageAppendType.bottom === type) {
+            if (typeof this.cacheData.updateScroll === 'function') {
+                setTimeout(() => {
+                    const h = this.cacheData.getScrollHeight();
+                    this.cacheData.updateScroll(h);
+                }, 50);
+            }
+        }
     }
 
     public setUserList(groupId: string, list: User[]): void {
