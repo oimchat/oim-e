@@ -1,4 +1,4 @@
-class Config {
+class EnvConfig {
 
     private dev: string = 'http://127.0.0.1:10000';
     private test: string = 'http://127.0.0.1:10000';
@@ -17,4 +17,4 @@ class Config {
     }
 }
 
-export default new Config();
+export default new EnvConfig();

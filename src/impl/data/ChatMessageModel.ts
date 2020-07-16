@@ -50,15 +50,24 @@ export default class ChatMessageModel {
         const top = data.scrollTop;
         const html = data.html;
         setTimeout(() => {
+            this.setInnerHTML(html);
             if (top > 0) {
                 this.updateScroll(top);
+            } else {
+                this.toScrollBottom();
             }
-            this.setInnerHTML(html);
         }, 50);
     }
 
     public getChatKey(): string {
         return this.cacheData.key;
+    }
+
+    public toScrollBottom() {
+        setTimeout(() => {
+            const h = this.cacheData.getScrollHeight();
+            this.cacheData.updateScroll(h);
+        }, 50);
     }
 
     public insertBefore(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content): void {

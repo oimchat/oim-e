@@ -11,6 +11,9 @@ import VoicePromptType from '@/app/com/main/setting/prompt/type/VoicePromptType'
 import MessageAppendUserSetting from '@/app/com/main/setting/message/MessageAppendUserSetting';
 import MessageAppendGroupSetting from '@/app/com/main/setting/message/MessageAppendGroupSetting';
 import MessageAppendType from '@/app/com/main/setting/message/type/MessageAppendType';
+import AppData from '@/app/base/config/AppData';
+import appInfo from '@/platform/config/AppInfo';
+import AppSetting from '@/app/base/config/AppSetting';
 
 class PlatformInitialize {
     private change: DataChange<number> = new class implements DataChange<number> {
@@ -24,7 +27,19 @@ class PlatformInitialize {
     };
 
     public constructor() {
-        // this.initializeView();
+        this.loadConfig();
+    }
+
+    public loadConfig() {
+        AppData.APP_NAME = appInfo.name;
+        AppData.APP_VERSION = appInfo.version;
+        AppData.APP_BUILD = appInfo.build;
+        AppData.APP_TYPE = appInfo.type;
+        AppData.APP_PLATFORM = appInfo.platform;
+
+        AppData.API_VERSION = appInfo.serverVersion;
+
+        AppSetting.setServerUrl(appInfo.serverUrl);
     }
 
     public initialize(): void {
