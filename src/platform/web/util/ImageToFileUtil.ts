@@ -4,11 +4,11 @@ export default class ImageToFileUtil {
      * 将以base64的图片url数据转换为Blob
      * 用url方式表示的base64图片数据
      */
-    public static convertBase64UrlToBlob(base64: { dataURL: string, type: string }): Blob {
-        const urlData = base64.dataURL;
+    public static convertBase64UrlToBlob(base64: { dataUrl: string, type: string }): Blob {
+        const dataUrl = base64.dataUrl;
         const type = base64.type;
         // 去掉url的头，并转换为byte
-        const bytes = window.atob(urlData.split(',')[1]);
+        const bytes = window.atob(dataUrl.split(',')[1]);
         // 处理异常,将ascii码小于0的转换为大于0
         const ab = new ArrayBuffer(bytes.length);
         const ia = new Uint8Array(ab);
@@ -21,16 +21,16 @@ export default class ImageToFileUtil {
     /*
      * 图片的绝对路径地址 转换成base64编码 如下代码：
      */
-    public static getBase64Image(img: any): { dataURL: string, type: string } {
+    public static getBase64Image(img: any): { dataUrl: string, type: string } {
         const canvas = document.createElement('canvas');
         canvas.width = img.width;
         canvas.height = img.height;
         const ctx: any = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, img.width, img.height);
         const ext = img.src.substring(img.src.lastIndexOf('.') + 1).toLowerCase();
-        const dataURL = canvas.toDataURL('image/' + ext);
+        const dataUrl = canvas.toDataURL('image/' + ext);
         return {
-            dataURL,
+            dataUrl,
             type: 'image/' + ext,
         };
     }
@@ -57,7 +57,6 @@ export default class ImageToFileUtil {
                  打印信息如下：
                  Blob {size: 9585, type: "image/jpg"}
                  */
-
                 const date: Date = new Date();
 
                 const fileInfo = {

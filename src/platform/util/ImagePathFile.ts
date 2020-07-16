@@ -5,7 +5,7 @@ import CoreContentUtil from '@/app/com/main/util/CoreContentUtil';
 import FileUtil from '@/platform/util/FileUtil';
 import WebImagePathUtil from '@/app/com/main/util/WebImagePathUtil';
 import Item from '@/app/com/data/chat/content/Item';
-import ImageToFileUtil from '@/platform/util/ImageToFileUtil';
+import ImageToFileUtil from '@/platform/web/util/ImageToFileUtil';
 
 export default class ImagePathFile {
 

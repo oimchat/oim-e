@@ -15,6 +15,8 @@ import SoundType from '@/app/com/main/component/SoundType';
 import AllMessageUnreadBox from '@/app/com/main/box/AllMessageUnreadBox';
 import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadManager';
 import UserChatDataSender from '@/app/com/main/sender/UserChatDataSender';
+import UserVoicePromptSetting from '@/app/com/main/setting/UserVoicePromptSetting';
+import VoicePromptType from '@/app/com/main/setting/type/VoicePromptType';
 
 
 export default class UserChatService extends AbstractMaterial {
@@ -95,13 +97,24 @@ export default class UserChatService extends AbstractMaterial {
             userChatItemManager.setItemRed(userId, red, unreadCount);
             messageAllUnreadManager.setMessageItemRed(totalRed, totalUnreadCount);
 
-            const promptManager: PromptManager = this.appContext.getMaterial(PromptManager);
-            promptManager.playSound(SoundType.TYPE_MESSAGE);
             // promptManager.put()
         } else if (!isOwn) {
             const contentId = content.id;
             const userChatDataSender: UserChatDataSender = this.appContext.getMaterial(UserChatDataSender);
             userChatDataSender.updateToReadByContentId(receiveUserId, sendUserId, contentId);
+        }
+
+        const userVoicePromptSetting: UserVoicePromptSetting = this.appContext.getMaterial(UserVoicePromptSetting);
+
+        const voicePromptType = userVoicePromptSetting.getType(userId);
+        if (VoicePromptType.unread === voicePromptType) {
+            if ((!isChatShowing || !isTabShowing) && !isOwn) {
+                const promptManager: PromptManager = this.appContext.getMaterial(PromptManager);
+                promptManager.playSound(SoundType.TYPE_MESSAGE);
+            }
+        } else if (VoicePromptType.always === voicePromptType) {
+            const promptManager: PromptManager = this.appContext.getMaterial(PromptManager);
+            promptManager.playSound(SoundType.TYPE_MESSAGE);
         }
     }
 

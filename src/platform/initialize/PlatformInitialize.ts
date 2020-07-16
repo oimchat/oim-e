@@ -5,6 +5,10 @@ import systemTrayBlinkDetection from '@/platform/SystemTrayBlinkDetection';
 import WebImageFileHandler from '@/app/define/file/WebImageFileHandler';
 import Item from '@/app/com/data/chat/content/Item';
 import ImagePathFile from '@/platform/util/ImagePathFile';
+import UserVoicePromptSetting from '@/app/com/main/setting/UserVoicePromptSetting';
+import Group from '@/app/com/bean/Group';
+import GroupVoicePromptSetting from '@/app/com/main/setting/GroupVoicePromptSetting';
+import VoicePromptType from '@/app/com/main/setting/type/VoicePromptType';
 
 class PlatformInitialize {
 
@@ -41,6 +45,12 @@ class PlatformInitialize {
         } as WebImageFileHandler;
 
         app.appContext.putObject(WebImageFileHandler.name, webImageFileHandler);
+
+        const userVoicePromptSetting: UserVoicePromptSetting = app.appContext.getMaterial(UserVoicePromptSetting);
+        const groupVoicePromptSetting: GroupVoicePromptSetting = app.appContext.getMaterial(GroupVoicePromptSetting);
+
+        userVoicePromptSetting.setDefaultType(VoicePromptType.always);
+        groupVoicePromptSetting.setDefaultType(VoicePromptType.always);
     }
 }
 

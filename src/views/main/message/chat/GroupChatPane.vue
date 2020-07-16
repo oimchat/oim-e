@@ -121,20 +121,24 @@
             groupChatViewModel.cacheData.updateScroll = (size: number) => {
                 const messageListPaneName = 'messageListPane';
                 const messageListPane: any = this.$refs[messageListPaneName];
-                messageListPane.scrollTop = size;
+                if (messageListPane) {
+                    messageListPane.scrollTop = size;
+                }
             };
 
             groupChatViewModel.cacheData.getScrollHeight = () => {
                 const messageListPaneName = 'messageListPane';
                 const messageListPane: any = this.$refs[messageListPaneName];
-                const height = messageListPane.scrollHeight;
+                const height = (messageListPane) ? messageListPane.scrollHeight : 0;
                 return height;
             };
 
             groupChatViewModel.cacheData.setInnerHTML = (html: string) => {
                 const writePaneName = 'writePane';
                 const writePane: any = this.$refs[writePaneName];
-                writePane.setInnerHTML(html);
+                if (writePane) {
+                    writePane.setInnerHTML(html);
+                }
             };
         }
 

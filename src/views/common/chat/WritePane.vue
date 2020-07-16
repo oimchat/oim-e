@@ -66,6 +66,7 @@
     import UploadResult from '@/app/com/main/data/UploadResult';
     import screenShot from '@/platform/module/ScreenShotInvoke';
     import BaseUtil from '@/app/lib/util/BaseUtil';
+    import TextJudgeUtil from '@/app/lib/util/TextJudgeUtil';
 
     @Component({
         components: {
@@ -154,7 +155,9 @@
                                 }
                             }
                         }
-                        if (html !== '') {
+
+                        const useHtml = (html !== '') && (!TextJudgeUtil.isWord(html));
+                        if (useHtml) {
                             // .replace(/<br([^<>]+|\s?)>/ig,‘||||‘);//替换br标签
                             html = html.replace(/<(?!(img|IMG))[^>]*>/ig, '');
                         } else {
