@@ -1,7 +1,7 @@
 import AbstractMaterial from '@/app/base/AbstractMaterial';
 import MessageAppendType from '@/app/com/main/setting/message/type/MessageAppendType';
 
-class MessageAppendSetting extends AbstractMaterial {
+class MessageDisplaySetting extends AbstractMaterial {
 
     private defaultType: number = MessageAppendType.last;
     private map: Map<string, number> = new Map<string, number>();
@@ -33,5 +33,5 @@ class MessageAppendSetting extends AbstractMaterial {
     }
 }
 
-export default MessageAppendSetting;
+export default MessageDisplaySetting;
 

@@ -13,7 +13,8 @@ import MessageAppendGroupSetting from '@/app/com/main/setting/message/MessageApp
 import MessageAppendType from '@/app/com/main/setting/message/type/MessageAppendType';
 import AppData from '@/app/base/config/AppData';
 import appInfo from '@/platform/config/AppInfo';
-import AppSetting from '@/app/base/config/AppSetting';
+import MessageSwitchSetting from '@/app/com/main/setting/message/MessageSwitchSetting';
+import AppSettingManager from '@/app/com/main/manager/AppSettingManager';
 
 class PlatformInitialize {
     private change: DataChange<number> = new class implements DataChange<number> {
@@ -39,10 +40,16 @@ class PlatformInitialize {
 
         AppData.API_VERSION = appInfo.serverVersion;
 
-        AppSetting.setServerUrl(appInfo.serverUrl);
+
+        const asm: AppSettingManager = app.appContext.getMaterial(AppSettingManager);
+        asm.setDefaultServerUrlGetter(() => {
+            return appInfo.serverUrl;
+        });
+        asm.loadSetting();
     }
 
     public initialize(): void {
+        this.loadConfig();
         this.initializeUnread();
         this.initializeComponent();
     }
@@ -74,6 +81,9 @@ class PlatformInitialize {
 
         messageAppendUserSetting.setDefaultType(MessageAppendType.bottom);
         messageAppendGroupSetting.setDefaultType(MessageAppendType.bottom);
+
+        const messageSwitchSetting: MessageSwitchSetting = app.appContext.getMaterial(MessageSwitchSetting);
+        messageSwitchSetting.setSwitchType(MessageAppendType.bottom);
     }
 }
 

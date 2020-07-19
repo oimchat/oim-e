@@ -1,6 +1,6 @@
-import MessageAppendSetting from '@/app/com/main/setting/message/MessageAppendSetting';
+import MessageDisplaySetting from '@/app/com/main/setting/message/MessageDisplaySetting';
 
-class MessageAppendUserSetting extends MessageAppendSetting {
+class MessageAppendUserSetting extends MessageDisplaySetting {
 
 }
 

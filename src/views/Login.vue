@@ -153,7 +153,7 @@
 
         private setting(): void {
             const asm: AppSettingManager = app.appContext.getMaterial(AppSettingManager);
-            let url = AppSetting.SERVER_URL;
+            let url = asm.getServerUrl();
 
             const addressBack = (success: boolean, message?: string) => {
                 if (!success) {

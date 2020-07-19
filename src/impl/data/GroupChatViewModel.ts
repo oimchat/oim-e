@@ -16,6 +16,11 @@ class GroupChatViewModel extends ChatViewModel {
     };
     public groupMemberUserListMap: Map<string, User[]> = new Map<string, User[]>();
 
+    public nodeClear() {
+        this.groupMemberUserListMap.clear();
+        this.groupMemberData.users = [];
+    }
+
     public setGroup(group: Group) {
         const groupId = (group) ? group.id : '';
         this.setChat(groupId);

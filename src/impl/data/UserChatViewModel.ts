@@ -17,6 +17,7 @@ class UserChatViewModel extends ChatViewModel {
         this.chatData.name = name;
     }
 
+
     public insertLast(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content): void {
         super.insertLast(isReceive, isOwn, key, showName, chatUser, content);
         const setting: MessageAppendUserSetting = app.appContext.getMaterial(MessageAppendUserSetting);

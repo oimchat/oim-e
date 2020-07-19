@@ -3,6 +3,9 @@ import ContentData from '@/views/common/chat/ContentData';
 import Content from '@/app/com/data/chat/content/Content';
 import ChatCacheData from '@/views/main/message/chat/ChatCacheData';
 import CoreContentUtil from '@/app/com/main/util/CoreContentUtil';
+import app from '@/app/App';
+import MessageSwitchSetting from '@/app/com/main/setting/message/MessageSwitchSetting';
+import MessageAppendType from '@/app/com/main/setting/message/type/MessageAppendType';
 
 
 export default class ChatMessageModel {
@@ -39,8 +42,21 @@ export default class ChatMessageModel {
     private keyMap: Map<string, Map<string, ContentData>> = new Map<string, Map<string, ContentData>>();
     private dataMap: Map<string, ChatCacheData> = new Map<string, ChatCacheData>();
 
+    public clear(): void {
+        this.listMap.clear();
+        this.keyMap.clear();
+        this.dataMap.clear();
+        this.messageInfo.list = [] as ContentData[];
+        this.cacheData.data = new ChatCacheData();
+        this.nodeClear();
+    }
+
+    public nodeClear() {
+        // no
+    }
 
     public setChat(key: string) {
+        const own = this;
         const list = this.getList(key);
         const data = this.getCacheData(key);
         this.messageInfo.list = list;
@@ -49,12 +65,20 @@ export default class ChatMessageModel {
         data.scrollTopCount = 0;
         const top = data.scrollTop;
         const html = data.html;
+
+        const setting: MessageSwitchSetting = app.appContext.getMaterial(MessageSwitchSetting);
+        const switchType = setting.getSwitchType();
         setTimeout(() => {
             this.setInnerHTML(html);
-            if (top > 0) {
-                this.updateScroll(top);
-            } else {
-                this.toScrollBottom();
+            if (MessageAppendType.last === switchType) {
+                if (top > 0) {
+                    own.updateScroll(top);
+                } else {
+                    own.toScrollBottom();
+                }
+            }
+            if (MessageAppendType.bottom === switchType) {
+                own.toScrollBottom();
             }
         }, 50);
     }
