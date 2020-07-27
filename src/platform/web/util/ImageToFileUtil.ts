@@ -1,3 +1,7 @@
+import Item from '@/app/com/data/chat/content/Item';
+import ImageValue from '@/app/com/data/chat/content/item/ImageValue';
+import BaseUtil from '@/app/lib/util/BaseUtil';
+
 export default class ImageToFileUtil {
 
     /**
@@ -94,5 +98,32 @@ export default class ImageToFileUtil {
                 back(map);
             }
         });
+    }
+
+    public static handleFileImageItems(items: Item[], back: (map: Map<string, File>) => void): void {
+        const emptyMap: Map<string, File> = new Map<string, File>();
+
+        if (items && items.length > 0) {
+            const urls: string[] = [];
+            for (const item of items) {
+                const iv: ImageValue = BaseUtil.jsonToObject(item.value);
+                if (iv) {
+                    const url = iv.url;
+                    if (url && url.startsWith('file')) {
+                        urls.push(url);
+                    }
+                }
+            }
+
+            if (urls.length > 0) {
+                ImageToFileUtil.handleImageFiles(urls, (map) => {
+                    back(map);
+                });
+            } else {
+                back(emptyMap);
+            }
+        } else {
+            back(emptyMap);
+        }
     }
 }

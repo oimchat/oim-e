@@ -34,6 +34,7 @@
     import app from '@/app/App';
     import ContentUtil from '@/impl/util/ContentUtil';
     import FileDownload from '@/app/com/main/component/FileDownload';
+    import MessageTimeSettingStore from '@/app/com/main/setting/message/MessageTimeSettingStore';
 
     @Component({
         components: {},
@@ -101,11 +102,19 @@
         get getTime() {
             let time = '';
             if (this.data && this.data.content) {
+
+                const messageTimeSettingStore: MessageTimeSettingStore = app.appContext.getMaterial(MessageTimeSettingStore);
+
                 const timestamp = this.data.content.timestamp;
                 const date = (timestamp) ? new Date(timestamp) : new Date();
+
                 const dateTimestamp = new Date().getTime();
-                const isOverDay = (dateTimestamp - timestamp) > (1000 * 60 * 60 * 12);
-                time = (isOverDay) ? ContentUtil.format('MM-dd hh:mm:ss', date) : ContentUtil.format('hh:mm:ss', date);
+                const durationMillisecond = (dateTimestamp - timestamp);
+                const format = messageTimeSettingStore.getPastTimeFormatValue(durationMillisecond);
+
+                // const isOverDay = (dateTimestamp - timestamp) > (1000 * 60 * 60 * 12);
+                // time = (isOverDay) ? ContentUtil.format('MM-dd hh:mm:ss', date) : ContentUtil.format('hh:mm:ss', date);
+                time = ContentUtil.format(format, date);
             }
             return time;
         }

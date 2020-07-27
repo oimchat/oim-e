@@ -24,7 +24,9 @@ import SecurityUtil from '@/app/com/main/util/SecurityUtil';
 
 
 export default class LoginController extends AbstractMaterial {
-
+    public onReconnect: () => void = (() => {
+        //  no
+    });
 
     public login(account: string, password: string, back: (success: boolean, message?: string) => void): void {
 
@@ -129,6 +131,7 @@ export default class LoginController extends AbstractMaterial {
                 if (success) {
                     // TODO
                     this.updateStatus();
+                    this.onReconnect();
                 }
             };
             const authBack = (success: boolean, message?: string) => {

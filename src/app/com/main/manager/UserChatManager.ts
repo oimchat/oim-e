@@ -16,6 +16,10 @@ export default class UserChatManager extends AbstractMaterial {
 
     protected loadMap: Map<string, boolean> = new Map<string, boolean>();
 
+    public clear(): void {
+        this.loadMap.clear();
+    }
+
     public chat(isReceive: boolean, isOwn: boolean, showUser: User, chatUser: User, content: Content): void {
         const key = showUser.id;
         const userChatView: UserChatView = this.appContext.getView(ViewEnum.UserChatView);

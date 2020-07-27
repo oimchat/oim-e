@@ -105,6 +105,12 @@ class ListBox {
         item.gray = gray;
     }
 
+
+    public getItemByKey(key: string): ItemData {
+        const item: any = this.itemMap.get(key);
+        return item;
+    }
+
     public setItemRed(nodeKey: string, itemKey: string, red: boolean, count: number): void {
         const item: ItemData | any = this.itemMap.get(itemKey);
         if (item) {

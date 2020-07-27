@@ -15,6 +15,14 @@ import AppData from '@/app/base/config/AppData';
 import appInfo from '@/platform/config/AppInfo';
 import MessageSwitchSetting from '@/app/com/main/setting/message/MessageSwitchSetting';
 import AppSettingManager from '@/app/com/main/manager/AppSettingManager';
+import MessageTimeSettingStore from '@/app/com/main/setting/message/MessageTimeSettingStore';
+import LoginController from '@/app/com/main/controller/LoginController';
+import GroupChatManager from '@/app/com/main/manager/GroupChatManager';
+import User from '@/app/com/bean/User';
+import UserChatManager from '@/app/com/main/manager/UserChatManager';
+import InitializeConverge from '@/app/com/main/converge/InitializeConverge';
+import groupChatViewModel from '@/impl/data/GroupChatViewModel';
+import userChatViewModel from '@/impl/data/UserChatViewModel';
 
 class PlatformInitialize {
     private change: DataChange<number> = new class implements DataChange<number> {
@@ -84,6 +92,24 @@ class PlatformInitialize {
 
         const messageSwitchSetting: MessageSwitchSetting = app.appContext.getMaterial(MessageSwitchSetting);
         messageSwitchSetting.setSwitchType(MessageAppendType.bottom);
+
+        const messageTimeSettingStore: MessageTimeSettingStore = app.appContext.getMaterial(MessageTimeSettingStore);
+        messageTimeSettingStore.messageTimeSetting.mergeMillisecond = -1;
+
+        const loginController: LoginController = app.appContext.getMaterial(LoginController);
+        loginController.onReconnect = () => {
+            const groupChatManager: GroupChatManager = app.appContext.getMaterial(GroupChatManager);
+            const userChatManager: UserChatManager = app.appContext.getMaterial(UserChatManager);
+
+            groupChatManager.clear();
+            userChatManager.clear();
+
+            groupChatViewModel.clear();
+            userChatViewModel.clear();
+
+            const initializeConverge: InitializeConverge = app.appContext.getMaterial(InitializeConverge);
+            initializeConverge.loadUnreadList();
+        };
     }
 }
 

@@ -6,6 +6,7 @@ import CoreContentUtil from '@/app/com/main/util/CoreContentUtil';
 import app from '@/app/App';
 import MessageSwitchSetting from '@/app/com/main/setting/message/MessageSwitchSetting';
 import MessageAppendType from '@/app/com/main/setting/message/type/MessageAppendType';
+import MessageTimeSettingStore from '@/app/com/main/setting/message/MessageTimeSettingStore';
 
 
 export default class ChatMessageModel {
@@ -135,6 +136,9 @@ export default class ChatMessageModel {
 
     public insert(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content, isBefore?: boolean): void {
 
+        const messageTimeSettingStore: MessageTimeSettingStore = app.appContext.getMaterial(MessageTimeSettingStore);
+        const mergeMillisecond = messageTimeSettingStore.messageTimeSetting.mergeMillisecond;
+
         const contentId = content.id;
         const messageKey = content.key;
         const map = this.getMap(key);
@@ -149,6 +153,8 @@ export default class ChatMessageModel {
             const lastTimestamp = this.messageInfo.lastTimestamp;
             const timestamp = content.timestamp;
 
+            const intervalMillisecond = isBefore ? (lastTimestamp - timestamp) : (timestamp - lastTimestamp);
+
             data = new ContentData();
             data.key = messageKey;
             data.id = contentId;
@@ -156,7 +162,7 @@ export default class ChatMessageModel {
             data.showName = showName;
             data.user = chatUser;
             data.isOwn = isOwn;
-            data.timeVisible = (timestamp - lastTimestamp > (1000 * 60 * 5));
+            data.timeVisible = (intervalMillisecond > mergeMillisecond);
             data.showNameVisible = this.messageInfo.showNameVisible;
 
             this.messageInfo.lastTimestamp = content.timestamp;

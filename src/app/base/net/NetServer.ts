@@ -192,6 +192,10 @@ export default class NetServer {
         return this.connectCount;
     }
 
+    public setReconnectWaitTimestamp(reconnectWaitTimestamp: number) {
+        this.reconnectWaitTimestamp = reconnectWaitTimestamp;
+    }
+
     private initialize(): void {
         // TODO
     }

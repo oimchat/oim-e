@@ -18,6 +18,10 @@ export default class GroupChatManager extends AbstractMaterial {
 
     protected loadMap: Map<string, boolean> = new Map<string, boolean>();
 
+    public clear(): void {
+        this.loadMap.clear();
+    }
+
     public chat(isReceive: boolean, isOwn: boolean, group: Group, chatUser: User, content: Content): void {
         const key = group.id;
         const groupChatView: GroupChatView = this.appContext.getView(ViewEnum.GroupChatView);
