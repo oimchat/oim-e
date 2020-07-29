@@ -1,6 +1,6 @@
 import {Md5} from 'md5-typescript';
 
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import PersonalClient from '@/app/com/main/http/main/PersonalClient';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import User from '@/app/com/bean/User';

@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import Page from '@/app/com/data/common/Page';
 import GroupMemberSender from '@/app/com/main/sender/GroupMemberSender';
 import PersonalBox from '@/app/com/main/box/PersonalBox';

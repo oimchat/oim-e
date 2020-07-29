@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import GroupCategory from '@/app/com/bean/GroupCategory';
 import GroupListBox from '@/app/com/main/box/GroupListBox';
 import ViewEnum from '@/app/com/main/view/ViewEnum';

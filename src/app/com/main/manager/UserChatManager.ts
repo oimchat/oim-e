@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/bean/User';
 import ViewEnum from '@/app/com/main/view/ViewEnum';
 import Content from '@/app/com/data/chat/content/Content';

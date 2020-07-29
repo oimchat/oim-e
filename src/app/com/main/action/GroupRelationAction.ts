@@ -1,5 +1,5 @@
-import {MethodMapping} from '@/app/base/annotation/ActionDecorator';
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import {MethodMapping} from '@/app/base/action/annotation/ActionDecorator';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import GroupRelationService from '@/app/com/main/service/GroupRelationService';
 import GroupRelation from '@/app/com/bean/GroupRelation';
 import GroupBusinessService from '@/app/com/main/service/GroupBusinessService';

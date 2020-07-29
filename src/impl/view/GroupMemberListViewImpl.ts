@@ -2,7 +2,7 @@ import GroupMemberListView from '@/app/com/main/view/GroupMemberListView';
 import GroupMember from '@/app/com/bean/GroupMember';
 import User from '@/app/com/bean/User';
 import groupChatViewModel from '@/impl/data/GroupChatViewModel';
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 
 export default class GroupMemberListViewImpl extends AbstractMaterial implements GroupMemberListView {
 

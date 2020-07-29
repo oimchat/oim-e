@@ -1,5 +1,5 @@
 import AbstractListPaneView from '@/impl/view/AbstractListPaneView';
-import AppContext from '@/app/base/AppContext';
+import AppContext from '@/app/base/context/AppContext';
 import ListData from '@/impl/data/ListData';
 
 export default class ContactListPaneViewImpl extends AbstractListPaneView {

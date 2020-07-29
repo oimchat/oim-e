@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/bean/User';
 import UserBox from '@/app/com/main/box/UserBox';
 import UserChatManager from '@/app/com/main/manager/UserChatManager';
@@ -8,11 +8,11 @@ import DataBackAction from '@/app/base/net/DataBackAction';
 import UserSender from '@/app/com/main/sender/UserSender';
 import UserChatInfoManager from '@/app/com/main/manager/UserChatInfoManager';
 import UserChatItemManager from '@/app/com/main/manager/UserChatItemManager';
-import UserMessageUnreadBox from '@/app/com/main/box/UserMessageUnreadBox';
+import UserMessageUnreadBox from '@/app/com/main/box/unread/UserMessageUnreadBox';
 import CoreContentUtil from '@/app/com/main/util/CoreContentUtil';
 import PromptManager from '@/app/com/main/manager/PromptManager';
-import SoundType from '@/app/com/main/component/SoundType';
-import AllMessageUnreadBox from '@/app/com/main/box/AllMessageUnreadBox';
+import SoundType from '@/app/define/prompt/SoundType';
+import AllMessageUnreadBox from '@/app/com/main/box/unread/AllMessageUnreadBox';
 import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadManager';
 import UserChatDataSender from '@/app/com/main/sender/UserChatDataSender';
 import VoicePromptUserSetting from '@/app/com/main/setting/prompt/VoicePromptUserSetting';
@@ -88,7 +88,7 @@ export default class UserChatService extends AbstractMaterial {
         const isTabShowing: boolean = messageAllUnreadManager.isMessageItemShowing();
         if ((!isChatShowing || !isTabShowing) && !isOwn) {
             userMessageUnreadBox.plusUnread(userId);
-            allMessageUnreadBox.plusUnread(1);
+            // allMessageUnreadBox.plusUnread(1);
 
             const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
             const unreadCount = userMessageUnreadBox.getUnreadCount(userId);
@@ -111,11 +111,11 @@ export default class UserChatService extends AbstractMaterial {
             if (VoicePromptType.unread === voicePromptType) {
                 if ((!isChatShowing || !isTabShowing) && !isOwn) {
                     const promptManager: PromptManager = this.appContext.getMaterial(PromptManager);
-                    promptManager.playSound(SoundType.TYPE_MESSAGE);
+                    promptManager.playSound(SoundType.Message);
                 }
             } else if (VoicePromptType.always === voicePromptType) {
                 const promptManager: PromptManager = this.appContext.getMaterial(PromptManager);
-                promptManager.playSound(SoundType.TYPE_MESSAGE);
+                promptManager.playSound(SoundType.Message);
             }
         }
     }

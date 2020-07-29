@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import RecentChatHandler from '@/app/com/main/handler/RecentChatHandler';
 import RecentChat from '@/app/com/bean/RecentChat';
 import UserChatDataSender from '@/app/com/main/sender/UserChatDataSender';

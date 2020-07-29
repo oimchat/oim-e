@@ -1,7 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
-import ServerData from '@/app/com/data/ServerData';
-import ServerAddress from '@/app/com/bean/ServerAddress';
-import BaseUtil from '@/app/lib/util/BaseUtil';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/bean/User';
 
 export default class PersonalBox extends AbstractMaterial {

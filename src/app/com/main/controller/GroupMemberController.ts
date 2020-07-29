@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import GroupMemberSender from '@/app/com/main/sender/GroupMemberSender';
 

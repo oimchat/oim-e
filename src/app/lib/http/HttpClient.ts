@@ -1,19 +1,39 @@
-import axios from 'axios';
-import BaseUtil from '@/app/lib/util/BaseUtil';
-import auth from '@/app/common/auth/Auth';
-import AppSetting from '@/app/base/config/AppSetting';
-import LogHandler from '@/app/base/log/LogHandler';
-import Head from '@/app/base/message/Head';
-import Info from '@/app/base/message/Info';
-import InfoMessage from '@/app/base/message/InfoMessage';
-import app from '@/app/App';
-import PromptHandlerType from '@/app/base/PromptHandlerType';
+import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
+import HttpHandler from '@/app/lib/http/HttpHandler';
 
 class HttpClient {
 
+    private httpHandler: HttpHandler = ({
+        handleRequest(request: AxiosRequestConfig): void {
+            // no
+        },
+        handleResponse(response: AxiosResponse, back?: (data: any) => void, prompt?: boolean): void {
+            const value = response.data;
+            if (typeof (back) === 'function') {
+                back(value);
+            }
+        },
+        handleError(error: any, back?: (data: any) => void, prompt?: boolean): void {
+            // no
+        },
+        handlePrompt(message: string): void {
+            // no
+        },
+    });
     private client = axios.create({
-        baseURL: AppSetting.SERVER_URL,
+        baseURL: '/',
         timeout: 100000,
+    });
+
+    private responseError = ((error: any) => {
+        return Promise.reject(error);
+        // return (error);
+    });
+
+    private responseHandler = ((response: any) => {
+        const status = response.status;
+        const headers = response.headers;
+        return response;
     });
 
     constructor() {
@@ -28,120 +48,26 @@ class HttpClient {
         this.init();
     }
 
-    public post(url: string, data: object, back?: (data: any) => void, prompt?: boolean | null): void {
-        // url = AppSetting.SERVER_URL + url;
-        // TODO
+    public post(url: string, data: object, back?: (data: any) => void, prompt?: boolean): void {
         // 同步方式 var res =  await axios.post('')// 这里的res就是你axios请求回来的结果了
-        LogHandler.debug('request:' + BaseUtil.objectToJson(data));
+        const own = this;
         this.client.post(url, data).then((response) => {
-            const value = response.data;
-            LogHandler.debug('response:' + BaseUtil.objectToJson(value));
-            if (typeof (back) === 'function') {
-                back(value);
-            }
-
-            if (prompt) {
-                if (!BaseUtil.isEmpty(value)) {
-                    const head = value.head;
-                    const info = value.info;
-                    if (info && prompt) {
-                        if (!info.success) {
-                            app.appContext.promptData(value);
-                        }
-                    }
-                }
-            }
+            own.httpHandler.handleResponse(response, back, prompt);
         }).catch((error: any) => {
-            const serverHead: Head = new Head();
-            const message: InfoMessage<Head> = new InfoMessage<Head>();
-            message.head = serverHead;
-            message.info = new Info();
-            message.info.addError('1.000', '请求异常！');
-            if (typeof (back) === 'function') {
-                back(message);
-            }
+            own.httpHandler.handleError(error, back, prompt);
         });
     }
 
-
-    private responseError = (error: any) => {
-        if (error.response) {
-            let message = error.message;
-            const response = error.response;
-            const status = response.status;
-
-            switch (status) {
-                case 400:
-                    message = '404！';
-                    break;
-                case 401:
-
-                    break;
-                case 403:
-
-                    break;
-                case 404:
-
-                    break;
-                case 500:
-                    message = '服务异常！';
-                    break;
-                default:
-
-            }
-            app.appContext.prompt(message, '错误', PromptHandlerType.error);
-        } else {
-            let message = error.message;
-            if (message === 'Network Error') {
-                message = '网络连接超时请稍后重试！';
-            } else {
-                message = '网络连接超时请稍后重试！';
-            }
-            // 请求超时处理
-            app.appContext.prompt(message, '错误', PromptHandlerType.error);
-        }
-        return Promise.reject(error);
-    };
-
-    private responseHandler = (response: any) => {
-        const status = response.status;
-        const headers = response.headers;
-        if (200 === status) {
-            // const data = response.data;
-            // if (!BaseUtil.isEmpty(data)) {
-            //     const head = data.head;
-            //     const info = data.info;
-            //     if (head && head.result) {
-            //         const result = head.result;
-            //         const code: string = result.code;
-            //         const message: string = result.message;
-            //         if ('1' !== code) {
-            //             if ('101' === code) {
-            //                 // TODO
-            //             } else if ('0' === code) {
-            //                 Vue.prototype.$Notice.warning({
-            //                     title: '错误',
-            //                     desc: message,
-            //                 });
-            //             } else {
-            //                 Vue.prototype.$Notice.warning({
-            //                     title: '错误',
-            //                     desc: message,
-            //                 });
-            //             }
-            //         }
-            //     }
-            // }
-        }
-        return response;
-    };
+    public setHttpHandler(httpHandler: HttpHandler): void {
+        this.httpHandler = httpHandler;
+    }
 
     private init(): void {
         // 错误处理
-        this.client.interceptors.response.use(this.responseHandler, this.responseError);
+        const own = this;
+        this.client.interceptors.response.use(own.responseHandler, own.responseError);
         this.client.interceptors.request.use((request) => {
-            request.headers.token = auth.getToken(); // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
-            request.headers.key = auth.getUserId();
+            own.httpHandler.handleRequest(request);
             return request;
         }, (error) => {
             return Promise.reject(error);

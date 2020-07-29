@@ -1,7 +1,7 @@
 import MessageListView from '@/app/com/main/view/MessageListView';
 
 import messageListModel from '@/impl/data/MessageListModel';
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 
 export default class MessageListViewImpl extends AbstractMaterial implements MessageListView {
 

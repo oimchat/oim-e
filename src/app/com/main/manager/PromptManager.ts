@@ -1,14 +1,14 @@
 import PromptData from '@/app/com/main/data/PromptData';
-import AbstractMaterial from '@/app/base/AbstractMaterial';
-import ComponentEnum from '@/app/com/main/component/ComponentEnum';
-import SoundHandler from '@/app/com/main/component/SoundHandler';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
+import SoundHandlerEnum from '@/app/define/prompt/SoundHandlerEnum';
+import SoundHandler from '@/app/define/prompt/SoundHandler';
 
 export default class PromptManager extends AbstractMaterial {
 
     private map: Map<string, PromptData> = new Map<string, PromptData>();
 
     public playSound(type: number): void {
-        const soundHandler: SoundHandler = this.appContext.getObject(ComponentEnum.SoundHandler);
+        const soundHandler: SoundHandler = this.appContext.getObject(SoundHandlerEnum.SoundHandler);
         if (soundHandler) {
             soundHandler.play(type);
         }

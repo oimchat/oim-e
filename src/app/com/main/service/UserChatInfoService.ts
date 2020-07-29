@@ -1,9 +1,9 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/bean/User';
 import UserChatInfoManager from '@/app/com/main/manager/UserChatInfoManager';
 import UserChatItemManager from '@/app/com/main/manager/UserChatItemManager';
-import UserMessageUnreadBox from '@/app/com/main/box/UserMessageUnreadBox';
-import AllMessageUnreadBox from '@/app/com/main/box/AllMessageUnreadBox';
+import UserMessageUnreadBox from '@/app/com/main/box/unread/UserMessageUnreadBox';
+import AllMessageUnreadBox from '@/app/com/main/box/unread/AllMessageUnreadBox';
 import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadManager';
 import UserChatManager from '@/app/com/main/manager/UserChatManager';
 import UserChatDataSender from '@/app/com/main/sender/UserChatDataSender';
@@ -23,7 +23,7 @@ export default class UserChatInfoService extends AbstractMaterial {
         const messageAllUnreadManager: MessageAllUnreadManager = this.appContext.getMaterial(MessageAllUnreadManager);
 
         const unreadCount = userMessageUnreadBox.getUnreadCount(userId);
-        allMessageUnreadBox.minusUnread(unreadCount);
+        // allMessageUnreadBox.minusUnread(unreadCount);
 
         const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
         const totalRed = totalUnreadCount > 0;

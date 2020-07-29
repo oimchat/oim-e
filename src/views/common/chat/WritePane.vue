@@ -56,7 +56,7 @@
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import FacePane from '@/views/common/chat/FacePane.vue';
-    import DocumentUtil from '@/app/common/util/DocumentUtil';
+    import DocumentUtil from '@/common/web/util/DocumentUtil';
     import app from '@/app/App';
     import {ServerType, Protocol} from '@/app/common/config/constant/ServerConstant';
     import ServerController from '@/app/com/main/controller/ServerController';
@@ -64,9 +64,11 @@
     import FileSeverApi from '@/app/com/main/constant/FileSeverApi';
     import ContentUploadImageService from '@/app/com/main/service/ContentUploadImageService';
     import UploadResult from '@/app/com/main/data/UploadResult';
-    import screenShot from '@/platform/module/ScreenShotInvoke';
+    import screenShot from '@/platform/e/module/ScreenShotInvoke';
     import BaseUtil from '@/app/lib/util/BaseUtil';
     import TextJudgeUtil from '@/app/lib/util/TextJudgeUtil';
+    import TextValueJudgeUtil from '@/common/web/util/TextValueJudgeUtil';
+    import PasteHandlerUtil from '@/common/web/util/PasteHandlerUtil';
 
     @Component({
         components: {
@@ -112,114 +114,14 @@
             if (inputArea instanceof Element) {
                 const inputAreaElement = inputArea as Element;
                 (inputArea as Element).addEventListener('paste', (e: Event) => {
-
-                    if (e instanceof ClipboardEvent) {
-                        const ce: ClipboardEvent = e as ClipboardEvent;
-                        // Prevent the default pasting event and stop bubbling
-                        e.preventDefault();
-                        e.stopPropagation();
-
-                        // Get the clipboard data
-                        let html = '';
-                        let text = '';
-                        const clipboardData = ((window as any).clipboardData || e.clipboardData);
-                        if (clipboardData) {
-                            html = (clipboardData).getData('text/html');
-                            text = (clipboardData).getData('text/plain');
-
-                            const items = clipboardData.items;
-
-                            const length = items.length;
-                            const hasText = (BaseUtil.isNotEmpty(html)) && (BaseUtil.isNotEmpty(text));
-                            if (length == 1 && !hasText) {
-                                const item = items[0];
-                                if (item.kind === 'file') {
-                                    const file = item.getAsFile();
-                                    if (file) {
-                                        if (item.type.match(/^image\//i)) {
-                                            own.uploadImage(file);
-                                        } else {
-                                            // 文件上传
-                                        }
-                                    }
-                                    return;
-                                }
-                            }
-                            for (let i = 0; i < length; i++) {
-                                const item = items[i];
-                                if (item.kind === 'file') {
-                                    const file = item.getAsFile();
-                                    if (file) {
-                                        // todo
-                                    }
-                                }
-                            }
-                        }
-                        let isOfficeDoc = false;
-                        if (BaseUtil.isNotEmpty(html)) {
-                            const document: Document = new DOMParser().parseFromString(html, 'text/html');
-                            const es = document.getElementsByTagName('html');
-                            if (es) {
-                                // const elementLength = es.length;
-                                for (const node of es) {
-                                    if (node) {
-                                        const attributeMap = node.attributes;
-                                        const mapLength = attributeMap.length;
-                                        let isWord = false;
-                                        let isExcel = false;
-                                        let isOffice = false;
-
-                                        for (let j = 0; j < mapLength; j++) {
-                                            const attributeItem = attributeMap.item(j);
-                                            if (attributeItem && attributeItem.value) {
-                                                const attributeValue = attributeItem.value;
-                                                const hasWord = attributeValue.match(/:word/i);
-                                                const hasExcel = attributeValue.match(/:excel/i);
-                                                const hasOffice = attributeValue.match(/:office/i);
-
-                                                if (hasWord) {
-                                                    isWord = true;
-                                                }
-                                                if (hasExcel) {
-                                                    isExcel = true;
-                                                }
-                                                if (hasOffice) {
-                                                    isOffice = true;
-                                                }
-                                            }
-                                        }
-
-                                        isOfficeDoc = isWord || isExcel || isOffice;
-                                    }
-                                }
-                                // for (let j = 0; j < elementLength; j++) {
-                                //     const item = es[j];
-                                //     if (item) {
-                                //         item.attributes;
-                                //     }
-                                // }
-                            }
-                        }
-                        let useHtml = BaseUtil.isNotEmpty(html);
-                        if (useHtml) {
-                            if (TextJudgeUtil.isWord(html) || isOfficeDoc) {
-                                useHtml = false;
-                            }
-                        }
-                        if (useHtml) {
-                            // .replace(/<br([^<>]+|\s?)>/ig,‘||||‘);//替换br标签
-                            html = html.replace(/(<bR\/>|<bR>|<Br\/>|<Br>|<br\/>|<br>|<BR>|<BR\/>)/g, '\n');
-                            html = html.replace(/<(?!(img|IMG))[^>]*>/ig, '');
-                            html = BaseUtil.trim(html);
-                        } else {
-                            html = text;
-                        }
-                        if (html !== '') {
+                    PasteHandlerUtil.handle(e,
+                        (html: string) => {
                             own.insertHtmlAtCursor(html);
-                        }
-                    }
+                        },
+                        (file: File) => {
+                            own.uploadImage(file);
+                        });
                 });
-
                 // inputAreaElement.addEventListener('',(e:KeyboardEvent)=>{})
             }
 

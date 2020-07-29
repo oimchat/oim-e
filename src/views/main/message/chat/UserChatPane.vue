@@ -47,7 +47,7 @@
     import Item from '@/app/com/data/chat/content/Item';
     import FileValue from '@/app/com/data/chat/content/item/FileValue';
     import UserChatDataController from '@/app/com/main/controller/UserChatDataController';
-    import WebImageFileHandler from '@/app/define/file/WebImageFileHandler';
+    import ImageItemFileConverter from '@/app/define/file/ImageItemFileConverter';
 
     @Component({
         components: {
@@ -221,7 +221,7 @@
                                 }
                             };
 
-                            const wuh: WebImageFileHandler = app.appContext.getObject(WebImageFileHandler.name);
+                            const wuh: ImageItemFileConverter = app.appContext.getObject(ImageItemFileConverter.name);
                             if (wuh) {
                                 wuh.handleItems(items, handleItemsBack);
                             } else {

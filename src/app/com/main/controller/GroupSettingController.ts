@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import GroupJoinSettingSender from '@/app/com/main/sender/GroupJoinSettingSender';
 import GroupJoinSetting from '@/app/com/bean/GroupJoinSetting';

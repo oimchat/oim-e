@@ -1,5 +1,5 @@
-import {MethodMapping} from '@/app/base/annotation/ActionDecorator';
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import {MethodMapping} from '@/app/base/action/annotation/ActionDecorator';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import UserChatUnreadService from '@/app/com/main/service/UserChatUnreadService';
 
 export default class UserChatDataAction extends AbstractMaterial {

@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import serverClient from '@/app/com/main/http/api/ServerClient';
 import ServerData from '@/app/com/data/ServerData';
 import ServerBox from '@/app/com/main/box/ServerBox';

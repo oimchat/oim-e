@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import Group from '@/app/com/bean/Group';
 import GroupListManager from '@/app/com/main/manager/GroupListManager';
 import DataBackAction from '@/app/base/net/DataBackAction';

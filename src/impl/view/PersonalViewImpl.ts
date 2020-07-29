@@ -2,7 +2,7 @@ import PersonalView from '@/app/com/main/view/PersonalView';
 import User from '@/app/com/bean/User';
 import personalDataBox from '@/impl/PersonalDataBox';
 import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 
 export default class PersonalViewImpl extends AbstractMaterial implements PersonalView {
     public setUser(user: User): void {

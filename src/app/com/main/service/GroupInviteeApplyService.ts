@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import GroupInviteApplyQuery from '@/app/com/data/GroupInviteApplyQuery';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import Page from '@/app/com/data/common/Page';

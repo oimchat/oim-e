@@ -1,5 +1,5 @@
-import {MethodMapping} from '@/app/base/annotation/ActionDecorator';
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import {MethodMapping} from '@/app/base/action/annotation/ActionDecorator';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import PersonalService from '@/app/com/main/service/PersonalService';
 import Client from '@/app/base/message/client/Client';
 

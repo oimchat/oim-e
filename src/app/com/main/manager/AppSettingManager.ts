@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import AppSetting from '@/app/base/config/AppSetting';
 import BaseCache from '@/app/common/cache/BaseCache';
 import http from '@/app/lib/http/HttpClient';

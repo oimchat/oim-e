@@ -25,6 +25,10 @@ export default class BaseCache {
         return object;
     }
 
+    public set(key: string, value: any) {
+        this.put(key, value);
+    }
+
     public put(key: string, value: any) {
         const saveKey = this.getKey(key);
         if (!BaseUtil.isEmpty(value)) {
@@ -44,6 +48,10 @@ export default class BaseCache {
                 this.map.set(saveKey, value);
             }
         }
+    }
+
+    public delete(key: string) {
+        this.remove(key);
     }
 
     public remove(key: string) {

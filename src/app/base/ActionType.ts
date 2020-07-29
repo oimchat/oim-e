@@ -1,5 +1,5 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
-import AppContext from '@/app/base/AppContext';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
+import AppContext from '@/app/base/context/AppContext';
 
 // export default interface ActionType<T extends AbstractMaterial> extends Function {
 //

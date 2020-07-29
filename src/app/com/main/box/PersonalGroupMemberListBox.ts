@@ -1,8 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
-import ServerData from '@/app/com/data/ServerData';
-import ServerAddress from '@/app/com/bean/ServerAddress';
-import BaseUtil from '@/app/lib/util/BaseUtil';
-import User from '@/app/com/bean/User';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import GroupMember from '@/app/com/bean/GroupMember';
 
 export default class PersonalGroupMemberListBox extends AbstractMaterial {

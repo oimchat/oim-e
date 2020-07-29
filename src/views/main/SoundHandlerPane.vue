@@ -6,11 +6,11 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import SoundHandler from '@/app/com/main/component/SoundHandler';
+    import SoundHandler from '@/app/define/prompt/SoundHandler';
     import BaseUtil from '@/app/lib/util/BaseUtil';
     import app from '@/app/App';
-    import ComponentEnum from '@/app/com/main/component/ComponentEnum';
-    import SoundType from '@/app/com/main/component/SoundType';
+    import SoundHandlerEnum from '@/app/define/prompt/SoundHandlerEnum';
+    import SoundType from '@/app/define/prompt/SoundType';
 
     @Component({
         components: {},
@@ -24,10 +24,10 @@
 
         public mounted() {
             // audio/ogg
-            app.appContext.putViewObject(ComponentEnum.SoundHandler, this);
-            this.map.set(SoundType.TYPE_SYSTEM, {path: 'assets/sound/message_system.mp3', audioType: 'audio/mpeg'});
-            this.map.set(SoundType.TYPE_MESSAGE, {path: 'assets/sound/message_general.mp3', audioType: 'audio/mpeg'});
-            this.map.set(SoundType.TYPE_NOTICE, {path: 'assets/sound/message_notify.mp3', audioType: 'audio/mpeg'});
+            app.appContext.putViewObject(SoundHandlerEnum.SoundHandler, this);
+            this.map.set(SoundType.System, {path: 'assets/sound/message_system.mp3', audioType: 'audio/mpeg'});
+            this.map.set(SoundType.Message, {path: 'assets/sound/message_general.mp3', audioType: 'audio/mpeg'});
+            this.map.set(SoundType.Notice, {path: 'assets/sound/message_notify.mp3', audioType: 'audio/mpeg'});
         }
 
         public play(type: number): void {

@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import UserChatDataSender from '@/app/com/main/sender/UserChatDataSender';
 import Page from '@/app/com/data/common/Page';
 import UserChatUnreadQuery from '@/app/com/data/chat/UserChatUnreadQuery';

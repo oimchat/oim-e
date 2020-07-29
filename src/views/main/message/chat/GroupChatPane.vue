@@ -71,7 +71,7 @@
     import ContentUtil from '@/impl/util/ContentUtil';
     import CoreContentUtil from '@/app/com/main/util/CoreContentUtil';
     import ContentUploadImageService from '@/app/com/main/service/ContentUploadImageService';
-    import ImagePathFile from '@/platform/util/ImagePathFile';
+    import ImagePathFile from '@/platform/e/util/ImagePathFile';
     import UploadResult from '@/app/com/main/data/UploadResult';
     import ImageValue from '@/app/com/data/chat/content/item/ImageValue';
     import BaseUtil from '@/app/lib/util/BaseUtil';
@@ -89,9 +89,9 @@
     import FileValue from '@/app/com/data/chat/content/item/FileValue';
     import PersonalGroupMemberListBox from '@/app/com/main/box/PersonalGroupMemberListBox';
     import GroupMemberService from '@/app/com/main/service/GroupMemberService';
-    import DocumentUtil from '@/app/common/util/DocumentUtil';
+    import DocumentUtil from '@/common/web/util/DocumentUtil';
     import GroupChatDataController from '@/app/com/main/controller/GroupChatDataController';
-    import WebImageFileHandler from '@/app/define/file/WebImageFileHandler';
+    import ImageItemFileConverter from '@/app/define/file/ImageItemFileConverter';
 
     @Component({
         components: {
@@ -273,7 +273,7 @@
                                     this.cacheData.data.html = '';
                                 }
                             };
-                            const wuh: WebImageFileHandler = app.appContext.getObject(WebImageFileHandler.name);
+                            const wuh: ImageItemFileConverter = app.appContext.getObject(ImageItemFileConverter.name);
                             if (wuh) {
                                 wuh.handleItems(items, handleItemsBack);
                             } else {

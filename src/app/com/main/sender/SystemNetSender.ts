@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import Message from '@/app/base/message/Message';
 
 export default class SystemNetSender extends AbstractMaterial {

@@ -1,7 +1,6 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import ServerData from '@/app/com/data/ServerData';
 import ServerAddress from '@/app/com/bean/ServerAddress';
-import BaseUtil from '@/app/lib/util/BaseUtil';
 import {Protocol, ServerType} from '@/app/common/config/constant/ServerConstant';
 
 export default class ServerBox extends AbstractMaterial {

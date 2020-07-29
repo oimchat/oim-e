@@ -1,5 +1,5 @@
-import {MethodMapping} from '@/app/base/annotation/ActionDecorator';
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import {MethodMapping} from '@/app/base/action/annotation/ActionDecorator';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import UserChatService from '@/app/com/main/service/UserChatService';
 import Content from '@/app/com/data/chat/content/Content';
 

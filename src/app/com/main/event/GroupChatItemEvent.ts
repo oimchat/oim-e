@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import GroupChatInfoManager from '@/app/com/main/manager/GroupChatInfoManager';
 import GroupChatItemManager from '@/app/com/main/manager/GroupChatItemManager';
 import GroupChatInfoService from '@/app/com/main/service/GroupChatInfoService';

@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import MessageDisplaySetting from '@/app/com/main/setting/message/data/MessageDisplaySetting';
 
 class MessageDisplaySettingStore extends AbstractMaterial {

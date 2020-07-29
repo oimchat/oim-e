@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import Group from '@/app/com/bean/Group';
 import Content from '@/app/com/data/chat/content/Content';
 import groupChatViewModel from '@/impl/data/GroupChatViewModel';

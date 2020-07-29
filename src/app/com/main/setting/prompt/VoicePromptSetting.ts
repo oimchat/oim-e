@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import VoicePromptType from '@/app/com/main/setting/prompt/type/VoicePromptType';
 
 class VoicePromptSetting extends AbstractMaterial {

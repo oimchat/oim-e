@@ -8,7 +8,7 @@
     import './styles/layout.css';
     import Vue from 'vue';
     import Component from 'vue-class-component';
-    import WindowDecorated from '@/platform/view/WindowDecorated.vue';
+    import WindowDecorated from '@/platform/e/view/WindowDecorated.vue';
 
     @Component({
         components: {

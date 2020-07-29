@@ -1,5 +1,5 @@
 import DataBackAction from '@/app/base/net/DataBackAction';
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 
 export default class DefaultDataBackAction extends AbstractMaterial implements DataBackAction {
 

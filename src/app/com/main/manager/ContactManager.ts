@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/bean/User';
 import UserBox from '@/app/com/main/box/UserBox';
 import ContactListBox from '@/app/com/main/box/ContactListBox';

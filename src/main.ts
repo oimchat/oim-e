@@ -1,16 +1,16 @@
 import Vue from 'vue';
 import App from './App.vue';
-import router from './router/router';
-import store from './common/store/store';
+import routerManager from './router/RouterManager';
+import store from './platform/store/store';
 import iView from 'iview';
 import 'iview/dist/styles/iview.css'; // 使用 CSS
 
-import './platform/styles/top.css';
+import './platform/e/styles/top.css';
 import './styles/iview/theme/index.less';
 import './styles/compatible.less';
 import './styles/drag.less';
 // @ts-ignore
-import i18n from './common/locale';
+import i18n from './platform/locale';
 
 import 'viewerjs/dist/viewer.css';
 // @ts-ignore
@@ -21,9 +21,7 @@ Viewer.setDefaults({
     zIndexInline: 9999,
 });
 
-import appInitialize from '@/impl/initialize/AppInitialize';
 
-appInitialize.initialize();
 
 Vue.config.productionTip = false;
 // 绑定i18n到全局变量上
@@ -32,6 +30,8 @@ Vue.use(iView);
 // Vue.use(iView, {
 //     i18n: (key: string, value: string) => i18n.t(key, value),
 // });
+
+const router = routerManager.getRouter();
 new Vue({
     router,
     store,

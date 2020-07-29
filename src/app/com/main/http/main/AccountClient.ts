@@ -5,11 +5,11 @@ import Message from '@/app/base/message/Message';
 import User from '@/app/com/bean/User';
 import SecurityQuestion from '@/app/com/bean/SecurityQuestion';
 import BaseUtil from '@/app/lib/util/BaseUtil';
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import ServerBox from '@/app/com/main/box/ServerBox';
 import {Protocol, ServerType} from '@/app/common/config/constant/ServerConstant';
 import Info from '@/app/base/message/Info';
-import PromptHandlerType from '@/app/base/PromptHandlerType';
+import PromptType from '@/app/define/prompt/PromptType';
 import ServerAddressUtil from '@/app/com/main/util/ServerAddressUtil';
 
 export default class AccountClient extends AbstractMaterial {
@@ -143,7 +143,7 @@ export default class AccountClient extends AbstractMaterial {
             message.info = info;
             back(message);
             if (prompt) {
-                this.appContext.prompt('服务器不可用！', '错误', PromptHandlerType.error);
+                this.appContext.prompt('服务器不可用！', '错误', PromptType.error);
             }
         } else {
             const url = ServerAddressUtil.convertHttpUrl(address);

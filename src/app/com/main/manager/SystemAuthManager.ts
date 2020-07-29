@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import SystemAuthSender from '@/app/com/main/sender/SystemAuthSender';
 import Client from '@/app/base/message/client/Client';

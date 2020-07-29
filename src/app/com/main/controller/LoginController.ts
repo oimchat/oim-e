@@ -1,6 +1,6 @@
 import {Md5} from 'md5-typescript';
 
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import ServerService from '@/app/com/main/service/ServerService';
 import PersonalClient from '@/app/com/main/http/main/PersonalClient';
 import BaseUtil from '@/app/lib/util/BaseUtil';
@@ -21,6 +21,7 @@ import InfoUtil from '@/app/base/message/util/InfoUtil';
 import LoginUser from '@/app/com/data/LoginUser';
 import LoginSaveBox from '@/app/com/main/box/LoginSaveBox';
 import SecurityUtil from '@/app/com/main/util/SecurityUtil';
+import EnterInitializerBox from '@/app/com/main/initialize/EnterInitializerBox';
 
 
 export default class LoginController extends AbstractMaterial {
@@ -149,15 +150,8 @@ export default class LoginController extends AbstractMaterial {
     }
 
     public initializeApp(): void {
-        const initializeConverge: InitializeConverge = this.appContext.getMaterial(InitializeConverge);
-        const messageListView: MessageListView = this.appContext.getView(ViewEnum.MessageListView);
-        messageListView.clear();
-        initializeConverge.initializeApp();
-        setTimeout(() => {
-            initializeConverge.loadLastList();
-            initializeConverge.loadUnreadList();
-            initializeConverge.loadSystemInformation();
-        }, 1000);
+        const enterInitializerBox: EnterInitializerBox = this.appContext.getMaterial(EnterInitializerBox);
+        enterInitializerBox.initialize();
     }
 
     public updateStatus() {

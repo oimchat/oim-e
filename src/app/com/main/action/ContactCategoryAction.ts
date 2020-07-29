@@ -1,5 +1,5 @@
-import {MethodMapping} from '@/app/base/annotation/ActionDecorator';
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import {MethodMapping} from '@/app/base/action/annotation/ActionDecorator';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import ContactCategory from '@/app/com/bean/ContactCategory';
 import ContactCategoryService from '@/app/com/main/service/ContactCategoryService';
 

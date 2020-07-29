@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import Content from '@/app/com/data/chat/content/Content';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import GroupChatSender from '@/app/com/main/sender/GroupChatSender';

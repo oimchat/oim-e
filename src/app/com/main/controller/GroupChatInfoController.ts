@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import GroupChatInfoService from '@/app/com/main/service/GroupChatInfoService';
 
 export default class GroupChatInfoController extends AbstractMaterial {

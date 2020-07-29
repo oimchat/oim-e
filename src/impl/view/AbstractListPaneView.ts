@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import ListPaneView from '@/app/com/main/view/ListPaneView';
 import ListBox from '@/impl/data/ListBox';
 

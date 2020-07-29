@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import UserChatInfoManager from '@/app/com/main/manager/UserChatInfoManager';
 import UserChatItemManager from '@/app/com/main/manager/UserChatItemManager';
 import UserChatInfoService from '@/app/com/main/service/UserChatInfoService';

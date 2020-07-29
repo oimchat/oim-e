@@ -1,4 +1,4 @@
-import AppContext from '@/app/base/AppContext';
+import AppContext from '@/app/base/context/AppContext';
 import ConnectHandler from '@/app/base/net/ConnectHandler';
 import auth from '@/app/common/auth/Auth';
 import SystemNetController from '@/app/com/main/controller/SystemNetController';
@@ -20,17 +20,30 @@ import UserAction from '@/app/com/main/action/UserAction';
 import UserChatAction from '@/app/com/main/action/UserChatAction';
 import SystemAuthAction from '@/app/com/main/action/SystemAuthAction';
 import UserChatDataAction from '@/app/com/main/action/UserChatDataAction';
+import PromptHandler from '@/app/define/prompt/PromptHandler';
+import InitializerBox from '@/app/base/initialize/InitializerBox';
+import Initializer from '@/app/base/initialize/Initializer';
+import PromptHandlerImpl from '@/app/impl/prompt/PromptHandlerImpl';
+import EnterInitializerBox from '@/app/com/main/initialize/EnterInitializerBox';
+import InformationInitializer from '@/app/com/main/initialize/impl/InformationInitializer';
+import ViewInitializer from '@/app/com/main/initialize/impl/ViewInitializer';
+import ListInitializer from '@/app/com/main/initialize/impl/ListInitializer';
+import PersonalInitializer from '@/app/com/main/initialize/impl/PersonalInitializer';
+import ActionInitializer from '@/app/initialize/ActionInitializer';
+import HttpInitializer from '@/app/initialize/HttpInitializer';
 
 
 class App {
 
     public appContext: AppContext = new AppContext();
+    public launchInitializerBox: InitializerBox = new InitializerBox();
+
+
     public disconnection = false;
+    public promptHandler: PromptHandler = new PromptHandlerImpl();
 
     constructor() {
         this.initialize();
-        this.initializeConfig();
-        this.initializeAction();
     }
 
     public logout(): void {
@@ -40,12 +53,15 @@ class App {
         this.appContext.netServer.closeNetSocket();
         this.appContext = new AppContext();
         this.initialize();
-        this.initializeConfig();
-        this.initializeAction();
+    }
+
+    public putInitializer(data: Initializer) {
+        this.launchInitializerBox.put(data);
     }
 
     private initialize(): void {
         const own = this;
+
         const connectHandler: ConnectHandler = {
             onIdle(): void {
                 // TODO
@@ -83,30 +99,33 @@ class App {
             },
         } as ConnectHandler;
         this.appContext.netServer.setConnectHandler(connectHandler);
+
+        this.initializeConfig();
+        this.initializeModule();
+    }
+
+    private initializeLaunch() {
+        this.putInitializer(new ActionInitializer());
+        this.putInitializer(new HttpInitializer());
     }
 
     private initializeConfig() {
         // no
     }
 
-    private initializeAction(): void {
-        this.appContext.putAction(ContactAction);
-        this.appContext.putAction(ContactCategoryAction);
-        this.appContext.putAction(ContactRelationAction);
-        this.appContext.putAction(GroupBusinessAction);
-        this.appContext.putAction(GroupCategoryAction);
-        this.appContext.putAction(GroupChatAction);
-        this.appContext.putAction(GroupInfoAction);
-        this.appContext.putAction(GroupInviteAction);
-        this.appContext.putAction(GroupJoinAction);
-        this.appContext.putAction(GroupMemberAction);
-        this.appContext.putAction(GroupRelationAction);
-        this.appContext.putAction(PersonalAction);
-        this.appContext.putAction(UserAction);
-        this.appContext.putAction(UserChatAction);
-        this.appContext.putAction(UserChatDataAction);
-        this.appContext.putAction(SystemAuthAction);
+
+
+
+    private initializeModule(): void {
+        const appContext = this.appContext;
+
+        this.appContext.getMaterial(EnterInitializerBox);
+        this.appContext.getMaterial(InformationInitializer);
+        this.appContext.getMaterial(ListInitializer);
+        this.appContext.getMaterial(PersonalInitializer);
+        this.appContext.getMaterial(ViewInitializer);
     }
+
 }
 
 export default new App();

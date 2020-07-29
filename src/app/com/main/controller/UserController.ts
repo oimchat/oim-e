@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import UserSender from '@/app/com/main/sender/UserSender';
 import UserQuery from '@/app/com/data/UserQuery';
 import Page from '@/app/com/data/common/Page';

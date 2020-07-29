@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import GroupMemberService from '@/app/com/main/service/GroupMemberService';
 import GroupMemberListService from '@/app/com/main/service/GroupMemberListService';
 import GroupMember from '@/app/com/bean/GroupMember';

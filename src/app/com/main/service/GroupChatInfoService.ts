@@ -1,9 +1,9 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import Group from '@/app/com/bean/Group';
 import GroupChatInfoManager from '@/app/com/main/manager/GroupChatInfoManager';
 import GroupChatItemManager from '@/app/com/main/manager/GroupChatItemManager';
-import GroupMessageUnreadBox from '@/app/com/main/box/GroupMessageUnreadBox';
-import AllMessageUnreadBox from '@/app/com/main/box/AllMessageUnreadBox';
+import GroupMessageUnreadBox from '@/app/com/main/box/unread/GroupMessageUnreadBox';
+import AllMessageUnreadBox from '@/app/com/main/box/unread/AllMessageUnreadBox';
 import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadManager';
 import GroupChatManager from '@/app/com/main/manager/GroupChatManager';
 
@@ -21,7 +21,7 @@ export default class GroupChatInfoService extends AbstractMaterial {
         const messageAllUnreadManager: MessageAllUnreadManager = this.appContext.getMaterial(MessageAllUnreadManager);
 
         const unreadCount = groupMessageUnreadBox.getUnreadCount(groupId);
-        allMessageUnreadBox.minusUnread(unreadCount);
+        // allMessageUnreadBox.minusUnread(unreadCount);
 
         const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
         const totalRed = totalUnreadCount > 0;
@@ -46,7 +46,7 @@ export default class GroupChatInfoService extends AbstractMaterial {
         const messageAllUnreadManager: MessageAllUnreadManager = this.appContext.getMaterial(MessageAllUnreadManager);
 
         const unreadCount = groupMessageUnreadBox.getUnreadCount(groupId);
-        allMessageUnreadBox.minusUnread(unreadCount);
+        // allMessageUnreadBox.minusUnread(unreadCount);
 
         const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
         const totalRed = totalUnreadCount > 0;

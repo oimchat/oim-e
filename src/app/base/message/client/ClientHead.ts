@@ -1,6 +1,5 @@
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import Head from '@/app/base/message/Head';
-import Client from './Client';
 
 export default class ClientHead extends Head {
 

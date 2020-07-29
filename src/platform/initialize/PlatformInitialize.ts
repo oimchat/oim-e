@@ -1,10 +1,10 @@
 import app from '@/app/App';
-import AllMessageUnreadBox from '@/app/com/main/box/AllMessageUnreadBox';
+import AllMessageUnreadBox from '@/app/com/main/box/unread/AllMessageUnreadBox';
 import DataChange from '@/app/base/event/DataChange';
-import systemTrayBlinkDetection from '@/platform/SystemTrayBlinkDetection';
-import WebImageFileHandler from '@/app/define/file/WebImageFileHandler';
+import systemTrayBlinkDetection from '@/platform/e/SystemTrayBlinkDetection';
+import ImageItemFileConverter from '@/app/define/file/ImageItemFileConverter';
 import Item from '@/app/com/data/chat/content/Item';
-import ImagePathFile from '@/platform/util/ImagePathFile';
+import ImagePathFile from '@/platform/e/util/ImagePathFile';
 import VoicePromptUserSetting from '@/app/com/main/setting/prompt/VoicePromptUserSetting';
 import VoicePromptGroupSetting from '@/app/com/main/setting/prompt/VoicePromptGroupSetting';
 import VoicePromptType from '@/app/com/main/setting/prompt/type/VoicePromptType';
@@ -12,7 +12,7 @@ import MessageAppendUserSetting from '@/app/com/main/setting/message/MessageAppe
 import MessageAppendGroupSetting from '@/app/com/main/setting/message/MessageAppendGroupSetting';
 import MessageAppendType from '@/app/com/main/setting/message/type/MessageAppendType';
 import AppData from '@/app/base/config/AppData';
-import appInfo from '@/platform/config/AppInfo';
+import appInfo from '@/platform/common/config/AppInfo';
 import MessageSwitchSetting from '@/app/com/main/setting/message/MessageSwitchSetting';
 import AppSettingManager from '@/app/com/main/manager/AppSettingManager';
 import MessageTimeSettingStore from '@/app/com/main/setting/message/MessageTimeSettingStore';
@@ -23,6 +23,8 @@ import UserChatManager from '@/app/com/main/manager/UserChatManager';
 import InitializeConverge from '@/app/com/main/converge/InitializeConverge';
 import groupChatViewModel from '@/impl/data/GroupChatViewModel';
 import userChatViewModel from '@/impl/data/UserChatViewModel';
+import appInitialize from '@/impl/initialize/AppInitialize';
+
 
 class PlatformInitialize {
     private change: DataChange<number> = new class implements DataChange<number> {
@@ -57,6 +59,7 @@ class PlatformInitialize {
     }
 
     public initialize(): void {
+        appInitialize.initialize();
         this.loadConfig();
         this.initializeUnread();
         this.initializeComponent();
@@ -70,13 +73,13 @@ class PlatformInitialize {
 
     private initializeComponent() {
 
-        const webImageFileHandler: WebImageFileHandler = {
+        const webImageFileHandler: ImageItemFileConverter = {
             handleItems(items: Item[], back: (map: Map<string, File>) => void): void {
                 ImagePathFile.handleFileImageItems(items, back);
             },
-        } as WebImageFileHandler;
+        } as ImageItemFileConverter;
 
-        app.appContext.putObject(WebImageFileHandler.name, webImageFileHandler);
+        app.appContext.putObject(ImageItemFileConverter.name, webImageFileHandler);
 
         const userVoicePromptSetting: VoicePromptUserSetting = app.appContext.getMaterial(VoicePromptUserSetting);
         const groupVoicePromptSetting: VoicePromptGroupSetting = app.appContext.getMaterial(VoicePromptGroupSetting);

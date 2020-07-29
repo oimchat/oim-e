@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import GroupMember from '@/app/com/bean/GroupMember';
 import PersonalGroupMemberListBox from '@/app/com/main/box/PersonalGroupMemberListBox';
 import User from '@/app/com/bean/User';

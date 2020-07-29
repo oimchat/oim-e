@@ -1,8 +1,8 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import UserChatItemManager from '@/app/com/main/manager/UserChatItemManager';
 import UserChatInfoManager from '@/app/com/main/manager/UserChatInfoManager';
-import UserMessageUnreadBox from '@/app/com/main/box/UserMessageUnreadBox';
-import AllMessageUnreadBox from '@/app/com/main/box/AllMessageUnreadBox';
+import UserMessageUnreadBox from '@/app/com/main/box/unread/UserMessageUnreadBox';
+import AllMessageUnreadBox from '@/app/com/main/box/unread/AllMessageUnreadBox';
 import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadManager';
 import UserChatUnread from '@/app/com/bean/UserChatUnread';
 
@@ -35,7 +35,7 @@ export default class UserChatUnreadFunction extends AbstractMaterial {
         const isTabShowing: boolean = messageAllUnreadManager.isMessageItemShowing();
         if ((!isChatShowing || !isTabShowing)) {
             userMessageUnreadBox.plusUnreadCount(userId, count);
-            allMessageUnreadBox.plusUnread(count);
+            // allMessageUnreadBox.plusUnread(count);
 
             const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
             const unreadCount = userMessageUnreadBox.getUnreadCount(userId);
@@ -57,7 +57,7 @@ export default class UserChatUnreadFunction extends AbstractMaterial {
         let unreadCount = userMessageUnreadBox.getUnreadCount(userId);
 
         userMessageUnreadBox.setUnreadCount(userId, 0);
-        allMessageUnreadBox.minusUnread(unreadCount);
+        // allMessageUnreadBox.minusUnread(unreadCount);
 
         const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
         unreadCount = userMessageUnreadBox.getUnreadCount(userId);

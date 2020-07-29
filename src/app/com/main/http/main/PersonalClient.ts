@@ -6,7 +6,7 @@ import DataBack from '@/app/lib/http/DataBack';
 import Message from '@/app/base/message/Message';
 import User from '@/app/com/bean/User';
 import SecurityQuestion from '@/app/com/bean/SecurityQuestion';
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import ServerBox from '@/app/com/main/box/ServerBox';
 import {Protocol, ServerType} from '@/app/common/config/constant/ServerConstant';
 import Info from '@/app/base/message/Info';

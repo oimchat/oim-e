@@ -7,7 +7,10 @@ export class UploadOption {
     public filename: string = '';
     public action: string = '';
 
-    constructor(protected onSuccess?: (result: any, file: File | null) => void, protected onError?: (result: any, file: File | null) => void, protected onProgress?: (e: ProgressEvent, file: File | null) => void) {
+    constructor(
+        protected onSuccess?: (result: any, file: File | null) => void,
+        protected onError?: (result: any, file: File | null) => void,
+        protected onProgress?: (e: ProgressEvent, file: File | null) => void) {
 
     }
 

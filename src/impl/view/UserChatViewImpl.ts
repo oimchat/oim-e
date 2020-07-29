@@ -1,5 +1,5 @@
 import UserChatView from '@/app/com/main/view/UserChatView';
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/bean/User';
 import Content from '@/app/com/data/chat/content/Content';
 import userChatViewModel from '@/impl/data/UserChatViewModel';

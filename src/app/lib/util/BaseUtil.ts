@@ -185,6 +185,23 @@ class BaseUtil {
         }
         return url;
     }
+
+    public static getClassName(clazz: any) {
+        if (typeof clazz === 'string') {
+            return clazz;
+        }
+        const key = 'function';
+        let name = clazz.toString();
+        if (name.indexOf(key) === -1) {
+            return null;
+        } else {
+            name = name.replace(key, '');
+            const index = name.indexOf('(');
+            name = name.substring(0, index);
+            name = name.replace(' ', '');
+        }
+        return name;
+    }
 }
 
 export default BaseUtil;

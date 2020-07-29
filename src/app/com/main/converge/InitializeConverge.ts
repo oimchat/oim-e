@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import SystemInformationService from '@/app/com/main/service/SystemInformationService';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
@@ -16,8 +16,18 @@ import ContactSender from '@/app/com/main/sender/ContactSender';
 import RecentChatService from '@/app/com/main/service/RecentChatService';
 import AppService from '@/app/com/main/service/AppService';
 import UserChatUnreadService from '@/app/com/main/service/UserChatUnreadService';
+import Initializer from '@/app/base/initialize/Initializer';
+import AppContext from '@/app/base/context/AppContext';
 
-export default class InitializeConverge extends AbstractMaterial {
+export default class InitializeConverge extends AbstractMaterial implements Initializer {
+
+    public initialize(appContext: AppContext): void {
+        this.initializeApp();
+    }
+
+    public getOrder(): number {
+        return 0;
+    }
 
     public initializeApp() {
         const appService: AppService = this.appContext.getMaterial(AppService);

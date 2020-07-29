@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import ContactCategory from '@/app/com/bean/ContactCategory';
 import ContactListBox from '@/app/com/main/box/ContactListBox';
 import ViewEnum from '@/app/com/main/view/ViewEnum';

@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import SystemInformationDataManager from '@/app/com/main/manager/SystemInformationDataManager';
 import SystemInformationItemManager from '@/app/com/main/manager/SystemInformationItemManager';
 import SystemInformationDataService from '@/app/com/main/service/SystemInformationDataService';

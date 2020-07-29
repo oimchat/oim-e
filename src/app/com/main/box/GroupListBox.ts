@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import GroupCategory from '@/app/com/bean/GroupCategory';
 import GroupRelation from '@/app/com/bean/GroupRelation';

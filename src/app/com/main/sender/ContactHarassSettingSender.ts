@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import Message from '@/app/base/message/Message';
 import ContactHarassSetting from '@/app/com/bean/ContactHarassSetting';

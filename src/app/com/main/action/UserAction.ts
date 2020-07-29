@@ -1,6 +1,6 @@
-import {MethodMapping} from '@/app/base/annotation/ActionDecorator';
-import AbstractMaterial from '@/app/base/AbstractMaterial';
-import AppContext from '@/app/base/AppContext';
+import {MethodMapping} from '@/app/base/action/annotation/ActionDecorator';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
+import AppContext from '@/app/base/context/AppContext';
 import ContactRelationService from '@/app/com/main/service/ContactRelationService';
 import UserService from '@/app/com/main/service/UserService';
 

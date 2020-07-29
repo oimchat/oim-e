@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import ContactAddApplyQuery from '@/app/com/data/ContactAddApplyQuery';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import ContactSender from '@/app/com/main/sender/ContactSender';

@@ -1,12 +1,12 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import SystemInformationItemManager from '@/app/com/main/manager/SystemInformationItemManager';
 import CoreContentUtil from '@/app/com/main/util/CoreContentUtil';
 import PromptManager from '@/app/com/main/manager/PromptManager';
-import SoundType from '@/app/com/main/component/SoundType';
-import AllMessageUnreadBox from '@/app/com/main/box/AllMessageUnreadBox';
+import SoundType from '@/app/define/prompt/SoundType';
+import AllMessageUnreadBox from '@/app/com/main/box/unread/AllMessageUnreadBox';
 import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadManager';
 import SystemInformationDataManager from '@/app/com/main/manager/SystemInformationDataManager';
-import SystemMessageUnreadBox from '@/app/com/main/box/SystemMessageUnreadBox';
+import SystemMessageUnreadBox from '@/app/com/main/box/unread/SystemMessageUnreadBox';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 
 
@@ -32,11 +32,11 @@ export default class SystemInformationService extends AbstractMaterial {
             if (count) {
                 for (let j = 0; j < count; j++) {
                     systemMessageUnreadBox.plusUnread(type);
-                    allMessageUnreadBox.plusUnread(1);
+                    // allMessageUnreadBox.plusUnread(1);
                 }
             } else {
                 systemMessageUnreadBox.plusUnread(type);
-                allMessageUnreadBox.plusUnread(1);
+                // allMessageUnreadBox.plusUnread(1);
             }
 
 
@@ -48,7 +48,7 @@ export default class SystemInformationService extends AbstractMaterial {
             messageAllUnreadManager.setMessageItemRed(totalRed, totalUnreadCount);
 
             const promptManager: PromptManager = this.appContext.getMaterial(PromptManager);
-            promptManager.playSound(SoundType.TYPE_SYSTEM);
+            promptManager.playSound(SoundType.System);
         }
     }
 }

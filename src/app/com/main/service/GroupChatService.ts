@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/bean/User';
 import UserBox from '@/app/com/main/box/UserBox';
 import GroupChatManager from '@/app/com/main/manager/GroupChatManager';
@@ -8,11 +8,11 @@ import DataBackAction from '@/app/base/net/DataBackAction';
 import UserSender from '@/app/com/main/sender/UserSender';
 import GroupChatInfoManager from '@/app/com/main/manager/GroupChatInfoManager';
 import GroupChatItemManager from '@/app/com/main/manager/GroupChatItemManager';
-import GroupMessageUnreadBox from '@/app/com/main/box/GroupMessageUnreadBox';
+import GroupMessageUnreadBox from '@/app/com/main/box/unread/GroupMessageUnreadBox';
 import CoreContentUtil from '@/app/com/main/util/CoreContentUtil';
 import PromptManager from '@/app/com/main/manager/PromptManager';
-import SoundType from '@/app/com/main/component/SoundType';
-import AllMessageUnreadBox from '@/app/com/main/box/AllMessageUnreadBox';
+import SoundType from '@/app/define/prompt/SoundType';
+import AllMessageUnreadBox from '@/app/com/main/box/unread/AllMessageUnreadBox';
 import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadManager';
 import Group from '@/app/com/bean/Group';
 import GroupBox from '@/app/com/main/box/GroupBox';
@@ -85,7 +85,7 @@ export default class GroupChatService extends AbstractMaterial {
         const isTabShowing: boolean = messageAllUnreadManager.isMessageItemShowing();
         if ((!isChatShowing || !isTabShowing) && !isOwn) {
             groupMessageUnreadBox.plusUnread(groupId);
-            allMessageUnreadBox.plusUnread(1);
+            // allMessageUnreadBox.plusUnread(1);
 
             const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
             const unreadCount = groupMessageUnreadBox.getUnreadCount(groupId);
@@ -95,7 +95,7 @@ export default class GroupChatService extends AbstractMaterial {
             messageAllUnreadManager.setMessageItemRed(totalRed, totalUnreadCount);
 
             const promptManager: PromptManager = this.appContext.getMaterial(PromptManager);
-            promptManager.playSound(SoundType.TYPE_MESSAGE);
+            promptManager.playSound(SoundType.Message);
             // promptManager.put()
         }
         if (!isOwn) {
@@ -105,11 +105,11 @@ export default class GroupChatService extends AbstractMaterial {
             if (VoicePromptType.unread === voicePromptType) {
                 if ((!isChatShowing || !isTabShowing) && !isOwn) {
                     const promptManager: PromptManager = this.appContext.getMaterial(PromptManager);
-                    promptManager.playSound(SoundType.TYPE_MESSAGE);
+                    promptManager.playSound(SoundType.Message);
                 }
             } else if (VoicePromptType.always === voicePromptType) {
                 const promptManager: PromptManager = this.appContext.getMaterial(PromptManager);
-                promptManager.playSound(SoundType.TYPE_MESSAGE);
+                promptManager.playSound(SoundType.Message);
             }
         }
     }

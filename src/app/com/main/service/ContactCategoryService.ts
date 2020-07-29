@@ -1,4 +1,4 @@
-import AbstractMaterial from '@/app/base/AbstractMaterial';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import ContactCategory from '@/app/com/bean/ContactCategory';
 import ContactListManager from '@/app/com/main/manager/ContactListManager';
 import ContactCategorySender from '@/app/com/main/sender/ContactCategorySender';
