@@ -36,11 +36,12 @@
             </div>
             <FacePane ref="facePane" @on-selected="onFaceSelected"></FacePane>
             <div class="content ">
-                <pre ref='inputArea' @paste.native.capture.prevent="handlePaste"
+                <pre ref='inputArea'
                      @keypress="onKeypress"
                      @keyup="onKeyup"
                      class="flex edit_area"
-                     contenteditable="true"></pre>
+                     contenteditable="true">
+                </pre>
                 <span class="caret_pos_helper"></span>
             </div>
             <div class="action">

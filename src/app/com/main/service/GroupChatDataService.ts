@@ -12,11 +12,13 @@ import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
 import GroupChatQuery from '@/app/com/data/chat/GroupChatQuery';
 import GroupChatData from '@/app/com/data/chat/GroupChatData';
 import GroupChatDataSender from '@/app/com/main/sender/GroupChatDataSender';
+import Prompter from '@/app/com/main/component/Prompter';
 
 
 export default class GroupChatDataService extends AbstractMaterial {
 
     public queryList(query: GroupChatQuery, page: Page, back: (page: Page, contents: ContentData[]) => void) {
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
         const own = this;
         const groupChatSender: GroupChatDataSender = this.appContext.getMaterial(GroupChatDataSender);
         const queryBack: DataBackAction = {

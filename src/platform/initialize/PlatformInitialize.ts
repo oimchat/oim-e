@@ -2,31 +2,21 @@ import app from '@/app/App';
 import AllMessageUnreadBox from '@/app/com/main/box/unread/AllMessageUnreadBox';
 import DataChange from '@/app/base/event/DataChange';
 import systemTrayBlinkDetection from '@/platform/e/SystemTrayBlinkDetection';
-import ImageItemFileConverter from '@/app/define/file/ImageItemFileConverter';
-import Item from '@/app/com/data/chat/content/Item';
-import ImagePathFile from '@/platform/e/util/ImagePathFile';
-import VoicePromptUserSetting from '@/app/com/main/setting/prompt/VoicePromptUserSetting';
-import VoicePromptGroupSetting from '@/app/com/main/setting/prompt/VoicePromptGroupSetting';
-import VoicePromptType from '@/app/com/main/setting/prompt/type/VoicePromptType';
-import MessageAppendUserSetting from '@/app/com/main/setting/message/MessageAppendUserSetting';
-import MessageAppendGroupSetting from '@/app/com/main/setting/message/MessageAppendGroupSetting';
-import MessageAppendType from '@/app/com/main/setting/message/type/MessageAppendType';
 import AppData from '@/app/base/config/AppData';
 import appInfo from '@/platform/common/config/AppInfo';
-import MessageSwitchSetting from '@/app/com/main/setting/message/MessageSwitchSetting';
 import AppSettingManager from '@/app/com/main/manager/AppSettingManager';
-import MessageTimeSettingStore from '@/app/com/main/setting/message/MessageTimeSettingStore';
-import LoginController from '@/app/com/main/controller/LoginController';
-import GroupChatManager from '@/app/com/main/manager/GroupChatManager';
-import User from '@/app/com/bean/User';
-import UserChatManager from '@/app/com/main/manager/UserChatManager';
-import InitializeConverge from '@/app/com/main/converge/InitializeConverge';
-import groupChatViewModel from '@/impl/data/GroupChatViewModel';
-import userChatViewModel from '@/impl/data/UserChatViewModel';
-import appInitialize from '@/impl/initialize/AppInitialize';
+import Platform from '@/app/common/util/Platform';
+import AppInfo from '@/app/base/config/AppInfo';
+import AppInitializer from '@/impl/initialize/AppInitializer';
+import ComponentInitializer from '@/platform/initialize/launch/ComponentInitializer';
+import routerManager from '@/router/RouterManager';
+import auth from '@/app/common/auth/Auth';
+import ActionInitializer from '@/app/initialize/ActionInitializer';
+import HttpInitializer from '@/app/initialize/HttpInitializer';
 
 
 class PlatformInitialize {
+
     private change: DataChange<number> = new class implements DataChange<number> {
         public change(count: number): void {
             if (count > 0) {
@@ -38,7 +28,8 @@ class PlatformInitialize {
     };
 
     public constructor() {
-        this.loadConfig();
+        this.initializeRouter();
+        this.initialize();
     }
 
     public loadConfig() {
@@ -50,6 +41,8 @@ class PlatformInitialize {
 
         AppData.API_VERSION = appInfo.serverVersion;
 
+        const osName = Platform.getName();
+        AppInfo.APP_PLATFORM = osName;
 
         const asm: AppSettingManager = app.appContext.getMaterial(AppSettingManager);
         asm.setDefaultServerUrlGetter(() => {
@@ -59,60 +52,38 @@ class PlatformInitialize {
     }
 
     public initialize(): void {
-        appInitialize.initialize();
         this.loadConfig();
         this.initializeUnread();
         this.initializeComponent();
+        this.initializeApp();
     }
 
     private initializeUnread() {
-        // tslint:disable-next-line:max-classes-per-file new-parens
         const allMessageUnreadBox: AllMessageUnreadBox = app.appContext.getMaterial(AllMessageUnreadBox);
         allMessageUnreadBox.addChangeEvent(this.change);
     }
 
     private initializeComponent() {
+        app.putInitializer(new ActionInitializer());
+        app.putInitializer(new HttpInitializer());
+        app.putInitializer(new AppInitializer());
+        app.putInitializer(new ComponentInitializer());
+    }
 
-        const webImageFileHandler: ImageItemFileConverter = {
-            handleItems(items: Item[], back: (map: Map<string, File>) => void): void {
-                ImagePathFile.handleFileImageItems(items, back);
+    private initializeApp() {
+        app.initialize();
+    }
+
+    private initializeRouter() {
+        const routerSkips: string[] = ['login', 'register', 'resetPassword'];
+        routerManager.setRouterAuth({
+            isAuth(): boolean {
+                return auth.isLogin();
             },
-        } as ImageItemFileConverter;
-
-        app.appContext.putObject(ImageItemFileConverter.name, webImageFileHandler);
-
-        const userVoicePromptSetting: VoicePromptUserSetting = app.appContext.getMaterial(VoicePromptUserSetting);
-        const groupVoicePromptSetting: VoicePromptGroupSetting = app.appContext.getMaterial(VoicePromptGroupSetting);
-
-        userVoicePromptSetting.setDefaultType(VoicePromptType.always);
-        groupVoicePromptSetting.setDefaultType(VoicePromptType.always);
-
-        const messageAppendUserSetting: MessageAppendUserSetting = app.appContext.getMaterial(MessageAppendUserSetting);
-        const messageAppendGroupSetting: MessageAppendGroupSetting = app.appContext.getMaterial(MessageAppendGroupSetting);
-
-        messageAppendUserSetting.setDefaultType(MessageAppendType.bottom);
-        messageAppendGroupSetting.setDefaultType(MessageAppendType.bottom);
-
-        const messageSwitchSetting: MessageSwitchSetting = app.appContext.getMaterial(MessageSwitchSetting);
-        messageSwitchSetting.setSwitchType(MessageAppendType.bottom);
-
-        const messageTimeSettingStore: MessageTimeSettingStore = app.appContext.getMaterial(MessageTimeSettingStore);
-        messageTimeSettingStore.messageTimeSetting.mergeMillisecond = -1;
-
-        const loginController: LoginController = app.appContext.getMaterial(LoginController);
-        loginController.onReconnect = () => {
-            const groupChatManager: GroupChatManager = app.appContext.getMaterial(GroupChatManager);
-            const userChatManager: UserChatManager = app.appContext.getMaterial(UserChatManager);
-
-            groupChatManager.clear();
-            userChatManager.clear();
-
-            groupChatViewModel.clear();
-            userChatViewModel.clear();
-
-            const initializeConverge: InitializeConverge = app.appContext.getMaterial(InitializeConverge);
-            initializeConverge.loadUnreadList();
-        };
+        });
+        routerManager.setDefaultRouteName('login');
+        routerManager.setSkips(routerSkips);
+        routerManager.setIntercept(true);
     }
 }
 

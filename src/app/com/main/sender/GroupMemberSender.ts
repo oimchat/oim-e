@@ -2,8 +2,9 @@ import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import Message from '@/app/base/message/Message';
 import Page from '@/app/com/data/common/Page';
+import AbstractSender from '@/app/com/main/sender/AbstractSender';
 
-export default class GroupMemberSender extends AbstractMaterial {
+export default class GroupMemberSender extends AbstractSender {
 
     private action: string = '1.3.004';
 
@@ -15,7 +16,7 @@ export default class GroupMemberSender extends AbstractMaterial {
             },
         };
         m.body.query.userId = userId;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 
     public getOwnerGroupMemberListByUserId(userId: string, page: Page, back?: DataBackAction, parallel?: boolean): void {
@@ -27,7 +28,7 @@ export default class GroupMemberSender extends AbstractMaterial {
         };
         m.body.query.userId = userId;
         m.body.page = page;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 
     public getOwnerGroupMemberPageListByUserId(userId: string, size: number, pageNumber: number, back?: DataBackAction, parallel?: boolean): void {
@@ -46,7 +47,7 @@ export default class GroupMemberSender extends AbstractMaterial {
             },
         };
         m.body.query.groupId = groupId;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 
 
@@ -59,7 +60,7 @@ export default class GroupMemberSender extends AbstractMaterial {
         };
         m.body.query.groupId = groupId;
         m.body.page = page;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 
 
@@ -67,7 +68,7 @@ export default class GroupMemberSender extends AbstractMaterial {
         const m = Message.build(this.action, '1.1.0005');
         m.body = {};
         m.body.id = id;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 
 
@@ -76,7 +77,7 @@ export default class GroupMemberSender extends AbstractMaterial {
         m.body = {};
         m.body.groupId = groupId;
         m.body.userId = userId;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 
 
@@ -86,7 +87,7 @@ export default class GroupMemberSender extends AbstractMaterial {
         m.body.groupId = groupId;
         m.body.userId = userId;
         m.body.nickname = nickname;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 
 
@@ -96,7 +97,7 @@ export default class GroupMemberSender extends AbstractMaterial {
         m.body.groupId = groupId;
         m.body.userId = userId;
         m.body.position = position;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 
 
@@ -105,6 +106,6 @@ export default class GroupMemberSender extends AbstractMaterial {
         m.body = {};
         m.body.groupId = groupId;
         m.body.userId = userId;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 }

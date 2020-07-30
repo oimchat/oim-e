@@ -1,0 +1,9 @@
+1. Cannot extend an interface 'NodeJS.EventEmitter'. Did you mean 'implements'?
+解决方案
+npm add @types/node@12 --dev
+或者
+yarn add @types/node@12 --dev
+
+
+调试
+谷歌浏览器打开 chrome://inspect/#devices

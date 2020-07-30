@@ -156,7 +156,7 @@
             const own = this;
             const groupId = this.groupId;
 
-            const userBox: GroupBox = app.appContext.getMaterial(UserBox);
+            const userBox: UserBox = app.appContext.getMaterial(UserBox);
             const groupBox: GroupBox = app.appContext.getMaterial(GroupBox);
             const controller: GroupMemberListController = app.appContext.getMaterial(GroupMemberListController);
 

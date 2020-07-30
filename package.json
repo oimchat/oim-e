@@ -8,7 +8,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "dev": "vue-cli-service electron:serve",
+    "dev": "vue-cli-service electron:serve --inspect=5858",
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
@@ -16,6 +16,7 @@
   },
   "main": "background.js",
   "dependencies": {
+    "@types/node": "^12.12.53",
     "axios": "^0.19.2",
     "clipboard": "^2.0.6",
     "codemirror": "^5.56.0",
@@ -40,16 +41,20 @@
     "vuex-class": "^0.3.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.4.6",
-    "@vue/cli-plugin-typescript": "^4.4.6",
-    "@vue/cli-service": "^4.4.6",
-    "electron": "^8.2.2",
+    "@vue/cli-plugin-babel": "~4.4.0",
+    "@vue/cli-plugin-pwa": "~4.4.0",
+    "@vue/cli-plugin-router": "~4.4.0",
+    "@vue/cli-plugin-typescript": "~4.4.0",
+    "@vue/cli-plugin-vuex": "~4.4.0",
+    "@vue/cli-service": "~4.4.0",
+    "electron": "^9.1.1",
+    "electron-devtools-installer": "^3.1.0",
     "less": "^3.12.2",
     "less-loader": "^6.2.0",
     "node-sass": "^4.14.1",
     "sass-loader": "^9.0.2",
-    "typescript": "^3.9.7",
-    "vue-cli-plugin-electron-builder": "~1.4.6",
+    "typescript": "~3.9.3",
+    "vue-cli-plugin-electron-builder": "^1.4.6",
     "vue-template-compiler": "^2.6.11"
   }
 }

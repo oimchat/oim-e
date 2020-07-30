@@ -28,6 +28,11 @@ export default class ActionInitializer implements Initializer {
         this.initializeAction(appContext);
     }
 
+    public getKey(): string {
+        const own: object = this;
+        return own.constructor.name;
+    }
+
     public initializeAction(appContext: AppContext) {
         this.putAction(ContactAction);
         this.putAction(ContactCategoryAction);
@@ -46,6 +51,7 @@ export default class ActionInitializer implements Initializer {
         this.putAction(UserChatDataAction);
         this.putAction(SystemAuthAction);
     }
+
 
     public putAction<T>(clazz: ActionType<AbstractMaterial>): void {
         // new clazz(this);

@@ -3,8 +3,9 @@ import DataBackAction from '@/app/base/net/DataBackAction';
 import Message from '@/app/base/message/Message';
 import GroupJoinSetting from '@/app/com/bean/GroupJoinSetting';
 import GroupJoinVerifyQuestion from '@/app/com/bean/GroupJoinVerifyQuestion';
+import AbstractSender from '@/app/com/main/sender/AbstractSender';
 
-export default class GroupJoinSettingSender extends AbstractMaterial {
+export default class GroupJoinSettingSender extends AbstractSender  {
 
     private action: string = '1.3.006';
 
@@ -12,7 +13,7 @@ export default class GroupJoinSettingSender extends AbstractMaterial {
         const m = Message.build(this.action, '1.1.0001');
         m.body = {};
         m.body.groupId = groupId;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 
     public updateJoinSetting(joinSetting: GroupJoinSetting, questionList: GroupJoinVerifyQuestion[], back?: DataBackAction, parallel?: boolean): void {
@@ -20,6 +21,6 @@ export default class GroupJoinSettingSender extends AbstractMaterial {
         m.body = {};
         m.body.setting = joinSetting;
         m.body.questions = questionList;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 }

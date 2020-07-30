@@ -97,7 +97,7 @@
         }
 
         public loadList() {
-            const userBox: GroupBox = app.appContext.getMaterial(UserBox);
+            const userBox: UserBox = app.appContext.getMaterial(UserBox);
             const groupBox: GroupBox = app.appContext.getMaterial(GroupBox);
             const groupMemberSender: GroupMemberSender = app.appContext.getMaterial(GroupMemberSender);
 

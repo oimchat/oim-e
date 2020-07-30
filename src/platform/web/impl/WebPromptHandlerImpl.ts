@@ -1,12 +1,6 @@
-import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import PromptHandler from '@/app/define/prompt/PromptHandler';
 
-export default class PromptModule extends AbstractMaterial implements PromptHandler {
-
-
-    public message(info: any, successText: string, warningText: string): void {
-        // no
-    }
+export default class WebPromptHandlerImpl implements PromptHandler {
 
     public prompt(message: string, title?: string, type?: string): void {
         // no

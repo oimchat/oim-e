@@ -1,14 +1,14 @@
 import Initializer from '@/app/base/initialize/Initializer';
 import AppContext from '@/app/base/context/AppContext';
-import BaseUtil from '@/app/lib/util/BaseUtil';
 
 export default class InitializerBox {
 
     private map: Map<any, Initializer> = new Map<any, Initializer>();
 
     public put(data: Initializer): void {
-        const key = BaseUtil.getClassName(data);
-        this.map.set(key, data);
+        if (data) {
+            this.map.set(data.getKey(), data);
+        }
     }
 
     public initialize(appContext: AppContext) {

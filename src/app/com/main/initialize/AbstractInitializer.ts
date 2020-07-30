@@ -4,6 +4,7 @@ import AppContext from '@/app/base/context/AppContext';
 import EnterInitializerBox from '@/app/com/main/initialize/EnterInitializerBox';
 
 export default abstract class AbstractInitializer extends AbstractMaterial implements BaseInitializer {
+
     public constructor(protected appContext: AppContext) {
         super(appContext);
         const box: EnterInitializerBox = this.appContext.getMaterial(EnterInitializerBox);

@@ -2,8 +2,9 @@ import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import Message from '@/app/base/message/Message';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import Client from '@/app/base/message/client/Client';
+import AbstractSender from '@/app/com/main/sender/AbstractSender';
 
-export default class SystemAuthSender extends AbstractMaterial {
+export default class SystemAuthSender extends AbstractSender  {
 
     private action: string = '1.0.002';
 
@@ -16,6 +17,6 @@ export default class SystemAuthSender extends AbstractMaterial {
         body.client = client;
         const m = Message.build(this.action, '1.1.0001');
         m.body = body;
-        this.appContext.netServer.send(m, back);
+        this.send(m, back);
     }
 }

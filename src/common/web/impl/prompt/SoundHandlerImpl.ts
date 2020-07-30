@@ -1,4 +1,3 @@
-
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import SoundType from '@/app/define/prompt/SoundType';
 import SoundHandler from '@/app/define/prompt/SoundHandler';
@@ -28,7 +27,9 @@ export default class SoundHandlerImpl implements SoundHandler {
             }
 
             this.audio.src = this.messageUrl;
-            this.audio.play();
+            this.audio.play().then((r) => {
+                // no
+            });
             this.timeInterval = BaseUtil.getTimestamp();
         }
     }

@@ -7,4 +7,6 @@ export default interface Initializer {
     initialize(appContext: AppContext): void;
 
     getOrder(): number;
+
+    getKey(): string;
 }

@@ -60,7 +60,7 @@ export default class NetServer {
                 try {
                     own.onMessage(data);
                 } catch (e) {
-                    // console.log(e);
+                    console.error(e);
                 }
             },
             onClose(e: CloseEvent): void {

@@ -2,8 +2,9 @@ import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import Message from '@/app/base/message/Message';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import Content from '@/app/com/data/chat/content/Content';
+import AbstractSender from '@/app/com/main/sender/AbstractSender';
 
-export default class UserChatSender extends AbstractMaterial {
+export default class UserChatSender extends AbstractSender  {
 
     private action: string = '2.2.001';
 
@@ -13,7 +14,7 @@ export default class UserChatSender extends AbstractMaterial {
         m.body.sendUserId = sendUserId;
         m.body.receiveUserId = receiveUserId;
         m.body.content = content;
-        this.appContext.netServer.send(m, back);
+        this.send(m, back);
     }
 
     public read(sendUserId: string, receiveUserId: string, contentId: string, back?: DataBackAction): void {
@@ -22,6 +23,6 @@ export default class UserChatSender extends AbstractMaterial {
         m.body.sendUserId = sendUserId;
         m.body.receiveUserId = receiveUserId;
         m.body.contentId = contentId;
-        this.appContext.netServer.send(m, back);
+        this.send(m, back);
     }
 }

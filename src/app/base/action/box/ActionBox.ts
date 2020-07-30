@@ -1,13 +1,10 @@
 import AppContext from '@/app/base/context/AppContext';
 import actionMappingBox from '@/app/base/action/box/ActionMappingBox';
+import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 
-class ActionBox {
+class ActionBox extends AbstractMaterial {
 
     private map: Map<string, object> = new Map<string, object>();
-
-    public constructor(protected appContext: AppContext) {
-
-    }
 
 
     public put(key: string, value: object): void {

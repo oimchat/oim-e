@@ -14,19 +14,19 @@ export default class MainHandle {
             // } else {
             //     this.frame.maximize();
             // }
-            this.frame.maximize();
+            own.frame.maximize();
         });
 
         ipcMain.on('windowRestore', () => {
             if (this.frame.isMaximized()) {
-                this.frame.unmaximize();
-            } else if (this.frame.isMinimized()) {
-                this.frame.restore();
+                own.frame.unmaximize();
+            } else if (own.frame.isMinimized()) {
+                own.frame.restore();
             }
         });
         // 只是隐藏任务栏
         ipcMain.on('windowClose', () => {
-            this.frame.hide();
+            own.frame.hide();
         });
     }
 

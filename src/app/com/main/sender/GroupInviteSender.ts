@@ -6,8 +6,9 @@ import GroupInviteApplyQuery from '@/app/com/data/GroupInviteApplyQuery';
 import GroupInviteVerifyHandleData from '@/app/com/data/GroupInviteVerifyHandleData';
 import GroupInviteeApplyQuery from '@/app/com/data/GroupInviteeApplyQuery';
 import GroupInviteeHandleData from '@/app/com/data/GroupInviteeHandleData';
+import AbstractSender from '@/app/com/main/sender/AbstractSender';
 
-export default class GroupInviteSender extends AbstractMaterial {
+export default class GroupInviteSender extends AbstractSender  {
 
     private action: string = '1.3.008';
 
@@ -15,7 +16,7 @@ export default class GroupInviteSender extends AbstractMaterial {
         const m = Message.build(this.action, '1.1.0001');
         m.body = {};
         m.body.query = query;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 
     public queryInviteApplyReceiveList(query: GroupInviteApplyQuery, page: Page, back?: DataBackAction, parallel?: boolean): void {
@@ -23,14 +24,14 @@ export default class GroupInviteSender extends AbstractMaterial {
         m.body = {};
         m.body.page = page;
         m.body.query = query;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 
     public inviteVerifyHandle(handle: GroupInviteVerifyHandleData, back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0005');
         m.body = {};
         m.body.handle = handle;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 
     public invite(groupId: string, userIds: string[], back?: DataBackAction, parallel?: boolean): void {
@@ -38,7 +39,7 @@ export default class GroupInviteSender extends AbstractMaterial {
         m.body = {};
         m.body.groupId = groupId;
         m.body.userIds = userIds;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 
 
@@ -46,7 +47,7 @@ export default class GroupInviteSender extends AbstractMaterial {
         const m = Message.build(this.action, '1.1.0007');
         m.body = {};
         m.body.query = query;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 
     public queryInviteeList(query: GroupInviteeApplyQuery, page: Page, back?: DataBackAction, parallel?: boolean): void {
@@ -54,13 +55,13 @@ export default class GroupInviteSender extends AbstractMaterial {
         m.body = {};
         m.body.page = page;
         m.body.query = query;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 
     public inviteeHandle(handle: GroupInviteeHandleData, back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0010');
         m.body = {};
         m.body.handle = handle;
-        this.appContext.netServer.send(m, back, parallel);
+        this.send(m, back, parallel);
     }
 }

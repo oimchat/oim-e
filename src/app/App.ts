@@ -3,23 +3,6 @@ import ConnectHandler from '@/app/base/net/ConnectHandler';
 import auth from '@/app/common/auth/Auth';
 import SystemNetController from '@/app/com/main/controller/SystemNetController';
 import LoginController from '@/app/com/main/controller/LoginController';
-
-import ContactAction from '@/app/com/main/action/ContactAction';
-import ContactCategoryAction from '@/app/com/main/action/ContactCategoryAction';
-import ContactRelationAction from '@/app/com/main/action/ContactRelationAction';
-import GroupBusinessAction from '@/app/com/main/action/GroupBusinessAction';
-import GroupCategoryAction from '@/app/com/main/action/GroupCategoryAction';
-import GroupChatAction from '@/app/com/main/action/GroupChatAction';
-import GroupInfoAction from '@/app/com/main/action/GroupInfoAction';
-import GroupInviteAction from '@/app/com/main/action/GroupInviteAction';
-import GroupJoinAction from '@/app/com/main/action/GroupJoinAction';
-import GroupMemberAction from '@/app/com/main/action/GroupMemberAction';
-import GroupRelationAction from '@/app/com/main/action/GroupRelationAction';
-import PersonalAction from '@/app/com/main/action/PersonalAction';
-import UserAction from '@/app/com/main/action/UserAction';
-import UserChatAction from '@/app/com/main/action/UserChatAction';
-import SystemAuthAction from '@/app/com/main/action/SystemAuthAction';
-import UserChatDataAction from '@/app/com/main/action/UserChatDataAction';
 import PromptHandler from '@/app/define/prompt/PromptHandler';
 import InitializerBox from '@/app/base/initialize/InitializerBox';
 import Initializer from '@/app/base/initialize/Initializer';
@@ -31,26 +14,27 @@ import ListInitializer from '@/app/com/main/initialize/impl/ListInitializer';
 import PersonalInitializer from '@/app/com/main/initialize/impl/PersonalInitializer';
 import ActionInitializer from '@/app/initialize/ActionInitializer';
 import HttpInitializer from '@/app/initialize/HttpInitializer';
+import NetModule from '@/app/com/common/module/NetModule';
 
 
 class App {
 
     public appContext: AppContext = new AppContext();
     public launchInitializerBox: InitializerBox = new InitializerBox();
-
-
     public disconnection = false;
     public promptHandler: PromptHandler = new PromptHandlerImpl();
 
     constructor() {
-        this.initialize();
+        // this.initializeApp();
     }
 
     public logout(): void {
         auth.setLogin(false);
         auth.setToken('');
-        this.appContext.netServer.setSocketHost('');
-        this.appContext.netServer.closeNetSocket();
+        const netModule: NetModule = this.appContext.getMaterial(NetModule);
+        netModule.netServer.setSocketHost('');
+        netModule.netServer.closeNetSocket();
+
         this.appContext = new AppContext();
         this.initialize();
     }
@@ -59,9 +43,12 @@ class App {
         this.launchInitializerBox.put(data);
     }
 
-    private initialize(): void {
-        const own = this;
+    public initialize(): void {
+        this.buildModule();
+        this.buildLaunch();
+        this.launchInitializerBox.initialize(this.appContext);
 
+        const own = this;
         const connectHandler: ConnectHandler = {
             onIdle(): void {
                 // TODO
@@ -98,27 +85,11 @@ class App {
                 lc.reAuth();
             },
         } as ConnectHandler;
-        this.appContext.netServer.setConnectHandler(connectHandler);
-
-        this.initializeConfig();
-        this.initializeModule();
+        const netModule: NetModule = this.appContext.getMaterial(NetModule);
+        netModule.netServer.setConnectHandler(connectHandler);
     }
 
-    private initializeLaunch() {
-        this.putInitializer(new ActionInitializer());
-        this.putInitializer(new HttpInitializer());
-    }
-
-    private initializeConfig() {
-        // no
-    }
-
-
-
-
-    private initializeModule(): void {
-        const appContext = this.appContext;
-
+    private buildModule(): void {
         this.appContext.getMaterial(EnterInitializerBox);
         this.appContext.getMaterial(InformationInitializer);
         this.appContext.getMaterial(ListInitializer);
@@ -126,6 +97,10 @@ class App {
         this.appContext.getMaterial(ViewInitializer);
     }
 
+    private buildLaunch(): void {
+        this.putInitializer(new ActionInitializer());
+        this.putInitializer(new HttpInitializer());
+    }
 }
 
 export default new App();

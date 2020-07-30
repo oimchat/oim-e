@@ -6,8 +6,8 @@ import Head from '@/app/base/message/Head';
 import InfoMessage from '@/app/base/message/InfoMessage';
 import httpClient from '@/app/lib/http/HttpClient';
 import Info from '@/app/base/message/Info';
-import PromptModule from '@/app/com/common/module/PromptModule';
 import auth from '@/app/common/auth/Auth';
+import Prompter from '@/app/com/main/component/Prompter';
 
 export default class HttpInitializer implements Initializer {
     public getOrder(): number {
@@ -18,8 +18,13 @@ export default class HttpInitializer implements Initializer {
         this.initializeHttp(appContext);
     }
 
+    public getKey(): string {
+        const own: object = this;
+        return own.constructor.name;
+    }
+
     public initializeHttp(appContext: AppContext) {
-        const promptModule: PromptModule = appContext.getMaterial(PromptModule);
+        const prompter: Prompter = appContext.getMaterial(Prompter);
         // no
         httpClient.setHttpHandler({
             handleRequest(request: AxiosRequestConfig): void {
@@ -38,7 +43,7 @@ export default class HttpInitializer implements Initializer {
                     if (!BaseUtil.isEmpty(value)) {
                         const info = value.info;
                         if (info && !info.success) {
-                            promptModule.message(info, '', '失败！');
+                            prompter.message(info, '', '失败！');
                         }
                     }
                 }
@@ -86,11 +91,11 @@ export default class HttpInitializer implements Initializer {
                     back(m);
                 }
                 if (prompt || !hasBack) {
-                    promptModule.error(message);
+                    prompter.error(message);
                 }
             },
             handlePrompt(message: string): void {
-                promptModule.error(message);
+                prompter.error(message);
             },
         });
     }

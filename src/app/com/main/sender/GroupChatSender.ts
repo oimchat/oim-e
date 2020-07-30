@@ -2,8 +2,9 @@ import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import Message from '@/app/base/message/Message';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import Content from '@/app/com/data/chat/content/Content';
+import AbstractSender from '@/app/com/main/sender/AbstractSender';
 
-export default class GroupChatSender extends AbstractMaterial {
+export default class GroupChatSender extends AbstractSender {
 
     private action: string = '2.3.001';
 
@@ -13,6 +14,6 @@ export default class GroupChatSender extends AbstractMaterial {
         m.body.userId = userId;
         m.body.groupId = groupId;
         m.body.content = content;
-        this.appContext.netServer.send(m, back);
+        this.send(m, back);
     }
 }
