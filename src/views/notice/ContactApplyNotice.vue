@@ -84,7 +84,7 @@
     import ContactAddApply from '@/app/com/bean/ContactAddApply';
     import Page from '@/app/com/data/common/Page';
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
     import ContactAddApplyEntityCase from '@/app/com/data/ContactAddApplyEntityCase';
     import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
     import User from '@/app/com/bean/User';

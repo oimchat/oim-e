@@ -43,7 +43,7 @@
     import User from '@/app/com/bean/User';
     import GroupInviteController from '@/app/com/main/controller/GroupInviteController';
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
 
     @Component({
         components: {},

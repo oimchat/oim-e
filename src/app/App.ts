@@ -6,7 +6,7 @@ import LoginController from '@/app/com/main/controller/LoginController';
 import PromptHandler from '@/app/define/prompt/PromptHandler';
 import InitializerBox from '@/app/base/initialize/InitializerBox';
 import Initializer from '@/app/base/initialize/Initializer';
-import PromptHandlerImpl from '@/app/impl/prompt/PromptHandlerImpl';
+import DefaultPromptHandlerImpl from '@/app/impl/default/prompt/DefaultPromptHandlerImpl';
 import EnterInitializerBox from '@/app/com/main/initialize/EnterInitializerBox';
 import InformationInitializer from '@/app/com/main/initialize/impl/InformationInitializer';
 import ViewInitializer from '@/app/com/main/initialize/impl/ViewInitializer';
@@ -15,6 +15,7 @@ import PersonalInitializer from '@/app/com/main/initialize/impl/PersonalInitiali
 import ActionInitializer from '@/app/initialize/ActionInitializer';
 import HttpInitializer from '@/app/initialize/HttpInitializer';
 import NetModule from '@/app/com/common/module/NetModule';
+import Prompter from '@/app/com/main/component/Prompter';
 
 
 class App {
@@ -22,20 +23,17 @@ class App {
     public appContext: AppContext = new AppContext();
     public launchInitializerBox: InitializerBox = new InitializerBox();
     public disconnection = false;
-    public promptHandler: PromptHandler = new PromptHandlerImpl();
+    public promptHandler: PromptHandler = new DefaultPromptHandlerImpl();
 
     constructor() {
         // this.initializeApp();
     }
 
     public logout(): void {
-        auth.setLogin(false);
-        auth.setToken('');
-        const netModule: NetModule = this.appContext.getMaterial(NetModule);
-        netModule.netServer.setSocketHost('');
-        netModule.netServer.closeNetSocket();
+        this.clearAuth();
+        this.closeNet();
+        this.buildAppContext();
 
-        this.appContext = new AppContext();
         this.initialize();
     }
 
@@ -44,6 +42,7 @@ class App {
     }
 
     public initialize(): void {
+        this.initializeNetServer();
         this.buildModule();
         this.buildLaunch();
         this.launchInitializerBox.initialize(this.appContext);
@@ -70,7 +69,7 @@ class App {
                     own.disconnection = false;
                 }
                 if (!isConnected && auth.isLogin()) {
-                    own.appContext.prompt('网络已断开！');
+                    own.prompt('网络已断开！');
                 }
             },
             onError(): void {
@@ -89,6 +88,26 @@ class App {
         netModule.netServer.setConnectHandler(connectHandler);
     }
 
+    public prompt(message: string, title?: string, type?: string) {
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
+        prompter.prompt(message, title, type);
+    }
+
+    private clearAuth() {
+        auth.setLogin(false);
+        auth.setToken('');
+    }
+
+    private closeNet() {
+        const netModule: NetModule = this.appContext.getMaterial(NetModule);
+        netModule.netServer.setSocketHost('');
+        netModule.netServer.closeNetSocket();
+    }
+
+    private buildAppContext() {
+        this.appContext = new AppContext();
+    }
+
     private buildModule(): void {
         this.appContext.getMaterial(EnterInitializerBox);
         this.appContext.getMaterial(InformationInitializer);
@@ -100,6 +119,11 @@ class App {
     private buildLaunch(): void {
         this.putInitializer(new ActionInitializer());
         this.putInitializer(new HttpInitializer());
+    }
+
+    private initializeNetServer(): void {
+        const netModule: NetModule = this.appContext.getMaterial(NetModule);
+        netModule.initializeNetServer();
     }
 }
 

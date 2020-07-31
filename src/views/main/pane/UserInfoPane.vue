@@ -73,7 +73,7 @@
     import ContactListBox from '@/app/com/main/box/ContactListBox';
     import ContactRelationController from '@/app/com/main/controller/ContactRelationController';
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
 
     @Component({
         components: {},

@@ -43,7 +43,7 @@
     import app from '@/app/App';
     import Group from '@/app/com/bean/Group';
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
     import GroupBox from '@/app/com/main/box/GroupBox';
     import GroupBusinessController from '@/app/com/main/controller/GroupBusinessController';
 

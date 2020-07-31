@@ -22,7 +22,6 @@ Viewer.setDefaults({
 });
 
 
-
 Vue.config.productionTip = false;
 // 绑定i18n到全局变量上
 Vue.prototype.i18n = i18n;
@@ -39,5 +38,6 @@ new Vue({
 }).$mount('#app');
 
 import platformInitialize from '@/platform/initialize/PlatformInitialize';
+import './quasar'
 
 platformInitialize.initialize();

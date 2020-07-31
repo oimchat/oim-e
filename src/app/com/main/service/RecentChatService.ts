@@ -7,17 +7,19 @@ import UserChatData from '@/app/com/data/chat/UserChatData';
 import GroupChatDataSender from '@/app/com/main/sender/GroupChatDataSender';
 import RecentChatGroupFunction from '@/app/com/main/function/RecentChatGroupFunction';
 import GroupChatData from '@/app/com/data/chat/GroupChatData';
+import Prompter from '@/app/com/main/component/Prompter';
 
 export default class RecentChatService extends AbstractMaterial {
 
     public loadListByCount(count: number): void {
         const own = this;
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
         const handler: RecentChatHandler = this.appContext.getMaterial(RecentChatHandler);
         handler.getListByCount(count, (success, list, message) => {
             if (success) {
                 own.setRecentChatList(list);
             } else {
-                own.appContext.prompt(message ? message : '请求失败！');
+                prompter.prompt(message ? message : '请求失败！');
             }
         });
     }
@@ -41,6 +43,7 @@ export default class RecentChatService extends AbstractMaterial {
 
     public setUserContentIds(contentIds: string[]): void {
         const own = this;
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
         const sender: UserChatDataSender = this.appContext.getMaterial(UserChatDataSender);
         const work: RecentChatUserFunction = this.appContext.getMaterial(RecentChatUserFunction);
 
@@ -50,13 +53,14 @@ export default class RecentChatService extends AbstractMaterial {
                 const items: UserChatData[] = data.body.items;
                 work.setRecentChatList(items);
             } else {
-                own.appContext.prompt('请求失败！');
+                prompter.prompt('请求失败！');
             }
         }), false);
     }
 
     public setGroupContentIds(contentIds: string[]): void {
         const own = this;
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
         const sender: GroupChatDataSender = this.appContext.getMaterial(GroupChatDataSender);
         const work: RecentChatGroupFunction = this.appContext.getMaterial(RecentChatGroupFunction);
 
@@ -66,7 +70,7 @@ export default class RecentChatService extends AbstractMaterial {
                 const items: GroupChatData[] = data.body.items;
                 work.setRecentChatList(items);
             } else {
-                own.appContext.prompt('请求失败！');
+                prompter.prompt('请求失败！');
             }
         }), false);
     }

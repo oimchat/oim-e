@@ -30,15 +30,15 @@ export default class GroupChatDataService extends AbstractMaterial {
                         const p: Page = data.body.page;
                         own.doBack(p, items, back);
                     } else {
-                        own.appContext.promptData(data);
+                        prompter.promptData(data);
                     }
                 }
             },
             timeOut(data: any): void {
-                own.appContext.prompt('查询超时！');
+                prompter.prompt('查询超时！');
             },
             lost(data: any): void {
-                own.appContext.prompt('网络异常！');
+                prompter.prompt('网络异常！');
             },
         } as AbstractDataBackAction;
         groupChatSender.queryList(query, page, queryBack);

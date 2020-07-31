@@ -70,7 +70,7 @@
     import app from '@/app/App';
     import GroupJoinSettingController from '@/app/com/main/controller/GroupSettingController';
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
     import GroupJoinVerifyQuestion from '@/app/com/bean/GroupJoinVerifyQuestion';
 
     @Component({

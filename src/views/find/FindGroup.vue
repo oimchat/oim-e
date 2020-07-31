@@ -62,7 +62,7 @@
     import GroupInfoController from '@/app/com/main/controller/GroupInfoController';
     import Group from '@/app/com/bean/Group';
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
     import GroupInfoUtil from '@/app/com/main/util/GroupInfoUtil';
 
     @Component({

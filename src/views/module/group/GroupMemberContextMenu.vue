@@ -13,7 +13,7 @@
     import GroupMember from '@/app/com/bean/GroupMember';
 
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
     import GroupMemberBox from '@/app/com/main/box/GroupMemberBox';
     import PersonalBox from '@/app/com/main/box/PersonalBox';
     import GroupMemberController from '@/app/com/main/controller/GroupMemberController';

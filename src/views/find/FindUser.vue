@@ -64,7 +64,7 @@
     import UserController from '@/app/com/main/controller/UserController';
     import User from '@/app/com/bean/User';
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
     import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
 
     @Component({

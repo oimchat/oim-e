@@ -1,6 +1,6 @@
 import PromptHandler from '@/app/define/prompt/PromptHandler';
 
-export default class PromptHandlerImpl implements PromptHandler {
+export default class DefaultPromptHandlerImpl implements PromptHandler {
 
     public error(message: string, title?: string): void {
         // no

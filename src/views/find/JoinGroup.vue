@@ -75,7 +75,7 @@
     import GroupCategory from '@/app/com/bean/GroupCategory';
     import GroupListBox from '@/app/com/main/box/GroupListBox';
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
     import PersonalBox from '@/app/com/main/box/PersonalBox';
     import GroupJoinApplyData from '@/app/com/data/GroupJoinApplyData';
     import GroupJoinVerifyAnswer from '@/app/com/bean/GroupJoinVerifyAnswer';

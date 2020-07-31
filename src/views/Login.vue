@@ -5,12 +5,12 @@
             <div class="login_box compatible">
                 <div>
                     <!--begin info-->
-                    <div :style="hasLogin?'display: none;':'display: block;'" class="login-box compatible">
+                    <div :style="model.hasLogin?'display: none;':'display: block;'" class="login-box compatible">
                         <h3>用户登录</h3>
                         <div class="login-input-outer">
                             <div :class="hasAccount? '':'alert-validate'" data-validate="请输入账号">
                                 <span class="login-user-icon"></span>
-                                <input v-model="account" @blur='accountChange' class="login-text login-input"
+                                <input v-model="model.data.account" @blur='accountChange' class="login-text login-input"
                                        type="text" placeholder="请输入账号、手机、邮箱">
                                 <span class="input-focus"></span>
                             </div>
@@ -18,7 +18,8 @@
                         <div class="login-input-outer">
                             <div :class="hasPassword? '':'alert-validate'" data-validate="请输入密码">
                                 <span class="login-password-icon"></span>
-                                <input v-model="password" @blur='passwordChange' class="login-text" type="password"
+                                <input v-model="model.data.password" @blur='passwordChange' class="login-text"
+                                       type="password"
                                        placeholder="请输入密码">
                                 <span class="input-focus"></span>
                             </div>
@@ -77,19 +78,14 @@
     import Component from 'vue-class-component';
     import BaseUtil from '@/app/lib/util/BaseUtil';
     import app from '@/app/App';
-    import LoginController from '@/app/com/main/controller/LoginController';
-    import AppSetting from '@/app/base/config/AppSetting';
     import AppSettingManager from '@/app/com/main/manager/AppSettingManager';
     import ServerService from '@/app/com/main/service/ServerService';
-    import LoginSaveBox from '@/app/com/main/box/LoginSaveBox';
-    import LoginUser from '@/app/com/data/LoginUser';
-    import SecurityUtil from '@/app/com/main/util/SecurityUtil';
+    import loginViewModel from '@/platform/vue/view/model/LoginViewModel';
 
     @Component({})
     export default class Login extends Vue {
 
-        private account: string = '';
-        private password: string = '';
+        private model = loginViewModel;
         private hasAccount: boolean = true;
         private hasPassword: boolean = true;
 
@@ -97,41 +93,23 @@
 
         public mounted() {
             // no
-            this.initializeData();
-        }
-
-        private initializeData() {
-            const loginSaveBox: LoginSaveBox = app.appContext.getMaterial(LoginSaveBox);
-            if (loginSaveBox.has()) {
-                const loginUser: LoginUser = loginSaveBox.getLoginUser();
-                this.account = loginUser.account;
-                this.password = SecurityUtil.un(loginUser.password);
-            }
+            loginViewModel.initialize();
         }
 
         private accountChange(): void {
             const own = this;
-            const account: string = own.account;
+            const account: string = own.model.data.account;
             this.hasAccount = !BaseUtil.isEmpty(account);
         }
 
         private passwordChange(): void {
             const own = this;
-            const password: string = own.password;
+            const password: string = own.model.data.password;
             this.hasPassword = !BaseUtil.isEmpty(password);
         }
 
         private login(): void {
             const own = this;
-            const account: string = own.account;
-            const password: string = own.password;
-
-            this.hasAccount = !BaseUtil.isEmpty(account);
-            this.hasPassword = !BaseUtil.isEmpty(password);
-            if (!this.hasAccount || !this.hasPassword) {
-                return;
-            }
-            this.hasLogin = true;
             const back = (success: boolean, message?: string): void => {
                 if (message) {
                     this.$Notice.warning({
@@ -140,15 +118,13 @@
                 }
                 if (success) {
                     this.toMain();
-                    setTimeout(() => {
-                        this.hasLogin = false;
-                    }, 5000);
-                } else {
-                    this.hasLogin = false;
                 }
             };
-            const lc: LoginController = app.appContext.getMaterial(LoginController);
-            lc.login(account, password, back);
+            loginViewModel.login(
+                () => {
+                    return true;
+                },
+                back);
         }
 
         private setting(): void {
@@ -157,7 +133,7 @@
 
             const addressBack = (success: boolean, message?: string) => {
                 if (!success) {
-                    app.appContext.prompt('获取服务器地址失败！请检查网络是否正常');
+                    app.prompt('获取服务器地址失败！请检查网络是否正常');
                 }
             };
             const serverService: ServerService = app.appContext.getMaterial(ServerService);

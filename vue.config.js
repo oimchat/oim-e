@@ -14,68 +14,78 @@ module.exports = {
         },
         // Configuration applied to all builds
     },
+
     pluginOptions: {
         electronBuilder: {
             builderOptions: {
-                'productName': 'OIM-E',
-                'appId': 'com.oimchat.oim',
-                'copyright': 'onlyxiahui',//版权  信息
-                'dmg': {
-                    'contents': [
+                productName: 'OIM-E',
+                appId: 'com.oimchat.oim',
+                copyright: 'onlyxiahui',
+                dmg: {
+                    contents: [
                         {
-                            'x': 410,
-                            'y': 150,
-                            'type': 'link',
-                            'path': '/Applications',
+                            x: 410,
+                            y: 150,
+                            type: 'link',
+                            path: '/Applications'
                         },
                         {
-                            'x': 130,
-                            'y': 150,
-                            'type': 'file',
-                        },
-                    ],
+                            x: 130,
+                            y: 150,
+                            type: 'file'
+                        }
+                    ]
                 },
-                'mac': {
-                    'icon': 'build/icons/icon.icns',
+                mac: {
+                    icon: 'build/icons/icon.icns'
                 },
-                'win': {
-                    'icon': 'build/icons/icon.ico',
-                    'target': [
+                win: {
+                    icon: 'build/icons/icon.ico',
+                    target: [
                         {
-                            'target': 'nsis',
-                            'arch': [
-                                'ia32',
-                            ],
-                        },
-                    ],
+                            target: 'nsis',
+                            arch: [
+                                'ia32'
+                            ]
+                        }
+                    ]
                 },
-                'linux': {
-                    'icon': 'build/icons',
+                linux: {
+                    icon: 'build/icons'
                 },
-                // 'asar': false,
-                'directories': {
-                    'output': 'dist_electron',
-                    'buildResources': 'build',
-                    'app': 'dist_electron/bundled',
+                directories: {
+                    output: 'dist_electron',
+                    buildResources: 'build',
+                    app: 'dist_electron/bundled'
                 },
-                'files': ['**/*'],
-                'extraResources': [
-                    { // 拷贝dll等静态文件到指定位置
-                        'from': './public/assets',
-                        'to': './app/assets',
-                    },
-                    { // 拷贝dll等静态文件到指定位置
-                        'from': './public/lib',
-                        'to': './app/lib',
-                    },
+                files: [
+                    '**/*'
                 ],
-                'nsis': {
-                    'oneClick': false,
-                    'allowToChangeInstallationDirectory': true,
-                    'createDesktopShortcut': true,
-                    'createStartMenuShortcut': true,
-                },
-            },
+                extraResources: [
+                    {
+                        from: './public/assets',
+                        to: './app/assets'
+                    },
+                    {
+                        from: './public/lib',
+                        to: './app/lib'
+                    }
+                ],
+                nsis: {
+                    oneClick: false,
+                    allowToChangeInstallationDirectory: true,
+                    createDesktopShortcut: true,
+                    createStartMenuShortcut: true
+                }
+            }
         },
+        quasar: {
+            importStrategy: 'kebab',
+            rtlSupport: true
+        }
     },
+
+    transpileDependencies: [
+        'quasar'
+    ]
 };

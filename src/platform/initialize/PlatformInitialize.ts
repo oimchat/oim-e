@@ -13,6 +13,7 @@ import routerManager from '@/router/RouterManager';
 import auth from '@/app/common/auth/Auth';
 import ActionInitializer from '@/app/initialize/ActionInitializer';
 import HttpInitializer from '@/app/initialize/HttpInitializer';
+import WebComponentInitializer from '@/platform/web/initialize/launch/WebComponentInitializer';
 
 
 class PlatformInitialize {
@@ -30,6 +31,14 @@ class PlatformInitialize {
     public constructor() {
         this.initializeRouter();
         this.initialize();
+    }
+
+
+    public initialize(): void {
+        this.loadConfig();
+        this.buildInitializerComponent();
+        this.initializeUnread();
+        this.initializeApp();
     }
 
     public loadConfig() {
@@ -51,29 +60,6 @@ class PlatformInitialize {
         asm.loadSetting();
     }
 
-    public initialize(): void {
-        this.loadConfig();
-        this.initializeUnread();
-        this.initializeComponent();
-        this.initializeApp();
-    }
-
-    private initializeUnread() {
-        const allMessageUnreadBox: AllMessageUnreadBox = app.appContext.getMaterial(AllMessageUnreadBox);
-        allMessageUnreadBox.addChangeEvent(this.change);
-    }
-
-    private initializeComponent() {
-        app.putInitializer(new ActionInitializer());
-        app.putInitializer(new HttpInitializer());
-        app.putInitializer(new AppInitializer());
-        app.putInitializer(new ComponentInitializer());
-    }
-
-    private initializeApp() {
-        app.initialize();
-    }
-
     private initializeRouter() {
         const routerSkips: string[] = ['login', 'register', 'resetPassword'];
         routerManager.setRouterAuth({
@@ -84,6 +70,21 @@ class PlatformInitialize {
         routerManager.setDefaultRouteName('login');
         routerManager.setSkips(routerSkips);
         routerManager.setIntercept(true);
+    }
+
+    private buildInitializerComponent() {
+        app.putInitializer(new AppInitializer());
+        app.putInitializer(new ComponentInitializer());
+        app.putInitializer(new WebComponentInitializer());
+    }
+
+    private initializeUnread() {
+        const allMessageUnreadBox: AllMessageUnreadBox = app.appContext.getMaterial(AllMessageUnreadBox);
+        allMessageUnreadBox.addChangeEvent(this.change);
+    }
+
+    private initializeApp() {
+        app.initialize();
     }
 }
 

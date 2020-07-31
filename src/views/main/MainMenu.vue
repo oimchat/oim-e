@@ -18,7 +18,7 @@
 
     import ContactCategoryController from '@/app/com/main/controller/ContactCategoryController';
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
     import GroupCategoryController from '@/app/com/main/controller/GroupCategoryController';
 
     @Component({

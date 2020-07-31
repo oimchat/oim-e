@@ -21,7 +21,7 @@
     import InviteJoinGroup from '@/views/main/group/InviteJoinGroupPane.vue';
     import GroupRelationController from '@/app/com/main/controller/GroupRelationController';
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
     import GroupCategoryController from '@/app/com/main/controller/GroupCategoryController';
     import GroupBusinessController from '@/app/com/main/controller/GroupBusinessController';
 

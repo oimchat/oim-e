@@ -12,6 +12,8 @@ export default class NetModule extends AbstractMaterial {
 
     public initializeNetServer(): void {
         const own = this;
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
+
         this.netServer.setAutoConnect(true);
         this.netServer.setInvokeAction({
             invoke(key: string, data: any): void {
@@ -20,7 +22,7 @@ export default class NetModule extends AbstractMaterial {
         } as InvokeAction);
         this.netServer.setErrorPrompt({
             prompt(message: string): void {
-                own.appContext.prompt(message);
+                prompter.prompt(message);
             },
         } as PromptHandler);
     }
@@ -39,5 +41,12 @@ export default class NetModule extends AbstractMaterial {
     public send(data: any, back?: DataBackAction, parallel?: boolean): void {
         const netModule: NetModule = this.appContext.getMaterial(NetModule);
         netModule.netServer.send(data, back, parallel);
+    }
+
+    public connect(socketHost: string, onOpen?: () => void): boolean {
+        const netModule = this;
+        const mark: boolean = netModule.netServer.connect(socketHost, onOpen);
+        netModule.netServer.setSocketHost(socketHost);
+        return mark;
     }
 }

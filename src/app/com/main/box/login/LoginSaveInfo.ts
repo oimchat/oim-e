@@ -1,4 +1,4 @@
-export default class LoginUser {
+export default class LoginSaveInfo {
     /**
      * 帐号
      */
@@ -8,13 +8,13 @@ export default class LoginUser {
      */
     public password: string = '';
     /**
-     * 验证码
-     */
-    public verifyCode: string = '';
-    /**
      * 在线状态
      */
     public status: string = '';
+    /**
+     * 头像
+     */
+    public avatar: string = '';
 
     /**
      * 自动登录

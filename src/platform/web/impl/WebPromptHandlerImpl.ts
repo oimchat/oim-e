@@ -1,24 +1,25 @@
 import PromptHandler from '@/app/define/prompt/PromptHandler';
+import Prompt from '@/platform/web/common/Prompt';
 
 export default class WebPromptHandlerImpl implements PromptHandler {
 
     public prompt(message: string, title?: string, type?: string): void {
-        // no
+
     }
 
     public error(message: string, title?: string): void {
-        // no
+        Prompt.error(message, title);
     }
 
     public info(message: string, title?: string): void {
-        // no
+        Prompt.info(message, title);
     }
 
     public success(message: string, title?: string): void {
-        // no
+        Prompt.success(message, title);
     }
 
     public warn(message: string, title?: string): void {
-        // no
+        Prompt.warning(message, title);
     }
 }

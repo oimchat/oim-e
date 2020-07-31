@@ -34,7 +34,7 @@
     import ContactListBox from '@/app/com/main/box/ContactListBox';
     import ContactController from '@/app/com/main/controller/ContactController';
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
     import ContactVerifySettingData from '@/app/com/data/ContactVerifySettingData';
     import ContactVerifyQuestion from '@/app/com/data/ContactVerifyQuestion';
     import PersonalBox from '@/app/com/main/box/PersonalBox';

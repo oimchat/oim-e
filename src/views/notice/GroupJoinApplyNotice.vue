@@ -105,7 +105,7 @@
     import GroupJoinApply from '@/app/com/bean/GroupJoinApply';
     import Page from '@/app/com/data/common/Page';
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
     import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
     import User from '@/app/com/bean/User';
     import GroupJoinHandleData from '@/app/com/data/GroupJoinHandleData';

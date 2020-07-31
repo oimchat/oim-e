@@ -162,7 +162,7 @@
     import NodeData from './common/list/NodeData';
     import GroupMemberListController from '@/app/com/main/controller/GroupMemberListController';
     import LoginController from '@/app/com/main/controller/LoginController';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
 
 
     @Component({

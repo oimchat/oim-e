@@ -11,6 +11,7 @@ import {Protocol, ServerType} from '@/app/common/config/constant/ServerConstant'
 import Info from '@/app/base/message/Info';
 import PromptType from '@/app/define/prompt/PromptType';
 import ServerAddressUtil from '@/app/com/main/util/ServerAddressUtil';
+import Prompter from '@/app/com/main/component/Prompter';
 
 export default class AccountClient extends AbstractMaterial {
 
@@ -134,6 +135,7 @@ export default class AccountClient extends AbstractMaterial {
     }
 
     private post(m: any, back: (data: any) => void, prompt?: boolean | null) {
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
         const serverBox: ServerBox = this.appContext.getMaterial(ServerBox);
         const address = serverBox.getAddress(ServerType.main, Protocol.HTTP);
         if (!address || !address.enabled) {
@@ -143,7 +145,7 @@ export default class AccountClient extends AbstractMaterial {
             message.info = info;
             back(message);
             if (prompt) {
-                this.appContext.prompt('服务器不可用！', '错误', PromptType.error);
+                prompter.prompt('服务器不可用！', '错误', PromptType.error);
             }
         } else {
             const url = ServerAddressUtil.convertHttpUrl(address);

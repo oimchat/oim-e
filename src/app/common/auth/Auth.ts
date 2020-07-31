@@ -3,9 +3,6 @@ import LoginUser from '@/app/com/data/LoginUser';
 
 class Auth {
 
-    public account: string = '';
-    public password: string = '';
-
     private cache: BaseCache = new BaseCache('authCache');
     private accountKey = 'auth.account';
     private passwordKey = 'auth.password';
@@ -15,7 +12,7 @@ class Auth {
 
 
     public isLogin(): boolean {
-        let login: any = this.cache.get(this.tokenKey);
+        const login: any = this.cache.get(this.tokenKey);
         return login;
     }
 

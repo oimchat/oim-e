@@ -1,11 +1,18 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import PromptHandler from '@/app/define/prompt/PromptHandler';
-import PromptHandlerImpl from '@/app/impl/prompt/PromptHandlerImpl';
+import DefaultPromptHandlerImpl from '@/app/impl/default/prompt/DefaultPromptHandlerImpl';
 import InfoUtil from '@/app/base/message/util/InfoUtil';
 
 export default class Prompter extends AbstractMaterial implements PromptHandler {
 
-    private promptHandler: PromptHandler = new PromptHandlerImpl();
+    private promptHandler: PromptHandler = new DefaultPromptHandlerImpl();
+
+    public promptData(data: any) {
+        const own = this;
+        if (data.info) {
+            own.message(data.info, '', '');
+        }
+    }
 
     public message(info: any, successText: string, warningText: string): void {
         let message = '';
@@ -52,5 +59,11 @@ export default class Prompter extends AbstractMaterial implements PromptHandler 
 
     public warn(message: string, title?: string): void {
         this.promptHandler.warn(message, title);
+    }
+
+    public setPromptHandler(promptHandler: PromptHandler): void {
+        if (promptHandler) {
+            this.promptHandler = promptHandler;
+        }
     }
 }

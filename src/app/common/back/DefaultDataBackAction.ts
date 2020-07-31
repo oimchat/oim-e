@@ -1,5 +1,6 @@
 import DataBackAction from '@/app/base/net/DataBackAction';
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
+import Prompter from '@/app/com/main/component/Prompter';
 
 export default class DefaultDataBackAction extends AbstractMaterial implements DataBackAction {
 
@@ -8,10 +9,13 @@ export default class DefaultDataBackAction extends AbstractMaterial implements D
     }
 
     public lost(data: any): void {
-        this.appContext.prompt('请求失败!', undefined, 'warn');
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
+        prompter.prompt('请求失败!', undefined, 'warn');
     }
 
     public timeOut(data: any): void {
-        this.appContext.prompt('请求超时!', undefined, 'warn');
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
+
+        prompter.prompt('请求超时!', undefined, 'warn');
     }
 }

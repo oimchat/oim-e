@@ -33,7 +33,7 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import app from '@/app/App';
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
     import ContactCategory from '@/app/com/bean/ContactCategory';
     import ContactListBox from '@/app/com/main/box/ContactListBox';
     import ContactRelationController from '@/app/com/main/controller/ContactRelationController';

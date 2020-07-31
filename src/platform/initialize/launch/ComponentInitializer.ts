@@ -20,6 +20,7 @@ import InitializeConverge from '@/app/com/main/converge/InitializeConverge';
 import AppContext from '@/app/base/context/AppContext';
 import SoundHandlerEnum from '@/app/define/prompt/SoundHandlerEnum';
 import SoundHandlerImpl from '@/common/web/impl/prompt/SoundHandlerImpl';
+import Prompter from '@/app/com/main/component/Prompter';
 
 export default class ComponentInitializer implements Initializer {
 

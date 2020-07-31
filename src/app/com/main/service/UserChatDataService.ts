@@ -10,6 +10,7 @@ import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
 import UserChatData from '@/app/com/data/chat/UserChatData';
 import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
 import ContentData from '@/views/common/chat/ContentData';
+import Prompter from '@/app/com/main/component/Prompter';
 
 
 export default class UserChatDataService extends AbstractMaterial {
@@ -17,6 +18,7 @@ export default class UserChatDataService extends AbstractMaterial {
 
     public queryList(query: UserChatQuery, page: Page, back: (page: Page, contents: ContentData[]) => void) {
         const own = this;
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
         const userChatSender: UserChatDataSender = this.appContext.getMaterial(UserChatDataSender);
         const queryBack: DataBackAction = {
             back(data: any): void {
@@ -27,15 +29,15 @@ export default class UserChatDataService extends AbstractMaterial {
                         const p: Page = data.body.page;
                         own.doBack(p, items, back);
                     } else {
-                        own.appContext.promptData(data);
+                        prompter.promptData(data);
                     }
                 }
             },
             timeOut(data: any): void {
-                own.appContext.prompt('查询超时！');
+                prompter.prompt('查询超时！');
             },
             lost(data: any): void {
-                own.appContext.prompt('网络异常！');
+                prompter.prompt('网络异常！');
             },
         } as AbstractDataBackAction;
         userChatSender.queryList(query, page, queryBack);

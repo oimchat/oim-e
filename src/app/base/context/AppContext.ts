@@ -21,7 +21,6 @@ class AppContext {
 
     constructor() {
         this.initialize();
-        this.initializeNetServer();
     }
 
     public getObjectByClass<T>(clazz: new (...args: any[]) => T): T {
@@ -52,41 +51,9 @@ class AppContext {
         this.objectFactory.putObject(key, value);
     }
 
-
-    public putAction<T>(clazz: ActionType<AbstractMaterial>): void {
-        // new clazz(this);
-    }
-
-    public connect(socketHost: string, onOpen?: () => void): boolean {
-        const netModule: NetModule = this.getMaterial(NetModule);
-        const mark: boolean = netModule.netServer.connect(socketHost, onOpen);
-        netModule.netServer.setSocketHost(socketHost);
-        return mark;
-    }
-
-
-    public send(data: any, back?: DataBackAction, parallel?: boolean) {
-        const netModule: NetModule = this.getMaterial(NetModule);
-        netModule.netServer.send(data, back, parallel);
-    }
-
-    public prompt(message: string, title?: string, type?: string) {
-        const prompter: Prompter = this.getMaterial(Prompter);
-        prompter.prompt(message, title, type);
-    }
-
-    public promptData(data: any) {
-        const own = this;
-        if (data.info) {
-            const prompter: Prompter = this.getMaterial(Prompter);
-            prompter.message(data.info, '', '');
-        }
-        // own.dataPrompt.prompt(data);
-    }
-
-
     public createDataBackAction(back: (data: any) => void): DataBackAction {
         const own = this;
+        const prompter: Prompter = this.getMaterial(Prompter);
         const dataBack: DataBackAction = {
             back(value: any): void {
                 if (typeof (back) === 'function') {
@@ -95,11 +62,11 @@ class AppContext {
             },
 
             lost(data: any): void {
-                own.prompt('请求失败!', undefined, 'warn');
+                prompter.prompt('请求失败!', undefined, 'warn');
             },
 
             timeOut(data: any): void {
-                own.prompt('请求超时!', undefined, 'warn');
+                prompter.prompt('请求超时!', undefined, 'warn');
             },
         } as DataBackAction;
         return dataBack;
@@ -107,11 +74,6 @@ class AppContext {
 
     private initialize(): void {
         // TODO
-    }
-
-    private initializeNetServer(): void {
-        const netModule: NetModule = this.getMaterial(NetModule);
-        netModule.initializeNetServer();
     }
 }
 

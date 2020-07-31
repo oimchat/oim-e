@@ -19,9 +19,10 @@ import LoginData from '@/app/com/data/LoginData';
 import InitializeConverge from '@/app/com/main/converge/InitializeConverge';
 import InfoUtil from '@/app/base/message/util/InfoUtil';
 import LoginUser from '@/app/com/data/LoginUser';
-import LoginSaveBox from '@/app/com/main/box/LoginSaveBox';
+import LoginSaveBox from '@/app/com/main/box/login/LoginSaveBox';
 import SecurityUtil from '@/app/com/main/util/SecurityUtil';
 import EnterInitializerBox from '@/app/com/main/initialize/EnterInitializerBox';
+import LoginSaveInfo from '@/app/com/main/box/login/LoginSaveInfo';
 
 
 export default class LoginController extends AbstractMaterial {
@@ -29,19 +30,23 @@ export default class LoginController extends AbstractMaterial {
         //  no
     });
 
-    public login(account: string, password: string, back: (success: boolean, message?: string) => void): void {
+    public login(loginUser: LoginUser, back: (success: boolean, message?: string) => void): void {
 
         const own = this;
+
+        const account: string = loginUser.account;
+        const password: string = loginUser.password;
         const securityPassword = Md5.init(password);
 
         const authBack = (success: boolean, message?: string) => {
             if (success) {
                 auth.setLogin(true);
-                auth.account = account;
-                auth.password = securityPassword;
+                auth.setAccount(account);
+                auth.setPassword(securityPassword);
+
                 const data: LoginUser = new LoginUser();
                 data.account = account;
-                data.password = SecurityUtil.en(password);
+                data.password = password;
                 this.saveLoginInfo(data);
                 this.initializeApp();
             }
@@ -79,8 +84,8 @@ export default class LoginController extends AbstractMaterial {
     public reconnect(back?: (success: boolean, message?: string) => void): void {
         const isLogin = auth.isLogin();
         if (isLogin) {
-            const account = auth.account;
-            const password = auth.password;
+            const account = auth.getAccount();
+            const password = auth.getPassword();
             const tempBack = (success: boolean, message?: string) => {
                 if (back) {
                     // TODO
@@ -119,15 +124,16 @@ export default class LoginController extends AbstractMaterial {
     }
 
     public saveLoginInfo(data: LoginUser) {
+        const info: LoginSaveInfo = new LoginSaveInfo();
         const loginSaveBox: LoginSaveBox = this.appContext.getMaterial(LoginSaveBox);
-        loginSaveBox.save(data);
+        loginSaveBox.save(info);
     }
 
     public reAuth(): void {
         const isLogin = auth.isLogin();
         if (isLogin) {
-            const account = auth.account;
-            const password = auth.password;
+            const account = auth.getAccount();
+            const password = auth.getPassword();
             const back = (success: boolean, message?: string) => {
                 if (success) {
                     // TODO

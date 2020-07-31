@@ -78,7 +78,7 @@
     import GroupMember from '@/app/com/bean/GroupMember';
     import User from '@/app/com/bean/User';
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
     import GroupBox from '@/app/com/main/box/GroupBox';
     import GroupMemberSender from '@/app/com/main/sender/GroupMemberSender';
     import UserBox from '@/app/com/main/box/UserBox';

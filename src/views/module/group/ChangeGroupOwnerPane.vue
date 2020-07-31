@@ -37,7 +37,7 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import app from '@/app/App';
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
     import GroupMember from '@/app/com/bean/GroupMember';
     import User from '@/app/com/bean/User';
     import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';

@@ -8,30 +8,33 @@ import UserChatUnreadFunction from '@/app/com/main/function/UserChatUnreadFuncti
 import Content from '@/app/com/data/chat/content/Content';
 import PersonalBox from '@/app/com/main/box/PersonalBox';
 import User from '@/app/com/bean/User';
+import Prompter from '@/app/com/main/component/Prompter';
 
 export default class UserChatUnreadService extends AbstractMaterial {
 
 
     public loadAllList(): void {
         const own = this;
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
         const handler: UserChatUnreadHandler = this.appContext.getMaterial(UserChatUnreadHandler);
         handler.getAllList((success, list, message) => {
             if (success) {
                 own.setUnreadList(list);
             } else {
-                own.appContext.prompt(message ? message : '请求失败！');
+                prompter.prompt(message ? message : '请求失败！');
             }
         });
     }
 
     public loadListByCount(count: number): void {
         const own = this;
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
         const handler: UserChatUnreadHandler = this.appContext.getMaterial(UserChatUnreadHandler);
         handler.getListByCount(count, (success, list, message) => {
             if (success) {
                 own.setUnreadList(list);
             } else {
-                own.appContext.prompt(message ? message : '请求失败！');
+                prompter.prompt(message ? message : '请求失败！');
             }
         });
     }
@@ -51,6 +54,7 @@ export default class UserChatUnreadService extends AbstractMaterial {
 
     public setUserContentIds(list: UserChatUnread[], contentIds: string[]): void {
         const own = this;
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
         const sender: UserChatDataSender = this.appContext.getMaterial(UserChatDataSender);
         const recentWork: RecentChatUserFunction = this.appContext.getMaterial(RecentChatUserFunction);
         const unreadWork: UserChatUnreadFunction = this.appContext.getMaterial(UserChatUnreadFunction);
@@ -62,7 +66,7 @@ export default class UserChatUnreadService extends AbstractMaterial {
                 recentWork.setRecentChatList(items);
                 unreadWork.setList(list);
             } else {
-                own.appContext.prompt('请求失败！');
+                prompter.prompt('请求失败！');
             }
         }), false);
     }

@@ -1,16 +1,16 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
-import DataBackAction from '@/app/base/net/DataBackAction';
-import SystemAuthSender from '@/app/com/main/sender/SystemAuthSender';
+
+;
+import NetModule from '@/app/com/common/module/NetModule';
 
 export default class ConnectService extends AbstractMaterial {
 
     public connect(host: string, back: (success: boolean, message?: string) => void): void {
-
         const onOpen: () => void = () => {
             back(true);
         };
-
-        const mark: boolean = this.appContext.connect(host, onOpen);
+        const netModule: NetModule = this.appContext.getMaterial(NetModule);
+        const mark: boolean = netModule.connect(host, onOpen);
         if (!mark) {
             back(mark, '连接失败！');
         }

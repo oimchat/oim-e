@@ -89,7 +89,7 @@
     import UserBox from '@/app/com/main/box/UserBox';
     import GroupMemberSender from '@/app/com/main/sender/GroupMemberSender';
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/component/common/Prompt';
+    import Prompt from '@/platform/web/common/Prompt';
     import GroupMember from '@/app/com/bean/GroupMember';
     import GroupRelationController from '@/app/com/main/controller/GroupRelationController';
     import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
