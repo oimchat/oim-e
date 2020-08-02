@@ -5,7 +5,7 @@
     </div>
 </template>
 <script lang="ts">
-    import './styles/layout.css';
+    import './styles/oim/layout.css';
     import Vue from 'vue';
     import Component from 'vue-class-component';
     import WindowDecorated from '@/platform/e/view/WindowDecorated.vue';

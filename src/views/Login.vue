@@ -1,116 +1,105 @@
 <template>
-    <div style="height: 100%;" @keyup.enter="login">
-        <div id="login_pane" class="login">
-            <!--begin login_box-->
-            <div class="login_box compatible">
-                <div>
-                    <!--begin info-->
-                    <div :style="model.hasLogin?'display: none;':'display: block;'" class="login-box compatible">
-                        <h3>用户登录</h3>
-                        <div class="login-input-outer">
-                            <div :class="hasAccount? '':'alert-validate'" data-validate="请输入账号">
-                                <span class="login-user-icon"></span>
-                                <input v-model="model.data.account" @blur='accountChange' class="login-text login-input"
-                                       type="text" placeholder="请输入账号、手机、邮箱">
-                                <span class="input-focus"></span>
-                            </div>
+    <div class="login-page" @keyup.enter="login">
+        <div class="login-pane">
+            <div class="login-logo">
+                <q-avatar size="110px" class="shadow-9">
+                    <img :src="model.data.avatar"/>
+                </q-avatar>
+            </div>
+            <div v-show="!model.hasLogin" class="login-info">
+                <q-form ref="form">
+                    <q-input v-model="model.data.account"
+                             label="请输入账号、手机、邮箱"
+                             lazy-rules
+                             :rules="[ val => val && val.length > 0 || '请输入账号']"
+                             :dense="false">
+                        <template v-slot:prepend>
+                            <q-icon name="fas fa-user-circle"/>
+                        </template>
+                    </q-input>
+                    <q-input v-model="model.data.password"
+                             label="请输入密码"
+                             :type="isPassword ? 'password' : 'text'"
+                             lazy-rules
+                             :rules="[ val => val && val.length > 0 || '请输入密码']"
+                             :dense="false">
+                        <template v-slot:prepend>
+                            <q-icon name="fas fa-lock"/>
+                        </template>
+                        <template v-slot:append>
+                            <q-icon
+                                    :name="isPassword ? 'visibility_off' : 'visibility'"
+                                    class="cursor-pointer"
+                                    @click="isPassword = !isPassword"
+                            />
+                        </template>
+                    </q-input>
+                    <div v-show="model.isLoginSaveSupport" class="login-info-box">
+                        <div style="float: left;margin-left: -18px">
+                            <q-checkbox v-model="model.data.savePassword"
+                                        @input="model.savePasswordChange()"
+                                        label="记住密码"
+                                        color="teal"/>
                         </div>
-                        <div class="login-input-outer">
-                            <div :class="hasPassword? '':'alert-validate'" data-validate="请输入密码">
-                                <span class="login-password-icon"></span>
-                                <input v-model="model.data.password" @blur='passwordChange' class="login-text"
-                                       type="password"
-                                       placeholder="请输入密码">
-                                <span class="input-focus"></span>
-                            </div>
+                        <div style="margin-left: 20px">
+                            <q-checkbox v-model="model.data.autoLogin"
+                                        @input="model.autoLoginChange()"
+                                        label="自动登录"
+                                        color="teal"/>
                         </div>
-                        <div class="container-login-action-button login-bottom">
-                            <div class="wrap-login-action-button">
+                    </div>
+
+                    <div class="login-button-box">
+                        <div class="login-action-button-container login-bottom">
+                            <div class="login-action-button-wrap">
                                 <div class="login-action-button-background"></div>
                                 <button @click="login()" class="login-action-button">登 录</button>
                             </div>
                         </div>
-                        <p>&nbsp;</p>
-                        <!--                        <p style="color:#000000">账号：10000-10010密码：123456</p>-->
-                        <div>
-                            <div style="float: left;">
-                                <a @click="register" class="login-register" href="javascript:">立即注册</a>
-                            </div>
-                            <div style="float: right;">
-                                <a @click="resetPassword" class="login-forget" href="javascript:">忘记密码？</a>|
-
-                                <a @click="setting" class="login-forget" href="javascript:">设置</a>
-                            </div>
-                        </div>
-
                     </div>
-                    <!--end info-->
-                    <!--begin waiting-->
-                    <div :style="hasLogin?'display: block;':'display: none;'" class="login-box compatible">
-                        <h3>登录中</h3>
-                        <div style="vertical-align: middle; text-align: center; margin-top: 30px;">
-                            <div>
-                                <img src="../images/login/loading_312_4.gif" alt=""/>
-                            </div>
+
+                    <div class="login-bottom-setting">
+                        <div style="float: left;">
+                            <a @click="register" class="login-register" href="javascript:">立即注册</a>
+                        </div>
+                        <div style="float: right;">
+                            <a @click="resetPassword" class="login-forget" href="javascript:">忘记密码？</a>|
+                            <a @click="setting" class="login-forget" href="javascript:">设置</a>
                         </div>
                     </div>
-                    <!--end waiting-->
+
+                </q-form>
+            </div>
+            <div v-show="model.hasLogin" class="login-info">
+                <h3>登录中</h3>
+                <div style="vertical-align: middle; text-align: center; margin-top: 30px;">
+                    <div>
+                        <img src="../images/login/loading_312_4.gif" alt=""/>
+                    </div>
                 </div>
             </div>
-            <!--end login_box-->
-            <!--begin lang-->
-            <div class="lang">
-                <div></div>
-            </div>
-            <!--end lang-->
-            <!--begin copyright-->
-            <div class="copyright">
-                <p class="desc">© 2018 onlyxiahui Inc. All Rights Reserved</p>
-            </div>
-            <!--end copyright-->
         </div>
     </div>
 </template>
 
 <script lang="ts">
-    import '../styles/login.css';
+    import '../styles/oim/login.scss';
     import Vue from 'vue';
     import Component from 'vue-class-component';
-    import BaseUtil from '@/app/lib/util/BaseUtil';
     import app from '@/app/App';
     import AppSettingManager from '@/app/com/main/manager/AppSettingManager';
     import ServerService from '@/app/com/main/service/ServerService';
     import loginViewModel from '@/platform/vue/view/model/LoginViewModel';
+    import {Dialog} from 'quasar'
 
     @Component({})
     export default class Login extends Vue {
 
         private model = loginViewModel;
-        private hasAccount: boolean = true;
-        private hasPassword: boolean = true;
-
-        private hasLogin: boolean = false;
-
-        public mounted() {
-            // no
-            loginViewModel.initialize();
-        }
-
-        private accountChange(): void {
-            const own = this;
-            const account: string = own.model.data.account;
-            this.hasAccount = !BaseUtil.isEmpty(account);
-        }
-
-        private passwordChange(): void {
-            const own = this;
-            const password: string = own.model.data.password;
-            this.hasPassword = !BaseUtil.isEmpty(password);
-        }
-
-        private login(): void {
-            const own = this;
-            const back = (success: boolean, message?: string): void => {
+        private url: string = '';
+        private isPassword: boolean = true;
+        public onLogin: (success: boolean, message?: string) => void = (
+            (success: boolean, message?: string) => {
                 if (message) {
                     this.$Notice.warning({
                         desc: message,
@@ -119,7 +108,19 @@
                 if (success) {
                     this.toMain();
                 }
-            };
+            }
+        );
+
+        public mounted() {
+            // no
+            loginViewModel.onLogin = this.onLogin;
+            loginViewModel.initialize();
+        }
+
+
+        private login(): void {
+            const own = this;
+            const back = this.onLogin;
             loginViewModel.login(
                 () => {
                     return true;
@@ -137,32 +138,54 @@
                 }
             };
             const serverService: ServerService = app.appContext.getMaterial(ServerService);
-            this.$Modal.confirm({
-                title: '设置服务地址',
-                render: (h: any) => {
-                    return h('Input', {
-                        props: {
-                            value: url,
-                            autofocus: true,
-                            placeholder: '设置服务地址',
-                        },
-                        on: {
-                            input: (text: string) => {
-                                url = text;
-                            },
-                        },
-                    });
+            Dialog.create({
+                title: '设置',
+                message: '请输入服务器地址',
+                prompt: {
+                    model: url,
+                    type: 'text' // optional
                 },
-                onOk: () => {
-                    if ('' !== url && null !== url) {
-                        asm.setServerUrl(url);
-                        serverService.loadServerAddress(addressBack);
-                    }
-                },
-                onCancel: () => {
-                    // no
-                },
-            });
+                cancel: true,
+                persistent: true
+            }).onOk((data: any) => {
+                if ('' !== data && null !== data) {
+                    asm.setServerUrl(data);
+                    serverService.loadServerAddress(addressBack);
+                }
+                // console.log('>>>> OK, received', data)
+            }).onCancel(() => {
+                // console.log('>>>> Cancel')
+            }).onDismiss(() => {
+                // console.log('I am triggered on both OK and Cancel')
+            })
+
+
+            // this.$Modal.confirm({
+            //     title: '设置服务地址',
+            //     render: (h: any) => {
+            //         return h('Input', {
+            //             props: {
+            //                 value: url,
+            //                 autofocus: true,
+            //                 placeholder: '设置服务地址',
+            //             },
+            //             on: {
+            //                 input: (text: string) => {
+            //                     url = text;
+            //                 },
+            //             },
+            //         });
+            //     },
+            //     onOk: () => {
+            //         if ('' !== url && null !== url) {
+            //             asm.setServerUrl(url);
+            //             serverService.loadServerAddress(addressBack);
+            //         }
+            //     },
+            //     onCancel: () => {
+            //         // no
+            //     },
+            // });
         }
 
         private register(): void {
@@ -179,5 +202,8 @@
     }
 </script>
 
-<style>
+<style scoped>
+    .items-center {
+        margin-left: 10px;
+    }
 </style>

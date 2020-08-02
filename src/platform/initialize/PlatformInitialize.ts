@@ -8,12 +8,11 @@ import AppSettingManager from '@/app/com/main/manager/AppSettingManager';
 import Platform from '@/app/common/util/Platform';
 import AppInfo from '@/app/base/config/AppInfo';
 import AppInitializer from '@/impl/initialize/AppInitializer';
-import ComponentInitializer from '@/platform/initialize/launch/ComponentInitializer';
+import CurrentComponentInitializer from '@/platform/initialize/launch/CurrentComponentInitializer';
 import routerManager from '@/router/RouterManager';
 import auth from '@/app/common/auth/Auth';
-import ActionInitializer from '@/app/initialize/ActionInitializer';
-import HttpInitializer from '@/app/initialize/HttpInitializer';
-import WebComponentInitializer from '@/platform/web/initialize/launch/WebComponentInitializer';
+import WebPlatformComponentInitializer from '@/platform/web/initialize/launch/WebPlatformComponentInitializer';
+import WebComponentInitializer from "@/common/web/initialize/launch/WebComponentInitializer";
 
 
 class PlatformInitialize {
@@ -74,8 +73,12 @@ class PlatformInitialize {
 
     private buildInitializerComponent() {
         app.putInitializer(new AppInitializer());
-        app.putInitializer(new ComponentInitializer());
+
         app.putInitializer(new WebComponentInitializer());
+
+        app.putInitializer(new WebPlatformComponentInitializer());
+
+        app.putInitializer(new CurrentComponentInitializer());
     }
 
     private initializeUnread() {

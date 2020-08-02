@@ -1,5 +1,5 @@
 <template>
-    <div class="main">
+    <div class="main-page">
         <div v-if="appInfo.disconnection" class="popup slide-down" tabindex="-1"
              style="width: 100%;text-align: center;bottom: 1px;position: fixed;top: unset;">
             <span style="color: #ffad33">网络已断开</span>
@@ -7,106 +7,116 @@
                     style="height: 25px;width: 70px;font-size: 12px">重连
             </button>
         </div>
-        <div class="main_inner">
-            <SideBar :tabs="sideTabInfos" :box="sideTabBox" @on-tab-selected="onTabSelected"
-                     @on-button-click="handleSystemSetting"></SideBar>
-            <!--begin panel-->
-            <div class="panel">
-                <!--begin header-->
-                <div class="header">
+        <div class="main-inner">
+            <div class="oim-sidebar">
+                <div class="oim-sidebar-tab">
+                    <q-tabs
+                            v-model="data.tab"
+                            vertical
+                            switch-indicator
+                            active-color="white"
+                            class="text-grey-5"
+                    >
+                        <template v-for="tab in data.tabs">
+                            <q-tab :name="tab.key"
+                                   :icon="tab.icon"
+                                   @input="tab.doOnSelected()"
+                                   :label="' '"/>
+                        </template>
+                    </q-tabs>
+                </div>
+            </div>
+            <div class="oim-main-function-pane">
+                <!--begin oim-main-personal-->
+                <div class="oim-main-personal">
                     <div class="avatar">
                         <img class="img" :src="personalData.avatar" alt="">
                     </div>
                     <div class="info">
                         <h3 class="nickname">
-                            <span class="display_name">{{personalData.name}}</span>
-                            <a @click="onDownMenu($event,$root)" class="opt" href="javascript:;"><i
-                                    class="oim_chat_add"></i></a>
+                            <span class="display-name">{{personalData.name}}</span>
+                            <a id="main-down-menu" @click="onDownMenu($event,$root)" class="option" href="javascript:;">
+                                <i class="fas fa-bars"></i>
+                            </a>
                         </h3>
                     </div>
                 </div>
-                <!--end header-->
-                <!--begin search-->
                 <SearchBar @on-user-selected="searchOnUserSelected"
-                           @on-group-selected="searchOnGroupSelected"></SearchBar>
-                <!--end search-->
+                           @on-group-selected="searchOnGroupSelected">
+                </SearchBar>
+                <!--end oim-main-personal-->
                 <!--begin tab-->
-                <div class="tab" style="padding-bottom: 16px;">
+                <div style="padding-bottom: 16px;">
                 </div>
                 <!--end tab-->
+                <div class="oim-main-list-pane">
+                    <q-tab-panels
+                            v-model="data.tab"
+                            animated
+                            transition-prev="jump-up"
+                            transition-next="jump-up"
+                    >
+                        <q-tab-panel name="message_tab">
+                            <message-list-pane></message-list-pane>
+                        </q-tab-panel>
 
-                <!--begin nav view-->
-                <!-- uiView: navView -->
-                <div class="nav_view" style="visibility: visible; width: auto;">
-                    <div v-show="currentTab=='message_tab'" style="height: 100%">
-                        <MessageListPane></MessageListPane>
-                    </div>
-                    <div v-show="currentTab=='user_tab'" style="height: 100%">
-                        <UserListPane
-                                @on-node-context-menu='onUserNodeContextMenu'
-                                @on-item-selected="onUserSelected"
-                                @on-item-context-menu='onUserItemContextMenu'>
+                        <q-tab-panel name="user_tab">
+                            <contact-list-pane></contact-list-pane>
+                        </q-tab-panel>
 
-                        </UserListPane>
-                    </div>
-                    <div v-show="currentTab=='group_tab'" style="height: 100%">
-                        <GroupListPane
-                                @on-node-context-menu='onGroupNodeContextMenu'
-                                @on-item-selected="onGroupSelected"
-                                @on-item-context-menu='onGroupItemContextMenu'>
-
-                        </GroupListPane>
-                    </div>
-                    <div v-show="currentTab=='module_tab'" style="height: 100%">
-                        <ModuleMenu></ModuleMenu>
-                    </div>
+                        <q-tab-panel name="group_tab">
+                            <div class="text-h4 q-mb-md">Movies</div>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam
+                                odio
+                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur
+                                culpa fuga nulla ullam. In, libero.</p>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam
+                                odio
+                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur
+                                culpa fuga nulla ullam. In, libero.</p>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam
+                                odio
+                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur
+                                culpa fuga nulla ullam. In, libero.</p>
+                        </q-tab-panel>
+                        <q-tab-panel name="module_tab">
+                            <div class="text-h4 q-mb-md">Movies</div>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam
+                                odio
+                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur
+                                culpa fuga nulla ullam. In, libero.</p>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam
+                                odio
+                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur
+                                culpa fuga nulla ullam. In, libero.</p>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam
+                                odio
+                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur
+                                culpa fuga nulla ullam. In, libero.</p>
+                        </q-tab-panel>
+                    </q-tab-panels>
                 </div>
-                <!--end nav view-->
-
             </div>
-            <!--end panel-->
-            <!--begin chat-->
-            <!-- uiView: contentView -->
-            <div style="height:100%; padding-top: 25px;background-color: rgba(250,250,250,0.6);" class="">
-                <div v-show="currentTab=='message_tab'" style="height: 100%">
-                    <MessageAreaPane></MessageAreaPane>
-                </div>
-                <div v-show="currentTab=='user_tab'" style="height: 100%">
-                    <UserInfoPane ref="userInfoPane" @on-to-send="openUserChat"></UserInfoPane>
-                </div>
-                <div v-show="currentTab=='group_tab'" style="height: 100%">
-                    <GroupInfoPane ref="groupInfoPane" @on-to-send="openGroupChat"></GroupInfoPane>
-                </div>
-                <div v-show="currentTab=='module_tab'" style="height: 100%">
-                    <div class="box chat">
-                        <router-view></router-view>
-                    </div>
-                </div>
-            </div>
-            <!--end chat-->
         </div>
-
         <MainMenu></MainMenu>
-        <GroupContextMenu ref='groupContextMenu'></GroupContextMenu>
-        <UserContextMenu ref='userContextMenu'></UserContextMenu>
-
-        <GroupNodeContextMenu ref='groupNodeContextMenu'></GroupNodeContextMenu>
-        <UserNodeContextMenu ref='userNodeContextMenu'></UserNodeContextMenu>
-
-        <SoundHandlerPane></SoundHandlerPane>
-        <DownloadFormPane></DownloadFormPane>
-        <SettingPane ref="settingPane"></SettingPane>
     </div>
 </template>
 
 <script lang="ts">
     import '../styles/layout.css';
-    import '../styles/lib/font-awesome/4.7.0/css/font-awesome.min.css';
-    import '../styles/chat.css';
-    import '../styles/component.css';
-    import '../styles/main.css';
+    import '../styles/oim/main.scss';
+    import '../styles/oim/common.css';
+    import '../styles/oim/component.scss';
+
+
+    // import '../styles/lib/font-awesome/4.7.0/css/font-awesome.min.css';
+    // import '../styles/chat.css';
+    // import '../styles/component.scss';
+
 
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
+
+    import mainViewData from "@/platform/web/view/data/MainViewData";
 
     import SoundHandlerPane from '@/views/main/SoundHandlerPane.vue';
     import MainMenu from '@/views/main/MainMenu.vue';
@@ -114,7 +124,9 @@
     import SideBar from './main/SideBar.vue';
     import SearchBar from './main/SearchBar.vue';
 
-    import MessageListPane from './main/list/MessageListPane.vue';
+
+    import ContactListPane from "@/views/module/contact/list/ContactListPane.vue";
+    import MessageListPane from '@/views/module/message/MessageListPane.vue';
     import UserListPane from './main/list/UserListPane.vue';
     import GroupListPane from './main/list/GroupListPane.vue';
 
@@ -158,7 +170,6 @@
     import MessageAllUnreadView from '@/app/com/main/view/MessageAllUnreadView';
     import GroupChatInfoService from '@/app/com/main/service/GroupChatInfoService';
     import GroupChatItemController from '@/app/com/main/controller/GroupChatItemController';
-    import Platform from '@/app/common/util/Platform';
     import NodeData from './common/list/NodeData';
     import GroupMemberListController from '@/app/com/main/controller/GroupMemberListController';
     import LoginController from '@/app/com/main/controller/LoginController';
@@ -167,6 +178,7 @@
 
     @Component({
         components: {
+            ContactListPane,
             SoundHandlerPane,
             SideBar,
             MainMenu,
@@ -189,6 +201,7 @@
         },
     })
     export default class Main extends Vue implements MainView, MessageAllUnreadView {
+        private data = mainViewData;
         private personalData: PersonalData = personalDataBox.personalData;
         private currentTab: string = '';
         private sideTabInfos: SideTabData[] = new Array<SideTabData>();
@@ -202,6 +215,7 @@
             app.appContext.putViewObject(ViewEnum.MainView, this);
             app.appContext.putViewObject(ViewEnum.MessageAllUnreadView, this);
             this.init();
+            mainViewData.initialize();
         }
 
         public showOtherOnline(offline: boolean, client: Client): void {
@@ -447,5 +461,12 @@
 </script>
 
 <style scoped>
+    .q-tab-panel {
+        padding: 0;
+    }
 
+    .q-tab-panels {
+        background: unset;
+        height: 100%;
+    }
 </style>

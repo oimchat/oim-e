@@ -50,4 +50,8 @@ export default abstract class AbstractListPaneView extends AbstractMaterial impl
     public updateCategoryMemberCount(categoryId: string, countText: string): void {
         this.listBox.updateNodeCount(categoryId, countText);
     }
+
+    public  updateItemText(categoryId: string, itemId: string, text: string, time: string): void {
+        this.listBox.updateItemText(categoryId, itemId, text, time);
+    }
 }

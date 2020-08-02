@@ -12,17 +12,15 @@ import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import AppService from '@/app/com/main/service/AppService';
 import PersonalBox from '@/app/com/main/box/PersonalBox';
-import MessageListView from '@/app/com/main/view/MessageListView';
-import ViewEnum from '@/app/com/main/view/ViewEnum';
 import Client from '@/app/base/message/client/Client';
 import LoginData from '@/app/com/data/LoginData';
-import InitializeConverge from '@/app/com/main/converge/InitializeConverge';
-import InfoUtil from '@/app/base/message/util/InfoUtil';
 import LoginUser from '@/app/com/data/LoginUser';
 import LoginSaveBox from '@/app/com/main/box/login/LoginSaveBox';
-import SecurityUtil from '@/app/com/main/util/SecurityUtil';
 import EnterInitializerBox from '@/app/com/main/initialize/EnterInitializerBox';
 import LoginSaveInfo from '@/app/com/main/box/login/LoginSaveInfo';
+import User from "@/app/com/bean/User";
+import UserInfoUtil from "@/app/com/main/util/UserInfoUtil";
+import ObjectUtil from "@/app/common/util/ObjectUtil";
 
 
 export default class LoginController extends AbstractMaterial {
@@ -44,10 +42,7 @@ export default class LoginController extends AbstractMaterial {
                 auth.setAccount(account);
                 auth.setPassword(securityPassword);
 
-                const data: LoginUser = new LoginUser();
-                data.account = account;
-                data.password = password;
-                this.saveLoginInfo(data);
+                this.saveLoginInfo(loginUser);
                 this.initializeApp();
             }
             back(success, message);
@@ -124,7 +119,13 @@ export default class LoginController extends AbstractMaterial {
     }
 
     public saveLoginInfo(data: LoginUser) {
+        const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
+        const user: User = pb.getUser();
+        const avatar: string = UserInfoUtil.getHeadImage(user);
         const info: LoginSaveInfo = new LoginSaveInfo();
+        ObjectUtil.copyByTargetKey(info, data);
+        info.avatar = avatar;
+
         const loginSaveBox: LoginSaveBox = this.appContext.getMaterial(LoginSaveBox);
         loginSaveBox.save(info);
     }
@@ -153,6 +154,13 @@ export default class LoginController extends AbstractMaterial {
             };
             this.loadToken(account, password, loginBack);
         }
+    }
+
+    public initializeServerAddress() {
+        const serverService: ServerService = this.appContext.getMaterial(ServerService);
+        serverService.loadServerAddress(() => {
+            // no
+        });
     }
 
     public initializeApp(): void {
@@ -185,7 +193,6 @@ export default class LoginController extends AbstractMaterial {
                         const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
                         pb.setUser(user);
                     }
-                    m = InfoUtil.getDefaultErrorText(info);
                 }
             }
             back(mark, m);

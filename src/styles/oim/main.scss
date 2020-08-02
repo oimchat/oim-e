@@ -1,0 +1,132 @@
+//$oim-main-theme-color: #4caf50;
+$oim-main-theme-color: #6677fb;
+$oim-main-background-color: #ffffff;
+$oim-main-tab-color: $oim-main-theme-color;
+
+
+body, html {
+    height: 100%;
+}
+
+.main-page {
+    height: 100%;
+    width: 100%;
+}
+
+.main-inner {
+    height: 100%;
+    width: 100%;
+    background-color: $oim-main-background-color !important;
+}
+
+.oim-sidebar {
+    float: left;
+    width: 50px;
+    height: 100%;
+    color: #f4f4f4;
+    background-color: $oim-main-tab-color !important;
+    //background-color: #242b36;
+    //filter: alpha(Opacity=80);
+    //-moz-opacity: 0.8;
+    //opacity: 0.8;
+}
+
+.oim-sidebar-tab {
+    margin-top: 30px;
+    height: 100%;
+}
+
+
+.oim-main-function-pane {
+    position: relative;
+    width: 280px;
+    height: 100%;
+    float: left;
+    background: #ececec;
+    border-right: 1px solid #d9d9d9;
+}
+
+.oim-main-personal {
+    padding: 18px;
+    position: relative;
+    display: block;
+
+    .avatar {
+        display: table-cell;
+        vertical-align: middle;
+        word-wrap: break-word;
+        word-break: break-all;
+        white-space: nowrap;
+        padding-right: 10.625px
+    }
+
+    .avatar .img {
+        width: 40px;
+        height: 40px;
+        /*border-radius: 2px;*/
+        /*-moz-border-radius: 2px;*/
+        /*-webkit-border-radius: 2px;*/
+
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        display: block;
+        cursor: pointer
+    }
+
+    .info {
+        display: table-cell;
+        vertical-align: middle;
+        word-wrap: break-word;
+        word-break: break-all;
+        width: 2000px;
+    }
+
+    .display-name {
+        display: inline-block;
+        font-weight: 400;
+        width: 156px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal;
+        color: #392f2f;
+        font-size: 18px;
+        vertical-align: top;
+        line-height: 31px;
+        text-decoration: none
+    }
+
+    .info .nickname .display-name .emoji {
+        vertical-align: -4px
+    }
+
+    .info .nickname .option {
+        display: inline-block;
+        vertical-align: top
+    }
+
+    .option {
+        font-size: 18px;
+        color: #7c8690;
+    }
+
+    .info .signature {
+        color: #6b6f7c;
+        width: 130px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal;
+        line-height: 1
+    }
+}
+
+.oim-main-list-pane {
+    width: 100%;
+    position: absolute;
+    top: 130px;
+    right: 0;
+    bottom: 0;
+    left: 0
+}

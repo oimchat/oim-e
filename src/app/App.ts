@@ -16,6 +16,7 @@ import ActionInitializer from '@/app/initialize/ActionInitializer';
 import HttpInitializer from '@/app/initialize/HttpInitializer';
 import NetModule from '@/app/com/common/module/NetModule';
 import Prompter from '@/app/com/main/component/Prompter';
+import ServerInitializer from "@/app/initialize/ServerInitializer";
 
 
 class App {
@@ -95,7 +96,7 @@ class App {
 
     private clearAuth() {
         auth.setLogin(false);
-        auth.setToken('');
+        auth.clear();
     }
 
     private closeNet() {
@@ -119,6 +120,7 @@ class App {
     private buildLaunch(): void {
         this.putInitializer(new ActionInitializer());
         this.putInitializer(new HttpInitializer());
+        this.putInitializer(new ServerInitializer());
     }
 
     private initializeNetServer(): void {

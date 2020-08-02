@@ -4,7 +4,7 @@ import Prompt from '@/platform/web/common/Prompt';
 export default class WebPromptHandlerImpl implements PromptHandler {
 
     public prompt(message: string, title?: string, type?: string): void {
-
+        Prompt.notice(message, title, type);
     }
 
     public error(message: string, title?: string): void {

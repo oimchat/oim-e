@@ -24,4 +24,6 @@ export default interface ListPaneView extends View {
 
     isItemShowing(categoryId: string, itemId: string): boolean;
 
+    updateItemText(categoryId: string, itemId: string, text: string, time: string): void;
+
 }

@@ -285,9 +285,11 @@ export default class ContactListManager extends AbstractMaterial {
 
             const status = user.status;
             const gray = UserInfoUtil.isOffline(status);
+            const signature = user.signature;
 
             const listPaneView: ListPaneView = this.appContext.getView(ViewEnum.ContactListPaneView);
             listPaneView.addOrUpdateItem(categoryId, itemId, showName, avatar, gray);
+            listPaneView.updateItemText(categoryId, itemId, signature, '');
         }
     }
 }

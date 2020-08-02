@@ -1,6 +1,7 @@
 <template>
     <div>
-        <ContextMenu :list="mainDownMenu.list" :underline="true" :arrow="true" :name="mainDownMenu.name"></ContextMenu>
+<!--        <ContextMenu :list="mainDownMenu.list" :underline="true" :arrow="true" :name="mainDownMenu.name"></ContextMenu>-->
+        <popup-menu :list="mainDownMenu.list" :target="'#main-down-menu'"></popup-menu>
         <AddGroup ref="addGroupView"></AddGroup>
         <UpdatePassword ref="updatePasswordView"></UpdatePassword>
         <UpdateData ref="updateDataView"></UpdateData>
@@ -10,6 +11,7 @@
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import ContextMenu from '@/views/common/menu/ContextMenu.vue';
+    import PopupMenu from "@/views/common/menu/PopupMenu.vue";
 
     import AddGroup from '@/views/module/group/AddGroupPane.vue';
     import UpdatePassword from '@/views/main/personal/UpdatePasswordPane.vue';
@@ -23,6 +25,7 @@
 
     @Component({
         components: {
+            PopupMenu,
             ContextMenu,
             AddGroup,
             UpdatePassword,
@@ -35,37 +38,37 @@
             name: 'mainDownMenu',
             list: [{
                 text: '新建联系人分组',
-                icon: 'of address-book',
+                icon: 'fas fa-address-book',
                 onClick: (item: any, data: any) => {
                     this.addContactCategory();
                 },
             }, {
                 text: '新建群分组',
-                icon: 'of address-book',
+                icon: 'fas fa-address-book',
                 onClick: (item: any, data: any) => {
                     this.addGroupCategory();
                 },
             }, {
                 text: '新建群',
-                icon: 'of address-book',
+                icon: 'fas fa-users',
                 onClick: (item: any, data: any) => {
                     this.handleAddGroup();
                 },
             }, {
                 text: '修改资料',
-                icon: 'of address-book',
+                icon: 'fas fa-user-edit',
                 onClick: (item: any, data: any) => {
                     this.handleUpdateData();
                 },
             }, {
                 text: '修改密码',
-                icon: 'of address-book',
+                icon: 'fas fa-unlock-alt',
                 onClick: (item: any, data: any) => {
                     this.handleUpdatePassword();
                 },
             }, {
                 text: '退出',
-                icon: 'of power-off',
+                icon: 'fas fa-power-off',
                 onClick: (item: any, data: any) => {
                     this.logout();
                 },

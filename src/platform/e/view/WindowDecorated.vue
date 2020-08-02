@@ -1,16 +1,22 @@
 <template>
     <div class="im-top" style="-webkit-app-region: drag">
-        <a href="javascript:void(0)" @click="close" style="-webkit-app-region: no-drag">
-            <Icon type="ios-close" class="text-right"></Icon>
+        <a class="window-button" href="javascript:void(0)" @click="close" style="-webkit-app-region: no-drag">
+            <!--            <Icon type="ios-close" class="text-right"></Icon>-->
+            <q-icon name="mdi-window-close"></q-icon>
         </a>
-        <a v-if="!windowDecorated.isMax" href="javascript:void(0)" @click="max" style="-webkit-app-region: no-drag">
-            <Icon type="ios-square-outline" class="text-right"></Icon>
+        <a class="window-button" v-if="!windowDecorated.isMax" href="javascript:void(0)" @click="max"
+           style="-webkit-app-region: no-drag">
+            <!--            <Icon type="ios-square-outline" class="text-right"></Icon>-->
+            <q-icon name="mdi-window-maximize"></q-icon>
         </a>
-        <a v-if="windowDecorated.isMax" href="javascript:void(0)" @click="restore" style="-webkit-app-region: no-drag">
-            <Icon type="ios-browsers-outline" class="text-right"></Icon>
+        <a class="window-button" v-if="windowDecorated.isMax" href="javascript:void(0)" @click="restore"
+           style="-webkit-app-region: no-drag">
+            <q-icon name="mdi-window-restore"></q-icon>
+            <!--            <Icon type="ios-browsers-outline" class="text-right"></Icon>-->
         </a>
-        <a href="javascript:void(0)" @click="min" style="-webkit-app-region: no-drag">
-            <Icon type="ios-remove" class="text-right"></Icon>
+        <a class="window-button" href="javascript:void(0)" @click="min" style="-webkit-app-region: no-drag">
+            <!--            <Icon type="ios-remove" class="text-right"></Icon>-->
+            <q-icon name="mdi-window-minimize"></q-icon>
         </a>
     </div>
 </template>
@@ -64,7 +70,7 @@
     .im-top {
         /* height: $top-height; */
         position: absolute;
-        z-index: 10;
+        z-index: 99999;
         right: 0;
         width: 100%;
 
@@ -91,6 +97,11 @@
                 padding: 0.5rem;
                 text-align: center;
             }
+        }
+
+        .window-button {
+            width: 25px;
+            height: 25px;
         }
     }
 </style>

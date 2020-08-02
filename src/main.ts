@@ -3,12 +3,12 @@ import App from './App.vue';
 import routerManager from './router/RouterManager';
 import store from './platform/store/store';
 import iView from 'iview';
-import 'iview/dist/styles/iview.css'; // 使用 CSS
+// import 'iview/dist/styles/iview.css'; // 使用 CSS
 
 import './platform/e/styles/top.css';
 import './styles/iview/theme/index.less';
 import './styles/compatible.less';
-import './styles/drag.less';
+import './styles/drag.scss';
 // @ts-ignore
 import i18n from './platform/locale';
 

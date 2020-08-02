@@ -42,6 +42,13 @@ export default class BaseCache {
                 if (typeof (value) === 'boolean') {
                     // no
                 }
+                if (value instanceof Map) {
+                    const data = Object.create(null);
+                    for (let [k, v] of value) {
+                        data[k] = v;
+                    }
+                    value = data;
+                }
                 const text = JSON.stringify(value);
                 localStorage.setItem(saveKey, text);
             } else {

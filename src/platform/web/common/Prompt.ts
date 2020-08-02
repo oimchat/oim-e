@@ -1,4 +1,9 @@
 import Vue from 'vue';
+import {Notify} from 'quasar';
+import InfoUtil from "@/app/base/message/util/InfoUtil";
+import PromptHandler from "@/app/define/prompt/PromptHandler";
+import PromptHandlerEnum from "@/app/define/prompt/PromptHandlerEnum";
+import PromptType from "@/app/define/prompt/PromptType";
 
 export default class Prompt {
 
@@ -6,123 +11,132 @@ export default class Prompt {
         let message = '';
         if (info) {
             if (info.success) {
-                message = Prompt.getDefaultPromptText(info);
+                message = InfoUtil.getDefaultPromptText(info);
                 if (!message || '' === message) {
                     message = successText;
                 }
                 if (message) {
-                    Vue.prototype.$Notice.success({
-                        title: '成功',
-                        desc: message,
-                    });
+                    Prompt.success(message, '成功');
                 }
             } else {
-                message = Prompt.getDefaultErrorText(info);
+                message = InfoUtil.getDefaultErrorText(info);
                 if (!message || '' === message) {
                     message = warningText;
                 }
                 if (message) {
-                    Vue.prototype.$Notice.warning({
-                        title: '警告',
-                        desc: message,
-                    });
+                    Prompt.warning(message, '警告');
                 }
             }
         } else {
             if (warningText) {
-                Vue.prototype.$Notice.error({
-                    title: '错误',
-                    desc: warningText,
-                });
+                Prompt.error(message, '错误')
             }
         }
     }
 
     public static notice(message: string, title?: string, type?: string) {
-        type = type ? type : 'info';
+        Prompt.notify(message, title, type);
 
-        if ('info' === type) {
-            Vue.prototype.$Notice.info({
-                title: title || '信息',
-                desc: message,
-            });
-        }
-        if ('success' === type) {
-            Vue.prototype.$Notice.success({
-                title: title || '成功',
-                desc: message,
-            });
-        }
-        if ('warn' === type) {
-            Vue.prototype.$Notice.warning({
-                title: title || '警告',
-                desc: message,
-            });
-        }
-        if ('error' === type) {
-            Vue.prototype.$Notice.error({
-                title: title || '错误',
-                desc: message,
-            });
-        }
+
+        // type = type ? type : 'info';
+        // if ('info' === type) {
+        //     Vue.prototype.$Notice.info({
+        //         title: title || '信息',
+        //         desc: message,
+        //     });
+        // }
+        // if ('success' === type) {
+        //     Vue.prototype.$Notice.success({
+        //         title: title || '成功',
+        //         desc: message,
+        //     });
+        // }
+        // if ('warn' === type) {
+        //     Vue.prototype.$Notice.warning({
+        //         title: title || '警告',
+        //         desc: message,
+        //     });
+        // }
+        // if ('error' === type) {
+        //     Vue.prototype.$Notice.error({
+        //         title: title || '错误',
+        //         desc: message,
+        //     });
+        // }
     }
 
     public static info(message: string, title?: string) {
-        Vue.prototype.$Notice.info({
-            title: title || '信息',
-            desc: message,
-        });
+        Prompt.notice(message, title, PromptType.info);
+        // Vue.prototype.$Notice.info({
+        //     title: title || '信息',
+        //     desc: message,
+        // });
     }
 
     public static success(message: string, title?: string) {
-        Vue.prototype.$Notice.success({
-            title: title || '成功',
-            desc: message,
-        });
+        Prompt.notice(message, title, PromptType.success);
+        // Vue.prototype.$Notice.success({
+        //     title: title || '成功',
+        //     desc: message,
+        // });
     }
 
     public static warning(message: string, title?: string) {
-        Vue.prototype.$Notice.warning({
-            title: title || '警告',
-            desc: message,
-        });
+        Prompt.notice(message, title, PromptType.warn);
+        // Vue.prototype.$Notice.warning({
+        //     title: title || '警告',
+        //     desc: message,
+        // });
     }
 
     public static error(message: string, title?: string) {
-        Vue.prototype.$Notice.error({
-            title: title || '错误',
-            desc: message,
+        Prompt.notice(message, title, PromptType.error);
+        // Vue.prototype.$Notice.error({
+        //     title: title || '错误',
+        //     desc: message,
+        // });
+    }
+
+
+    public static notify(message: string, title?: string, type?: string) {
+        type = type ? type : 'info';
+        title = title || '信息';
+        let icon = 'tag_faces';
+        let color = 'info';
+        if ('info' === type) {
+            title = title || '信息';
+            color = 'info';
+            icon = 'fas fa-info-circle';
+        }
+        if ('success' === type) {
+            title = title || '成功';
+            color = 'teal';
+            icon = 'tag_faces';
+        }
+        if ('warn' === type) {
+            title = title || '警告';
+            color = 'warning';
+            icon = 'fas fa-exclamation-circle';
+        }
+        if ('error' === type) {
+            title = title || '错误';
+            color = 'red';
+            icon = 'fas fa-exclamation-circle';
+        }
+        const head = '<h6>' + title + '</h6>';
+        const m = '<div>' + message + '</div>';
+        const data = head + m;
+        Notify.create({
+            color: color,
+            textColor: 'white',
+            icon: icon,
+            message: data,
+            position: 'top-right',
+            // avatar,
+            multiLine: true,
+            timeout: 5000,
+            html: true,
+            closeBtn: 'X',
         });
-    }
-
-    public static getDefaultErrorText(info: any) {
-        let text = '';
-        if (info) {
-            const warnings = info.warnings;
-            const errors = info.errors;
-            if (warnings && warnings.length > 0) {
-                for (const warning of warnings) {
-                    text = text + warning.text + '\n';
-                }
-            } else if (errors && errors.length > 0) {
-                for (const error of errors) {
-                    text = text + error.text + '\n';
-                }
-            }
-        }
-        return text;
-    }
-
-    public static getDefaultPromptText(info: any) {
-        let text = '';
-        if (info) {
-            const prompts = info.prompts;
-            if (prompts && prompts.length > 0) {
-                for (const prompt of prompts) {
-                    text = text + prompt.text + '\n';
-                }
-            }
-        }
-        return text;
     }
 }

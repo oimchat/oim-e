@@ -2,18 +2,16 @@
     <div class="list-node-pane">
         <div class="title" @click="onClick" @contextmenu='contextMenu'>
             <i :class="data.isOpen?'fa fa-angle-down':'fa fa-angle-right'"></i>
-            <label>&emsp;</label>
+            <label></label>
             <label class="name">{{data.name}}</label>
             <label class="count">{{data.countText}}</label>
             <span class=""></span>
         </div>
         <div class="content" :style="data.isOpen?'display: block;':'display: none;'">
-            <ul class="list-node-item">
-                <div v-for="item of data.items">
-                    <ItemPane :data="item" :box="box" @on-selected="onItemSelected"
-                              @on-context-menu='onItemContextMenu'></ItemPane>
-                </div>
-            </ul>
+            <div v-for="item of data.items">
+                <ItemPane :data="item" :box="box" @on-selected="onItemSelected"
+                          @on-context-menu='onItemContextMenu'></ItemPane>
+            </div>
         </div>
     </div>
 </template>
@@ -76,6 +74,7 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss">
+
 
 </style>

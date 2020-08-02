@@ -1,6 +1,5 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import BaseCache from '@/app/common/cache/BaseCache';
-import LoginUser from '@/app/com/data/LoginUser';
 import SecurityUtil from '@/app/com/main/util/SecurityUtil';
 import LoginSaveInfo from '@/app/com/main/box/login/LoginSaveInfo';
 
@@ -8,22 +7,22 @@ export default class LoginSaveBox extends AbstractMaterial {
 
     private cache: BaseCache = new BaseCache('loginCache');
     private loginSaveListKey = 'loginSaveListKey';
-    private _loginSaveSupport: boolean = false;
+    private isLoginSaveSupport: boolean = false;
     private loginSaveMaxSize: number = 5;
 
     get loginSaveSupport(): boolean {
-        return this._loginSaveSupport;
+        return this.isLoginSaveSupport;
     }
 
     set loginSaveSupport(value: boolean) {
-        this._loginSaveSupport = value;
+        this.isLoginSaveSupport = value;
     }
 
     public getFirst(): LoginSaveInfo {
         let o: any;
-        const map: Map<string, LoginSaveInfo> = this.getLoginSaveInfoMap();
-        if (map.size > 0) {
-            o = map.values().next();
+        const array: LoginSaveInfo[] = this.getList();
+        if (array.length > 0) {
+            o = array[0];
         }
         return o;
     }
@@ -36,6 +35,7 @@ export default class LoginSaveBox extends AbstractMaterial {
 
     public save(data: LoginSaveInfo) {
         if (data && this.loginSaveSupport) {
+            const savePassword = data.savePassword;
             const map: Map<string, LoginSaveInfo> = this.getSaveMap();
             const size = map.size;
             if (size >= this.loginSaveMaxSize) {
@@ -48,26 +48,39 @@ export default class LoginSaveBox extends AbstractMaterial {
             }
             const account: string = data.account;
             const password: string = data.password;
-            data.password = SecurityUtil.en(password);
+            data.password = savePassword ? SecurityUtil.en(password) : '';
             map.set(account, data);
 
             this.cache.put(this.loginSaveListKey, map);
         }
     }
 
-    private getLoginSaveInfoMap(): Map<string, LoginSaveInfo> {
+    public getLoginSaveInfoMap(): Map<string, LoginSaveInfo> {
         const map: Map<string, LoginSaveInfo> = new Map<string, LoginSaveInfo>();
         const saveMap: Map<string, LoginSaveInfo> = this.getSaveMap();
         for (const key of saveMap.keys()) {
             const data = saveMap.get(key);
             if (data) {
+                const savePassword = data.savePassword;
                 const password: string = data.password;
-                data.password = SecurityUtil.un(password);
+                data.password = savePassword ? SecurityUtil.un(password) : '';
+
+                map.set(key, data);
             }
         }
         return map;
     }
 
+    public getList(): LoginSaveInfo[] {
+        const map: Map<string, LoginSaveInfo> = this.getLoginSaveInfoMap();
+        const array: LoginSaveInfo[] = [];
+        for (const data of map.values()) {
+            if (data) {
+                array.push(data);
+            }
+        }
+        return array;
+    }
 
     private getSaveMap(): Map<string, LoginSaveInfo> {
         const map: Map<string, LoginSaveInfo> = new Map<string, LoginSaveInfo>();

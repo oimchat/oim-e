@@ -1,14 +1,25 @@
 <template>
-    <div @click="onClick" @contextmenu='contextMenu'>
-        <div class="">
-            <div :class="data.active? 'contact_item active' : 'contact_item'">
-                <div class="avatar">
-                    <img :class="data.gray?'img gray' : 'img'" :src="data.avatar" alt="">
-                </div>
-                <div class="info"><h4 class="nickname">{{data.name}}</h4></div>
-                <span class=""></span>
+    <div
+            @click="onClick" @contextmenu='contextMenu'
+            :class="data.active? 'list-node-item active' : 'list-node-item'">
+        <div class="avatar-pane">
+            <div class="avatar">
+                <img :class="data.gray?'img gray' : 'img'" :src="data.avatar" alt="">
+                <i v-show="data.redCount > 0"
+                   :class="'icon red-dot-middle'">{{data.redCount}}
+                </i>
             </div>
         </div>
+        <div class="center">
+            <h3 class="nickname">
+                <span class="nickname-text">{{data.name}}</span>
+                <span class="extend">{{''}}</span>
+            </h3>
+            <p class="text">
+                <span class="">{{data.text}}</span>
+            </p>
+        </div>
+        <em></em>
     </div>
 </template>
 
@@ -64,6 +75,6 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss">
 
 </style>

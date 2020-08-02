@@ -1,6 +1,6 @@
 <template>
-    <div style="overflow-y:auto" class="scroll-wrapper contact_list scrollbar">
-        <div v-for="item of items">
+    <div>
+        <template v-for="item of items">
             <NodePane
                     :data="item"
                     :box="box"
@@ -8,7 +8,7 @@
                     @on-item-selected="onItemSelected"
                     @on-item-context-menu='onItemContextMenu'>
             </NodePane>
-        </div>
+        </template>
     </div>
 </template>
 

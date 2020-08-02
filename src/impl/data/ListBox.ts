@@ -119,6 +119,14 @@ class ListBox {
         }
     }
 
+    public updateItemText(categoryId: string, itemKey: string, text: string, time: string) {
+        const item: ItemData | any = this.itemMap.get(itemKey);
+        if (item) {
+            item.text = text;
+            item.redCount = 22;
+        }
+    }
+
     public deleteItem(nodeKey: string, itemKey: string): void {
         const node = this.nodeMap.get(nodeKey);
         const item = this.itemMap.get(itemKey);
@@ -155,6 +163,8 @@ class ListBox {
         }
         return node;
     }
+
+
 }
 
 export default ListBox;

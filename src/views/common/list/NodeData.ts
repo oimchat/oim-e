@@ -10,3 +10,4 @@ export default class NodeData {
     public red: boolean = false;
     public redCount: number = 0;
 }
+

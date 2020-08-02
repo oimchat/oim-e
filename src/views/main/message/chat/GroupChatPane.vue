@@ -71,18 +71,11 @@
     import ContentUtil from '@/impl/util/ContentUtil';
     import CoreContentUtil from '@/app/com/main/util/CoreContentUtil';
     import ContentUploadImageService from '@/app/com/main/service/ContentUploadImageService';
-    import ImagePathFile from '@/platform/e/util/ImagePathFile';
     import UploadResult from '@/app/com/main/data/UploadResult';
     import ImageValue from '@/app/com/data/chat/content/item/ImageValue';
     import BaseUtil from '@/app/lib/util/BaseUtil';
     import GroupMember from '@/app/com/bean/GroupMember';
     import User from '@/app/com/bean/User';
-    import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/platform/web/common/Prompt';
-    import GroupBox from '@/app/com/main/box/GroupBox';
-    import GroupMemberSender from '@/app/com/main/sender/GroupMemberSender';
-    import UserBox from '@/app/com/main/box/UserBox';
-    import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
     import Section from '@/app/com/data/chat/content/Section';
     import Content from '@/app/com/data/chat/content/Content';
     import Item from '@/app/com/data/chat/content/Item';

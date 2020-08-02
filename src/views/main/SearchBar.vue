@@ -1,76 +1,70 @@
 <template>
-    <div class="search_bar">
-        <i class="oim_chat_search"></i>
-        <input @keyup="onSearchChange" v-model="text" class="frm_search compatible" type="text" placeholder="搜索">
-        <i v-if="showPane" @click="clearSearch" class="search_bar_close"></i>
-        <div :style="showPane?'display: block;':'display: none;'" class="popup recommendation" tabindex="-1">
+    <div class="oim-search-bar">
+        <i class="oim-search-icon fas fa-search"></i>
+        <input @keyup="onSearchChange" v-model="text" class="input-search compatible" type="text" placeholder="搜索">
+        <i v-if="showPane" @click="clearSearch" class="oim-search-bar-close fas fa-times-circle"></i>
+        <div :style="showPane?'display: block;':'display: none;'" class="only-popup recommendation" tabindex="-1">
             <div style="position: relative;">
-                <div class="contacts scrollbar-dynamic scroll-content"
+                <div class="results scrollbar-dynamic scroll-content"
                      style="margin-bottom: 0px; margin-right: 0px;overflow-y:auto">
-                    <div class="contact_list ">
+                    <div class="result-list">
                         <div class="top-placeholder " style="height: 0px;"></div>
                         <div v-if="showUserList" class="">
                             <div class="">
-                                <h4 class="contact_title first">好友</h4>
+                                <h4 class="result-title first">好友</h4>
                             </div>
                             <div v-for="item of userList" class="">
                                 <ItemPane :data="item" :box="box"
-                                          @on-selected="onUserSelected"></ItemPane>
+                                          @on-selected="onUserSelected">
+                                </ItemPane>
                             </div>
                         </div>
 
                         <div v-if="showGroupList" class="">
                             <div class="">
-                                <h4 class="contact_title">群组</h4>
+                                <h4 class="result-title">群组</h4>
                             </div>
                             <div class="">
                                 <div v-for="item of groupList" class="">
                                     <ItemPane :data="item" :box="box"
-                                              @on-selected="onGroupSelected"></ItemPane>
+                                              @on-selected="onGroupSelected">
+                                    </ItemPane>
                                 </div>
                             </div>
                         </div>
 
                         <div v-if="showFindUserList" class="">
                             <div class="">
-                                <h4 class="contact_title">查到的用户</h4>
+                                <h4 class="result-title">查到的用户</h4>
                             </div>
-                            <div class="">
-                                <div class="">
-                                    <div v-for="item of findUserList" class="find-item">
-                                        <ItemPane :data="item" :box="box"></ItemPane>
-                                        <div class="find-add">
-                                            <a @click="handleShowUser(item.key)" href="javascript:void(0)">
-                                                <i class="fa fa-address-card"></i>
-                                            </a>
-                                            <span>&nbsp;</span>
-                                            <a @click="handleAddUser(item.key)" href="javascript:void(0)">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                        </div>
-                                    </div>
+                            <div v-for="item of findUserList" class="find-item">
+                                <ItemPane :data="item" :box="box"></ItemPane>
+                                <div class="find-add">
+                                    <a @click="handleShowUser(item.key)" href="javascript:void(0)">
+                                        <i class="fa fa-address-card"></i>
+                                    </a>
+                                    <span>&nbsp;</span>
+                                    <a @click="handleAddUser(item.key)" href="javascript:void(0)">
+                                        <i class="fa fa-plus"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
 
                         <div v-if="showFindGroupList" class="">
                             <div class="">
-                                <h4 class="contact_title">查到的群</h4>
+                                <h4 class="result-title">查到的群</h4>
                             </div>
-                            <div class="">
-                                <div class="">
-                                    <div v-for="item of findGroupList" class="find-item">
-                                        <ItemPane :data="item" :box="box"></ItemPane>
-                                        <div class="find-add">
-                                            <a @click="handleShowGroup(item.key)" href="javascript:void(0)">
-                                                <i class="fa fa-address-card"></i>
-                                            </a>
-                                            <span>&nbsp;</span>
-                                            <a @click="handleJoinGroup(item.key)" href="javascript:void(0)">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                        </div>
-                                    </div>
+                            <div v-for="item of findGroupList" class="find-item">
+                                <ItemPane :data="item" :box="box"></ItemPane>
+                                <div class="find-add">
+                                    <a @click="handleShowGroup(item.key)" href="javascript:void(0)">
+                                        <i class="fa fa-address-card"></i>
+                                    </a>
+                                    <span style="width: 10px">&nbsp;</span>
+                                    <a @click="handleJoinGroup(item.key)" href="javascript:void(0)">
+                                        <i class="fa fa-plus"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -357,6 +351,168 @@
 </script>
 
 <style lang="scss">
+
+    /************************
+    search start
+    *************************/
+
+    .oim-search-bar {
+        position: relative;
+        width: 244px;
+        margin: 0 auto 6px
+    }
+
+    .oim-search-icon {
+        font-size: 18px;
+        color: #8d9296;
+        top: 7px;
+        left: 5px;
+    }
+
+    .oim-search-bar .oim-search-icon {
+        position: absolute;
+        z-index: 101;
+    }
+
+    .oim-search-bar.focus .oim-search-icon {
+        display: none
+    }
+
+    .oim-search-bar.focus .input-search {
+        width: 230px;
+        padding-left: 14px
+    }
+
+    .oim-search-bar .input-search {
+        width: 214px;
+        height: 32px;
+        line-height: 32px;
+        border: 0;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+
+        background-color: #e4e5e7;
+        color: #212020;
+        padding-left: 30px;
+        font-size: 12px
+    }
+
+    .oim-search-bar-close {
+        display: block;
+        width: 22px;
+        height: 22px;
+        //background: url(../images/chat/item_close.png) no-repeat;
+        float: right;
+        margin-right: 2px;
+        margin-top: -20px;
+        position: relative;
+    }
+
+    .input-search::-webkit-input-placeholder { /* WebKit browsers */
+        color: #999;
+    }
+
+    .input-search:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: #999;
+    }
+
+    .input-search::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: #999;
+    }
+
+    .input-search:-ms-input-placeholder { /* Internet Explorer 10+ */
+        color: #999;
+    }
+
+    .input-search::-webkit-input-placeholder {
+        color: #999;
+    }
+
+    .result-list {
+        height: 100%
+    }
+
+    .recommendation {
+        background: #33363b;
+        width: 244px;
+        top: 36px;
+        left: 0;
+        box-shadow: 0 0 10px #2a2a2a;
+        -moz-box-shadow: 0 0 10px #2a2a2a;
+        -webkit-box-shadow: 0 0 10px #2a2a2a;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px
+    }
+
+    .recommendation .results {
+        max-height: 420px;
+        overflow: hidden
+    }
+
+    .recommendation .result-item {
+        overflow: hidden;
+        padding: 10px 9px;
+        cursor: pointer;
+        border-bottom: 1px solid #33363b;
+        background-color: #393c43
+    }
+
+    .recommendation .result-item.on {
+        background: #595b64
+    }
+
+    .recommendation .result-title {
+        font-size: 18px;
+        padding: 3px 9px;
+        font-weight: 400;
+        color: #787b87;
+        margin-top: 10px;
+        background-color: #393c43
+    }
+
+    .recommendation .result-title.first {
+        margin-top: 0
+    }
+
+    .recommendation .avatar {
+        float: left;
+        margin-right: 10px
+    }
+
+    .recommendation .avatar .img {
+        display: block;
+        width: 30px;
+        height: 30px;
+        border-radius: 2px
+    }
+
+    .recommendation .info {
+        overflow: hidden;
+        line-height: 30px
+    }
+
+    .recommendation .info .nickname {
+        font-weight: 400;
+        color: #fff;
+        font-size: 14px;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal
+    }
+
+    .recommendation .info .nickname .emoji, .recommendation .info .nickname .face {
+        vertical-align: -4px
+    }
+
+
+    /************************
+    search end
+    *************************/
+
     .find-item {
         position: relative;
     }

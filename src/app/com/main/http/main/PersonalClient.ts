@@ -16,7 +16,7 @@ import ServerAddressUtil from '@/app/com/main/util/ServerAddressUtil';
 export default class PersonalClient extends AbstractMaterial {
     private action: string = '1.1.002';
 
-    public login(loginData: LoginData, back: any): void {
+    public login(loginData: LoginData, back: (data: any) => void): void {
         const body = loginData;
         const m = Message.build(this.action, '1.1.0005');
         m.body = body;
@@ -24,7 +24,7 @@ export default class PersonalClient extends AbstractMaterial {
     }
 
 
-    private post(m: any, back: (data: any) => void, prompt?: boolean | null) {
+    private post(m: any, back: (data: any) => void, prompt?: boolean) {
         const serverBox: ServerBox = this.appContext.getMaterial(ServerBox);
         const address = serverBox.getAddress(ServerType.main, Protocol.HTTP);
         if (!address || !address.enabled) {
@@ -35,7 +35,7 @@ export default class PersonalClient extends AbstractMaterial {
             back(message);
         } else {
             const url = ServerAddressUtil.convertHttpUrl(address);
-            http.post(url, m, back, true);
+            http.post(url, m, back, prompt);
         }
     }
 }

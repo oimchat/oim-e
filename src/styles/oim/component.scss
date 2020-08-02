@@ -1,0 +1,297 @@
+
+.gray {
+    -webkit-filter: grayscale(100%); /*兼容google、opera*/
+    -moz-filter: grayscale(100%); /*FF下不生效*/
+    -ms-filter: grayscale(100%); /*IE下不生效*/
+    -o-filter: grayscale(100%); /*opera下不生效*/
+
+    filter: grayscale(100%); /*无效*/
+    filter: gray; /*兼容IE7-IE9，IE10不支持*/
+}
+
+
+/*******************************/
+
+.red-dot-middle {
+    height: 22px;
+    width: 22px;
+    padding: 3px;
+    /*margin:10px auto;*/
+    background-color: #dc3535;
+    border-radius: 50%/50%;
+}
+
+
+/**************列表 begin******************/
+.list-root-pane {
+    height: 100%
+}
+
+.list-node-pane > .title {
+    /*position: relative;*/
+    height: 32px;
+    line-height: 35px;
+    padding: 0 15px 0 15px;
+    color: #333;
+    cursor: pointer;
+    /*background-color: #f2f2f2;*/
+    font-size: 16px;
+    font-weight: 400;
+
+}
+
+.list-node-pane > .title > i {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.list-node-pane > .title:hover {
+    background: rgba(186, 186, 186, 0.5);
+}
+
+
+.list-node-item {
+    height: 55px;
+    padding: 5px 12px 5px;
+    border-bottom: 1px solid #e7e7e7;
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    .avatar-pane {
+        float: left;
+        position: relative;
+    }
+
+    .avatar {
+        margin-right: 10px;
+        position: relative
+    }
+
+    .avatar > img {
+        display: block;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+    }
+
+    .avatar > .icon {
+        position: absolute;
+        top: -4px;
+        right: -6px;
+        color: #fff;
+        font-style: normal;
+        font-size: 12px;
+        text-align: center;
+    }
+
+
+    .center {
+        /*background-color: #81c784;*/
+        position: absolute;
+        top: 0;
+        right: 4px;
+        bottom: 0px;
+        left: 65px;
+
+        padding: 5px 0px 5px;
+    }
+
+    .center > .nickname {
+        color: #000000;
+        line-height: 20px;
+        font-weight: 400;
+        font-size: 13px;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal
+    }
+
+    .center .nickname-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal;
+    }
+
+    .extend {
+        float: right;
+        color: #6b6f7c;
+        font-size: 13px;
+        text-align: right;
+        height: 19px;
+        line-height: 1.5;
+        position: absolute;
+        right: 0
+    }
+}
+
+
+.list-node-item.active {
+    background: #d2d2d2;
+}
+
+.list-node-item:hover {
+    background: rgba(50, 50, 50, 0.3);
+}
+
+
+.list-node-item.active > .center .text .ext {
+    color: #909090
+}
+
+
+.list-node-item > .center, .list-node-item > .center > .nickname-text {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: top
+}
+
+.list-node-item > .center .text {
+    color: #989898;
+    font-size: 13px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    height: 1.5em
+}
+
+/***************/
+
+.chat_list {
+    height: 100%
+}
+
+.chat_list .ico_loading {
+    text-align: center;
+    margin: 30px auto;
+    font-size: 14px;
+    color: #6b6f7c
+}
+
+.chat_list .ico_loading img {
+    vertical-align: -3px;
+    margin-right: 5px
+}
+
+.icon-list-item {
+    overflow: hidden;
+    padding: 12px 18px 11px;
+    /*border-bottom: 1px solid #647481;*/
+    cursor: pointer;
+    position: relative
+}
+
+.icon-list-item.top {
+    background-color: #2e3641
+}
+
+.icon-list-item.active {
+    background: #cbced0
+}
+
+.icon-list-item.active .ext, .icon-list-item.active .info .msg {
+    color: #181818
+}
+
+.icon-list-item .avatar {
+    float: left;
+    margin-right: 10px;
+    position: relative
+}
+
+.icon-list-item .avatar .img {
+    display: block;
+    width: 40px;
+    height: 40px;
+    /*border-radius: 2px;*/
+    /*-moz-border-radius: 2px;*/
+    /*-webkit-border-radius: 2px*/
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.icon-list-item .avatar .icon {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    color: #fff;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center
+}
+
+.icon-list-item .info {
+    overflow: hidden
+}
+
+.icon-list-item .info .nickname {
+    font-weight: 400;
+    font-size: 13px;
+    color: #0a0a0a;
+    line-height: 20px
+}
+
+.icon-list-item .info .nickname-text {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal
+}
+
+.icon-list-item .info .nickname_count, .icon-list-item .info .nickname-text {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: top
+}
+
+.icon-list-item .info .msg {
+    color: #989898;
+    font-size: 13px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    height: 1.5em
+}
+
+.icon-list-item .ext {
+    float: right;
+    color: #6b6f7c;
+    font-size: 13px;
+    text-align: right
+}
+
+.icon-list-item .ext .attr {
+    height: 19px;
+    line-height: 1.5
+}
+
+
+.icon-list-item:hover em {
+    display: block;
+    width: 19px;
+    height: 19px;
+    background: url(../../images/chat/item_close.png) no-repeat;
+    float: right;
+    /*margin-right: -228px;*/
+    margin-top: -29px;
+    position: relative;
+}
+
+.icon-list-item:hover {
+    background: rgba(50, 50, 50, 0.3);
+}

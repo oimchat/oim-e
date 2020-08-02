@@ -31,7 +31,9 @@ export default class ServerBox extends AbstractMaterial {
         let list: ServerAddress[] = [];
         const data: ServerData | any = this.getServer(code);
         // if (data instanceof ServerData) {
-        list = data.addresses;
+        if (data) {
+            list = data.addresses;
+        }
         // }
         if (!list) {
             list = [];

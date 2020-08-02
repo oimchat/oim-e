@@ -1,5 +1,4 @@
 import BaseCache from '@/app/common/cache/BaseCache';
-import LoginUser from '@/app/com/data/LoginUser';
 
 class Auth {
 
@@ -9,17 +8,20 @@ class Auth {
     private loginKey = 'auth.login';
     private tokenKey = 'auth.token';
     private userIdKey = 'auth.userId';
+    public isFirst: boolean = true;
 
 
     public isLogin(): boolean {
-        const login: any = this.cache.get(this.tokenKey);
+        const login: any = this.cache.get(this.loginKey);
         return login;
     }
 
     public setLogin(isLogin: boolean): void {
         this.cache.put(this.loginKey, isLogin);
+        if (isLogin) {
+            this.isFirst = false;
+        }
     }
-
 
     public setToken(token: string): void {
         this.cache.set(this.tokenKey, token);
@@ -88,7 +90,12 @@ class Auth {
         this.cache.delete(this.passwordKey);
     }
 
+    public removeLogin(): void {
+        this.cache.delete(this.loginKey);
+    }
+
     public clear(): void {
+        // this.removeLogin();
         this.removeUserId();
         this.removeToken();
         this.removeAccount();
