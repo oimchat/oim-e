@@ -1,6 +1,7 @@
 import BaseCache from '@/app/common/cache/BaseCache';
 
 class Auth {
+    public isFirst: boolean = true;
 
     private cache: BaseCache = new BaseCache('authCache');
     private accountKey = 'auth.account';
@@ -8,7 +9,6 @@ class Auth {
     private loginKey = 'auth.login';
     private tokenKey = 'auth.token';
     private userIdKey = 'auth.userId';
-    public isFirst: boolean = true;
 
 
     public isLogin(): boolean {

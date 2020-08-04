@@ -13,35 +13,41 @@
                     </Upload>
                 </slot>
                 <div v-show="insideSrc">
-                    <Button type="primary" @click="rotate">
-                        <Icon type="md-refresh" :size="18"/>
-                    </Button>
-                    <Button type="primary" @click="shrink">
-                        <Icon type="md-remove" :size="18"/>
-                    </Button>
-                    <Button type="primary" @click="magnify">
-                        <Icon type="md-add" :size="18"/>
-                    </Button>
-                    <Button type="primary" @click="scale('X')">
-                        <Icon custom="iconfont icon-shuipingfanzhuan" :size="18"/>
-                    </Button>
-                    <Button type="primary" @click="scale('Y')">
-                        <Icon custom="iconfont icon-chuizhifanzhuan" :size="18"/>
-                    </Button>
-                    <Button type="primary" @click="move(0, -moveStep)">
-                        <Icon type="md-arrow-round-up" :size="18"/>
-                    </Button>
-                    <Button type="primary" @click="move(-moveStep, 0)">
-                        <Icon type="md-arrow-round-back" :size="18"/>
-                    </Button>
-                    <Button type="primary" @click="move(0, moveStep)">
-                        <Icon type="md-arrow-round-down" :size="18"/>
-                    </Button>
-                    <Button type="primary" @click="move(moveStep, 0)">
-                        <Icon type="md-arrow-round-forward" :size="18"/>
-                    </Button>
-                    <Button style="width: 150px;margin-top: 10px;" type="primary" @click="crop">{{ cropButtonText }}
-                    </Button>
+                    <div>
+                        <button @click="rotate">
+                            <i class="fas fa-sync-alt"/>
+                        </button>
+                    </div>
+                    <div>
+                        <button @click="shrink">
+                            <i class="fas fa-compress-arrows-alt"/>
+                        </button>
+                        <button @click="magnify">
+                            <i class="fas fa-search-plus"/>
+                        </button>
+                        <button @click="scale('X')">
+                            <i class="fas fa-angle-double-down"/>
+                        </button>
+                        <button @click="scale('Y')">
+                            <i class="fas fa-angle-double-up"/>
+                        </button>
+                    </div>
+                    <div>
+                        <button @click="move(0, -moveStep)">
+                            <i class="fas fa-arrow-up"/>
+                        </button>
+                        <button @click="move(-moveStep, 0)">
+                            <i class="fas fa-arrow-left"/>
+                        </button>
+                        <button @click="move(0, moveStep)">
+                            <i class="fas fa-arrow-down"/>
+                        </button>
+                        <button @click="move(moveStep, 0)">
+                            <i class="fas fa-arrow-right"/>
+                        </button>
+                        <button style="width: 150px;margin-top: 10px;" @click="crop">{{ cropButtonText }}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -196,3 +202,16 @@
         }
     }
 </script>
+<style scoped>
+
+    button {
+        border: none;
+        color: white;
+        overflow: hidden;
+        margin: 5px;
+        padding: 7px;
+        cursor: pointer;
+        background-color: #00897b;
+        border-radius: 7px;
+    }
+</style>

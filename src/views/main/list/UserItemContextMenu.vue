@@ -23,7 +23,7 @@
             ContactMoveCategoryPane,
         },
     })
-    export default class UserContextMenu extends Vue {
+    export default class UserItemContextMenu extends Vue {
 
         private menu = {
             name: 'userItemContextMenu',

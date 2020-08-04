@@ -2,11 +2,12 @@
     <q-menu
             touch-position
             auto-close
-            :context-menu="contextMenu"
-            :target="target"
+            :context-menu="data.contextMenu"
+            :target="data.target"
+            v-model="data.showing"
     >
         <q-list dense style="min-width: 100px">
-            <template v-for="(item, index) in list">
+            <template v-for="(item, index) in data.list">
                 <q-item clickable v-close-popup @click="onClick(item)">
                     <template v-if="item.icon && item.icon.length > 0">
                         <q-item-section side>
@@ -28,7 +29,7 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import MenuItemData from './MenuItemData';
+    import PopupMenuData from '@/views/common/menu/PopupMenuData';
 
     @Component({
         components: {},
@@ -36,59 +37,11 @@
     export default class PopupMenu extends Vue {
 
         @Prop({
-            type: String || Boolean,
+            type: PopupMenuData,
             required: false,
-            default: () => (false),
+            default: () => (new PopupMenuData()),
         })
-        private target!: string | boolean;
-
-        @Prop({
-            type: Boolean,
-            required: false,
-            default: () => (false),
-        })
-        private contextMenu!: boolean;
-
-        @Prop({
-            type: Array,
-            required: true,
-            default: () => ([]),
-        })
-        private list!: any[];
-
-        // 是否开启下划线
-        @Prop({
-            type: Boolean,
-            required: false,
-            default: () => (false),
-        })
-        private underline!: boolean;
-
-
-        // 是否开启箭头
-        @Prop({
-            type: Boolean,
-            required: false,
-            default: () => (false),
-        })
-        private arrow!: boolean;
-
-        // 列表项宽度
-        @Prop({
-            type: Number,
-            required: false,
-            default: () => (140),
-        })
-        private itemWidth!: number;
-
-        // 列表项高度
-        @Prop({
-            type: Number,
-            required: false,
-            default: () => (36),
-        })
-        private itemHeight!: number;
-
+        private data!: PopupMenuData;
 
         private onClick(item: any) {
             const onClick = item.onClick;
@@ -97,7 +50,6 @@
             }
         }
     }
-
 
 </script>
 

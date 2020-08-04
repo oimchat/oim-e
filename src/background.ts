@@ -7,6 +7,7 @@ import {
 } from 'vue-cli-plugin-electron-builder/lib';
 import BrowserWindowBuilder from '@/platform/e/window/BrowserWindowBuilder';
 import SystemTray from '@/platform/e/SystemTray';
+import MainHandle from '@/platform/e/MainHandle';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -32,6 +33,7 @@ if (!gotTheLock) {
 }
 
 let tray: SystemTray | null = null;
+let mainHandle: MainHandle | null = null;
 
 function createWindow() {
     // Create the browser window.
@@ -55,7 +57,7 @@ function createWindow() {
     if (!tray || null == tray) {
         tray = new SystemTray();
     }
-
+    mainHandle = new MainHandle(win);
     tray.setMainWindow(win);
 }
 
@@ -100,7 +102,7 @@ app.on('ready', async () => {
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
     if (process.platform === 'win32') {
-        process.on('message', data => {
+        process.on('message', (data) => {
             if (data === 'graceful-exit') {
                 app.quit();
             }

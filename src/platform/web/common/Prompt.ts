@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import {Notify} from 'quasar';
-import InfoUtil from "@/app/base/message/util/InfoUtil";
-import PromptHandler from "@/app/define/prompt/PromptHandler";
-import PromptHandlerEnum from "@/app/define/prompt/PromptHandlerEnum";
-import PromptType from "@/app/define/prompt/PromptType";
+import InfoUtil from '@/app/base/message/util/InfoUtil';
+import PromptHandler from '@/app/define/prompt/PromptHandler';
+import PromptHandlerEnum from '@/app/define/prompt/PromptHandlerEnum';
+import PromptType from '@/app/define/prompt/PromptType';
 
 export default class Prompt {
 
@@ -29,7 +29,7 @@ export default class Prompt {
             }
         } else {
             if (warningText) {
-                Prompt.error(message, '错误')
+                Prompt.error(message, '错误');
             }
         }
     }
@@ -127,9 +127,9 @@ export default class Prompt {
         const m = '<div>' + message + '</div>';
         const data = head + m;
         Notify.create({
-            color: color,
+            color,
             textColor: 'white',
-            icon: icon,
+            icon,
             message: data,
             position: 'top-right',
             // avatar,

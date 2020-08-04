@@ -1,12 +1,12 @@
 import app from '@/app/App';
-import auth from "@/app/common/auth/Auth";
+import auth from '@/app/common/auth/Auth';
 
 import LoginSaveBox from '@/app/com/main/box/login/LoginSaveBox';
 import LoginController from '@/app/com/main/controller/LoginController';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import LoginSaveInfo from '@/app/com/main/box/login/LoginSaveInfo';
 import LoginUser from '@/app/com/data/LoginUser';
-import ObjectUtil from "@/app/common/util/ObjectUtil";
+import ObjectUtil from '@/app/common/util/ObjectUtil';
 
 
 class LoginViewModel {
@@ -42,10 +42,10 @@ class LoginViewModel {
                 ObjectUtil.copyByTargetKey(this.data, data);
                 this.login(
                     () => {
-                        return true
+                        return true;
                     },
-                    onLogin
-                )
+                    onLogin,
+                );
                 break;
             }
         }
@@ -58,7 +58,7 @@ class LoginViewModel {
             if (loginUser) {
                 // this.data.account = loginUser.account;
                 // this.data.password = loginUser.password;
-                ObjectUtil.copyByTargetKey(this.data, loginUser)
+                ObjectUtil.copyByTargetKey(this.data, loginUser);
             }
         }
         this.isLoginSaveSupport = loginSaveBox.loginSaveSupport;
@@ -74,10 +74,10 @@ class LoginViewModel {
             ObjectUtil.copyByTargetKey(this.data, data);
             this.login(
                 () => {
-                    return true
+                    return true;
                 },
-                onLogin
-            )
+                onLogin,
+            );
         }
     }
 
@@ -113,7 +113,7 @@ class LoginViewModel {
                 if (success) {
                     setTimeout(() => {
                         this.hasLogin = false;
-                    }, 5000);
+                    }, 2000);
                 } else {
                     this.hasLogin = false;
                 }

@@ -123,7 +123,6 @@ class ListBox {
         const item: ItemData | any = this.itemMap.get(itemKey);
         if (item) {
             item.text = text;
-            item.redCount = 22;
         }
     }
 

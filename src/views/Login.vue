@@ -90,7 +90,7 @@
     import AppSettingManager from '@/app/com/main/manager/AppSettingManager';
     import ServerService from '@/app/com/main/service/ServerService';
     import loginViewModel from '@/platform/vue/view/model/LoginViewModel';
-    import {Dialog} from 'quasar'
+    import {Dialog} from 'quasar';
 
     @Component({})
     export default class Login extends Vue {
@@ -121,11 +121,19 @@
         private login(): void {
             const own = this;
             const back = this.onLogin;
-            loginViewModel.login(
-                () => {
-                    return true;
-                },
-                back);
+            const form: any = this.$refs['form'];
+            form.validate().then((success: boolean) => {
+                if (success) {
+                    loginViewModel.login(
+                        () => {
+                            return true;
+                        },
+                        back);
+                } else {
+                    // 哦，不，用户至少
+                    // 填写了一个无效值
+                }
+            });
         }
 
         private setting(): void {
@@ -157,7 +165,7 @@
                 // console.log('>>>> Cancel')
             }).onDismiss(() => {
                 // console.log('I am triggered on both OK and Cancel')
-            })
+            });
 
 
             // this.$Modal.confirm({

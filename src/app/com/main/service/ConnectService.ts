@@ -1,6 +1,6 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 
-;
+
 import NetModule from '@/app/com/common/module/NetModule';
 
 export default class ConnectService extends AbstractMaterial {

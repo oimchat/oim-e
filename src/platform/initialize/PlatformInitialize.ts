@@ -12,7 +12,7 @@ import CurrentComponentInitializer from '@/platform/initialize/launch/CurrentCom
 import routerManager from '@/router/RouterManager';
 import auth from '@/app/common/auth/Auth';
 import WebPlatformComponentInitializer from '@/platform/web/initialize/launch/WebPlatformComponentInitializer';
-import WebComponentInitializer from "@/common/web/initialize/launch/WebComponentInitializer";
+import WebComponentInitializer from '@/common/web/initialize/launch/WebComponentInitializer';
 
 
 class PlatformInitialize {

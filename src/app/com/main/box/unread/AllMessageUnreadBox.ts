@@ -4,7 +4,7 @@ import AppContext from '@/app/base/context/AppContext';
 import EnterInitializerBox from '@/app/com/main/initialize/EnterInitializerBox';
 import BaseInitializer from '@/app/com/main/initialize/BaseInitializer';
 
-export default class AllMessageUnreadBox extends AbstractMaterial implements BaseInitializer{
+export default class AllMessageUnreadBox extends AbstractMaterial implements BaseInitializer {
 
     private map: Map<string, number> = new Map<string, number>();
     private totalUnreadCount: number = 0;
@@ -59,6 +59,13 @@ export default class AllMessageUnreadBox extends AbstractMaterial implements Bas
         }
     }
 
+    public getOrder(): number {
+        return 0;
+    }
+
+    public initialize(): void {
+    }
+
     private plusTotalUnread(): void {
         this.totalUnreadCount++;
     }
@@ -71,12 +78,5 @@ export default class AllMessageUnreadBox extends AbstractMaterial implements Bas
         for (const e of this.changeEvents) {
             e.change(this.getTotalUnreadCount());
         }
-    }
-
-    getOrder(): number {
-        return 0;
-    }
-
-    initialize(): void {
     }
 }

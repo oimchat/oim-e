@@ -26,7 +26,7 @@
                     </q-tabs>
                 </div>
             </div>
-            <div class="oim-main-function-pane">
+            <div class="oim-main-nav-pane">
                 <!--begin oim-main-personal-->
                 <div class="oim-main-personal">
                     <div class="avatar">
@@ -57,27 +57,29 @@
                             transition-next="jump-up"
                     >
                         <q-tab-panel name="message_tab">
-                            <message-list-pane></message-list-pane>
+                            <message-list-pane>
+
+                            </message-list-pane>
                         </q-tab-panel>
 
                         <q-tab-panel name="user_tab">
-                            <contact-list-pane></contact-list-pane>
+                            <contact-list-pane
+                                    @on-node-context-menu='onUserNodeContextMenu'
+                                    @on-item-selected="onUserSelected"
+                                    @on-item-context-menu='onUserItemContextMenu'
+                            >
+                            </contact-list-pane>
                         </q-tab-panel>
 
                         <q-tab-panel name="group_tab">
-                            <div class="text-h4 q-mb-md">Movies</div>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam
-                                odio
-                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur
-                                culpa fuga nulla ullam. In, libero.</p>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam
-                                odio
-                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur
-                                culpa fuga nulla ullam. In, libero.</p>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam
-                                odio
-                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur
-                                culpa fuga nulla ullam. In, libero.</p>
+                            <group-list-pane
+                                    id="group-list-pane"
+                                    @on-node-context-menu='onGroupNodeContextMenu'
+                                    @on-item-selected="onGroupSelected"
+                                    @on-item-context-menu='onGroupItemContextMenu'
+                            >
+                            </group-list-pane>
+
                         </q-tab-panel>
                         <q-tab-panel name="module_tab">
                             <div class="text-h4 q-mb-md">Movies</div>
@@ -97,8 +99,39 @@
                     </q-tab-panels>
                 </div>
             </div>
+            <div class="oim-main-container-pane">
+                <q-tab-panels
+                        v-model="data.tab"
+                        animated
+                        transition-prev="jump-up"
+                        transition-next="jump-up"
+                >
+                    <q-tab-panel name="message_tab">
+                        <MessageAreaPane></MessageAreaPane>
+                    </q-tab-panel>
+
+                    <q-tab-panel name="user_tab">
+                        <UserInfoPane ref="userInfoPane" @on-to-send="openUserChat"></UserInfoPane>
+                    </q-tab-panel>
+
+                    <q-tab-panel name="group_tab">
+                        <GroupInfoPane ref="groupInfoPane" @on-to-send="openGroupChat"></GroupInfoPane>
+                    </q-tab-panel>
+                    <q-tab-panel name="module_tab">
+                        <div class="box chat">
+                            <router-view></router-view>
+                        </div>
+                    </q-tab-panel>
+                </q-tab-panels>
+            </div>
         </div>
         <MainMenu></MainMenu>
+
+        <UserItemContextMenu ref='userContextMenu'></UserItemContextMenu>
+        <GroupContextMenu ref='groupContextMenu'></GroupContextMenu>
+
+        <GroupNodeContextMenu ref='groupNodeContextMenu'></GroupNodeContextMenu>
+        <UserNodeContextMenu ref='userNodeContextMenu'></UserNodeContextMenu>
     </div>
 </template>
 
@@ -116,7 +149,7 @@
 
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
 
-    import mainViewData from "@/platform/web/view/data/MainViewData";
+    import mainViewData from '@/platform/web/view/data/MainViewData';
 
     import SoundHandlerPane from '@/views/main/SoundHandlerPane.vue';
     import MainMenu from '@/views/main/MainMenu.vue';
@@ -125,15 +158,15 @@
     import SearchBar from './main/SearchBar.vue';
 
 
-    import ContactListPane from "@/views/module/contact/list/ContactListPane.vue";
+    import ContactListPane from '@/views/module/contact/list/ContactListPane.vue';
     import MessageListPane from '@/views/module/message/MessageListPane.vue';
     import UserListPane from './main/list/UserListPane.vue';
-    import GroupListPane from './main/list/GroupListPane.vue';
+    import GroupListPane from './module/group/list/GroupListPane.vue';
 
-    import GroupContextMenu from '@/views/main/list/GroupContextMenu.vue';
-    import UserContextMenu from '@/views/main/list/UserContextMenu.vue';
+    import GroupContextMenu from '@/views/module/group/menu/GroupContextMenu.vue';
+    import UserItemContextMenu from '@/views/main/list/UserItemContextMenu.vue';
 
-    import GroupNodeContextMenu from '@/views/main/list/GroupNodeContextMenu.vue';
+    import GroupNodeContextMenu from '@/views/module/group/menu/GroupNodeContextMenu.vue';
     import UserNodeContextMenu from '@/views/main/list/UserNodeContextMenu.vue';
 
     import UserInfoPane from './main/pane/UserInfoPane.vue';
@@ -187,7 +220,7 @@
             UserListPane,
             GroupListPane,
             GroupContextMenu,
-            UserContextMenu,
+            UserItemContextMenu,
             GroupNodeContextMenu,
             UserNodeContextMenu,
             PersonalInfoPane,

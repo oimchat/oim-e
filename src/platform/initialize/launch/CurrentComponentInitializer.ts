@@ -15,8 +15,8 @@ import groupChatViewModel from '@/impl/data/GroupChatViewModel';
 import userChatViewModel from '@/impl/data/UserChatViewModel';
 import InitializeConverge from '@/app/com/main/converge/InitializeConverge';
 import AppContext from '@/app/base/context/AppContext';
-import ImageItemFileConverter from "@/app/define/file/ImageItemFileConverter";
-import LoginSaveBox from "@/app/com/main/box/login/LoginSaveBox";
+import ImageItemFileConverter from '@/app/define/file/ImageItemFileConverter';
+import LoginSaveBox from '@/app/com/main/box/login/LoginSaveBox';
 
 export default class CurrentComponentInitializer implements Initializer {
 

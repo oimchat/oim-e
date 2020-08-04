@@ -14,15 +14,24 @@ export default class MainHandle {
             // } else {
             //     this.frame.maximize();
             // }
-            own.frame.maximize();
+            // own.frame.maximize();
+            own.frame.setFullScreen(true);
         });
 
         ipcMain.on('windowRestore', () => {
-            if (this.frame.isMaximized()) {
-                own.frame.unmaximize();
-            } else if (own.frame.isMinimized()) {
-                own.frame.restore();
-            }
+            own.frame.setFullScreen(false);
+            // own.frame.unmaximize();
+            // if (this.frame.isMaximized()) {
+            //
+            // } else if (own.frame.isMinimized()) {
+            //     own.frame.restore();
+            // }
+            //
+            // if (!own.frame.isFullScreen()) {
+            //     own.frame.setFullScreen(true)
+            // } else {
+            //     own.frame.setFullScreen(false)
+            // }
         });
         // 只是隐藏任务栏
         ipcMain.on('windowClose', () => {

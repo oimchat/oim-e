@@ -59,7 +59,7 @@ export default class AccountClient extends AbstractMaterial {
         const m = Message.build(this.action, '1.1.0003');
         m.body = body;
 
-        this.post(m, back, true);
+        this.post(m, updateBack, true);
     }
 
     public isExistAccount(value: string, back: (exist: boolean) => void): void {

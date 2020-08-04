@@ -44,7 +44,7 @@ export default class BaseCache {
                 }
                 if (value instanceof Map) {
                     const data = Object.create(null);
-                    for (let [k, v] of value) {
+                    for (const [k, v] of value) {
                         data[k] = v;
                     }
                     value = data;

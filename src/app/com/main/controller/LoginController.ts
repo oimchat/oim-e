@@ -18,9 +18,9 @@ import LoginUser from '@/app/com/data/LoginUser';
 import LoginSaveBox from '@/app/com/main/box/login/LoginSaveBox';
 import EnterInitializerBox from '@/app/com/main/initialize/EnterInitializerBox';
 import LoginSaveInfo from '@/app/com/main/box/login/LoginSaveInfo';
-import User from "@/app/com/bean/User";
-import UserInfoUtil from "@/app/com/main/util/UserInfoUtil";
-import ObjectUtil from "@/app/common/util/ObjectUtil";
+import User from '@/app/com/bean/User';
+import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
+import ObjectUtil from '@/app/common/util/ObjectUtil';
 
 
 export default class LoginController extends AbstractMaterial {
@@ -176,7 +176,7 @@ export default class LoginController extends AbstractMaterial {
     private loadToken(account: string, password: string, back: (success: boolean, message?: string) => void): void {
         const loginBack = (data: any) => {
             let mark = false;
-            let m = '';
+            const m = '';
             if (!BaseUtil.isEmpty(data)) {
                 const head = data.head;
                 const info = data.info;

@@ -1,7 +1,7 @@
 <template>
     <div>
-<!--        <ContextMenu :list="mainDownMenu.list" :underline="true" :arrow="true" :name="mainDownMenu.name"></ContextMenu>-->
-        <popup-menu :list="mainDownMenu.list" :target="'#main-down-menu'"></popup-menu>
+        <!--        <ContextMenu :list="mainDownMenu.list" :underline="true" :arrow="true" :name="mainDownMenu.name"></ContextMenu>-->
+        <popup-menu :data="menuData"></popup-menu>
         <AddGroup ref="addGroupView"></AddGroup>
         <UpdatePassword ref="updatePasswordView"></UpdatePassword>
         <UpdateData ref="updateDataView"></UpdateData>
@@ -11,11 +11,12 @@
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import ContextMenu from '@/views/common/menu/ContextMenu.vue';
-    import PopupMenu from "@/views/common/menu/PopupMenu.vue";
+    import PopupMenu from '@/views/common/menu/PopupMenu.vue';
+    import PopupMenuData from '@/views/common/menu/PopupMenuData';
 
     import AddGroup from '@/views/module/group/AddGroupPane.vue';
-    import UpdatePassword from '@/views/main/personal/UpdatePasswordPane.vue';
-    import UpdateData from '@/views/main/personal/UpdateDataPane.vue';
+    import UpdatePassword from '@/views/module/personal/UpdatePasswordPane.vue';
+    import UpdateData from '@/views/module/personal/UpdateDataPane.vue';
     import app from '@/app/App';
 
     import ContactCategoryController from '@/app/com/main/controller/ContactCategoryController';
@@ -33,6 +34,7 @@
         },
     })
     export default class MainMenu extends Vue {
+        private menuData: PopupMenuData = new PopupMenuData();
 
         private mainDownMenu = {
             name: 'mainDownMenu',
@@ -78,6 +80,8 @@
 
         public mounted() {
             // init
+            this.menuData.target = '#main-down-menu';
+            this.menuData.list = this.mainDownMenu.list;
         }
 
         private logout(): void {

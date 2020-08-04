@@ -1,72 +1,73 @@
 <template>
-    <Modal
-            v-model="show"
+    <el-dialog
+            :visible.sync="show"
             width="560"
             class="form-modal"
+            center
     >
-        <p slot="header" style="color:#f60;text-align:center">
-            <Icon type="ios-information-circle"></Icon>
+        <p slot="title" style="color:#f60;text-align:center">
+            <el-icon type="el-icon-edit"></el-icon>
             <span>修改信息</span>
         </p>
-        <div style="width: 100%;height: 100%">
-            <Form ref="userForm" :model="user" :rules="ruleValidate" :label-width="80">
-                <Form-item>
+        <div style="width: 100%;height: 100% ;overflow-y: auto">
+            <el-form ref="userForm" :model="user" :rules="ruleValidate">
+                <el-form-item>
                     <div @click='handleOpenUpdateHead' class="avatar">
                         <Avatar :src="user.avatar" size="large"/>
                     </div>
-                </Form-item>
-                <Form-item label="昵称" prop="nickname">
-                    <Input v-model="user.nickname" placeholder="请输入昵称"></Input>
-                </Form-item>
-                <Form-item label="账号">
+                </el-form-item>
+                <el-form-item label="昵称" prop="nickname">
+                    <el-input v-model="user.nickname" placeholder="请输入昵称"></el-input>
+                </el-form-item>
+                <el-form-item label="账号">
                     <label>{{user.account}}</label>
-                </Form-item>
-                <Form-item label="签名">
-                    <Input v-model="user.signature" placeholder="签名"></Input>
-                </Form-item>
-                <Form-item label="手机" prop="mobile">
-                    <Input v-model="user.mobile" placeholder="请输入手机"></Input>
-                </Form-item>
-                <Form-item label="邮箱" prop="email">
-                    <Input v-model="user.email" placeholder="请输入邮箱"></Input>
-                </Form-item>
-                <Form-item label="姓名">
-                    <Input v-model="user.name" placeholder="请输入姓名"></Input>
-                </Form-item>
-                <Form-item label="性别" prop="gender">
+                </el-form-item>
+                <el-form-item label="签名">
+                    <el-input v-model="user.signature" placeholder="签名"></el-input>
+                </el-form-item>
+                <el-form-item label="手机" prop="mobile">
+                    <el-input v-model="user.mobile" placeholder="请输入手机"></el-input>
+                </el-form-item>
+                <el-form-item label="邮箱" prop="email">
+                    <el-input v-model="user.email" placeholder="请输入邮箱"></el-input>
+                </el-form-item>
+                <el-form-item label="姓名">
+                    <el-input v-model="user.name" placeholder="请输入姓名"></el-input>
+                </el-form-item>
+                <el-form-item label="性别" prop="gender">
                     <Radio-group v-model="user.gender">
                         <Radio label="1">男</Radio>
                         <Radio label="2">女</Radio>
                         <Radio label="3">保密</Radio>
                     </Radio-group>
-                </Form-item>
-                <Form-item label="出生日期">
+                </el-form-item>
+                <el-form-item label="出生日期">
                     <DatePicker :value="user.birthDate" format="yyyy-MM-dd" type="date" placeholder="选择"
                                 style="width: 200px"></DatePicker>
-                </Form-item>
-                <Form-item label="家庭地址">
-                    <Input v-model="user.homeAddress" placeholder="家庭地址"></Input>
-                </Form-item>
-                <Form-item label="家庭地址">
-                    <Input v-model="user.locationAddress" placeholder="所在地址"></Input>
-                </Form-item>
-                <Form-item label="介绍" prop="introduce">
-                    <Input v-model="user.introduce" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
-                           placeholder="请输入..."></Input>
-                </Form-item>
-            </Form>
+                </el-form-item>
+                <el-form-item label="家庭地址">
+                    <el-input v-model="user.homeAddress" placeholder="家庭地址"></el-input>
+                </el-form-item>
+                <el-form-item label="家庭地址">
+                    <el-input v-model="user.locationAddress" placeholder="所在地址"></el-input>
+                </el-form-item>
+                <el-form-item label="介绍" prop="introduce">
+                    <el-input v-model="user.introduce" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
+                              placeholder="请输入..."></el-input>
+                </el-form-item>
+            </el-form>
         </div>
-        <div slot="footer">
-            <Button type="primary" @click="handleUpdate">确定</Button>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="handleUpdate">确定</el-button>
         </div>
         <UpdateHeadPane ref='updateHeadView' @on-done="updateHeadDone"></UpdateHeadPane>
-    </Modal>
+    </el-dialog>
 </template>
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
 
-    import UpdateHeadPane from '@/views/main/personal/UpdateHeadPane.vue';
+    import UpdateHeadPane from '@/views/module/personal/UpdateHeadPane.vue';
 
     import app from '@/app/App';
     import PersonalController from '@/app/com/main/controller/PersonalController';

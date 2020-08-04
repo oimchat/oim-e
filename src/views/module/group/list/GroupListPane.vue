@@ -11,8 +11,8 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import RootPane from '../../common/list/RootPane.vue';
-    import NodeData from '../../common/list/NodeData';
+    import RootPane from '../../../common/list/RootPane.vue';
+    import NodeData from '../../../common/list/NodeData';
     import ListData from '@/impl/data/ListData';
     import ItemData from '@/views/common/list/ItemData';
     import ItemBox from '@/views/common/list/ItemBox';

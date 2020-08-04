@@ -1,6 +1,8 @@
 <template>
     <div>
-        <ContextMenu :list="menu.list" :underline="true" :arrow="true" :name="menu.name"></ContextMenu>
+        <ContextMenu :list="menu.list" :underline="true" :arrow="true"></ContextMenu>
+        <PopupMenu :data="menuData"></PopupMenu>
+        <NavMenu :name="menu.name" :data="navMenu"></NavMenu>
         <InviteJoinGroup ref="inviteJoinGroup"></InviteJoinGroup>
         <UpdateGroupPane ref="updateGroupPane"></UpdateGroupPane>
         <ChangeGroupOwnerPane ref="changeGroupOwnerPane"></ChangeGroupOwnerPane>
@@ -9,6 +11,7 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
+    import PopupMenu from '@/views/common/menu/PopupMenu.vue';
     import ContextMenu from '@/views/common/menu/ContextMenu.vue';
     import UpdateGroupPane from '@/views/module/group/UpdateGroupPane.vue';
     import ChangeGroupOwnerPane from '@/views/module/group/ChangeGroupOwnerPane.vue';
@@ -24,9 +27,15 @@
     import Prompt from '@/platform/web/common/Prompt';
     import GroupCategoryController from '@/app/com/main/controller/GroupCategoryController';
     import GroupBusinessController from '@/app/com/main/controller/GroupBusinessController';
+    import PopupMenuData from '@/views/common/menu/PopupMenuData';
+    import NavMenu from '@/views/common/menu/NavMenu.vue';
+    import NavMenuData from '@/views/common/menu/NavMenuData';
+    import NavMenuItemData from '@/views/common/menu/NavMenuItemData';
 
     @Component({
         components: {
+            NavMenu,
+            PopupMenu,
             ContextMenu,
             InviteJoinGroup,
             UpdateGroupPane,
@@ -34,7 +43,9 @@
         },
     })
     export default class GroupContextMenu extends Vue {
-
+        private navMenu: NavMenuData = new NavMenuData();
+        private menuData: PopupMenuData = new PopupMenuData();
+        private showing: boolean = false;
         private menu = {
             name: 'groupContextMenu',
             list: [],
@@ -43,6 +54,7 @@
 
         public mounted() {
             // init
+            this.menuData.target = '#group-list-pane';
         }
 
         public show(e: MouseEvent, groupId: string) {
@@ -127,7 +139,29 @@
 
             this.menu.list = list;
 
+
+            const items: NavMenuItemData[] = [];
+
+            let item: NavMenuItemData = new NavMenuItemData();
+            item.text = '解散群0';
+            items.push(item);
+
+            item = new NavMenuItemData();
+            item.text = '解散群1';
+            items.push(item);
+
+            item = new NavMenuItemData();
+            item.text = '解散群2';
+            items.push(item);
+
+            item = new NavMenuItemData();
+            item.text = '解散群3';
+            items.push(item);
+
+            this.navMenu.items = items;
             if (this.menu.list.length > 0) {
+                // this.menuData.list = list;
+                // this.menuData.show();
                 this.openMenu(e, 'groupContextMenu');
             }
         }

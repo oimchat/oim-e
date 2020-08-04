@@ -70,7 +70,7 @@
     .im-top {
         /* height: $top-height; */
         position: absolute;
-        z-index: 99999;
+        z-index: 9999;
         right: 0;
         width: 100%;
 
@@ -81,8 +81,9 @@
 
             i {
                 color: $color-default;
-                font-size: 1.4rem;
                 font-weight: bolder;
+                font-size: 1.6rem;
+                width: 30px;
             }
 
             :hover {
@@ -100,8 +101,8 @@
         }
 
         .window-button {
-            width: 25px;
-            height: 25px;
+            /*width: 28px;*/
+            /*height: 25px;*/
         }
     }
 </style>

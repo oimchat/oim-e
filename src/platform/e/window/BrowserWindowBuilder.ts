@@ -63,8 +63,6 @@ export default class BrowserWindowBuilder {
                 win.webContents.send('windowRestore');
             }
         });
-
-        new MainHandle(win);
         return win;
     }
 }

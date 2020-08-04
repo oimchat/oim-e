@@ -1,8 +1,4 @@
-//$oim-main-theme-color: #4caf50;
-$oim-main-theme-color: #6677fb;
-$oim-main-background-color: #ffffff;
-$oim-main-tab-color: $oim-main-theme-color;
-
+@import "oim.variables";
 
 body, html {
     height: 100%;
@@ -37,7 +33,7 @@ body, html {
 }
 
 
-.oim-main-function-pane {
+.oim-main-nav-pane {
     position: relative;
     width: 280px;
     height: 100%;
@@ -129,4 +125,12 @@ body, html {
     right: 0;
     bottom: 0;
     left: 0
+}
+
+
+.oim-main-container-pane {
+    position: relative;
+    /*background-color: #f5f9fd;*/
+    height: 100%;
+    overflow: hidden;
 }

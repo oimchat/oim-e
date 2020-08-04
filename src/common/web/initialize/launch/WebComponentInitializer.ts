@@ -4,8 +4,8 @@ import ImageItemFileConverter from '@/app/define/file/ImageItemFileConverter';
 import Item from '@/app/com/data/chat/content/Item';
 import AppContext from '@/app/base/context/AppContext';
 import SoundHandlerEnum from '@/app/define/prompt/SoundHandlerEnum';
-import WebSoundHandlerImpl from "@/common/web/impl/prompt/WebSoundHandlerImpl";
-import WebImagePathFile from "@/common/web/util/WebImagePathFile";
+import WebSoundHandlerImpl from '@/common/web/impl/prompt/WebSoundHandlerImpl';
+import WebImagePathFile from '@/common/web/util/WebImagePathFile';
 
 export default class WebComponentInitializer implements Initializer {
 

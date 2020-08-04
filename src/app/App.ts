@@ -16,7 +16,7 @@ import ActionInitializer from '@/app/initialize/ActionInitializer';
 import HttpInitializer from '@/app/initialize/HttpInitializer';
 import NetModule from '@/app/com/common/module/NetModule';
 import Prompter from '@/app/com/main/component/Prompter';
-import ServerInitializer from "@/app/initialize/ServerInitializer";
+import ServerInitializer from '@/app/initialize/ServerInitializer';
 
 
 class App {

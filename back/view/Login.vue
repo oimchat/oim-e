@@ -47,7 +47,7 @@
                     <!--end info-->
                     <!--begin waiting-->
                     <div :style="hasLogin?'display: block;':'display: none;'" class="login-box compatible">
-                        <h3>登录中</h3>
+                        <h5>登录中</h5>
                         <div style="vertical-align: middle; text-align: center; margin-top: 30px;">
                             <div>
                                 <img src="../images/login/loading_312_4.gif" alt=""/>

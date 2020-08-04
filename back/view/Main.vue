@@ -118,10 +118,10 @@
     import UserListPane from './main/list/UserListPane.vue';
     import GroupListPane from './main/list/GroupListPane.vue';
 
-    import GroupContextMenu from '@/views/main/list/GroupContextMenu.vue';
-    import UserContextMenu from '@/views/main/list/UserContextMenu.vue';
+    import GroupContextMenu from '../../src/views/module/group/menu/GroupContextMenu.vue';
+    import UserContextMenu from '../../src/views/main/list/UserItemContextMenu.vue';
 
-    import GroupNodeContextMenu from '@/views/main/list/GroupNodeContextMenu.vue';
+    import GroupNodeContextMenu from '../../src/views/module/group/menu/GroupNodeContextMenu.vue';
     import UserNodeContextMenu from '@/views/main/list/UserNodeContextMenu.vue';
 
     import UserInfoPane from './main/pane/UserInfoPane.vue';
