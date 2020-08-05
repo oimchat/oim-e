@@ -14,10 +14,12 @@ class BaseUserInfoViewModel {
 
     public setUser(user: User) {
         if (user) {
+            this.userId = user.id;
             this.user = user;
             this.hasUser = true;
         } else {
             this.hasUser = false;
+            this.userId = '';
             this.user = new User();
         }
     }

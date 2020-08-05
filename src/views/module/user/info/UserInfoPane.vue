@@ -8,37 +8,39 @@
         </div>
         <div class="content only-full-pane only-scrollbar-y">
 
-            <div v-if="showInfo" class="">
+            <div v-if="model.hasUser" class="">
                 <div class="oim-info">
                     <div class="oim-avatar-wrap">
                         <div class="oim-avatar">
-                            <img class="img only-shadow" :src="user.avatar" alt="">
+                            <img class="img only-shadow" :src="model.user.avatar" alt="">
                         </div>
                     </div>
                     <div class="oim-nickname-area">
-                        <h4 class="oim-nickname">{{user.nickname}}</h4>
-                        <i v-if="user.gender==='1'" class="fas fa-male" style="color: #2d91fc;font-size: 28px"></i>
-                        <i v-if="user.gender==='2'" class="fas fa-female" style="color: #ff68ca;font-size: 28px"></i>
+                        <h4 class="oim-nickname">{{model.user.nickname}}</h4>
+                        <i v-if="model.user.gender==='1'" class="fas fa-male"
+                           style="color: #2d91fc;font-size: 28px"></i>
+                        <i v-if="model.user.gender==='2'" class="fas fa-female"
+                           style="color: #ff68ca;font-size: 28px"></i>
                     </div>
-                    <p class="oim-signature">{{user.signature}}</p>
+                    <p class="oim-signature">{{model.user.signature}}</p>
                     <div class="only-center-pane">
                         <div class="oim-meta-area-pane compatible">
                             <div class="oim-meta-area-item">
-                                <label class="label ">备注：{{relation.remark}}
-                                    <a v-if="remarkEdit" @click="updateRemark">
+                                <label class="label ">备注：{{model.relation.remark}}
+                                    <a v-if="model.isContact" @click="updateRemark">
                                         <i class="fa fa-edit" aria-hidden="true"></i>
                                     </a>
                                 </label>
                             </div>
                             <div class="oim-meta-area-item">
-                                <label class="label ">账号：{{user.account}}</label>
+                                <label class="label ">账号：{{model.user.account}}</label>
                             </div>
                             <div class="oim-meta-area-item">
-                                <label class="label ">Email：{{user.email}}</label>
+                                <label class="label ">Email：{{model.user.email}}</label>
                             </div>
                             <div class="oim-meta-area-item ">
                                 <label class="label">地区：</label>
-                                <p class="value">{{user.locationAddress}}</p>
+                                <p class="value">{{model.user.locationAddress}}</p>
                             </div>
                         </div>
                     </div>
@@ -47,10 +49,10 @@
                     </div>
                 </div>
             </div>
-            <div v-if="!showInfo" class="only-table-pane only-full-pane">
+            <div v-if="!model.hasUser" class="only-table-pane only-full-pane">
                 <div class="only-table-pane-cell">
                     <div>
-                        <img src="../../../images/main/pane/no.png" height="128" width="128"/>
+                        <img :src="noLogo" height="128" width="128"/>
                         <i class="no_one_icon"></i>
                         <p class="">未选择联系人</p>
                     </div>
@@ -71,19 +73,18 @@
     import ContactRelationController from '@/app/com/main/controller/ContactRelationController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
+    import userInfoViewModel from "@/platform/vue/view/model/UserInfoViewModel";
+    import CommonIcon from "@/platform/web/common/CommonIcon";
+
 
     @Component({
         components: {},
     })
     export default class UserInfoPane extends Vue {
-        private userId: string = '';
-        private user: User = new User();
-        private relation: ContactRelation = new ContactRelation();
-        private remarkEdit: boolean = false;
-        private showInfo: boolean = false;
+        private model = userInfoViewModel;
+        private noLogo = CommonIcon.noLogo;
 
         public setUserId(userId: string) {
-            this.userId = userId;
             const userBox: UserBox = app.appContext.getMaterial(UserBox);
             const contactListBox: ContactListBox = app.appContext.getMaterial(ContactListBox);
             const user: User = userBox.getUser(userId);
@@ -96,25 +97,12 @@
         }
 
         public setUser(user: User, relation: ContactRelation) {
-            if (user) {
-                this.user = user;
-                this.showInfo = true;
-            } else {
-                this.showInfo = false;
-                this.user = new User();
-            }
-
-            if (relation) {
-                this.relation = relation;
-                this.remarkEdit = true;
-            } else {
-                this.relation = new ContactRelation();
-                this.remarkEdit = false;
-            }
+            this.model.setUser(user);
+            this.model.setRelation(relation);
         }
 
         private openSend() {
-            const userId = this.userId;
+            const userId = this.model.userId;
             this.onOpenSend(userId);
         }
 
@@ -125,8 +113,8 @@
 
         private updateRemark(): void {
             const own = this;
-            const contactUserId = this.userId;
-            const oldRemark = (this.relation) ? this.relation.remark : '';
+            const contactUserId = this.model.userId;
+            const oldRemark = (this.model.relation) ? this.model.relation.remark : '';
             let text = '';
 
             const back: DataBackAction = {
@@ -135,7 +123,7 @@
                         const info = data.info;
                         if (info) {
                             if (info.success) {
-                                own.relation.remark = text;
+                                own.model.relation.remark = text;
                             }
                         }
                     }

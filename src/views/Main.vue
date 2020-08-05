@@ -171,13 +171,13 @@
     import UserListPane from './main/list/UserListPane.vue';
     import GroupListPane from './module/group/list/GroupListPane.vue';
 
-    import GroupContextMenu from '@/views/module/group/menu/GroupContextMenu.vue';
+    import GroupContextMenu from '@/views/module/group/menu/GroupItemContextMenu.vue';
     import UserItemContextMenu from '@/views/main/list/UserItemContextMenu.vue';
 
     import GroupNodeContextMenu from '@/views/module/group/menu/GroupNodeContextMenu.vue';
     import UserNodeContextMenu from '@/views/main/list/UserNodeContextMenu.vue';
 
-    import UserInfoPane from './main/pane/UserInfoPane.vue';
+    import UserInfoPane from './module/user/info/UserInfoPane.vue';
     import PersonalInfoPane from './main/pane/PersonalInfoPane.vue';
     import GroupInfoPane from './main/pane/GroupInfoPane.vue';
 

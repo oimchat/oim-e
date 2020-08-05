@@ -1,7 +1,5 @@
 <template>
     <div>
-        <ContextMenu :list="menu.list" :underline="true" :arrow="true"></ContextMenu>
-        <PopupMenu :data="menuData"></PopupMenu>
         <NavMenu :name="menu.name" :data="navMenu"></NavMenu>
         <InviteJoinGroup ref="inviteJoinGroup"></InviteJoinGroup>
         <UpdateGroupPane ref="updateGroupPane"></UpdateGroupPane>
@@ -11,8 +9,6 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import PopupMenu from '@/views/common/menu/PopupMenu.vue';
-    import ContextMenu from '@/views/common/menu/ContextMenu.vue';
     import UpdateGroupPane from '@/views/module/group/UpdateGroupPane.vue';
     import ChangeGroupOwnerPane from '@/views/module/group/ChangeGroupOwnerPane.vue';
 
@@ -25,7 +21,6 @@
     import GroupRelationController from '@/app/com/main/controller/GroupRelationController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import GroupCategoryController from '@/app/com/main/controller/GroupCategoryController';
     import GroupBusinessController from '@/app/com/main/controller/GroupBusinessController';
     import PopupMenuData from '@/views/common/menu/PopupMenuData';
     import NavMenu from '@/views/common/menu/NavMenu.vue';
@@ -35,8 +30,6 @@
     @Component({
         components: {
             NavMenu,
-            PopupMenu,
-            ContextMenu,
             InviteJoinGroup,
             UpdateGroupPane,
             ChangeGroupOwnerPane,
@@ -45,7 +38,6 @@
     export default class GroupContextMenu extends Vue {
         private navMenu: NavMenuData = new NavMenuData();
         private menuData: PopupMenuData = new PopupMenuData();
-        private showing: boolean = false;
         private menu = {
             name: 'groupContextMenu',
             list: [],
@@ -63,17 +55,17 @@
             const personalGroupMemberListBox: PersonalGroupMemberListBox = app.appContext.getMaterial(PersonalGroupMemberListBox);
             const position = personalGroupMemberListBox.getPosition(groupId);
             const list: any = [];
-
+            const items: NavMenuItemData[] = [];
+            let item = new NavMenuItemData();
             const isOwner = GroupMember.POSITION_OWNER === position;
             if (isOwner) {
-                list.push({
-                    text: '修改资料',
-                    icon: 'of address-book',
-                    onClick: (item: any, data: any) => {
-                        // todo
-                        own.openUpdateGroup(groupId);
-                    },
+                item = new NavMenuItemData();
+                item.text = '修改资料';
+                item.icon = 'fas fa-edit';
+                item.addClickEvent(() => {
+                    own.openUpdateGroup(groupId);
                 });
+                items.push(item);
             }
 
             const categoryList = groupListBox.getCategoryList();
@@ -82,93 +74,63 @@
                 for (const data of categoryList) {
                     const id = data.id;
                     const name = data.name;
-                    nodeList.push({
-                        text: name,
-                        icon: 'of address-book',
-                        onClick: (item: any, d: any) => {
-                            // todo
-                            own.moveCategory(groupId, id);
-                        },
+
+                    item = new NavMenuItemData();
+                    item.text = name;
+                    item.icon = 'fas fa-align-justify';
+                    item.addClickEvent(() => {
+                        own.moveCategory(groupId, id);
                     });
+                    nodeList.push(item);
                 }
 
-                list.push({
-                    text: '移动到',
-                    icon: 'of address-book',
-                    children: nodeList,
-                });
+
+                item = new NavMenuItemData();
+                item.text = '移动到';
+                item.icon = 'fas fa-angle-double-right';
+                item.children = nodeList;
+                items.push(item);
             }
-            list.push({
-                text: '邀请加入',
-                icon: 'of address-book',
-                onClick: (item: any, data: any) => {
-                    // todo
-                    own.openInviteJoinGroup(groupId);
-                },
+
+            item = new NavMenuItemData();
+            item.text = '邀请加入';
+            item.icon = 'fas fa-user-check';
+            item.addClickEvent(() => {
+                own.openInviteJoinGroup(groupId);
             });
+            items.push(item);
+
+
             if (!isOwner) {
-                list.push({
-                    text: '退出群',
-                    icon: 'of address-book',
-                    onClick: (item: any, data: any) => {
-                        // todo
-                        own.quitGroup(groupId);
-                    },
+                item = new NavMenuItemData();
+                item.text = '退出群';
+                item.icon = 'fas fa-sign-out-alt';
+                item.addClickEvent(() => {
+                    own.quitGroup(groupId);
                 });
+                items.push(item);
             }
 
             if (isOwner) {
-                list.push({
-                    text: '转让群',
-                    icon: 'of address-book',
-                    onClick: (item: any, data: any) => {
-                        // todo
-                        own.openChangeGroupOwner(groupId);
-                    },
+
+                item = new NavMenuItemData();
+                item.text = '转让群';
+                item.icon = 'fas fa-exchange-alt';
+                item.addClickEvent(() => {
+                    own.openChangeGroupOwner(groupId);
                 });
-                list.push({
-                    text: '解散群',
-                    icon: 'of address-book',
-                    onClick: (item: any, data: any) => {
-                        // todo
-                        own.disband(groupId);
-                    },
-                });
-            }
-
-
-            this.menu.list = list;
-
-
-            const items: NavMenuItemData[] = [];
-
-
-            for (let i = 0; i < 20; i++) {
-                const item = new NavMenuItemData();
-                item.text = i + ':解散群解散群解散群解散群解散群解散群';
-                item.icon = 'fas fa-female';
                 items.push(item);
 
+                item = new NavMenuItemData();
+                item.text = '解散群';
+                item.icon = 'fas fa-users-slash';
+                item.addClickEvent(() => {
+                    own.disband(groupId);
+                });
+                items.push(item);
             }
-            const item = items[items.length - 1];
-            for (let j = 0; j < 20; j++) {
-                const n = new NavMenuItemData();
-                n.text = j + ':解散群';
-                n.icon = 'fas fa-female';
-                item.children.push(n);
-
-
-            }
-            const n = item.children[item.children.length - 1];
-            for (let k = 0; k < 20; k++) {
-                const m = new NavMenuItemData();
-                m.text = k + ':解散群';
-                m.icon = 'fas fa-female';
-                n.children.push(m);
-            }
-
             this.navMenu.items = items;
-            if (this.menu.list.length > 0) {
+            if (items.length > 0) {
                 // this.menuData.list = list;
                 // this.menuData.offset = [e.offsetX, e.offsetY];
                 //   this.menuData.show();

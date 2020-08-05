@@ -160,7 +160,7 @@
         width: 1em;
         fill: currentColor;
         overflow: hidden;
-        font-size: 22px;
+        font-size: 14px;
     }
 
     .svg-external-icon {
@@ -199,6 +199,7 @@
     .el-menu-item, .el-submenu__title {
         height: 35px;
         line-height: 35px;
+        padding-left: 24px;
     }
 
     .el-submenu__icon-arrow {

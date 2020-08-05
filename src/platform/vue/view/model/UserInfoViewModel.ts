@@ -7,7 +7,6 @@ class UserInfoViewModel extends BaseUserInfoViewModel {
     public isContact: boolean = false;
 
     public setRelation(relation: ContactRelation) {
-
         if (relation) {
             this.relation = relation;
             this.isContact = true;
