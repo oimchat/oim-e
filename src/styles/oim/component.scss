@@ -1,3 +1,4 @@
+@import "oim.variables";
 
 .gray {
     -webkit-filter: grayscale(100%); /*兼容google、opera*/
@@ -167,18 +168,18 @@
 
 /***************/
 
-.chat_list {
+.icon-list {
     height: 100%
 }
 
-.chat_list .ico_loading {
+.icon-list .ico-loading {
     text-align: center;
     margin: 30px auto;
     font-size: 14px;
     color: #6b6f7c
 }
 
-.chat_list .ico_loading img {
+.icon-list .ico-loading img {
     vertical-align: -3px;
     margin-right: 5px
 }
@@ -295,3 +296,249 @@
 .icon-list-item:hover {
     background: rgba(50, 50, 50, 0.3);
 }
+
+/*********************/
+
+
+.oim-primary-button {
+    display: inline-block;
+    width: 200px;
+    text-align: center;
+    color: #fff;
+    line-height: 40px;
+    background-color: $oim-main-theme-color;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px
+}
+
+.oim-primary-button:hover {
+    color: #fff;
+    background-color: $oim-component-body-color;
+}
+
+
+.only-center-pane {
+    text-align: center;
+
+    .inner {
+        display: inline-block;
+    }
+
+    .inner {
+        *display: inline;
+        *zoom: 1;
+    }
+
+    .item {
+        float: left;
+    }
+
+    .item:not(:last-child) {
+        margin-right: 10px;
+    }
+
+    .clear-fix:after, .clear-fix:before {
+        display: table;
+        content: " ";
+    }
+
+    .clear-fix:after {
+        clear: both;
+        content: "";
+        display: block;
+        height: 0;
+        visibility: visible;
+    }
+
+    /*IE系列IE8+支持，要IE7 IE6 支持需要加入以下代码使display:inline像display:inline-block一样 */
+}
+
+
+.oim-center-pane {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+
+.oim-info {
+    //padding: 80px 0;
+    text-align: center
+}
+
+.oim-avatar-wrap {
+    position: relative;
+    top: 20px;
+    text-align: center;
+}
+
+.oim-avatar {
+    margin-bottom: 22px
+}
+
+.oim-avatar > .img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    border-radius: 50px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px
+}
+
+.oim-nickname-area {
+    margin-bottom: 8px
+}
+
+.oim-nickname {
+    font-weight: 400;
+    font-size: 24px;
+    margin-bottom: 10px;
+    display: inline-block
+}
+
+.oim-nickname .oim-emoji {
+    vertical-align: middle
+}
+
+.oim-signature {
+    font-size: 14px;
+    color: #888
+}
+
+.oim-meta-area-pane {
+    width: 250px;
+    //padding-left: 160px;
+    float: inside;
+    text-align: left;
+    margin: 30px auto 40px
+}
+
+.oim-meta-area-item {
+    overflow: hidden
+}
+
+.oim-meta-area-item > .label {
+    float: left;
+    font-size: 12px;
+    color: #888;
+    margin-right: 10px
+}
+
+.oim-meta-area-item > .value {
+    font-size: 12px;
+    color: #888;
+    width: 134px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal
+}
+
+/*************************
+*   scrollbar            *
+*************************/
+.only-scrollbar-y {
+    overflow-y: hidden;
+}
+
+.only-scrollbar-y:hover {
+    overflow-y: auto;
+}
+
+.only-full-pane {
+    width: 100%;
+    height: 100%;
+}
+
+.only-table-pane {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.only-table-pane-cell {
+    height: 100%;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.only-shadow {
+    box-shadow: 0 2px 10px #999;
+    -moz-box-shadow: #999 0 2px 10px;
+    -webkit-box-shadow: #999 0 2px 10px;
+}
+
+.only-radius {
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+/*************************
+*   only-border          *
+*************************/
+.only-border {
+    border-top: 1px solid #647481;
+    border-right: 1px solid #647481;
+    border-bottom: 1px solid #647481;
+    border-left: 1px solid #647481;
+}
+
+.only-border-top {
+    border-top: 1px solid #647481;
+}
+
+.only-border-right {
+    border-right: 1px solid #647481;
+}
+
+.only-border-bottom {
+    border-bottom: 1px solid #647481;
+}
+
+.only-border-left {
+    border-left: 1px solid #647481;
+}
+
+
+.only-card {
+    position: relative;
+
+    .top {
+        background-color: $oim-main-background-color;
+        color: #000000;
+        height: 60px;
+    }
+
+    .title-wrap {
+        position: relative;
+        padding: 10px 0;
+        margin: 0 19px;
+        z-index: 1024
+        //border-bottom: 1px solid #d6d6d6;
+        /*background-color: #f5f9fd;*/
+    }
+
+    .title {
+        font-weight: 400;
+        height: 25px;
+        display: inline-block;
+        font-size: 18px
+    }
+
+    .content {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        bottom: 0;
+        left: 0
+    }
+}
+

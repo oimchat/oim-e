@@ -1,55 +1,58 @@
 <template>
-    <div class="only-card only-full-pane">
-        <div class="top only-shadow">
-            <div class="title-wrap">
-                <div class="title">用户详细信息</div>
-                <div></div>
+    <div class="box">
+        <div class="box_hd with_border">
+            <div class="title_wrap">
+                <div class="title">详细信息</div>
             </div>
         </div>
-        <div class="content only-full-pane only-scrollbar-y">
+        <div class="box_bd">
 
             <div v-if="showInfo" class="">
-                <div class="oim-info">
-                    <div class="oim-avatar-wrap">
-                        <div class="oim-avatar">
-                            <img class="img only-shadow" :src="user.avatar" alt="">
+                <div class="profile">
+
+                    <div class="avatar">
+                        <img class="img" :src="user.avatar" alt="">
+                    </div>
+
+                    <div class="nickname_area">
+                        <h4 class="nickname">{{user.nickname}}</h4>
+                        <i v-if="user.gender==='1'" class="oim_chat_men"></i>
+                        <i v-if="user.gender==='2'" class="oim_chat_women"></i>
+                    </div>
+
+                    <p class="signature">{{user.signature}}</p>
+
+                    <div class="meta_area compatible">
+                        <div class="meta_item">
+                            <label class="label ">备注：{{relation.remark}}
+                                <a v-if="remarkEdit" @click="updateRemark">
+                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                </a>
+                            </label>
+                        </div>
+                        <div class="meta_item">
+                            <label class="label ">账号：{{user.account}}</label>
+                        </div>
+                        <div class="meta_item">
+                            <label class="label ">Email：{{user.email}}</label>
+                        </div>
+                        <div class="meta_item ">
+                            <label class="label">地区：</label>
+                            <p class="value">{{user.locationAddress}}</p>
                         </div>
                     </div>
-                    <div class="oim-nickname-area">
-                        <h4 class="oim-nickname">{{user.nickname}}</h4>
-                        <i v-if="user.gender==='1'" class="fas fa-male" style="color: #2d91fc;font-size: 28px"></i>
-                        <i v-if="user.gender==='2'" class="fas fa-female" style="color: #ff68ca;font-size: 28px"></i>
-                    </div>
-                    <p class="oim-signature">{{user.signature}}</p>
-                    <div class="only-center-pane">
-                        <div class="oim-meta-area-pane compatible">
-                            <div class="oim-meta-area-item">
-                                <label class="label ">备注：{{relation.remark}}
-                                    <a v-if="remarkEdit" @click="updateRemark">
-                                        <i class="fa fa-edit" aria-hidden="true"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="oim-meta-area-item">
-                                <label class="label ">账号：{{user.account}}</label>
-                            </div>
-                            <div class="oim-meta-area-item">
-                                <label class="label ">Email：{{user.email}}</label>
-                            </div>
-                            <div class="oim-meta-area-item ">
-                                <label class="label">地区：</label>
-                                <p class="value">{{user.locationAddress}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="oim-action-area">
-                        <a @click="openSend" class="oim-primary-button" href="#">发消息</a>
+
+                    <div class="action_area">
+                        <a @click="openSend" class="button" href="#">发消息</a>
                     </div>
                 </div>
             </div>
-            <div v-if="!showInfo" class="only-table-pane only-full-pane">
-                <div class="only-table-pane-cell">
-                    <div>
+
+
+            <div v-if="!showInfo" class="scroll-wrapper box_bd chat_bd scrollbar-dynamic" style="position: absolute;">
+                <div class="box_bd chat_bd scrollbar-dynamic scroll-content"
+                     style="margin-bottom: 0px; margin-right: 0px; height: 369px;">
+                    <div class="message_empty ">
                         <img src="../../../images/main/pane/no.png" height="128" width="128"/>
                         <i class="no_one_icon"></i>
                         <p class="">未选择联系人</p>

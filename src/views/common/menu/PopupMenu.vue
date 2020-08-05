@@ -4,6 +4,7 @@
             auto-close
             :context-menu="data.contextMenu"
             :target="data.target"
+            :offset="data.offset"
             v-model="data.showing"
     >
         <q-list dense style="min-width: 100px">

@@ -1,24 +1,22 @@
 <template>
     <div>
         <template v-if="!hasNodes">
-            <el-menu-item @click="onClick"
-                          :class="{'submenu-title-noDropdown':!isNest}">
-                <template slot="text">
-                    <i :class="data.icon + ' svg-external-icon svg-icon'"></i>
-                    <span slot='text'>{{data.text}}</span>
-                </template>
+            <el-menu-item
+                    :index="index"
+                    @click="onClick">
+                <i :class="data.icon + ' svg-external-icon svg-icon'"></i>
+                {{data.text}}
             </el-menu-item>
         </template>
-        <el-submenu v-else :index="data.key" popper-append-to-body>
-            <template slot="text">
+        <el-submenu v-else :index="index" popper-append-to-body>
+            <template slot="title">
                 <i :class="data.icon + ' svg-external-icon svg-icon'"></i>
-                <span slot='text'>{{'data.text'}}</span>
+                <span slot='title'>{{data.text}}</span>
             </template>
-            <template v-if="hasNodes" v-for="node in data.children">
+            <template v-if="hasNodes" v-for="(node,index) in data.children">
                 <nav-menu-item
+                        :index="getChildrenIndex(index)"
                         :data="node"
-                        :is-nest="true"
-                        class="nest-menu"
                 />
             </template>
         </el-submenu>
@@ -42,6 +40,14 @@
             default: () => new NavMenuItemData(),
         })
         private data!: NavMenuItemData;
+
+
+        @Prop({
+            type: String,
+            required: false,
+            default: () => '0',
+        })
+        private index!: string;
 
         @Prop({
             type: Boolean,
@@ -75,22 +81,14 @@
                 data.click(e);
             }
         }
+
+        private getChildrenIndex(index: number): string {
+            const i = this.index + '-' + index;
+            return i;
+        }
     }
 </script>
 
-<style scoped>
-    .svg-icon {
-        width: 1em;
-        height: 1em;
-        vertical-align: -0.15em;
-        fill: currentColor;
-        overflow: hidden;
-        font-size: 24px;
-    }
+<style lang="scss" scoped>
 
-    .svg-external-icon {
-        /*background-color: currentColor;*/
-        mask-size: cover !important;
-        /*display: inline-block;*/
-    }
 </style>

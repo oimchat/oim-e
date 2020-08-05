@@ -1,52 +1,21 @@
 <template>
-    <div class="menu-container" :style="axisComputed" v-if="isShow">
-        <el-menu default-active="1-4-1" class="el-menu-vertical-demo"   :collapse="true">
-            <el-submenu index="1">
-                <template slot="title">
-                    <i class="el-icon-location"></i>
-                    <span slot="title">导航一</span>
+    <div ref="menuContainer" class="menu-container" :style="axisComputed" v-show="isShow">
+        <el-scrollbar wrap-class="scrollbar-wrapper">
+            <el-menu
+                    :default-active="data.activeMenu"
+                    :collapse="data.collapse"
+                    :unique-opened="false"
+                    :collapse-transition="false"
+                    :background-color="data.backgroundColor"
+                    :text-color="data.textColor"
+                    :active-text-color="data.activeTextColor"
+                    mode="vertical"
+            >
+                <template v-for="(item,index) in data.items">
+                    <nav-menu-item :data="item" :index="index+''"/>
                 </template>
-                <el-menu-item-group>
-                    <span slot="title">分组一</span>
-                    <el-menu-item index="1-1">选项1</el-menu-item>
-                    <el-menu-item index="1-2">选项2</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="分组2">
-                    <el-menu-item index="1-3">选项3</el-menu-item>
-                </el-menu-item-group>
-                <el-submenu index="1-4">
-                    <span slot="title">选项4</span>
-                    <el-menu-item index="1-4-1">选项1</el-menu-item>
-                </el-submenu>
-            </el-submenu>
-            <el-menu-item index="2">
-                <i class="el-icon-menu"></i>
-                <span slot="title">导航二</span>
-            </el-menu-item>
-            <el-menu-item index="3" disabled>
-                <i class="el-icon-document"></i>
-                <span slot="title">导航三</span>
-            </el-menu-item>
-            <el-menu-item index="4">
-                <i class="el-icon-setting"></i>
-                <span slot="title">导航四</span>
-            </el-menu-item>
-        </el-menu>
-<!--        <el-menu-->
-<!--                :default-active="data.activeMenu"-->
-<!--                :collapse="data.collapse"-->
-<!--                :unique-opened="false"-->
-<!--                :collapse-transition="false"-->
-<!--                :background-color="data.backgroundColor"-->
-<!--                :text-color="data.textColor"-->
-<!--                :active-text-color="data.activeTextColor"-->
-<!--                mode="vertical"-->
-<!--        >-->
-<!--            <template v-for="item in data.items">-->
-<!--                <nav-menu-item-->
-<!--                        :data="item"/>-->
-<!--            </template>-->
-<!--        </el-menu>-->
+            </el-menu>
+        </el-scrollbar>
     </div>
 </template>
 
@@ -120,16 +89,38 @@
 
         @Watch('axis')
         private axisWatch(): void {
-            // if (this.border) {
-            //     const bw = document.body.offsetWidth;
-            //     const bh = document.body.offsetHeight;
-            //     if (this.axis.x + this.offset.x + this.itemWidth >= bw) {
-            //         this.axis.x = bw - this.itemWidth - this.borderWidth - this.offset.x;
-            //     }
-            //     if (this.axis.y + this.offset.y + this.itemHeight * this.list.length >= bh) {
-            //         this.axis.y = bh - this.itemHeight * this.list.length - this.borderWidth - this.offset.y;
-            //     }
-            // }
+            const itemWidth = 160;
+            const itemHeight = 35;
+            const list = this.data.items;
+            const length = (list) ? list.length : 0;
+            const offsetWidth = document.body.offsetWidth;
+            const offsetHeight = document.body.offsetHeight;
+
+            let height = itemHeight * length;
+            if (height > offsetHeight) {
+                height = offsetHeight;
+            }
+
+            let x = this.axis.x + this.offset.x;
+            let y = this.axis.y + this.offset.y;
+
+            if (y + height > offsetHeight) {
+                y = offsetHeight - height - this.offset.y;
+            }
+
+            if (y < 5) {
+                y = 5;
+            }
+            this.axis.y = y;
+
+            if (x + itemWidth >= offsetWidth) {
+                x = offsetWidth - itemWidth - this.offset.x;
+            }
+
+            if (x < 5) {
+                x = 5;
+            }
+            this.axis.x = x;
         }
 
 
@@ -143,8 +134,12 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss">
+
+
     .menu-container {
+        overflow-y: auto;
+        max-height: calc(100% - 20px);
         position: fixed;
         min-width: 160px;
         user-select: none;
@@ -152,5 +147,97 @@
         -webkit-user-select: none;
         -moz-user-select: none;
         z-index: 9999;
+        border-radius: 6px;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        box-shadow: 0 2px 10px #999;
+        -moz-box-shadow: #999 0 2px 10px;
+        -webkit-box-shadow: #999 0 2px 10px;
+        background-color: #ffffff;
+    }
+
+    .svg-icon {
+        width: 1em;
+        fill: currentColor;
+        overflow: hidden;
+        font-size: 22px;
+    }
+
+    .svg-external-icon {
+        /*background-color: currentColor;*/
+        mask-size: cover !important;
+        /*display: inline-block;*/
+    }
+
+    .el-scrollbar {
+        max-height: 100%;
+    }
+
+    .el-menu {
+        border-radius: 6px;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        box-shadow: 0 2px 10px #999;
+        -moz-box-shadow: #999 0 2px 10px;
+        -webkit-box-shadow: #999 0 2px 10px;
+    }
+
+    .el-menu--collapse {
+        width: unset;
+        /* width: 64px; */
+    }
+
+    .scrollbar-wrapper {
+        overflow-x: hidden !important;
+    }
+
+    .el-menu-item {
+        height: 35px;
+        line-height: 35px;
+    }
+
+    .el-menu-item, .el-submenu__title {
+        height: 35px;
+        line-height: 35px;
+    }
+
+    .el-submenu__icon-arrow {
+        right: 15px;
+    }
+
+    // when function collapsed
+    .el-menu--vertical {
+        & > .el-menu {
+            .icon {
+                margin-right: 15px;
+            }
+        }
+
+        .nest-menu .el-submenu > .el-submenu__title,
+        .el-menu-item {
+            &:hover {
+                // you can use $subMenuHover background-color: $menuHover !important;
+            }
+        }
+
+        // the scroll bar appears when the subMenu is too long
+
+        > .el-menu--popup {
+            max-height: 100vh;
+            overflow-y: auto;
+
+            &::-webkit-scrollbar-track-piece {
+                background: #d3dce6;
+            }
+
+            &::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: #99a9bf;
+                border-radius: 20px;
+            }
+        }
     }
 </style>

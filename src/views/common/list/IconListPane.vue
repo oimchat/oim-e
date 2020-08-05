@@ -1,5 +1,5 @@
 <template>
-    <div style="overflow-y:auto" class="scroll-wrapper chat_list scrollbar">
+    <div style="overflow-y:auto" class="scroll-wrapper icon-list scrollbar">
         <div v-for="item of items">
             <IconItem :data="item" :box="box" @on-selected="selected" @on-context-menu='onItemContextMenu'></IconItem>
         </div>

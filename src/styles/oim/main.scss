@@ -134,3 +134,69 @@ body, html {
     height: 100%;
     overflow: hidden;
 }
+
+
+.oim-content-pane {
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    line-height: 30px;
+
+
+    .title-wrap {
+        position: relative;
+        padding: 10px 0;
+        margin: 0 19px;
+        border-bottom: 1px solid #d6d6d6;
+        /*background-color: #f5f9fd;*/
+        z-index: 1024
+    }
+
+    .title {
+        font-weight: 400;
+        height: 25px;
+        display: inline-block;
+        font-size: 14px
+    }
+
+    .title .title_name {
+        display: inline-block;
+        vertical-align: middle;
+        max-width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal;
+        text-decoration: none;
+        color: #000;
+        font-weight: 400
+    }
+
+    .title .title_name .emoji {
+        margin-top: 5px
+    }
+
+    .title.poi {
+        cursor: pointer
+    }
+
+    .ext {
+        position: absolute;
+        right: 0;
+        top: 0;
+        line-height: 50px;
+        padding: 0 20px;
+        z-index: 2048
+    }
+
+    .ext a {
+        text-decoration: none;
+        color: #333
+    }
+}
+
+.oim-content-card {
+    background-color: #ffffff;
+}

@@ -54,7 +54,7 @@
 
         public mounted() {
             // init
-            this.menuData.target = '#group-list-pane';
+            this.menuData.target = 'body';
         }
 
         public show(e: MouseEvent, groupId: string) {
@@ -142,26 +142,36 @@
 
             const items: NavMenuItemData[] = [];
 
-            let item: NavMenuItemData = new NavMenuItemData();
-            item.text = '解散群0';
-            items.push(item);
 
-            item = new NavMenuItemData();
-            item.text = '解散群1';
-            items.push(item);
+            for (let i = 0; i < 20; i++) {
+                const item = new NavMenuItemData();
+                item.text = i + ':解散群解散群解散群解散群解散群解散群';
+                item.icon = 'fas fa-female';
+                items.push(item);
 
-            item = new NavMenuItemData();
-            item.text = '解散群2';
-            items.push(item);
+            }
+            const item = items[items.length - 1];
+            for (let j = 0; j < 20; j++) {
+                const n = new NavMenuItemData();
+                n.text = j + ':解散群';
+                n.icon = 'fas fa-female';
+                item.children.push(n);
 
-            item = new NavMenuItemData();
-            item.text = '解散群3';
-            items.push(item);
+
+            }
+            const n = item.children[item.children.length - 1];
+            for (let k = 0; k < 20; k++) {
+                const m = new NavMenuItemData();
+                m.text = k + ':解散群';
+                m.icon = 'fas fa-female';
+                n.children.push(m);
+            }
 
             this.navMenu.items = items;
             if (this.menu.list.length > 0) {
                 // this.menuData.list = list;
-                // this.menuData.show();
+                // this.menuData.offset = [e.offsetX, e.offsetY];
+                //   this.menuData.show();
                 this.openMenu(e, 'groupContextMenu');
             }
         }

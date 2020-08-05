@@ -57,13 +57,14 @@
                             transition-next="jump-up"
                     >
                         <q-tab-panel name="message_tab">
-                            <message-list-pane>
+                            <message-list-pane class="only-full-pane only-scrollbar-y">
 
                             </message-list-pane>
                         </q-tab-panel>
 
                         <q-tab-panel name="user_tab">
                             <contact-list-pane
+                                    class="only-full-pane only-scrollbar-y"
                                     @on-node-context-menu='onUserNodeContextMenu'
                                     @on-item-selected="onUserSelected"
                                     @on-item-context-menu='onUserItemContextMenu'
@@ -73,6 +74,7 @@
 
                         <q-tab-panel name="group_tab">
                             <group-list-pane
+                                    class="only-full-pane only-scrollbar-y"
                                     id="group-list-pane"
                                     @on-node-context-menu='onGroupNodeContextMenu'
                                     @on-item-selected="onGroupSelected"
@@ -83,17 +85,23 @@
                         </q-tab-panel>
                         <q-tab-panel name="module_tab">
                             <div class="text-h4 q-mb-md">Movies</div>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque
+                                magnam
                                 odio
-                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur
+                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda
+                                consectetur
                                 culpa fuga nulla ullam. In, libero.</p>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque
+                                magnam
                                 odio
-                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur
+                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda
+                                consectetur
                                 culpa fuga nulla ullam. In, libero.</p>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque
+                                magnam
                                 odio
-                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur
+                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda
+                                consectetur
                                 culpa fuga nulla ullam. In, libero.</p>
                         </q-tab-panel>
                     </q-tab-panels>
@@ -496,10 +504,15 @@
 <style scoped>
     .q-tab-panel {
         padding: 0;
+        overflow: hidden;
     }
 
     .q-tab-panels {
         background: unset;
         height: 100%;
+    }
+
+    .scroll {
+        overflow: hidden;
     }
 </style>
