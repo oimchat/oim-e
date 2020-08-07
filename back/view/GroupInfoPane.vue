@@ -80,21 +80,21 @@
 
     import groupChatViewModel from '@/impl/data/GroupChatViewModel';
 
-    import Group from '@/app/com/bean/Group';
-    import GroupRelation from '@/app/com/bean/GroupRelation';
+    import Group from '../../src/app/com/main/module/business/group/bean/Group';
+    import GroupRelation from '../../src/app/com/main/module/business/group/bean/GroupRelation';
     import app from '@/app/App';
-    import GroupBox from '@/app/com/main/box/GroupBox';
-    import GroupListBox from '@/app/com/main/box/GroupListBox';
-    import User from '@/app/com/bean/User';
-    import UserBox from '@/app/com/main/box/UserBox';
-    import GroupMemberSender from '@/app/com/main/sender/GroupMemberSender';
+    import GroupBox from '../../src/app/com/main/module/business/group/box/GroupBox';
+    import GroupListBox from '../../src/app/com/main/module/business/group/box/GroupListBox';
+    import User from '../../src/app/com/main/module/business/user/bean/User';
+    import UserBox from '../../src/app/com/main/module/business/user/box/UserBox';
+    import GroupMemberSender from '../../src/app/com/main/module/business/group/sender/GroupMemberSender';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import GroupMember from '@/app/com/bean/GroupMember';
-    import GroupRelationController from '@/app/com/main/controller/GroupRelationController';
-    import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
-    import PersonalGroupMemberListBox from '@/app/com/main/box/PersonalGroupMemberListBox';
-    import GroupMemberService from '@/app/com/main/service/GroupMemberService';
+    import GroupMember from '../../src/app/com/main/module/business/group/bean/GroupMember';
+    import GroupRelationController from '../../src/app/com/main/module/business/group/controller/GroupRelationController';
+    import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
+    import PersonalGroupMemberListBox from '../../src/app/com/main/module/business/group/box/PersonalGroupMemberListBox';
+    import GroupMemberService from '../../src/app/com/main/module/business/group/service/GroupMemberService';
 
     @Component({
         components: {

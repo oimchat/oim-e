@@ -72,17 +72,17 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import app from '@/app/App';
 
-    import GroupCategory from '@/app/com/bean/GroupCategory';
-    import GroupListBox from '@/app/com/main/box/GroupListBox';
+    import GroupCategory from '@/app/com/main/module/business/group/bean/GroupCategory';
+    import GroupListBox from '@/app/com/main/module/business/group/box/GroupListBox';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import PersonalBox from '@/app/com/main/box/PersonalBox';
-    import GroupJoinApplyData from '@/app/com/data/GroupJoinApplyData';
-    import GroupJoinVerifyAnswer from '@/app/com/bean/GroupJoinVerifyAnswer';
-    import GroupJoinSetting from '@/app/com/bean/GroupJoinSetting';
-    import GroupJoinVerifyQuestion from '@/app/com/bean/GroupJoinVerifyQuestion';
-    import GroupSettingController from '@/app/com/main/controller/GroupSettingController';
-    import GroupJoinController from '@/app/com/main/controller/GroupJoinController';
+    import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
+    import GroupJoinApplyData from '@/app/com/main/module/business/group/data/GroupJoinApplyData';
+    import GroupJoinVerifyAnswer from '@/app/com/main/module/business/group/bean/GroupJoinVerifyAnswer';
+    import GroupJoinSetting from '@/app/com/main/module/business/group/bean/GroupJoinSetting';
+    import GroupJoinVerifyQuestion from '@/app/com/main/module/business/group/bean/GroupJoinVerifyQuestion';
+    import GroupSettingController from '@/app/com/main/module/business/group/controller/GroupSettingController';
+    import GroupJoinController from '@/app/com/main/module/business/group/controller/GroupJoinController';
 
 
     @Component({

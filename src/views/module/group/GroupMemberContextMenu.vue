@@ -9,14 +9,14 @@
     import ContextMenu from '@/views/common/menu/ContextMenu.vue';
 
     import app from '@/app/App';
-    import PersonalGroupMemberListBox from '@/app/com/main/box/PersonalGroupMemberListBox';
-    import GroupMember from '@/app/com/bean/GroupMember';
+    import PersonalGroupMemberListBox from '@/app/com/main/module/business/group/box/PersonalGroupMemberListBox';
+    import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
 
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import GroupMemberBox from '@/app/com/main/box/GroupMemberBox';
-    import PersonalBox from '@/app/com/main/box/PersonalBox';
-    import GroupMemberController from '@/app/com/main/controller/GroupMemberController';
+    import GroupMemberBox from '@/app/com/main/module/business/group/box/GroupMemberBox';
+    import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
+    import GroupMemberController from '@/app/com/main/module/business/group/controller/GroupMemberController';
 
     @Component({
         components: {

@@ -56,14 +56,14 @@
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import JoinGroup from '@/views/find/JoinGroup.vue';
-    import GroupQuery from '@/app/com/data/GroupQuery';
-    import Page from '@/app/com/data/common/Page';
+    import GroupQuery from '@/app/com/main/module/business/group/data/GroupQuery';
+    import Page from '@/app/com/common/data/Page';
     import app from '@/app/App';
-    import GroupInfoController from '@/app/com/main/controller/GroupInfoController';
-    import Group from '@/app/com/bean/Group';
+    import GroupInfoController from '@/app/com/main/module/business/group/controller/GroupInfoController';
+    import Group from '@/app/com/main/module/business/group/bean/Group';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import GroupInfoUtil from '@/app/com/main/util/GroupInfoUtil';
+    import GroupInfoUtil from '@/app/com/main/common/util/GroupInfoUtil';
 
     @Component({
         components: {JoinGroup},

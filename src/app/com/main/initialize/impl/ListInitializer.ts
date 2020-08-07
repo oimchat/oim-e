@@ -1,13 +1,13 @@
 import BaseInitializer from '@/app/com/main/initialize/BaseInitializer';
 import AbstractInitializer from '@/app/com/main/initialize/AbstractInitializer';
-import RecentChatService from '@/app/com/main/service/RecentChatService';
-import UserChatUnreadService from '@/app/com/main/service/UserChatUnreadService';
-import PersonalBox from '@/app/com/main/box/PersonalBox';
-import ContactCategoryHandler from '@/app/com/main/handler/ContactCategoryHandler';
-import ContactRelationHandler from '@/app/com/main/handler/ContactRelationHandler';
-import GroupCategoryHandler from '@/app/com/main/handler/GroupCategoryHandler';
-import GroupRelationHandler from '@/app/com/main/handler/GroupRelationHandler';
-import GroupMemberHandler from '@/app/com/main/handler/GroupMemberHandler';
+import RecentChatService from '@/app/com/main/module/business/chat/service/RecentChatService';
+import UserChatUnreadService from '@/app/com/main/module/business/chat/service/UserChatUnreadService';
+import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
+import ContactCategoryHandler from '@/app/com/main/module/business/contact/handler/ContactCategoryHandler';
+import ContactRelationHandler from '@/app/com/main/module/business/contact/handler/ContactRelationHandler';
+import GroupCategoryHandler from '@/app/com/main/module/business/group/handler/GroupCategoryHandler';
+import GroupRelationHandler from '@/app/com/main/module/business/group/handler/GroupRelationHandler';
+import GroupMemberHandler from '@/app/com/main/module/business/group/handler/GroupMemberHandler';
 
 export default class ListInitializer extends AbstractInitializer {
 

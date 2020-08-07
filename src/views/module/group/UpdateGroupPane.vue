@@ -41,11 +41,11 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import GroupUpdateHeadPane from '@/views/module/group/GroupUpdateHeadPane.vue';
     import app from '@/app/App';
-    import Group from '@/app/com/bean/Group';
+    import Group from '@/app/com/main/module/business/group/bean/Group';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import GroupBox from '@/app/com/main/box/GroupBox';
-    import GroupBusinessController from '@/app/com/main/controller/GroupBusinessController';
+    import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
+    import GroupBusinessController from '@/app/com/main/module/business/group/controller/GroupBusinessController';
 
 
     @Component({

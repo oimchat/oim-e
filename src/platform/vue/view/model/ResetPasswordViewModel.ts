@@ -1,8 +1,8 @@
 import app from '@/app/App';
 import BaseUtil from '@/app/lib/util/BaseUtil';
-import RegisterData from '@/app/com/bean/RegisterData';
-import QuestionData from '@/app/com/data/QuestionData';
-import AccountController from '@/app/com/main/controller/AccountController';
+import RegisterData from '@/app/com/main/module/business/account/data/RegisterData';
+import QuestionData from '@/app/com/main/module/business/user/data/QuestionData';
+import AccountController from '@/app/com/main/module/business/account/controller/AccountController';
 
 
 class ResetPasswordViewModel {

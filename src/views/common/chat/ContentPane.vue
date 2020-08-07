@@ -8,7 +8,7 @@
                     </div>
                     <img class="avatar" :src="getAvatar" :title="getName">
                     <div class="content message-font">
-                        <h4 v-if="data.showNameVisible && !data.isOwn" class="nickname">{{data.showName}}</h4>
+                        <h4 v-if="data.nameVisible && !data.isOwn" class="nickname">{{data.name}}</h4>
                         <div :class="data.isOwn?'bubble bubble_primary right':'bubble bubble_default left'">
                             <div class="bubble_cont ">
                                 <div class="plain" @click="contentClick($event)">
@@ -29,12 +29,12 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import ContentData from './ContentData';
-    import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
+    import ContentData from '@/platform/vue/view/model/chat/content/ContentData';
+    import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
     import app from '@/app/App';
     import ContentUtil from '@/impl/util/ContentUtil';
     import FileDownload from '@/app/com/main/component/FileDownload';
-    import MessageTimeSettingStore from '@/app/com/main/setting/message/MessageTimeSettingStore';
+    import MessageTimeSettingStore from '@/app/com/main/module/setting/message/MessageTimeSettingStore';
 
     @Component({
         components: {},
@@ -81,7 +81,7 @@
         get getName() {
             let name = '';
             if (this.data) {
-                name = this.data.showName;
+                name = this.data.name;
                 if (name === '' || !name) {
                     if (this.data.user) {
                         name = UserInfoUtil.getShowName(this.data.user);

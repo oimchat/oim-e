@@ -1,9 +1,9 @@
 import app from '@/app/App';
 import Initializer from '@/app/base/initialize/Initializer';
 import ImageItemFileConverter from '@/app/define/file/ImageItemFileConverter';
-import Item from '@/app/com/data/chat/content/Item';
+import Item from '@/app/com/common/chat/Item';
 import AppContext from '@/app/base/context/AppContext';
-import SoundHandlerEnum from '@/app/define/prompt/SoundHandlerEnum';
+import SoundHandlerEnum from '@/app/com/client/define/prompt/SoundHandlerEnum';
 import WebSoundHandlerImpl from '@/common/web/impl/prompt/WebSoundHandlerImpl';
 import WebImagePathFile from '@/common/web/util/WebImagePathFile';
 

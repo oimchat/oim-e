@@ -37,11 +37,11 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
 
     import app from '@/app/App';
-    import Group from '@/app/com/bean/Group';
-    import GroupBox from '@/app/com/main/box/GroupBox';
-    import UserBox from '@/app/com/main/box/UserBox';
-    import User from '@/app/com/bean/User';
-    import GroupInviteController from '@/app/com/main/controller/GroupInviteController';
+    import Group from '@/app/com/main/module/business/group/bean/Group';
+    import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
+    import UserBox from '@/app/com/main/module/business/user/box/UserBox';
+    import User from '@/app/com/main/module/business/user/bean/User';
+    import GroupInviteController from '@/app/com/main/module/business/group/controller/GroupInviteController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
 

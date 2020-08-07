@@ -1,4 +1,4 @@
-import Group from '@/app/com/bean/Group';
+import Group from '@/app/com/main/module/business/group/bean/Group';
 
 
 class BaseGroupInfoViewModel {

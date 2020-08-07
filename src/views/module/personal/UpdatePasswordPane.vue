@@ -30,7 +30,7 @@
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import app from '@/app/App';
-    import PersonalController from '@/app/com/main/controller/PersonalController';
+    import PersonalController from '@/app/com/main/module/business/personal/controller/PersonalController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
 

@@ -1,11 +1,11 @@
-import Group from '@/app/com/bean/Group';
+import Group from '@/app/com/main/module/business/group/bean/Group';
 import ChatViewModel from '@/impl/data/ChatViewModel';
-import GroupMember from '@/app/com/bean/GroupMember';
-import User from '@/app/com/bean/User';
-import Content from '@/app/com/data/chat/content/Content';
+import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
+import User from '@/app/com/main/module/business/user/bean/User';
+import Content from '@/app/com/common/chat/Content';
 import app from '@/app/App';
-import MessageAppendType from '@/app/com/main/setting/message/type/MessageAppendType';
-import MessageAppendGroupSetting from '@/app/com/main/setting/message/MessageAppendGroupSetting';
+import MessageAppendType from '@/app/com/main/module/setting/message/type/MessageAppendType';
+import MessageAppendGroupSetting from '@/app/com/main/module/setting/message/MessageAppendGroupSetting';
 
 class GroupChatViewModel extends ChatViewModel {
 

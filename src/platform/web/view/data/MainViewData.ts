@@ -40,6 +40,10 @@ class MainViewData {
         });
         tabs.push(data);
     }
+
+    private add() {
+        // no
+    }
 }
 
 export default new MainViewData();

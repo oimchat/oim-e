@@ -60,11 +60,11 @@
     import DocumentUtil from '@/common/web/util/DocumentUtil';
     import app from '@/app/App';
     import {ServerType, Protocol} from '@/app/common/config/constant/ServerConstant';
-    import ServerController from '@/app/com/main/controller/ServerController';
+    import ServerController from '@/app/com/main/module/business/server/controller/ServerController';
     import emojiImageBox from '@/app/lib/EmojiImageBox';
-    import FileSeverApi from '@/app/com/main/constant/FileSeverApi';
-    import ContentUploadImageService from '@/app/com/main/service/ContentUploadImageService';
-    import UploadResult from '@/app/com/main/data/UploadResult';
+    import FileSeverApi from '@/app/com/main/module/support/file/constant/FileSeverApi';
+    import ContentUploadImageService from '@/app/com/main/module/support/file/service/ContentUploadImageService';
+    import UploadResult from '@/app/com/main/module/support/file/data/UploadResult';
     import screenShot from '@/platform/e/module/ScreenShotInvoke';
     import BaseUtil from '@/app/lib/util/BaseUtil';
     import TextJudgeUtil from '@/app/lib/util/TextJudgeUtil';

@@ -1,6 +1,6 @@
 import BaseUtil from '@/app/lib/util/BaseUtil';
-import SoundType from '@/app/define/prompt/SoundType';
-import SoundHandler from '@/app/define/prompt/SoundHandler';
+import SoundType from '@/app/com/client/define/prompt/SoundType';
+import SoundHandler from '@/app/com/client/define/prompt/SoundHandler';
 
 export default class WebSoundHandlerImpl implements SoundHandler {
     private timeInterval: number = 0;

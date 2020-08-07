@@ -8,21 +8,21 @@ class ListBox {
     private nodeMap: Map<string, NodeData> = new Map<string, NodeData>();
     private itemMap: Map<string, ItemData> = new Map<string, ItemData>();
 
-    public addOrUpdateNode(key: string, name: string, rank?: number, countText?: string) {
+    public addOrUpdateNode(key: string, name: string, sort?: number, countText?: string) {
         let node = this.nodeMap.get(key);
         if (!node) {
             node = new NodeData();
             this.nodeMap.set(key, node);
-            if (rank && rank >= 0) {
-                this.nodes.splice(rank, 0, node);
+            if (sort && sort >= 0) {
+                this.nodes.splice(sort, 0, node);
             } else {
                 this.nodes.push(node);
             }
         }
         node.key = key;
         node.name = name;
-        if (rank) {
-            node.rank = rank;
+        if (sort) {
+            node.sort = sort;
         }
         if (countText) {
             node.countText = countText;
@@ -69,12 +69,12 @@ class ListBox {
         }
     }
 
-    public updateRank(): void {
+    public updateSort(): void {
         this.nodes.sort((a: NodeData, b: NodeData) => {
             let r = 0;
-            if (a.rank === b.rank) {
+            if (a.sort === b.sort) {
                 r = 0;
-            } else if (a.rank > b.rank) {
+            } else if (a.sort > b.sort) {
                 r = 1;
             } else {
                 r = -1;

@@ -37,7 +37,7 @@
     import ApplyHandleNotice from '@/views/notice/ApplyHandleNotice.vue';
 
     import app from '@/app/App';
-    import ViewEnum from '@/app/com/main/view/ViewEnum';
+    import ViewEnum from '@/app/com/client/common/view/ViewEnum';
 
     @Component({
         components: {

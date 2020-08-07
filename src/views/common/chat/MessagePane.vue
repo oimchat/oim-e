@@ -9,7 +9,7 @@
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import ContentPane from './ContentPane.vue';
-    import ContentData from './ContentData';
+    import ContentData from '../../../platform/vue/view/model/chat/content/ContentData';
 
     @Component({
         components: {

@@ -1,5 +1,5 @@
 import BaseUserInfoViewModel from '@/platform/vue/view/model/BaseUserInfoViewModel';
-import ContactRelation from '@/app/com/bean/ContactRelation';
+import ContactRelation from '@/app/com/main/module/business/contact/bean/ContactRelation';
 
 class UserInfoViewModel extends BaseUserInfoViewModel {
 

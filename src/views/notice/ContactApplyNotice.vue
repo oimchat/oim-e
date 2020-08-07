@@ -80,17 +80,17 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import AcceptContactAddApply from '@/views/notice/AcceptContactAddApply.vue';
     import app from '@/app/App';
-    import ContactController from '@/app/com/main/controller/ContactController';
-    import ContactAddApply from '@/app/com/bean/ContactAddApply';
-    import Page from '@/app/com/data/common/Page';
+    import ContactController from '@/app/com/main/module/business/contact/controller/ContactController';
+    import ContactAddApply from '@/app/com/main/module/business/contact/bean/ContactAddApply';
+    import Page from '@/app/com/common/data/Page';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import ContactAddApplyEntityCase from '@/app/com/data/ContactAddApplyEntityCase';
-    import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
-    import User from '@/app/com/bean/User';
-    import ContactAddHandleData from '@/app/com/data/ContactAddHandleData';
-    import ContactAddApplyQuery from '@/app/com/data/ContactAddApplyQuery';
-    import ContactAddApplyController from '@/app/com/main/controller/ContactAddApplyController';
+    import ContactAddApplyEntityCase from '@/app/com/main/module/business/contact/data/ContactAddApplyEntityCase';
+    import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
+    import User from '@/app/com/main/module/business/user/bean/User';
+    import ContactAddHandleData from '@/app/com/main/module/business/contact/data/ContactAddHandleData';
+    import ContactAddApplyQuery from '@/app/com/main/module/business/contact/data/ContactAddApplyQuery';
+    import ContactAddApplyController from '@/app/com/main/module/business/contact/controller/ContactAddApplyController';
 
     @Component({
         components: {

@@ -96,16 +96,16 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import User from '@/app/com/bean/User';
-    import RegisterData from '@/app/com/bean/RegisterData';
+    import User from '../../src/app/com/main/module/business/user/bean/User';
+    import RegisterData from '../../src/app/com/main/module/business/account/data/RegisterData';
     import app from '@/app/App';
-    import PersonalController from '@/app/com/main/controller/PersonalController';
-    import SecurityQuestion from '@/app/com/bean/SecurityQuestion';
-    import QuestionData from '@/app/com/data/QuestionData';
-    import AccountClient from '@/app/com/main/http/main/AccountClient';
+    import PersonalController from '../../src/app/com/main/module/business/personal/controller/PersonalController';
+    import SecurityQuestion from '../../src/app/com/main/module/business/user/bean/SecurityQuestion';
+    import QuestionData from '../../src/app/com/main/module/business/user/data/QuestionData';
+    import AccountCall from '../../src/app/com/main/module/business/account/call/AccountCall';
     import StringUtil from '@/app/common/util/StringUtil';
     import BaseUtil from '@/app/lib/util/BaseUtil';
-    import AccountController from '@/app/com/main/controller/AccountController';
+    import AccountController from '../../src/app/com/main/module/business/account/controller/AccountController';
 
     @Component({
         components: {},
@@ -143,7 +143,7 @@
                     callback(new Error('用户名仅支持中英文、数字和下划线,且不能为纯数字！'));
                     return;
                 }
-                const client: AccountClient = app.appContext.getMaterial(AccountClient);
+                const client: AccountCall = app.appContext.getMaterial(AccountCall);
                 client.isExistAccount(this.user.account, (exist: boolean) => {
                     if (exist) {
                         callback(new Error('账号已存在！'));
@@ -154,7 +154,7 @@
             },
             isExistEmail: (rule: any, value: string, callback: (data?: any) => any) => {
                 if (!BaseUtil.isEmpty(value)) {
-                    const client: AccountClient = app.appContext.getMaterial(AccountClient);
+                    const client: AccountCall = app.appContext.getMaterial(AccountCall);
                     client.isExistEmail(this.user.email, (exist: boolean) => {
                         if (exist) {
                             callback(new Error('邮箱已注册！'));
@@ -172,7 +172,7 @@
                         callback(new Error('手机格式不正确！'));
                         return;
                     }
-                    const client: AccountClient = app.appContext.getMaterial(AccountClient);
+                    const client: AccountCall = app.appContext.getMaterial(AccountCall);
                     client.isExistMobile(this.user.mobile, (exist: boolean) => {
                         if (exist) {
                             callback(new Error('手机已注册！'));

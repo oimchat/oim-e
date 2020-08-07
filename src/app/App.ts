@@ -1,12 +1,12 @@
 import AppContext from '@/app/base/context/AppContext';
 import ConnectHandler from '@/app/base/net/ConnectHandler';
 import auth from '@/app/common/auth/Auth';
-import SystemNetController from '@/app/com/main/controller/SystemNetController';
-import LoginController from '@/app/com/main/controller/LoginController';
-import PromptHandler from '@/app/define/prompt/PromptHandler';
+import SystemNetController from '@/app/com/main/module/business/system/controller/SystemNetController';
+import LoginController from '@/app/com/main/module/business/index/controller/LoginController';
+import PromptHandler from '@/app/com/client/define/prompt/PromptHandler';
 import InitializerBox from '@/app/base/initialize/InitializerBox';
 import Initializer from '@/app/base/initialize/Initializer';
-import DefaultPromptHandlerImpl from '@/app/impl/default/prompt/DefaultPromptHandlerImpl';
+import DefaultPromptHandlerImpl from '@/app/impl/default/client/prompt/DefaultPromptHandlerImpl';
 import EnterInitializerBox from '@/app/com/main/initialize/EnterInitializerBox';
 import InformationInitializer from '@/app/com/main/initialize/impl/InformationInitializer';
 import ViewInitializer from '@/app/com/main/initialize/impl/ViewInitializer';
@@ -17,6 +17,15 @@ import HttpInitializer from '@/app/initialize/HttpInitializer';
 import NetModule from '@/app/com/common/module/NetModule';
 import Prompter from '@/app/com/main/component/Prompter';
 import ServerInitializer from '@/app/initialize/ServerInitializer';
+import ViewEnum from '@/app/com/client/common/view/ViewEnum';
+import PersonalViewDefaultImpl from '@/app/impl/default/view/PersonalViewDefaultImpl';
+import ContactListPaneViewDefaultImpl from '@/app/impl/default/view/ContactListPaneViewDefaultImpl';
+import MessageListViewDefaultImpl from '@/app/impl/default/view/MessageListViewDefaultImpl';
+import UserChatViewDefaultImpl from '@/app/impl/default/view/UserChatViewDefaultImpl';
+import GroupChatViewDefaultImpl from '@/app/impl/default/view/GroupChatViewDefaultImpl';
+import GroupMemberListViewDefaultImpl from '@/app/impl/default/view/GroupMemberListViewDefaultImpl';
+import GroupListPaneViewDefaultImpl from '@/app/impl/default/view/GroupListPaneViewDefaultImpl';
+import MainViewDefaultImpl from '@/app/impl/default/view/MainViewDefaultImpl';
 
 
 class App {
@@ -34,6 +43,7 @@ class App {
         this.clearAuth();
         this.closeNet();
         this.buildAppContext();
+        this.buildDefaultView();
 
         this.initialize();
     }
@@ -107,6 +117,17 @@ class App {
 
     private buildAppContext() {
         this.appContext = new AppContext();
+    }
+
+    private buildDefaultView(): void {
+        this.appContext.putView(ViewEnum.MainView, MainViewDefaultImpl);
+        this.appContext.putView(ViewEnum.PersonalView, PersonalViewDefaultImpl);
+        this.appContext.putView(ViewEnum.ContactListPaneView, ContactListPaneViewDefaultImpl);
+        this.appContext.putView(ViewEnum.GroupListPaneView, GroupListPaneViewDefaultImpl);
+        this.appContext.putView(ViewEnum.MessageListView, MessageListViewDefaultImpl);
+        this.appContext.putView(ViewEnum.UserChatView, UserChatViewDefaultImpl);
+        this.appContext.putView(ViewEnum.GroupChatView, GroupChatViewDefaultImpl);
+        this.appContext.putView(ViewEnum.GroupMemberListView, GroupMemberListViewDefaultImpl);
     }
 
     private buildModule(): void {

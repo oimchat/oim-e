@@ -58,11 +58,11 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import ContactHarassSetting from '@/app/com/bean/ContactHarassSetting';
-    import ContactVerifyQuestion from '@/app/com/data/ContactVerifyQuestion';
+    import ContactHarassSetting from '@/app/com/main/module/business/contact/bean/ContactHarassSetting';
+    import ContactVerifyQuestion from '@/app/com/main/module/business/contact/data/ContactVerifyQuestion';
 
     import app from '@/app/App';
-    import ContactHarassSettingController from '@/app/com/main/controller/ContactHarassSettingController';
+    import ContactHarassSettingController from '@/app/com/main/module/business/contact/controller/ContactHarassSettingController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
 

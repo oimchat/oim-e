@@ -1,9 +1,9 @@
 import app from '@/app/App';
 
-import RegisterData from '@/app/com/bean/RegisterData';
-import QuestionData from '@/app/com/data/QuestionData';
-import SecurityQuestion from '@/app/com/bean/SecurityQuestion';
-import AccountController from '@/app/com/main/controller/AccountController';
+import RegisterData from '@/app/com/main/module/business/account/data/RegisterData';
+import QuestionData from '@/app/com/main/module/business/user/data/QuestionData';
+import SecurityQuestion from '@/app/com/main/module/business/user/bean/SecurityQuestion';
+import AccountController from '@/app/com/main/module/business/account/controller/AccountController';
 
 
 class RegisterViewModel {

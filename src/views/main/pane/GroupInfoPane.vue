@@ -65,18 +65,18 @@
     import GroupJoinSettingPane from '@/views/module/group/GroupJoinSettingPane.vue';
     import GroupMemberContextMenu from '@/views/module/group/GroupMemberContextMenu.vue';
 
-    import Group from '@/app/com/bean/Group';
-    import GroupRelation from '@/app/com/bean/GroupRelation';
+    import Group from '@/app/com/main/module/business/group/bean/Group';
+    import GroupRelation from '@/app/com/main/module/business/group/bean/GroupRelation';
     import app from '@/app/App';
-    import GroupBox from '@/app/com/main/box/GroupBox';
-    import GroupListBox from '@/app/com/main/box/GroupListBox';
-    import User from '@/app/com/bean/User';
-    import GroupMemberSender from '@/app/com/main/sender/GroupMemberSender';
+    import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
+    import GroupListBox from '@/app/com/main/module/business/group/box/GroupListBox';
+    import User from '@/app/com/main/module/business/user/bean/User';
+    import GroupMemberSender from '@/app/com/main/module/business/group/sender/GroupMemberSender';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import GroupMember from '@/app/com/bean/GroupMember';
-    import GroupRelationController from '@/app/com/main/controller/GroupRelationController';
-    import GroupMemberService from '@/app/com/main/service/GroupMemberService';
+    import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
+    import GroupRelationController from '@/app/com/main/module/business/group/controller/GroupRelationController';
+    import GroupMemberService from '@/app/com/main/module/business/group/service/GroupMemberService';
     import CommonIcon from "@/platform/web/common/CommonIcon";
 
     import groupInfoViewModel from "@/platform/vue/view/model/GroupInfoViewModel";

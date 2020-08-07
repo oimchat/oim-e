@@ -67,20 +67,20 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import Group from '@/app/com/bean/Group';
-    import GroupRelation from '@/app/com/bean/GroupRelation';
+    import Group from '@/app/com/main/module/business/group/bean/Group';
+    import GroupRelation from '@/app/com/main/module/business/group/bean/GroupRelation';
     import app from '@/app/App';
-    import GroupBox from '@/app/com/main/box/GroupBox';
-    import GroupListBox from '@/app/com/main/box/GroupListBox';
-    import User from '@/app/com/bean/User';
-    import UserBox from '@/app/com/main/box/UserBox';
-    import GroupMemberSender from '@/app/com/main/sender/GroupMemberSender';
+    import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
+    import GroupListBox from '@/app/com/main/module/business/group/box/GroupListBox';
+    import User from '@/app/com/main/module/business/user/bean/User';
+    import UserBox from '@/app/com/main/module/business/user/box/UserBox';
+    import GroupMemberSender from '@/app/com/main/module/business/group/sender/GroupMemberSender';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import GroupMember from '@/app/com/bean/GroupMember';
-    import GroupRelationController from '@/app/com/main/controller/GroupRelationController';
-    import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
-    import GroupMemberListController from '@/app/com/main/controller/GroupMemberListController';
+    import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
+    import GroupRelationController from '@/app/com/main/module/business/group/controller/GroupRelationController';
+    import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
+    import GroupMemberListController from '@/app/com/main/module/business/group/controller/GroupMemberListController';
 
     @Component({
         components: {},

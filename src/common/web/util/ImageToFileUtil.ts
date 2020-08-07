@@ -1,5 +1,5 @@
-import Item from '@/app/com/data/chat/content/Item';
-import ImageValue from '@/app/com/data/chat/content/item/ImageValue';
+import Item from '@/app/com/common/chat/Item';
+import ImageValue from '@/app/com/common/chat/item/ImageValue';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 
 export default class ImageToFileUtil {

@@ -1,9 +1,9 @@
-import Content from '@/app/com/data/chat/content/Content';
-import Section from '@/app/com/data/chat/content/Section';
-import Item from '@/app/com/data/chat/content/Item';
-import FaceValue from '@/app/com/data/chat/content/item/FaceValue';
+import Content from '@/app/com/common/chat/Content';
+import Section from '@/app/com/common/chat/Section';
+import Item from '@/app/com/common/chat/Item';
+import FaceValue from '@/app/com/common/chat/item/FaceValue';
 import BaseUtil from '@/app/lib/util/BaseUtil';
-import ImageValue from '@/app/com/data/chat/content/item/ImageValue';
+import ImageValue from '@/app/com/common/chat/item/ImageValue';
 
 export default class ContentGetUtil {
 

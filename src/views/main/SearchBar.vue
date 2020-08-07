@@ -91,19 +91,19 @@
     import AddUser from '@/views/find/AddUser.vue';
 
     import app from '@/app/App';
-    import UserBox from '@/app/com/main/box/UserBox';
-    import User from '@/app/com/bean/User';
-    import Group from '@/app/com/bean/Group';
-    import GroupBox from '@/app/com/main/box/GroupBox';
+    import UserBox from '@/app/com/main/module/business/user/box/UserBox';
+    import User from '@/app/com/main/module/business/user/bean/User';
+    import Group from '@/app/com/main/module/business/group/bean/Group';
+    import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
     import ItemData from '@/views/common/list/ItemData';
     import DataBackAction from '@/app/base/net/DataBackAction';
-    import UserQuery from '@/app/com/data/UserQuery';
-    import Page from '@/app/com/data/common/Page';
-    import UserController from '@/app/com/main/controller/UserController';
-    import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
-    import GroupInfoUtil from '@/app/com/main/util/GroupInfoUtil';
-    import GroupQuery from '@/app/com/data/GroupQuery';
-    import GroupInfoController from '@/app/com/main/controller/GroupInfoController';
+    import UserQuery from '@/app/com/main/module/business/user/data/UserQuery';
+    import Page from '@/app/com/common/data/Page';
+    import UserController from '@/app/com/main/module/business/user/controller/UserController';
+    import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
+    import GroupInfoUtil from '@/app/com/main/common/util/GroupInfoUtil';
+    import GroupQuery from '@/app/com/main/module/business/group/data/GroupQuery';
+    import GroupInfoController from '@/app/com/main/module/business/group/controller/GroupInfoController';
     import ItemBox from '../common/list/ItemBox';
 
     @Component({

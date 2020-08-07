@@ -28,18 +28,18 @@
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import app from '@/app/App';
-    import ContactVerifyAnswer from '@/app/com/data/ContactVerifyAnswer';
-    import ContactAddApplyData from '@/app/com/data/ContactAddApplyData';
-    import ContactCategory from '@/app/com/bean/ContactCategory';
-    import ContactListBox from '@/app/com/main/box/ContactListBox';
-    import ContactController from '@/app/com/main/controller/ContactController';
+    import ContactVerifyAnswer from '@/app/com/main/module/business/contact/data/ContactVerifyAnswer';
+    import ContactAddApplyData from '@/app/com/main/module/business/contact/data/ContactAddApplyData';
+    import ContactCategory from '@/app/com/main/module/business/contact/bean/ContactCategory';
+    import ContactListBox from '@/app/com/main/module/business/contact/box/ContactListBox';
+    import ContactController from '@/app/com/main/module/business/contact/controller/ContactController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import ContactVerifySettingData from '@/app/com/data/ContactVerifySettingData';
-    import ContactVerifyQuestion from '@/app/com/data/ContactVerifyQuestion';
-    import PersonalBox from '@/app/com/main/box/PersonalBox';
-    import ContactAddHandleData from '@/app/com/data/ContactAddHandleData';
-    import ContactAddApply from '@/app/com/bean/ContactAddApply';
+    import ContactVerifySettingData from '@/app/com/main/module/business/contact/data/ContactVerifySettingData';
+    import ContactVerifyQuestion from '@/app/com/main/module/business/contact/data/ContactVerifyQuestion';
+    import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
+    import ContactAddHandleData from '@/app/com/main/module/business/contact/data/ContactAddHandleData';
+    import ContactAddApply from '@/app/com/main/module/business/contact/bean/ContactAddApply';
 
 
     @Component({

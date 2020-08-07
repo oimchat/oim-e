@@ -110,7 +110,7 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import resetPasswordViewModel from '@/platform/vue/view/model/ResetPasswordViewModel';
     import app from '@/app/App';
-    import PromptType from '@/app/define/prompt/PromptType';
+    import PromptType from '@/app/com/client/define/prompt/PromptType';
 
     @Component({
         components: {},

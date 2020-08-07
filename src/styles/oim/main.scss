@@ -30,6 +30,16 @@ body, html {
 .oim-sidebar-tab {
     margin-top: 30px;
     height: 100%;
+
+    .q-tab__icon {
+        width: 30px;
+        height: 30px;
+        font-size: 30px;
+    }
+
+    .q-tab__content {
+        height: 60px;
+    }
 }
 
 

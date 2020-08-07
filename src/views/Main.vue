@@ -21,7 +21,7 @@
                             <q-tab :name="tab.key"
                                    :icon="tab.icon"
                                    @input="tab.doOnSelected()"
-                                   :label="' '"/>
+                                   :label="''"/>
                         </template>
                     </q-tabs>
                 </div>
@@ -159,7 +159,6 @@
 
     import mainViewData from '@/platform/web/view/data/MainViewData';
 
-    import SoundHandlerPane from '@/views/main/SoundHandlerPane.vue';
     import MainMenu from '@/views/main/MainMenu.vue';
 
     import SideBar from './main/SideBar.vue';
@@ -168,14 +167,13 @@
 
     import ContactListPane from '@/views/module/contact/list/ContactListPane.vue';
     import MessageListPane from '@/views/module/message/MessageListPane.vue';
-    import UserListPane from './main/list/UserListPane.vue';
     import GroupListPane from './module/group/list/GroupListPane.vue';
 
     import GroupContextMenu from '@/views/module/group/menu/GroupItemContextMenu.vue';
-    import UserItemContextMenu from '@/views/main/list/UserItemContextMenu.vue';
+    import UserItemContextMenu from '@/views/module/contact/menu/ContactItemContextMenu.vue';
 
     import GroupNodeContextMenu from '@/views/module/group/menu/GroupNodeContextMenu.vue';
-    import UserNodeContextMenu from '@/views/main/list/UserNodeContextMenu.vue';
+    import UserNodeContextMenu from '@/views/module/contact/menu/ContactNodeContextMenu.vue';
 
     import UserInfoPane from './module/user/info/UserInfoPane.vue';
     import PersonalInfoPane from './main/pane/PersonalInfoPane.vue';
@@ -194,38 +192,36 @@
     import ContextMenu from '@/views/common/menu/ContextMenu.vue';
 
     import app from '@/app/App';
-    import personalDataBox from '@/impl/PersonalDataBox';
+    import personalDataBox from '@/platform/vue/view/model/PersonalViewModel';
 
 
     import PersonalData from './common/data/PersonalData';
     import SideTabBox from './main/SideTabBox';
     import ItemData from './common/list/ItemData';
-    import MainView from '@/app/com/main/view/MainView';
+    import MainView from '@/app/com/client/common/view/MainView';
     import Client from '@/app/base/message/client/Client';
-    import ViewEnum from '@/app/com/main/view/ViewEnum';
+    import ViewEnum from '@/app/com/client/common/view/ViewEnum';
 
 
-    import UserChatInfoService from '@/app/com/main/service/UserChatInfoService';
-    import UserChatItemService from '@/app/com/main/service/UserChatItemService';
-    import UserChatItemController from '@/app/com/main/controller/UserChatItemController';
+    import UserChatInfoService from '@/app/com/main/module/business/chat/service/UserChatInfoService';
+    import UserChatItemService from '@/app/com/main/module/business/chat/service/UserChatItemService';
+    import UserChatItemController from '@/app/com/main/module/business/chat/controller/UserChatItemController';
     import MessageAllUnreadView from '@/app/com/main/view/MessageAllUnreadView';
-    import GroupChatInfoService from '@/app/com/main/service/GroupChatInfoService';
-    import GroupChatItemController from '@/app/com/main/controller/GroupChatItemController';
+    import GroupChatInfoService from '@/app/com/main/module/business/chat/service/GroupChatInfoService';
+    import GroupChatItemController from '@/app/com/main/module/business/chat/controller/GroupChatItemController';
     import NodeData from './common/list/NodeData';
-    import GroupMemberListController from '@/app/com/main/controller/GroupMemberListController';
-    import LoginController from '@/app/com/main/controller/LoginController';
+    import GroupMemberListController from '@/app/com/main/module/business/group/controller/GroupMemberListController';
+    import LoginController from '@/app/com/main/module/business/index/controller/LoginController';
     import Prompt from '@/platform/web/common/Prompt';
 
 
     @Component({
         components: {
             ContactListPane,
-            SoundHandlerPane,
             SideBar,
             MainMenu,
             SearchBar,
             MessageListPane,
-            UserListPane,
             GroupListPane,
             GroupContextMenu,
             UserItemContextMenu,

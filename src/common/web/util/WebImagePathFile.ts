@@ -1,10 +1,10 @@
-import ImageValue from '@/app/com/data/chat/content/item/ImageValue';
+import ImageValue from '@/app/com/common/chat/item/ImageValue';
 import BaseUtil from '@/app/lib/util/BaseUtil';
-import Content from '@/app/com/data/chat/content/Content';
-import CoreContentUtil from '@/app/com/main/util/CoreContentUtil';
+import Content from '@/app/com/common/chat/Content';
+import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
 import FileUtil from '@/platform/e/util/FileUtil';
 import WebImagePathUtil from '@/common/web/util/WebImagePathUtil';
-import Item from '@/app/com/data/chat/content/Item';
+import Item from '@/app/com/common/chat/Item';
 import ImageToFileUtil from '@/common/web/util/ImageToFileUtil';
 
 export default class WebImagePathFile {

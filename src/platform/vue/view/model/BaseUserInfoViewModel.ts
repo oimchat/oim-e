@@ -1,4 +1,4 @@
-import User from '@/app/com/bean/User';
+import User from '@/app/com/main/module/business/user/bean/User';
 
 
 class BaseUserInfoViewModel {

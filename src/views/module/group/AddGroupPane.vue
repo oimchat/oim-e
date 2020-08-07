@@ -34,10 +34,10 @@
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import app from '@/app/App';
-    import Group from '@/app/com/bean/Group';
+    import Group from '@/app/com/main/module/business/group/bean/Group';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import GroupBusinessController from '@/app/com/main/controller/GroupBusinessController';
+    import GroupBusinessController from '@/app/com/main/module/business/group/controller/GroupBusinessController';
 
 
     @Component({

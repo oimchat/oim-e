@@ -38,14 +38,14 @@
     import app from '@/app/App';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import GroupMember from '@/app/com/bean/GroupMember';
-    import User from '@/app/com/bean/User';
-    import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
-    import UserBox from '@/app/com/main/box/UserBox';
-    import GroupBox from '@/app/com/main/box/GroupBox';
-    import GroupMemberSender from '@/app/com/main/sender/GroupMemberSender';
-    import GroupBusinessController from '@/app/com/main/controller/GroupBusinessController';
-    import GroupMemberListController from '@/app/com/main/controller/GroupMemberListController';
+    import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
+    import User from '@/app/com/main/module/business/user/bean/User';
+    import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
+    import UserBox from '@/app/com/main/module/business/user/box/UserBox';
+    import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
+    import GroupMemberSender from '@/app/com/main/module/business/group/sender/GroupMemberSender';
+    import GroupBusinessController from '@/app/com/main/module/business/group/controller/GroupBusinessController';
+    import GroupMemberListController from '@/app/com/main/module/business/group/controller/GroupMemberListController';
 
 
     @Component({

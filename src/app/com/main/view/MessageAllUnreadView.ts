@@ -1,4 +1,4 @@
-import View from '@/app/com/main/view/View';
+import View from '@/app/com/client/common/view/View';
 
 export default interface MessageAllUnreadView extends View {
 

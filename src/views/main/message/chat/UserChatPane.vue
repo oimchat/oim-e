@@ -35,18 +35,18 @@
     import userChatViewModel from '@/impl/data/UserChatViewModel';
 
     import app from '@/app/App';
-    import UserChatController from '@/app/com/main/controller/UserChatController';
+    import UserChatController from '@/app/com/main/module/business/chat/controller/UserChatController';
     import ContentUtil from '@/impl/util/ContentUtil';
-    import CoreContentUtil from '@/app/com/main/util/CoreContentUtil';
-    import ContentUploadImageService from '@/app/com/main/service/ContentUploadImageService';
-    import UploadResult from '@/app/com/main/data/UploadResult';
-    import ImageValue from '@/app/com/data/chat/content/item/ImageValue';
+    import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
+    import ContentUploadImageService from '@/app/com/main/module/support/file/service/ContentUploadImageService';
+    import UploadResult from '@/app/com/main/module/support/file/data/UploadResult';
+    import ImageValue from '@/app/com/common/chat/item/ImageValue';
     import BaseUtil from '@/app/lib/util/BaseUtil';
-    import Content from '@/app/com/data/chat/content/Content';
-    import Section from '@/app/com/data/chat/content/Section';
-    import Item from '@/app/com/data/chat/content/Item';
-    import FileValue from '@/app/com/data/chat/content/item/FileValue';
-    import UserChatDataController from '@/app/com/main/controller/UserChatDataController';
+    import Content from '@/app/com/common/chat/Content';
+    import Section from '@/app/com/common/chat/Section';
+    import Item from '@/app/com/common/chat/Item';
+    import FileValue from '@/app/com/common/chat/item/FileValue';
+    import UserChatDataController from '@/app/com/main/module/business/chat/controller/UserChatDataController';
     import ImageItemFileConverter from '@/app/define/file/ImageItemFileConverter';
 
     @Component({

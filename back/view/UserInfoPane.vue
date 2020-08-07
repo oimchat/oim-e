@@ -66,12 +66,12 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import User from '@/app/com/bean/User';
-    import ContactRelation from '@/app/com/bean/ContactRelation';
+    import User from '../../src/app/com/main/module/business/user/bean/User';
+    import ContactRelation from '../../src/app/com/main/module/business/contact/bean/ContactRelation';
     import app from '@/app/App';
-    import UserBox from '@/app/com/main/box/UserBox';
-    import ContactListBox from '@/app/com/main/box/ContactListBox';
-    import ContactRelationController from '@/app/com/main/controller/ContactRelationController';
+    import UserBox from '../../src/app/com/main/module/business/user/box/UserBox';
+    import ContactListBox from '../../src/app/com/main/module/business/contact/box/ContactListBox';
+    import ContactRelationController from '../../src/app/com/main/module/business/contact/controller/ContactRelationController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
 

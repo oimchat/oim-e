@@ -67,23 +67,23 @@
     import groupChatViewModel from '@/impl/data/GroupChatViewModel';
 
     import app from '@/app/App';
-    import GroupChatController from '@/app/com/main/controller/GroupChatController';
+    import GroupChatController from '@/app/com/main/module/business/chat/controller/GroupChatController';
     import ContentUtil from '@/impl/util/ContentUtil';
-    import CoreContentUtil from '@/app/com/main/util/CoreContentUtil';
-    import ContentUploadImageService from '@/app/com/main/service/ContentUploadImageService';
-    import UploadResult from '@/app/com/main/data/UploadResult';
-    import ImageValue from '@/app/com/data/chat/content/item/ImageValue';
+    import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
+    import ContentUploadImageService from '@/app/com/main/module/support/file/service/ContentUploadImageService';
+    import UploadResult from '@/app/com/main/module/support/file/data/UploadResult';
+    import ImageValue from '@/app/com/common/chat/item/ImageValue';
     import BaseUtil from '@/app/lib/util/BaseUtil';
-    import GroupMember from '@/app/com/bean/GroupMember';
-    import User from '@/app/com/bean/User';
-    import Section from '@/app/com/data/chat/content/Section';
-    import Content from '@/app/com/data/chat/content/Content';
-    import Item from '@/app/com/data/chat/content/Item';
-    import FileValue from '@/app/com/data/chat/content/item/FileValue';
-    import PersonalGroupMemberListBox from '@/app/com/main/box/PersonalGroupMemberListBox';
-    import GroupMemberService from '@/app/com/main/service/GroupMemberService';
+    import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
+    import User from '@/app/com/main/module/business/user/bean/User';
+    import Section from '@/app/com/common/chat/Section';
+    import Content from '@/app/com/common/chat/Content';
+    import Item from '@/app/com/common/chat/Item';
+    import FileValue from '@/app/com/common/chat/item/FileValue';
+    import PersonalGroupMemberListBox from '@/app/com/main/module/business/group/box/PersonalGroupMemberListBox';
+    import GroupMemberService from '@/app/com/main/module/business/group/service/GroupMemberService';
     import DocumentUtil from '@/common/web/util/DocumentUtil';
-    import GroupChatDataController from '@/app/com/main/controller/GroupChatDataController';
+    import GroupChatDataController from '@/app/com/main/module/business/chat/controller/GroupChatDataController';
     import ImageItemFileConverter from '@/app/define/file/ImageItemFileConverter';
 
     @Component({

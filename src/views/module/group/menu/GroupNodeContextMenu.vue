@@ -9,8 +9,8 @@
     import ContextMenu from '@/views/common/menu/ContextMenu.vue';
 
     import app from '@/app/App';
-    import GroupListBox from '@/app/com/main/box/GroupListBox';
-    import GroupCategoryController from '@/app/com/main/controller/GroupCategoryController';
+    import GroupListBox from '@/app/com/main/module/business/group/box/GroupListBox';
+    import GroupCategoryController from '@/app/com/main/module/business/group/controller/GroupCategoryController';
 
     @Component({
         components: {
@@ -65,7 +65,7 @@
                             icon: 'of address-book',
                             onClick: (item: any, d: any) => {
                                 // todo
-                                own.updateRank(categoryId, i);
+                                own.updateSort(categoryId, i);
                             },
                         });
                     }
@@ -100,9 +100,9 @@
             groupCategoryController.delete(categoryId);
         }
 
-        private updateRank(categoryId: string, rank: number) {
+        private updateSort(categoryId: string, sort: number) {
             const groupCategoryController: GroupCategoryController = app.appContext.getMaterial(GroupCategoryController);
-            groupCategoryController.updateRank(categoryId, rank);
+            groupCategoryController.updateSort(categoryId, sort);
         }
 
         private openUpdateName(categoryId: string) {

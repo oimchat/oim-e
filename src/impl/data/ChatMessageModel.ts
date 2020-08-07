@@ -1,12 +1,12 @@
-import User from '@/app/com/bean/User';
-import ContentData from '@/views/common/chat/ContentData';
-import Content from '@/app/com/data/chat/content/Content';
+import User from '@/app/com/main/module/business/user/bean/User';
+import ContentData from '@/platform/vue/view/model/chat/content/ContentData';
+import Content from '@/app/com/common/chat/Content';
 import ChatCacheData from '@/views/main/message/chat/ChatCacheData';
-import CoreContentUtil from '@/app/com/main/util/CoreContentUtil';
+import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
 import app from '@/app/App';
-import MessageSwitchSetting from '@/app/com/main/setting/message/MessageSwitchSetting';
-import MessageAppendType from '@/app/com/main/setting/message/type/MessageAppendType';
-import MessageTimeSettingStore from '@/app/com/main/setting/message/MessageTimeSettingStore';
+import MessageSwitchSetting from '@/app/com/main/module/setting/message/MessageSwitchSetting';
+import MessageAppendType from '@/app/com/main/module/setting/message/type/MessageAppendType';
+import MessageTimeSettingStore from '@/app/com/main/module/setting/message/MessageTimeSettingStore';
 
 
 export default class ChatMessageModel {
@@ -159,11 +159,11 @@ export default class ChatMessageModel {
             data.key = messageKey;
             data.id = contentId;
             data.content = content;
-            data.showName = showName;
+            data.name = showName;
             data.user = chatUser;
             data.isOwn = isOwn;
             data.timeVisible = (intervalMillisecond > mergeMillisecond);
-            data.showNameVisible = this.messageInfo.showNameVisible;
+            data.nameVisible = this.messageInfo.showNameVisible;
 
             this.messageInfo.lastTimestamp = content.timestamp;
 

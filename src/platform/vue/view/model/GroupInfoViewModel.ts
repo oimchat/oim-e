@@ -1,11 +1,11 @@
 import BaseGroupInfoViewModel from "@/platform/vue/view/model/BaseGroupInfoViewModel";
-import GroupRelation from "@/app/com/bean/GroupRelation";
-import PersonalGroupMemberListBox from "@/app/com/main/box/PersonalGroupMemberListBox";
+import GroupRelation from "@/app/com/main/module/business/group/bean/GroupRelation";
+import PersonalGroupMemberListBox from "@/app/com/main/module/business/group/box/PersonalGroupMemberListBox";
 import app from "@/app/App";
-import GroupMember from "@/app/com/bean/GroupMember";
-import User from "@/app/com/bean/User";
+import GroupMember from "@/app/com/main/module/business/group/bean/GroupMember";
+import User from "@/app/com/main/module/business/user/bean/User";
 import groupChatViewModel from "@/impl/data/GroupChatViewModel";
-import Group from "@/app/com/bean/Group";
+import Group from "@/app/com/main/module/business/group/bean/Group";
 
 class GroupInfoViewModel extends BaseGroupInfoViewModel {
 

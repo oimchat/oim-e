@@ -1,12 +1,12 @@
-import Content from '@/app/com/data/chat/content/Content';
-import Section from '@/app/com/data/chat/content/Section';
-import Item from '@/app/com/data/chat/content/Item';
+import Content from '@/app/com/common/chat/Content';
+import Section from '@/app/com/common/chat/Section';
+import Item from '@/app/com/common/chat/Item';
 import BaseUtil from '@/app/lib/util/BaseUtil';
-import ImageValue from '@/app/com/data/chat/content/item/ImageValue';
-import FaceValue from '@/app/com/data/chat/content/item/FaceValue';
+import ImageValue from '@/app/com/common/chat/item/ImageValue';
+import FaceValue from '@/app/com/common/chat/item/FaceValue';
 import emojiImageBox from '@/app/lib/EmojiImageBox';
 import FileNameUtil from '@/app/common/util/FileNameUtil';
-import FileSeverApi from '@/app/com/main/constant/FileSeverApi';
+import FileSeverApi from '@/app/com/main/module/support/file/constant/FileSeverApi';
 import TextJudgeUtil from '@/app/lib/util/TextJudgeUtil';
 
 export default class ContentUtil {

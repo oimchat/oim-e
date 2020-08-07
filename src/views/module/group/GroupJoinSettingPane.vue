@@ -64,14 +64,14 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import GroupJoinSetting from '@/app/com/bean/GroupJoinSetting';
-    import ContactVerifyQuestion from '@/app/com/data/ContactVerifyQuestion';
+    import GroupJoinSetting from '@/app/com/main/module/business/group/bean/GroupJoinSetting';
+    import ContactVerifyQuestion from '@/app/com/main/module/business/contact/data/ContactVerifyQuestion';
 
     import app from '@/app/App';
-    import GroupJoinSettingController from '@/app/com/main/controller/GroupSettingController';
+    import GroupJoinSettingController from '@/app/com/main/module/business/group/controller/GroupSettingController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import GroupJoinVerifyQuestion from '@/app/com/bean/GroupJoinVerifyQuestion';
+    import GroupJoinVerifyQuestion from '@/app/com/main/module/business/group/bean/GroupJoinVerifyQuestion';
 
     @Component({
         components: {},

@@ -22,7 +22,7 @@
     import CropperPane from '@/views/common/cropper/CropperPane.vue';
 
     import app from '@/app/App';
-    import GroupBusinessController from '@/app/com/main/controller/GroupBusinessController';
+    import GroupBusinessController from '@/app/com/main/module/business/group/controller/GroupBusinessController';
 
     @Component({
         components: {

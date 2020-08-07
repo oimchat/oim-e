@@ -78,8 +78,8 @@
     import Component from 'vue-class-component';
     import BaseUtil from '@/app/lib/util/BaseUtil';
     import app from '@/app/App';
-    import AppSettingManager from '@/app/com/main/manager/AppSettingManager';
-    import ServerService from '@/app/com/main/service/ServerService';
+    import AppSettingManager from '../../src/app/com/client/module/setting/manager/AppSettingManager';
+    import ServerService from '../../src/app/com/main/module/business/server/service/ServerService';
     import loginViewModel from '@/platform/vue/view/model/LoginViewModel';
 
     @Component({})

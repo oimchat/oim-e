@@ -38,8 +38,8 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import EmojiBox from '@/app/lib/EmojiBox';
     import app from '@/app/App';
-    import FaceBox from '@/app/com/main/box/FaceBox';
-    import FaceValue from '@/app/com/data/chat/content/item/FaceValue';
+    import FaceBox from '@/app/com/main/module/support/face/box/FaceBox';
+    import FaceValue from '@/app/com/common/chat/item/FaceValue';
     import emojiImageBox from '@/app/lib/EmojiImageBox';
 
     @Component({

@@ -1,4 +1,4 @@
-import PromptHandler from '@/app/define/prompt/PromptHandler';
+import PromptHandler from '@/app/com/client/define/prompt/PromptHandler';
 import Prompt from '@/platform/web/common/Prompt';
 
 export default class WebPromptHandlerImpl implements PromptHandler {

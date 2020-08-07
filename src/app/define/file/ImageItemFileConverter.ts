@@ -1,4 +1,4 @@
-import Item from '@/app/com/data/chat/content/Item';
+import Item from '@/app/com/common/chat/Item';
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 
 abstract class ImageItemFileConverter extends AbstractMaterial {

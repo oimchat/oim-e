@@ -83,11 +83,11 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import RegisterData from '@/app/com/bean/RegisterData';
-    import QuestionData from '@/app/com/data/QuestionData';
+    import RegisterData from '../../src/app/com/main/module/business/account/data/RegisterData';
+    import QuestionData from '../../src/app/com/main/module/business/user/data/QuestionData';
     import BaseUtil from '@/app/lib/util/BaseUtil';
     import app from '@/app/App';
-    import AccountController from '@/app/com/main/controller/AccountController';
+    import AccountController from '../../src/app/com/main/module/business/account/controller/AccountController';
 
     @Component({
         components: {},

@@ -19,10 +19,10 @@
     import UpdateData from '@/views/module/personal/UpdateDataPane.vue';
     import app from '@/app/App';
 
-    import ContactCategoryController from '@/app/com/main/controller/ContactCategoryController';
+    import ContactCategoryController from '@/app/com/main/module/business/contact/controller/ContactCategoryController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import GroupCategoryController from '@/app/com/main/controller/GroupCategoryController';
+    import GroupCategoryController from '@/app/com/main/module/business/group/controller/GroupCategoryController';
 
     @Component({
         components: {

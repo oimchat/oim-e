@@ -1,20 +1,20 @@
 import AbstractInitializer from '@/app/com/main/initialize/AbstractInitializer';
-import SystemInformationService from '@/app/com/main/service/SystemInformationService';
+import SystemInformationService from '@/app/com/client/module/prompt/service/SystemInformationService';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import SystemInformType from '@/app/com/main/data/SystemInformType';
 import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
-import GroupJoinApplyQuery from '@/app/com/data/GroupJoinApplyQuery';
-import GroupJoinApply from '@/app/com/bean/GroupJoinApply';
-import GroupJoinSender from '@/app/com/main/sender/GroupJoinSender';
-import GroupInviteApplyQuery from '@/app/com/data/GroupInviteApplyQuery';
-import GroupInviteApply from '@/app/com/bean/GroupInviteApply';
-import GroupInviteSender from '@/app/com/main/sender/GroupInviteSender';
-import GroupInviteeApplyQuery from '@/app/com/data/GroupInviteeApplyQuery';
-import ContactAddApplyQuery from '@/app/com/data/ContactAddApplyQuery';
-import ContactAddApply from '@/app/com/bean/ContactAddApply';
-import ContactSender from '@/app/com/main/sender/ContactSender';
-import RecentChatService from '@/app/com/main/service/RecentChatService';
-import UserChatUnreadService from '@/app/com/main/service/UserChatUnreadService';
+import GroupJoinApplyQuery from '@/app/com/main/module/business/group/data/GroupJoinApplyQuery';
+import GroupJoinApply from '@/app/com/main/module/business/group/bean/GroupJoinApply';
+import GroupJoinSender from '@/app/com/main/module/business/group/sender/GroupJoinSender';
+import GroupInviteApplyQuery from '@/app/com/main/module/business/group/data/GroupInviteApplyQuery';
+import GroupInviteApply from '@/app/com/main/module/business/group/bean/GroupInviteApply';
+import GroupInviteSender from '@/app/com/main/module/business/group/sender/GroupInviteSender';
+import GroupInviteeApplyQuery from '@/app/com/main/module/business/group/data/GroupInviteeApplyQuery';
+import ContactAddApplyQuery from '@/app/com/main/module/business/contact/data/ContactAddApplyQuery';
+import ContactAddApply from '@/app/com/main/module/business/contact/bean/ContactAddApply';
+import ContactSender from '@/app/com/main/module/business/contact/sender/ContactSender';
+import RecentChatService from '@/app/com/main/module/business/chat/service/RecentChatService';
+import UserChatUnreadService from '@/app/com/main/module/business/chat/service/UserChatUnreadService';
 
 export default class InformationInitializer extends AbstractInitializer {
 

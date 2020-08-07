@@ -1,6 +1,6 @@
 import AbstractInitializer from '@/app/com/main/initialize/AbstractInitializer';
-import MessageListView from '@/app/com/main/view/MessageListView';
-import ViewEnum from '@/app/com/main/view/ViewEnum';
+import MessageListView from '@/app/com/client/module/message/view/MessageListView';
+import ViewEnum from '@/app/com/client/common/view/ViewEnum';
 
 export default class ViewInitializer extends AbstractInitializer {
 

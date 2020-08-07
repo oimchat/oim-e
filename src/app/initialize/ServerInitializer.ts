@@ -1,6 +1,6 @@
 import Initializer from '@/app/base/initialize/Initializer';
 import AppContext from '@/app/base/context/AppContext';
-import LoginController from '@/app/com/main/controller/LoginController';
+import LoginController from '@/app/com/main/module/business/index/controller/LoginController';
 
 
 export default class ServerInitializer implements Initializer {

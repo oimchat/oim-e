@@ -70,11 +70,11 @@
     import UpdateHeadPane from '@/views/module/personal/UpdateHeadPane.vue';
 
     import app from '@/app/App';
-    import PersonalController from '@/app/com/main/controller/PersonalController';
+    import PersonalController from '@/app/com/main/module/business/personal/controller/PersonalController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import User from '@/app/com/bean/User';
-    import PersonalBox from '@/app/com/main/box/PersonalBox';
+    import User from '@/app/com/main/module/business/user/bean/User';
+    import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
 
     @Component({
         components: {

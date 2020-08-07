@@ -1,6 +1,6 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
-import PromptHandler from '@/app/define/prompt/PromptHandler';
-import DefaultPromptHandlerImpl from '@/app/impl/default/prompt/DefaultPromptHandlerImpl';
+import PromptHandler from '@/app/com/client/define/prompt/PromptHandler';
+import DefaultPromptHandlerImpl from '@/app/impl/default/client/prompt/DefaultPromptHandlerImpl';
 import InfoUtil from '@/app/base/message/util/InfoUtil';
 
 export default class Prompter extends AbstractMaterial implements PromptHandler {

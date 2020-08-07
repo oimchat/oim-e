@@ -34,9 +34,9 @@
     import app from '@/app/App';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import ContactCategory from '@/app/com/bean/ContactCategory';
-    import ContactListBox from '@/app/com/main/box/ContactListBox';
-    import ContactRelationController from '@/app/com/main/controller/ContactRelationController';
+    import ContactCategory from '@/app/com/main/module/business/contact/bean/ContactCategory';
+    import ContactListBox from '@/app/com/main/module/business/contact/box/ContactListBox';
+    import ContactRelationController from '@/app/com/main/module/business/contact/controller/ContactRelationController';
 
 
     @Component({

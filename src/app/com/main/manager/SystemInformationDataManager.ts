@@ -1,5 +1,5 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
-import ViewEnum from '@/app/com/main/view/ViewEnum';
+import ViewEnum from '@/app/com/client/common/view/ViewEnum';
 import MessageAreaView from '@/app/com/main/view/MessageAreaView';
 
 export default class SystemInformationDataManager extends AbstractMaterial {

@@ -93,7 +93,7 @@
         <GroupNodeContextMenu ref='groupNodeContextMenu'></GroupNodeContextMenu>
         <UserNodeContextMenu ref='userNodeContextMenu'></UserNodeContextMenu>
 
-        <SoundHandlerPane></SoundHandlerPane>
+
         <DownloadFormPane></DownloadFormPane>
         <SettingPane ref="settingPane"></SettingPane>
     </div>
@@ -108,7 +108,6 @@
 
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
 
-    import SoundHandlerPane from '@/views/main/SoundHandlerPane.vue';
     import MainMenu from '@/views/main/MainMenu.vue';
 
     import SideBar from './main/SideBar.vue';
@@ -119,10 +118,10 @@
     import GroupListPane from './main/list/GroupListPane.vue';
 
     import GroupContextMenu from '../../src/views/module/group/menu/GroupItemContextMenu.vue';
-    import UserContextMenu from '../../src/views/main/list/UserItemContextMenu.vue';
+    import UserContextMenu from '../../src/views/module/contact/menu/ContactItemContextMenu.vue';
 
     import GroupNodeContextMenu from '../../src/views/module/group/menu/GroupNodeContextMenu.vue';
-    import UserNodeContextMenu from '@/views/main/list/UserNodeContextMenu.vue';
+    import UserNodeContextMenu from '../../src/views/module/contact/menu/ContactNodeContextMenu.vue';
 
     import UserInfoPane from './main/pane/UserInfoPane.vue';
     import PersonalInfoPane from './main/pane/PersonalInfoPane.vue';
@@ -141,33 +140,32 @@
     import ContextMenu from '@/views/common/menu/ContextMenu.vue';
 
     import app from '@/app/App';
-    import personalDataBox from '@/impl/PersonalDataBox';
+    import personalDataBox from '../../src/platform/vue/view/model/PersonalViewModel';
 
 
     import PersonalData from './common/data/PersonalData';
     import SideTabBox from './main/SideTabBox';
     import ItemData from './common/list/ItemData';
-    import MainView from '@/app/com/main/view/MainView';
+    import MainView from '../../src/app/com/client/common/view/MainView';
     import Client from '@/app/base/message/client/Client';
-    import ViewEnum from '@/app/com/main/view/ViewEnum';
+    import ViewEnum from '../../src/app/com/client/common/view/ViewEnum';
 
 
-    import UserChatInfoService from '@/app/com/main/service/UserChatInfoService';
-    import UserChatItemService from '@/app/com/main/service/UserChatItemService';
-    import UserChatItemController from '@/app/com/main/controller/UserChatItemController';
+    import UserChatInfoService from '../../src/app/com/main/module/business/chat/service/UserChatInfoService';
+    import UserChatItemService from '../../src/app/com/main/module/business/chat/service/UserChatItemService';
+    import UserChatItemController from '../../src/app/com/main/module/business/chat/controller/UserChatItemController';
     import MessageAllUnreadView from '@/app/com/main/view/MessageAllUnreadView';
-    import GroupChatInfoService from '@/app/com/main/service/GroupChatInfoService';
-    import GroupChatItemController from '@/app/com/main/controller/GroupChatItemController';
+    import GroupChatInfoService from '../../src/app/com/main/module/business/chat/service/GroupChatInfoService';
+    import GroupChatItemController from '../../src/app/com/main/module/business/chat/controller/GroupChatItemController';
     import Platform from '@/app/common/util/Platform';
     import NodeData from './common/list/NodeData';
-    import GroupMemberListController from '@/app/com/main/controller/GroupMemberListController';
-    import LoginController from '@/app/com/main/controller/LoginController';
+    import GroupMemberListController from '../../src/app/com/main/module/business/group/controller/GroupMemberListController';
+    import LoginController from '../../src/app/com/main/module/business/index/controller/LoginController';
     import Prompt from '@/platform/web/common/Prompt';
 
 
     @Component({
         components: {
-            SoundHandlerPane,
             SideBar,
             MainMenu,
             SearchBar,

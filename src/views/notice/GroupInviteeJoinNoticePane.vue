@@ -84,26 +84,26 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
 
     import app from '@/app/App';
-    import GroupJoinController from '@/app/com/main/controller/GroupJoinController';
-    import GroupJoinApply from '@/app/com/bean/GroupJoinApply';
-    import Page from '@/app/com/data/common/Page';
+    import GroupJoinController from '@/app/com/main/module/business/group/controller/GroupJoinController';
+    import GroupJoinApply from '@/app/com/main/module/business/group/bean/GroupJoinApply';
+    import Page from '@/app/com/common/data/Page';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
-    import User from '@/app/com/bean/User';
-    import GroupJoinHandleData from '@/app/com/data/GroupJoinHandleData';
-    import GroupJoinApplyEntityCase from '@/app/com/data/GroupJoinApplyEntityCase';
-    import GroupJoinApplyQuery from '@/app/com/data/GroupJoinApplyQuery';
-    import GroupInviteController from '@/app/com/main/controller/GroupInviteController';
-    import GroupInviteApplyQuery from '@/app/com/data/GroupInviteApplyQuery';
-    import GroupInviteApply from '@/app/com/bean/GroupInviteApply';
-    import GroupInviteVerifyHandleData from '@/app/com/data/GroupInviteVerifyHandleData';
-    import GroupBox from '@/app/com/main/box/GroupBox';
-    import Group from '@/app/com/bean/Group';
-    import GroupInfoUtil from '@/app/com/main/util/GroupInfoUtil';
-    import GroupInviteeApplyQuery from '@/app/com/data/GroupInviteeApplyQuery';
-    import GroupInviteeHandleData from '@/app/com/data/GroupInviteeHandleData';
-    import GroupInviteeController from '@/app/com/main/controller/GroupInviteeController';
+    import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
+    import User from '@/app/com/main/module/business/user/bean/User';
+    import GroupJoinHandleData from '@/app/com/main/module/business/group/data/GroupJoinHandleData';
+    import GroupJoinApplyEntityCase from '@/app/com/main/module/business/group/data/GroupJoinApplyEntityCase';
+    import GroupJoinApplyQuery from '@/app/com/main/module/business/group/data/GroupJoinApplyQuery';
+    import GroupInviteController from '@/app/com/main/module/business/group/controller/GroupInviteController';
+    import GroupInviteApplyQuery from '@/app/com/main/module/business/group/data/GroupInviteApplyQuery';
+    import GroupInviteApply from '@/app/com/main/module/business/group/bean/GroupInviteApply';
+    import GroupInviteVerifyHandleData from '@/app/com/main/module/business/group/data/GroupInviteVerifyHandleData';
+    import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
+    import Group from '@/app/com/main/module/business/group/bean/Group';
+    import GroupInfoUtil from '@/app/com/main/common/util/GroupInfoUtil';
+    import GroupInviteeApplyQuery from '@/app/com/main/module/business/group/data/GroupInviteeApplyQuery';
+    import GroupInviteeHandleData from '@/app/com/main/module/business/group/data/GroupInviteeHandleData';
+    import GroupInviteeController from '@/app/com/main/module/business/group/controller/GroupInviteeController';
 
     @Component({
         components: {},

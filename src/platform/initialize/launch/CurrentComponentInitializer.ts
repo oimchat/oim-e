@@ -1,22 +1,22 @@
 import Initializer from '@/app/base/initialize/Initializer';
 import app from '@/app/App';
-import VoicePromptUserSetting from '@/app/com/main/setting/prompt/VoicePromptUserSetting';
-import VoicePromptGroupSetting from '@/app/com/main/setting/prompt/VoicePromptGroupSetting';
-import VoicePromptType from '@/app/com/main/setting/prompt/type/VoicePromptType';
-import MessageAppendUserSetting from '@/app/com/main/setting/message/MessageAppendUserSetting';
-import MessageAppendGroupSetting from '@/app/com/main/setting/message/MessageAppendGroupSetting';
-import MessageAppendType from '@/app/com/main/setting/message/type/MessageAppendType';
-import MessageSwitchSetting from '@/app/com/main/setting/message/MessageSwitchSetting';
-import MessageTimeSettingStore from '@/app/com/main/setting/message/MessageTimeSettingStore';
-import LoginController from '@/app/com/main/controller/LoginController';
-import GroupChatManager from '@/app/com/main/manager/GroupChatManager';
-import UserChatManager from '@/app/com/main/manager/UserChatManager';
+import VoicePromptUserSetting from '@/app/com/main/module/setting/prompt/VoicePromptUserSetting';
+import VoicePromptGroupSetting from '@/app/com/main/module/setting/prompt/VoicePromptGroupSetting';
+import VoicePromptType from '@/app/com/main/module/setting/prompt/type/VoicePromptType';
+import MessageAppendUserSetting from '@/app/com/main/module/setting/message/MessageAppendUserSetting';
+import MessageAppendGroupSetting from '@/app/com/main/module/setting/message/MessageAppendGroupSetting';
+import MessageAppendType from '@/app/com/main/module/setting/message/type/MessageAppendType';
+import MessageSwitchSetting from '@/app/com/main/module/setting/message/MessageSwitchSetting';
+import MessageTimeSettingStore from '@/app/com/main/module/setting/message/MessageTimeSettingStore';
+import LoginController from '@/app/com/main/module/business/index/controller/LoginController';
+import GroupChatManager from '@/app/com/main/module/business/chat/manager/GroupChatManager';
+import UserChatManager from '@/app/com/main/module/business/chat/manager/UserChatManager';
 import groupChatViewModel from '@/impl/data/GroupChatViewModel';
 import userChatViewModel from '@/impl/data/UserChatViewModel';
-import InitializeConverge from '@/app/com/main/converge/InitializeConverge';
+import InitializeConverge from '@/app/com/main/module/business/index/converge/InitializeConverge';
 import AppContext from '@/app/base/context/AppContext';
 import ImageItemFileConverter from '@/app/define/file/ImageItemFileConverter';
-import LoginSaveBox from '@/app/com/main/box/login/LoginSaveBox';
+import LoginSaveBox from '@/app/com/main/module/business/index/box/login/LoginSaveBox';
 
 export default class CurrentComponentInitializer implements Initializer {
 

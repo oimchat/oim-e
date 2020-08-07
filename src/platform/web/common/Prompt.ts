@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import {Notify} from 'quasar';
 import InfoUtil from '@/app/base/message/util/InfoUtil';
-import PromptHandler from '@/app/define/prompt/PromptHandler';
-import PromptHandlerEnum from '@/app/define/prompt/PromptHandlerEnum';
-import PromptType from '@/app/define/prompt/PromptType';
+import PromptHandler from '@/app/com/client/define/prompt/PromptHandler';
+import PromptHandlerEnum from '@/app/com/client/define/prompt/PromptHandlerEnum';
+import PromptType from '@/app/com/client/define/prompt/PromptType';
 
 export default class Prompt {
 

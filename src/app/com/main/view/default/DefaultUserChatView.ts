@@ -1,6 +1,6 @@
-import UserChatView from '@/app/com/main/view/UserChatView';
-import User from '@/app/com/bean/User';
-import Content from '@/app/com/data/chat/content/Content';
+import UserChatView from '@/app/com/main/module/business/chat/view/UserChatView';
+import User from '@/app/com/main/module/business/user/bean/User';
+import Content from '@/app/com/common/chat/Content';
 
 
 export default class DefaultUserChatView implements UserChatView {

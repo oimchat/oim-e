@@ -1,9 +1,9 @@
-import User from '@/app/com/bean/User';
-import Content from '@/app/com/data/chat/content/Content';
+import User from '@/app/com/main/module/business/user/bean/User';
+import Content from '@/app/com/common/chat/Content';
 import ChatViewModel from '@/impl/data/ChatViewModel';
 import app from '@/app/App';
-import MessageAppendUserSetting from '@/app/com/main/setting/message/MessageAppendUserSetting';
-import MessageAppendType from '@/app/com/main/setting/message/type/MessageAppendType';
+import MessageAppendUserSetting from '@/app/com/main/module/setting/message/MessageAppendUserSetting';
+import MessageAppendType from '@/app/com/main/module/setting/message/type/MessageAppendType';
 
 class UserChatViewModel extends ChatViewModel {
 

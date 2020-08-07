@@ -1,6 +1,6 @@
 import AbstractInitializer from '@/app/com/main/initialize/AbstractInitializer';
-import PersonalSender from '@/app/com/main/sender/PersonalSender';
-import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
+import PersonalSender from '@/app/com/main/module/business/personal/sender/PersonalSender';
+import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 
 export default class PersonalInitializer extends AbstractInitializer {
 

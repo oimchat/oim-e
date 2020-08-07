@@ -13,15 +13,15 @@
     import ChangeGroupOwnerPane from '@/views/module/group/ChangeGroupOwnerPane.vue';
 
     import app from '@/app/App';
-    import PersonalGroupMemberListBox from '@/app/com/main/box/PersonalGroupMemberListBox';
-    import GroupMember from '@/app/com/bean/GroupMember';
-    import GroupListBox from '@/app/com/main/box/GroupListBox';
+    import PersonalGroupMemberListBox from '@/app/com/main/module/business/group/box/PersonalGroupMemberListBox';
+    import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
+    import GroupListBox from '@/app/com/main/module/business/group/box/GroupListBox';
 
     import InviteJoinGroup from '@/views/main/group/InviteJoinGroupPane.vue';
-    import GroupRelationController from '@/app/com/main/controller/GroupRelationController';
+    import GroupRelationController from '@/app/com/main/module/business/group/controller/GroupRelationController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import GroupBusinessController from '@/app/com/main/controller/GroupBusinessController';
+    import GroupBusinessController from '@/app/com/main/module/business/group/controller/GroupBusinessController';
     import PopupMenuData from '@/views/common/menu/PopupMenuData';
     import NavMenu from '@/views/common/menu/NavMenu.vue';
     import NavMenuData from '@/views/common/menu/NavMenuData';

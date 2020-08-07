@@ -58,14 +58,14 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import AddUser from '@/views/find/AddUser.vue';
 
-    import UserQuery from '@/app/com/data/UserQuery';
-    import Page from '@/app/com/data/common/Page';
+    import UserQuery from '@/app/com/main/module/business/user/data/UserQuery';
+    import Page from '@/app/com/common/data/Page';
     import app from '@/app/App';
-    import UserController from '@/app/com/main/controller/UserController';
-    import User from '@/app/com/bean/User';
+    import UserController from '@/app/com/main/module/business/user/controller/UserController';
+    import User from '@/app/com/main/module/business/user/bean/User';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import UserInfoUtil from '@/app/com/main/util/UserInfoUtil';
+    import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 
     @Component({
         components: {AddUser},
