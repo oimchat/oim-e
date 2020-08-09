@@ -8,6 +8,7 @@ export default class IconItemData {
     public redCount: number = 0;
     public text: string = '';
     public time: string = '';
+    public lastTimestamp: number = 0;
     public onSelect: any;
     public onDelete: any;
     private data: any;

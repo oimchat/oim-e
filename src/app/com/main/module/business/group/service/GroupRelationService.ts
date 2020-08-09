@@ -4,7 +4,7 @@ import GroupRelation from '@/app/com/main/module/business/group/bean/GroupRelati
 import DataBackAction from '@/app/base/net/DataBackAction';
 import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
 import GroupRelationSender from '@/app/com/main/module/business/group/sender/GroupRelationSender';
-import GroupListBox from '@/app/com/main/module/business/group/box/GroupListBox';
+import GroupRelationBox from '@/app/com/main/module/business/group/box/GroupRelationBox';
 
 
 export default class GroupRelationService extends AbstractMaterial {
@@ -56,7 +56,7 @@ export default class GroupRelationService extends AbstractMaterial {
     public moveCategory(groupIds: string[], categoryId: string) {
         if (groupIds && categoryId) {
             const ccm: GroupListManager = this.appContext.getMaterial(GroupListManager);
-            const groupListBox: GroupListBox = this.appContext.getMaterial(GroupListBox);
+            const groupListBox: GroupRelationBox = this.appContext.getMaterial(GroupRelationBox);
             const list: GroupRelation[] = [];
             const oldCategoryIds: string[] = [];
             // 找到原来的分组

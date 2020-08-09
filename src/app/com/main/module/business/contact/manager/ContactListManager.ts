@@ -1,6 +1,6 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import ContactCategory from '@/app/com/main/module/business/contact/bean/ContactCategory';
-import ContactListBox from '@/app/com/main/module/business/contact/box/ContactListBox';
+import ContactRelationBox from '@/app/com/main/module/business/contact/box/ContactRelationBox';
 import ViewEnum from '@/app/com/client/common/view/ViewEnum';
 import ListPaneView from '@/app/com/client/common/view/ListPaneView';
 import BaseUtil from '@/app/lib/util/BaseUtil';
@@ -8,6 +8,7 @@ import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 import UserBox from '@/app/com/main/module/business/user/box/UserBox';
 import User from '@/app/com/main/module/business/user/bean/User';
 import ContactRelation from '@/app/com/main/module/business/contact/bean/ContactRelation';
+import ContactCategoryBox from "@/app/com/main/module/business/contact/box/ContactCategoryBox";
 
 export default class ContactListManager extends AbstractMaterial {
 
@@ -21,7 +22,7 @@ export default class ContactListManager extends AbstractMaterial {
     public setCategoryList(list: ContactCategory[]): void {
         const own = this;
         if (list) {
-            const contactListBox: ContactListBox = this.appContext.getMaterial(ContactListBox);
+            const contactListBox: ContactCategoryBox = this.appContext.getMaterial(ContactCategoryBox);
             contactListBox.clearCategory();
 
             const listPaneView: ListPaneView = this.appContext.getView(ViewEnum.ContactListPaneView);
@@ -50,7 +51,7 @@ export default class ContactListManager extends AbstractMaterial {
 
 
     public setRelationList(list: ContactRelation[]) {
-        const contactListBox: ContactListBox = this.appContext.getMaterial(ContactListBox);
+        const contactListBox: ContactRelationBox = this.appContext.getMaterial(ContactRelationBox);
         contactListBox.clearContactRelation();
         contactListBox.putContactRelationList(list);
         if (list) {
@@ -60,7 +61,7 @@ export default class ContactListManager extends AbstractMaterial {
     }
 
     public addOrUpdateContactCategoryInfo(category: ContactCategory) {
-        const contactListBox: ContactListBox = this.appContext.getMaterial(ContactListBox);
+        const contactListBox: ContactCategoryBox = this.appContext.getMaterial(ContactCategoryBox);
         contactListBox.putCategory(category);
 
         const categoryId = category.id;
@@ -72,7 +73,7 @@ export default class ContactListManager extends AbstractMaterial {
     }
 
     public updateCategoryName(categoryId: string, name: string) {
-        const contactListBox: ContactListBox = this.appContext.getMaterial(ContactListBox);
+        const contactListBox: ContactCategoryBox = this.appContext.getMaterial(ContactCategoryBox);
         const category = contactListBox.getCategory(categoryId);
         if (category) {
             category.name = name;
@@ -82,13 +83,15 @@ export default class ContactListManager extends AbstractMaterial {
     }
 
     public deleteCategory(categoryId: string) {
-        const contactListBox: ContactListBox = this.appContext.getMaterial(ContactListBox);
-        contactListBox.removeCategory(categoryId);
+
+        const contactCategoryBox: ContactCategoryBox = this.appContext.getMaterial(ContactCategoryBox);
+        const contactListBox: ContactRelationBox = this.appContext.getMaterial(ContactRelationBox);
+        contactCategoryBox.removeCategory(categoryId);
 
         const listPaneView: ListPaneView = this.appContext.getView(ViewEnum.ContactListPaneView);
         listPaneView.removeCategory(categoryId);
 
-        const defaultCategoryId = contactListBox.getDefaultCategoryId();
+        const defaultCategoryId = contactCategoryBox.getDefaultCategoryId();
         const list = contactListBox.removeContactRelationListByCategoryId(categoryId);
 
         if (list && '' !== defaultCategoryId) {
@@ -107,7 +110,7 @@ export default class ContactListManager extends AbstractMaterial {
      * @author XiaHui
      */
     public updateAllCategoryMember() {
-        const contactListBox: ContactListBox = this.appContext.getMaterial(ContactListBox);
+        const contactListBox: ContactCategoryBox = this.appContext.getMaterial(ContactCategoryBox);
         const list = contactListBox.getCategoryList();
         const length = list.length;
         for (let i = 0; i < length; i++) {
@@ -120,7 +123,7 @@ export default class ContactListManager extends AbstractMaterial {
         const listPaneView: ListPaneView = this.appContext.getView(ViewEnum.ContactListPaneView);
         listPaneView.clearCategoryMember(categoryId);
         const userBox: UserBox = this.appContext.getMaterial(UserBox);
-        const contactListBox: ContactListBox = this.appContext.getMaterial(ContactListBox);
+        const contactListBox: ContactRelationBox = this.appContext.getMaterial(ContactRelationBox);
         const list = contactListBox.getContactRelationList(categoryId);
         if (!BaseUtil.isEmpty(list)) {
             const length = list.length;
@@ -135,7 +138,7 @@ export default class ContactListManager extends AbstractMaterial {
     }
 
     public updateAllCategoryMemberCount() {
-        const contactListBox: ContactListBox = this.appContext.getMaterial(ContactListBox);
+        const contactListBox: ContactCategoryBox = this.appContext.getMaterial(ContactCategoryBox);
         const list = contactListBox.getCategoryList();
 
         const length = list.length;
@@ -147,7 +150,7 @@ export default class ContactListManager extends AbstractMaterial {
 
     public updateCategoryMemberCount(categoryId: string) {
         const userBox: UserBox = this.appContext.getMaterial(UserBox);
-        const contactListBox: ContactListBox = this.appContext.getMaterial(ContactListBox);
+        const contactListBox: ContactRelationBox = this.appContext.getMaterial(ContactRelationBox);
         const list = contactListBox.getContactRelationList(categoryId);
         let totalCount = 0;
         let onlineCount = 0;
@@ -185,7 +188,7 @@ export default class ContactListManager extends AbstractMaterial {
             userBox.putUser(user);
 
             const userId = user.id;
-            const contactListBox: ContactListBox = this.appContext.getMaterial(ContactListBox);
+            const contactListBox: ContactRelationBox = this.appContext.getMaterial(ContactRelationBox);
 
             const list = contactListBox.getContactInContactRelationListByUserId(userId);
 
@@ -209,7 +212,7 @@ export default class ContactListManager extends AbstractMaterial {
         if (relation) {
 
             const userBox: UserBox = this.appContext.getMaterial(UserBox);
-            const contactListBox: ContactListBox = this.appContext.getMaterial(ContactListBox);
+            const contactListBox: ContactRelationBox = this.appContext.getMaterial(ContactRelationBox);
 
             const contactUserId = relation.contactUserId;
             const categoryId = relation.categoryId;
@@ -237,7 +240,7 @@ export default class ContactListManager extends AbstractMaterial {
 
 
     public updateRemarkName(userId: string, remarkName: string) {
-        const contactListBox: ContactListBox = this.appContext.getMaterial(ContactListBox);
+        const contactListBox: ContactRelationBox = this.appContext.getMaterial(ContactRelationBox);
 
         const list = contactListBox.getContactInContactRelationListByUserId(userId);
         if (list) {
@@ -253,7 +256,7 @@ export default class ContactListManager extends AbstractMaterial {
     }
 
     public deleteUser(userId: string) {
-        const contactListBox: ContactListBox = this.appContext.getMaterial(ContactListBox);
+        const contactListBox: ContactRelationBox = this.appContext.getMaterial(ContactRelationBox);
         const relationList = contactListBox.removeContactRelationList(userId);
         if (relationList) {
             const listPaneView: ListPaneView = this.appContext.getView(ViewEnum.ContactListPaneView);

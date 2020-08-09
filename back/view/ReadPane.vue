@@ -9,7 +9,7 @@
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import ContentPane from './ContentPane.vue';
-    import ContentData from '../../../platform/vue/view/model/chat/content/ContentData';
+    import MessageContentWrap from '../../../common/vue/data/content/impl/message/MessageContentWrap';
 
     @Component({
         components: {
@@ -20,9 +20,9 @@
         @Prop({
             type: Array,
             required: false,
-            default: () => (new Array<ContentData>()),
+            default: () => (new Array<MessageContentWrap>()),
         })
-        private items!: ContentData[];
+        private items!: MessageContentWrap[];
 
         private viewerOptions = {
             toolbar: true, url: 'data-source', className: 'chat-img', filter: (img: any) => {

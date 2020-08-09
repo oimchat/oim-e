@@ -6,7 +6,7 @@ import GroupJoinApplyData from '@/app/com/main/module/business/group/data/GroupJ
 import GroupJoinVerifyAnswer from '@/app/com/main/module/business/group/bean/GroupJoinVerifyAnswer';
 import GroupJoinSender from '@/app/com/main/module/business/group/sender/GroupJoinSender';
 import GroupRelationSender from '@/app/com/main/module/business/group/sender/GroupRelationSender';
-import GroupListBox from '@/app/com/main/module/business/group/box/GroupListBox';
+import GroupRelationBox from '@/app/com/main/module/business/group/box/GroupRelationBox';
 import GroupRelation from '@/app/com/main/module/business/group/bean/GroupRelation';
 
 export default class GroupRelationController extends AbstractMaterial {
@@ -23,7 +23,7 @@ export default class GroupRelationController extends AbstractMaterial {
     }
 
     public moveCategory(groupIds: string[], categoryId: string, back?: DataBackAction, parallel?: boolean): void {
-        const groupListBox: GroupListBox = this.appContext.getMaterial(GroupListBox);
+        const groupListBox: GroupRelationBox = this.appContext.getMaterial(GroupRelationBox);
         const ids: string[] = [];
         if (groupIds) {
             for (const id of groupIds) {

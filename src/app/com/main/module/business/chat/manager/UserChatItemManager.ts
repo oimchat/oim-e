@@ -5,7 +5,7 @@ import MessageListView from '@/app/com/client/module/message/view/MessageListVie
 import ContactRelation from '@/app/com/main/module/business/contact/bean/ContactRelation';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
-import ContactListBox from '@/app/com/main/module/business/contact/box/ContactListBox';
+import ContactRelationBox from '@/app/com/main/module/business/contact/box/ContactRelationBox';
 import UserBox from '@/app/com/main/module/business/user/box/UserBox';
 import UserChatItemEvent from '@/app/com/main/module/common/event/UserChatItemEvent';
 
@@ -32,7 +32,7 @@ export default class UserChatItemManager extends AbstractMaterial {
 
     public addOrUpdate(user: User) {
         if (user) {
-            const contactListBox: ContactListBox = this.appContext.getMaterial(ContactListBox);
+            const contactListBox: ContactRelationBox = this.appContext.getMaterial(ContactRelationBox);
             const relation: ContactRelation = contactListBox.getContactRelationByUserId(user.id);
             this.addOrUpdateInfo(user, relation);
         }
@@ -80,9 +80,9 @@ export default class UserChatItemManager extends AbstractMaterial {
         messageListView.removeItem(this.type, userId);
     }
 
-    public updateItemText(userId: string, text: string, time: string): void {
+    public updateItemText(userId: string, text: string, timeText: string, timestamp: number): void {
         const messageListView: MessageListView = this.appContext.getView(ViewEnum.MessageListView);
-        messageListView.updateItemText(this.type, userId, text, time);
+        messageListView.updateItemText(this.type, userId, text, timeText, timestamp);
     }
 
     public setItemRed(userId: string, red: boolean, count: number): void {

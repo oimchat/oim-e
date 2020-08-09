@@ -5,12 +5,12 @@ import UserChatService from '@/app/com/main/module/business/chat/service/UserCha
 import UserChatDataSender from '@/app/com/main/module/business/chat/sender/UserChatDataSender';
 import UserChatQuery from '@/app/com/main/module/business/chat/data/UserChatQuery';
 import UserChatDataService from '@/app/com/main/module/business/chat/service/UserChatDataService';
-import ContentData from '@/platform/vue/view/model/chat/content/ContentData';
+import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
 
 
 export default class UserChatDataController extends AbstractMaterial {
 
-    public queryList(query: UserChatQuery, page: Page, back: (page: Page, contents: ContentData[]) => void): void {
+    public queryList(query: UserChatQuery, page: Page, back: (page: Page, contents: MessageContentWrap[]) => void): void {
         const userChatDataService: UserChatDataService = this.appContext.getMaterial(UserChatDataService);
         userChatDataService.queryList(query, page, back);
     }

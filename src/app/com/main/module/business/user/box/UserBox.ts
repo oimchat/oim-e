@@ -2,25 +2,11 @@ import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/main/module/business/user/bean/User';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
-import DataChange from '@/app/base/event/DataChange';
 import ObjectUtil from '@/app/common/util/ObjectUtil';
 
 export default class UserBox extends AbstractMaterial {
     /** 所有用户<userId,userData> */
     private allUserMap: Map<string, User> = new Map<string, User>();
-    private changeEvents: Array<DataChange<User>> = [];
-
-    public handleChangeEvent(user: User): void {
-        for (const e of this.changeEvents) {
-            e.change(user);
-        }
-    }
-
-    public addChangeEvent(e: DataChange<User>) {
-        if (this.changeEvents.includes(e)) {
-            this.changeEvents.push(e);
-        }
-    }
 
     /**
      * 存放用户
@@ -114,5 +100,15 @@ export default class UserBox extends AbstractMaterial {
             }
         }
         return list;
+    }
+
+    public keepSize(max: number) {
+        const map: Map<string, User> = this.allUserMap;
+        const size = map.size;
+        const overflow = size - max;
+        for (let i = 0; i < overflow; i++) {
+            const key = map.keys().next().value;
+            map.delete(key);
+        }
     }
 }

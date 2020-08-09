@@ -9,14 +9,14 @@ import Page from '@/app/com/common/data/Page';
 import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
 import UserChatData from '@/app/com/main/module/business/chat/data/UserChatData';
 import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
-import ContentData from '@/platform/vue/view/model/chat/content/ContentData';
+import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
 import Prompter from '@/app/com/main/component/Prompter';
 
 
 export default class UserChatDataService extends AbstractMaterial {
 
 
-    public queryList(query: UserChatQuery, page: Page, back: (page: Page, contents: ContentData[]) => void) {
+    public queryList(query: UserChatQuery, page: Page, back: (page: Page, contents: MessageContentWrap[]) => void) {
         const own = this;
         const prompter: Prompter = this.appContext.getMaterial(Prompter);
         const userChatSender: UserChatDataSender = this.appContext.getMaterial(UserChatDataSender);
@@ -43,11 +43,11 @@ export default class UserChatDataService extends AbstractMaterial {
         userChatSender.queryList(query, page, queryBack);
     }
 
-    private doBack(page: Page, items: UserChatData[], back: (page: Page, contents: ContentData[]) => void): void {
+    private doBack(page: Page, items: UserChatData[], back: (page: Page, contents: MessageContentWrap[]) => void): void {
         if (items) {
             const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
             const ownUserId = pb.getUserId();
-            const list: ContentData[] = [];
+            const list: MessageContentWrap[] = [];
             const length = items.length;
             for (let i = length - 1; i >= 0; i--) {
                 const data = items[i];
@@ -74,7 +74,7 @@ export default class UserChatDataService extends AbstractMaterial {
 
                 const showName = chatUser.nickname;
 
-                const contentData: ContentData = new ContentData();
+                const contentData: MessageContentWrap = new MessageContentWrap();
                 contentData.key = messageKey;
                 contentData.id = contentId;
                 contentData.content = content;

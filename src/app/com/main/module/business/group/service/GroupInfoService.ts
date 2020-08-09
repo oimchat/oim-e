@@ -5,6 +5,7 @@ import DataBackAction from '@/app/base/net/DataBackAction';
 import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
 import GroupInfoSender from '@/app/com/main/module/business/group/sender/GroupInfoSender';
 import GroupListManager from '@/app/com/main/module/business/group/manager/GroupListManager';
+import GroupListener from "@/app/com/main/module/business/group/listener/GroupListener";
 
 export default class GroupInfoService extends AbstractMaterial {
 
@@ -28,6 +29,10 @@ export default class GroupInfoService extends AbstractMaterial {
 
     public updateGroup(group: Group): void {
         if (group) {
+
+            const listener: GroupListener = this.appContext.getMaterial(GroupListener);
+            listener.handleChangeEvent(group);
+
             const ccm: GroupListManager = this.appContext.getMaterial(GroupListManager);
             ccm.addOrUpdateGroup(group);
         }

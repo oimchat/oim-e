@@ -5,7 +5,7 @@ import MessageListView from '@/app/com/client/module/message/view/MessageListVie
 import GroupRelation from '@/app/com/main/module/business/group/bean/GroupRelation';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import GroupInfoUtil from '@/app/com/main/common/util/GroupInfoUtil';
-import GroupListBox from '@/app/com/main/module/business/group/box/GroupListBox';
+import GroupRelationBox from '@/app/com/main/module/business/group/box/GroupRelationBox';
 import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
 import GroupChatItemEvent from '@/app/com/main/module/common/event/GroupChatItemEvent';
 
@@ -32,7 +32,7 @@ export default class GroupChatItemManager extends AbstractMaterial {
 
     public addOrUpdate(group: Group) {
         if (group) {
-            const groupListBox: GroupListBox = this.appContext.getMaterial(GroupListBox);
+            const groupListBox: GroupRelationBox = this.appContext.getMaterial(GroupRelationBox);
             const relation: GroupRelation = groupListBox.getGroupRelationByGroupId(group.id);
             this.addOrUpdateInfo(group, relation);
         }
@@ -79,9 +79,9 @@ export default class GroupChatItemManager extends AbstractMaterial {
         messageListView.removeItem(this.type, groupId);
     }
 
-    public updateItemText(groupId: string, text: string, time: string): void {
+    public updateItemText(groupId: string, text: string, timeText: string, timestamp: number): void {
         const messageListView: MessageListView = this.appContext.getView(ViewEnum.MessageListView);
-        messageListView.updateItemText(this.type, groupId, text, time);
+        messageListView.updateItemText(this.type, groupId, text, timeText, timestamp);
     }
 
     public setItemRed(groupId: string, red: boolean, count: number): void {

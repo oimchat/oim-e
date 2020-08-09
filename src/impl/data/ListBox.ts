@@ -162,8 +162,6 @@ class ListBox {
         }
         return node;
     }
-
-
 }
 
 export default ListBox;

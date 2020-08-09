@@ -1,12 +1,12 @@
 <template>
-    <div :id="data.content.id" class="">
+    <div :id="data.content.key" class="">
         <div class="clear_fix">
             <div style="overflow: hidden;">
                 <div :class="data.isOwn?'message right':'message left'">
                     <div v-if="data.timeVisible" class="message_system ">
-                        <div class="content">{{getTime}}</div>
+                        <div class="content">{{data.timeText}}</div>
                     </div>
-                    <img class="avatar" :src="getAvatar" :title="getName">
+                    <img class="avatar" :src="data.avatar" :title="data.name">
                     <div class="content message-font">
                         <h4 v-if="data.nameVisible && !data.isOwn" class="nickname">{{data.name}}</h4>
                         <div :class="data.isOwn?'bubble bubble_primary right':'bubble bubble_default left'">
@@ -29,23 +29,21 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import ContentData from '@/platform/vue/view/model/chat/content/ContentData';
-    import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
+    import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
     import app from '@/app/App';
     import ContentUtil from '@/impl/util/ContentUtil';
     import FileDownload from '@/app/com/main/component/FileDownload';
-    import MessageTimeSettingStore from '@/app/com/main/module/setting/message/MessageTimeSettingStore';
 
     @Component({
         components: {},
     })
     export default class ContentPane extends Vue {
         @Prop({
-            type: ContentData,
+            type: MessageContentWrap,
             required: false,
-            default: () => (new ContentData()),
+            default: () => (new MessageContentWrap()),
         })
-        private data!: ContentData;
+        private data!: MessageContentWrap;
 
         private download(url: string) {
             const fileDownload: FileDownload = app.appContext.getMaterial(FileDownload);
@@ -68,55 +66,12 @@
             }
         }
 
-        get getAvatar() {
-            let avatar = '';
-            if (this.data) {
-                avatar = UserInfoUtil.getHeadImage(this.data.user);
-            } else {
-                avatar = UserInfoUtil.getDefaultAvatar();
-            }
-            return avatar;
-        }
-
-        get getName() {
-            let name = '';
-            if (this.data) {
-                name = this.data.name;
-                if (name === '' || !name) {
-                    if (this.data.user) {
-                        name = UserInfoUtil.getShowName(this.data.user);
-                    }
-                }
-            }
-            return name;
-        }
-
         get getContent() {
             let tag = '';
             if (this.data && this.data.content) {
                 tag = ContentUtil.createChatContent(this.data.content);
             }
             return tag;
-        }
-
-        get getTime() {
-            let time = '';
-            if (this.data && this.data.content) {
-
-                const messageTimeSettingStore: MessageTimeSettingStore = app.appContext.getMaterial(MessageTimeSettingStore);
-
-                const timestamp = this.data.content.timestamp;
-                const date = (timestamp) ? new Date(timestamp) : new Date();
-
-                const dateTimestamp = new Date().getTime();
-                const durationMillisecond = (dateTimestamp - timestamp);
-                const format = messageTimeSettingStore.getPastTimeFormatValue(durationMillisecond);
-
-                // const isOverDay = (dateTimestamp - timestamp) > (1000 * 60 * 60 * 12);
-                // time = (isOverDay) ? ContentUtil.format('MM-dd hh:mm:ss', date) : ContentUtil.format('hh:mm:ss', date);
-                time = ContentUtil.format(format, date);
-            }
-            return time;
         }
     }
 </script>

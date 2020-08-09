@@ -40,9 +40,9 @@ export default class SystemInformationItemManager extends AbstractMaterial {
         messageListView.removeItem(this.type, key);
     }
 
-    public updateItemText(key: string, text: string, time: string): void {
+    public updateItemText(key: string, text: string, timeText: string, timestamp: number): void {
         const messageListView: MessageListView = this.appContext.getView(ViewEnum.MessageListView);
-        messageListView.updateItemText(this.type, key, text, time);
+        messageListView.updateItemText(this.type, key, text, timeText, timestamp);
     }
 
     public setItemRed(key: string, red: boolean, count: number): void {

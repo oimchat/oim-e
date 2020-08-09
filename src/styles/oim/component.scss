@@ -320,6 +320,18 @@
 }
 
 
+.only-component-color {
+    color: #fff;
+    background-color: $oim-main-theme-color;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px
+}
+
+.only-component-color:hover {
+    background-color: $oim-component-body-color;
+}
+
 .only-center-pane {
     text-align: center;
 
@@ -551,3 +563,10 @@
     }
 }
 
+.only-blur {
+    -webkit-filter: blur(10px); /* Chrome, Opera */
+    -moz-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /* IE6~IE9 */
+}

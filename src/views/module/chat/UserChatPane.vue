@@ -1,117 +1,85 @@
 <template>
-    <div class="box chat">
+    <div class="only-full-pane">
         <!--begin HD-->
-        <div class="box_hd">
-            <div></div>
-            <div class="title_wrap">
-                <div class="title poi">
-                    <a @click="handleShowList" class="title_name ng-binding" data-username="">{{chatData.name}}</a>
-                    <i class="oim_chat_down_icon "></i>
+        <div class="top">
+            <div :class="'top-title-warp'">
+                <div class="ext">
+                    <p class="attr">{{777}}</p>
                 </div>
-                <div v-if='isOwner' style="float: right">
-                    <Icon @click="showMore = true" type="ios-arrow-dropdown"
-                          style='font-size: 32px;cursor: pointer'/>
+                <div class="avatar">
+                    <img :class="'img'" :src="'assets/images/common/head/user/10.png'" alt="">
                 </div>
-            </div>
-        </div>
-        <div>
-            <div v-if="showList" class="popup members_wrp slide-down" tabindex="-1" style="">
-                <div class="members compatible">
-                    <div class="members_inner">
-                        <div v-for='item in groupMemberData.users' @contextmenu='memberContextMenu($event,item)'
-                             class="member">
-                            <img class="avatar" :src="item.avatar" alt="" :title="getNickname(item)">
-                            <p class="nickname" style="text-align: center;">{{getNickname(item)}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--end HD-->
-        <!--begin BD-->
-        <div ref="messageListPane" @scroll="handleScroll" class="scroll-wrapper box_bd chat_bd scrollbar-dynamic"
-             style="position: absolute;">
-            <MessagePane :items="messageInfo.list"></MessagePane>
-        </div>
-        <div v-if='messageInfo.showPrompt' class="popup members_wrp slide-down" tabindex="-1" style="">
-            <div class="members compatible">
-                <div class="members_inner">
-                    {{messageInfo.prompt}}
-                </div>
-            </div>
-        </div>
-        <WritePane ref="writePane"
-                   @on-send="send"
-                   @on-key-press='onKeyPress'
-                   @on-key-up='onKeyUp'
-                   @on-file="onSendFile">
 
-        </WritePane>
-        <Drawer title="更多" width="340" :mask="false" :closable="true" v-model="showMore">
-            <div v-if='showMore'>
-                <GroupJoinSettingPane :groupId='chatData.key'></GroupJoinSettingPane>
+                <div class="info">
+                    <h3 class="nickname">
+                        <span class="nickname-text">{{chatData.name}}</span>
+                    </h3>
+                    <p class="msg">
+                        <span class="">{{'dddddddddddddddddddd'}}</span>
+                    </p>
+                </div>
             </div>
-        </Drawer>
-        <GroupMemberContextMenu ref='groupMemberContextMenu'></GroupMemberContextMenu>
+        </div>
+        <div class="oim-chat-pane">
+            <q-splitter
+                    v-model="splitterModel"
+                    reverse
+                    horizontal
+                    unit="px"
+            >
+                <template v-slot:before>
+                    <MessagePane :items="model.data.list"></MessagePane>
+                </template>
+                <template v-slot:after>
+                    <WritePane ref="writePane" @on-send="send" @on-key-press='onKeyPress'
+                               @on-file="onSendFile"></WritePane>
+                </template>
+            </q-splitter>
+        </div>
     </div>
 </template>
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import MessagePane from '@/views/common/chat/MessagePane.vue';
+    import MessagePane from '@/views/common/chat/ReadPane.vue';
     import WritePane from '@/views/common/chat/WritePane.vue';
 
-    import GroupJoinSettingPane from '@/views/module/group/GroupJoinSettingPane.vue';
-    import GroupMemberContextMenu from '@/views/module/group/GroupMemberContextMenu.vue';
-
-    import groupChatViewModel from '@/impl/data/GroupChatViewModel';
+    import userChatViewModel from '@/impl/data/UserChatViewModel';
 
     import app from '@/app/App';
-    import GroupChatController from '@/app/com/main/module/business/chat/controller/GroupChatController';
+    import UserChatController from '@/app/com/main/module/business/chat/controller/UserChatController';
     import ContentUtil from '@/impl/util/ContentUtil';
     import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
     import ContentUploadImageService from '@/app/com/main/module/support/file/service/ContentUploadImageService';
     import UploadResult from '@/app/com/main/module/support/file/data/UploadResult';
     import ImageValue from '@/app/com/common/chat/item/ImageValue';
     import BaseUtil from '@/app/lib/util/BaseUtil';
-    import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
-    import User from '@/app/com/main/module/business/user/bean/User';
-    import Section from '@/app/com/common/chat/Section';
     import Content from '@/app/com/common/chat/Content';
+    import Section from '@/app/com/common/chat/Section';
     import Item from '@/app/com/common/chat/Item';
     import FileValue from '@/app/com/common/chat/item/FileValue';
-    import PersonalGroupMemberListBox from '@/app/com/main/module/business/group/box/PersonalGroupMemberListBox';
-    import GroupMemberService from '@/app/com/main/module/business/group/service/GroupMemberService';
-    import DocumentUtil from '@/common/web/util/DocumentUtil';
-    import GroupChatDataController from '@/app/com/main/module/business/chat/controller/GroupChatDataController';
+    import UserChatDataController from '@/app/com/main/module/business/chat/controller/UserChatDataController';
     import ImageItemFileConverter from '@/app/define/file/ImageItemFileConverter';
 
     @Component({
         components: {
             MessagePane,
             WritePane,
-            GroupJoinSettingPane,
-            GroupMemberContextMenu,
         },
     })
-    export default class GroupChatPane extends Vue {
-        private chatData = groupChatViewModel.chatData;
-        private messageInfo = groupChatViewModel.messageInfo;
-        private cacheData = groupChatViewModel.cacheData;
+    export default class UserChatPane extends Vue {
+        private splitterModel = 190; // start at 150px
+        private model = userChatViewModel;
+        private chatData = userChatViewModel.chatData;
+        private messageInfo = userChatViewModel.data;
+        private cacheData = userChatViewModel.cacheData;
+        private selectionStart: number = 0;
 
-        private groupMemberData: {
-            users: User[],
-        } = groupChatViewModel.groupMemberData;
-
-        private showList: boolean = false;
-
-        private showMore: boolean = false;
-        private isOwner: boolean = false;
 
         public mounted() {
             this.initialize();
 
-            groupChatViewModel.cacheData.updateScroll = (size: number) => {
+            userChatViewModel.cacheData.updateScroll = (size: number) => {
                 const messageListPaneName = 'messageListPane';
                 const messageListPane: any = this.$refs[messageListPaneName];
                 if (messageListPane) {
@@ -119,18 +87,29 @@
                 }
             };
 
-            groupChatViewModel.cacheData.getScrollHeight = () => {
+            userChatViewModel.cacheData.getScrollHeight = () => {
                 const messageListPaneName = 'messageListPane';
                 const messageListPane: any = this.$refs[messageListPaneName];
                 const height = (messageListPane) ? messageListPane.scrollHeight : 0;
                 return height;
             };
 
-            groupChatViewModel.cacheData.setInnerHTML = (html: string) => {
+            userChatViewModel.cacheData.setInnerHTML = (html: string) => {
                 const writePaneName = 'writePane';
                 const writePane: any = this.$refs[writePaneName];
                 if (writePane) {
                     writePane.setInnerHTML(html);
+                }
+            };
+            userChatViewModel.cacheData.updateScrollIntoView = (viewId: string) => {
+                // no
+                const messageListPaneName = 'messageListPane';
+                const messageListPane: any = this.$refs[messageListPaneName];
+                // const height = messageListPane.scrollHeight;
+                const v = document.getElementById(viewId);
+                if (v && messageListPane) {
+                    const offsetTop = v.offsetTop;
+                    messageListPane.scrollTop = offsetTop;
                 }
             };
         }
@@ -188,26 +167,16 @@
                     }
                 });
             }
-            this.keyChange();
         }
 
-        private onKeyPress(e: KeyboardEvent, inputArea: Element) {
-
-            if (e.key === '@') {
-                e.returnValue = false;
-                DocumentUtil.getCursorLocation(inputArea);
-                return false;
-            }
-        }
-
-        private onKeyUp(e: KeyboardEvent, inputArea: Element) {
-            this.cacheData.data.html = (inputArea).innerHTML;
+        private onKeyPress(e: Event, inputArea: any) {
+            this.cacheData.data.html = (inputArea as Element).innerHTML;
         }
 
         private send(inputArea: any) {
             const childNodes: Element[] = inputArea.childNodes;
             if (childNodes) {
-                const groupId = this.chatData.key;
+                const userId = this.chatData.key;
                 const content = ContentUtil.getContent(childNodes);
                 if (content) {
                     const text = CoreContentUtil.getText(content);
@@ -224,8 +193,8 @@
                     } else {
                         const items = CoreContentUtil.getImageItemList(content);
                         try {
+                            // const map: Map<string, File> = (wuh) ? wuh.getFileMapByItems(items) : new Map<string, File>(); // ImagePathFile.getFileMapByItems(items);
 
-                            // const map: Map<string, File> = (wuh) ? wuh.getFileMapByItems(items) : new Map<string, File>(); //
                             const handleItemsBack = (map: Map<string, File>) => {
                                 if (map.size > 0) {
                                     const cuis: ContentUploadImageService = app.appContext.getMaterial(ContentUploadImageService);
@@ -252,20 +221,20 @@
                                                 }
                                             }
 
-                                            const groupChatController: GroupChatController = app.appContext.getMaterial(GroupChatController);
-                                            groupChatController.chat(groupId, content);
+                                            const userChatController: UserChatController = app.appContext.getMaterial(UserChatController);
+                                            userChatController.userChat(userId, content);
                                             inputArea.innerHTML = '';
                                             this.cacheData.data.html = '';
-
                                         }
                                     });
                                 } else {
-                                    const groupChatController: GroupChatController = app.appContext.getMaterial(GroupChatController);
-                                    groupChatController.chat(groupId, content);
+                                    const userChatController: UserChatController = app.appContext.getMaterial(UserChatController);
+                                    userChatController.userChat(userId, content);
                                     inputArea.innerHTML = '';
                                     this.cacheData.data.html = '';
                                 }
                             };
+
                             const wuh: ImageItemFileConverter = app.appContext.getObject(ImageItemFileConverter.name);
                             if (wuh) {
                                 wuh.handleItems(items, handleItemsBack);
@@ -310,9 +279,9 @@
                 item.value = BaseUtil.objectToJson(iv);
                 section.items.push(item);
 
-                const groupId = this.chatData.key;
-                const groupChatController: GroupChatController = app.appContext.getMaterial(GroupChatController);
-                groupChatController.chat(groupId, content);
+                const userId = this.chatData.key;
+                const userChatController: UserChatController = app.appContext.getMaterial(UserChatController);
+                userChatController.userChat(userId, content);
             }
         }
 
@@ -349,65 +318,159 @@
         }
 
         private loadHistory() {
-            let messageKey = '';
-            const groupId = this.chatData.key;
-            if (this.messageInfo.list && this.messageInfo.list.length > 0) {
-                messageKey = this.messageInfo.list[0].key;
-                // 历史记录时记录当前聊天界面的id
-                const contentId = this.messageInfo.list[0].id;
-                this.cacheData.data.lastContentId = contentId;
-                const length = this.messageInfo.list.length;
-                if (length < 500) {
-                    const groupChatController: GroupChatDataController = app.appContext.getMaterial(GroupChatDataController);
-                    groupChatController.loadHistory(groupId, messageKey, 20);
-                } else {
-                    this.messageInfo.prompt = '更多内容请看历史记录。';
-                    if (!this.messageInfo.showPrompt) {
-                        this.messageInfo.showPrompt = true;
-                        setTimeout(() => {
-                            this.messageInfo.showPrompt = false;
-                        }, 3000);
-                    }
-                }
-            }
-        }
-
-        private getNickname(user: User): string {
-            const service: GroupMemberService = app.appContext.getMaterial(GroupMemberService);
-            const groupId = this.chatData.key;
-            let nickname = '';
-            if (user) {
-                nickname = service.getUserShowName(groupId, user);
-            }
-            return nickname;
-        }
-
-        private handleShowList() {
-            this.showList = !this.showList;
-        }
-
-        @Watch('chatData.key')
-        private keyChange(): void {
-            // no
-            this.showList = false;
-            this.showMore = false;
-
-            const groupId = this.cacheData.key;
-            const personalGroupMemberListBox: PersonalGroupMemberListBox = app.appContext.getMaterial(PersonalGroupMemberListBox);
-            const position = personalGroupMemberListBox.getPosition(groupId);
-            this.isOwner = (GroupMember.POSITION_OWNER === position);
-        }
-
-        private memberContextMenu(e: MouseEvent, user: User) {
-            const groupId = this.chatData.key;
-            const userId = user.id;
-            const menuName = 'groupMemberContextMenu';
-            const menu: any = this.$refs[menuName];
-            menu.show(e, groupId, userId);
+            userChatViewModel.loadHistory();
         }
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    .top {
+        padding-top: 10px;
+        background-color: #fff;
+        color: #000000;
+        height: 65px;
+        border-bottom: 1px solid #d2d2d2;
+    }
+
+    .title-wrap {
+        position: relative;
+        margin: 0 19px;
+        z-index: 1024;
+    }
+
+    .title {
+        font-weight: 400;
+        height: 25px;
+        display: inline-block;
+        font-size: 18px
+    }
+
+    .avatar-wrap {
+        float: left;
+        position: relative;
+        padding: 2px 0px 0px 10px;
+    }
+
+    .avatar {
+        float: left;
+        margin-right: 10px;
+        position: relative
+    }
+
+    .avatar .img {
+        display: block;
+        width: 40px;
+        height: 40px;
+        /*border-radius: 2px;*/
+        /*-moz-border-radius: 2px;*/
+        /*-webkit-border-radius: 2px*/
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+    }
+
+    .top-extend {
+        float: right;
+    }
+
+
+    .top-title-warp {
+        overflow: hidden;
+        padding: 6px 18px 11px;
+        /*border-bottom: 1px solid #647481;*/
+        position: relative
+    }
+
+    .top-title-warp.top {
+        background-color: #2e3641
+    }
+
+    .top-title-warp.active {
+        background: #cbced0
+    }
+
+    .top-title-warp.active .ext, .top-title-warp.active .info .msg {
+        color: #181818
+    }
+
+    .top-title-warp .avatar {
+        float: left;
+        margin-right: 10px;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .top-title-warp .avatar .img {
+        display: block;
+        width: 40px;
+        height: 40px;
+        /*border-radius: 2px;*/
+        /*-moz-border-radius: 2px;*/
+        /*-webkit-border-radius: 2px*/
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+    }
+
+    .top-title-warp .avatar .icon {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        color: #fff;
+        font-style: normal;
+        font-size: 12px;
+        text-align: center
+    }
+
+    .top-title-warp .info {
+        overflow: hidden
+    }
+
+    .top-title-warp .info .nickname {
+        font-weight: 400;
+        font-size: 13px;
+        color: #0a0a0a;
+        line-height: 20px
+    }
+
+    .top-title-warp .info .nickname-text {
+        width: 100%;
+        font-size: 18px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal
+    }
+
+    .top-title-warp .info .nickname_count, .top-title-warp .info .nickname-text {
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+        vertical-align: top
+    }
+
+    .top-title-warp .info .msg {
+        color: #989898;
+        font-size: 13px;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal;
+        height: 1.5em
+    }
+
+    .top-title-warp .ext {
+        float: right;
+        color: #6b6f7c;
+        font-size: 13px;
+        text-align: right
+    }
+
+    .top-title-warp .ext .attr {
+        height: 19px;
+        line-height: 1.5
+    }
+
 
 </style>

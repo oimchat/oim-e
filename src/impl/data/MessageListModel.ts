@@ -16,12 +16,16 @@ class MessageListModel {
             this.map.set(id, item);
             this.list.push(item);
         }
+        const lastTimestamp = new Date().getMilliseconds();
+        item.lastTimestamp = lastTimestamp;
+
         item.key = key;
         item.name = name;
         item.avatar = avatar;
         item.gray = gray;
         item.onSelect = onSelect;
         item.onDelete = onDelete;
+        this.sort(this.list);
     }
 
     public isItemShowing(type: string, key: string): boolean {
@@ -55,12 +59,14 @@ class MessageListModel {
         }
     }
 
-    public updateItemText(type: string, key: string, text: string, time: string): void {
+    public updateItemText(type: string, key: string, text: string, timeText: string, timestamp: number): void {
         const id = this.getId(type, key);
         const item = this.map.get(id);
         if (item) {
             item.text = text;
-            item.time = time;
+            item.time = timeText;
+            item.lastTimestamp = timestamp;
+            this.sort(this.list);
         }
     }
 
@@ -81,6 +87,16 @@ class MessageListModel {
         this.list = [];
         this.map = new Map<string, IconItemData>();
         this.box = new IconItemBox();
+    }
+
+    private sort(list: IconItemData[]) {
+        if (list) {
+            list.sort((a: IconItemData, b: IconItemData) => {
+                const timestamp1: number = a.lastTimestamp;
+                const timestamp2: number = b.lastTimestamp;
+                return timestamp2 - timestamp1;
+            })
+        }
     }
 
     private getId(type: string, key: string): string {

@@ -23,8 +23,8 @@ export default class MessageListViewImpl extends AbstractMaterial implements Mes
         messageListModel.setItemRed(type, key, red, count);
     }
 
-    public updateItemText(type: string, key: string, text: string, time: string): void {
-        messageListModel.updateItemText(type, key, text, time);
+    public updateItemText(type: string, key: string, text: string, timeText: string, timestamp: number): void {
+        messageListModel.updateItemText(type, key, text, timeText, timestamp);
     }
 
     public selectItem(type: string, key: string) {

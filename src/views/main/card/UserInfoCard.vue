@@ -79,7 +79,7 @@
     import ContactRelation from '@/app/com/main/module/business/contact/bean/ContactRelation';
     import app from '@/app/App';
     import UserBox from '@/app/com/main/module/business/user/box/UserBox';
-    import ContactListBox from '@/app/com/main/module/business/contact/box/ContactListBox';
+    import ContactRelationBox from '@/app/com/main/module/business/contact/box/ContactRelationBox';
     import ContactRelationController from '@/app/com/main/module/business/contact/controller/ContactRelationController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
@@ -102,7 +102,7 @@
         public setUserId(userId: string) {
             this.userId = userId;
             const userBox: UserBox = app.appContext.getMaterial(UserBox);
-            const contactListBox: ContactListBox = app.appContext.getMaterial(ContactListBox);
+            const contactListBox: ContactRelationBox = app.appContext.getMaterial(ContactRelationBox);
             const user: User = userBox.getUser(userId);
             let relation: ContactRelation = new ContactRelation();
             const list = contactListBox.getContactInContactRelationListByUserId(userId);

@@ -2,11 +2,15 @@ import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import Group from '@/app/com/main/module/business/group/bean/Group';
 import Content from '@/app/com/common/chat/Content';
 import groupChatViewModel from '@/impl/data/GroupChatViewModel';
-import GroupListBox from '@/app/com/main/module/business/group/box/GroupListBox';
+import GroupRelationBox from '@/app/com/main/module/business/group/box/GroupRelationBox';
 import GroupInfoUtil from '@/app/com/main/common/util/GroupInfoUtil';
 import GroupChatView from '@/app/com/main/module/business/chat/view/GroupChatView';
 import User from '@/app/com/main/module/business/user/bean/User';
 import GroupMemberService from '@/app/com/main/module/business/group/service/GroupMemberService';
+import messageAreaViewModel from "@/platform/web/view/model/MessageAreaViewModel";
+import MessageAreaViewType from "@/platform/web/view/model/MessageAreaViewType";
+import mainViewData from "@/platform/web/view/data/MainViewData";
+import mainBaseTabs from "@/platform/web/view/data/MainBaseTabs";
 
 export default class GroupChatViewImpl extends AbstractMaterial implements GroupChatView {
 
@@ -15,7 +19,7 @@ export default class GroupChatViewImpl extends AbstractMaterial implements Group
         let name = '';
         if (group) {
             const groupId = group.id;
-            const groupListBox: GroupListBox = this.appContext.getMaterial(GroupListBox);
+            const groupListBox: GroupRelationBox = this.appContext.getMaterial(GroupRelationBox);
             const list = groupListBox.getGroupInGroupRelationListByGroupId(groupId);
 
             if (list && list.length > 0) {
@@ -56,10 +60,18 @@ export default class GroupChatViewImpl extends AbstractMaterial implements Group
     }
 
     public isVisible(): boolean {
-        return false;
+        const showPane = messageAreaViewModel.tab === MessageAreaViewType.GroupChat;
+        const showMassage = mainViewData.tab === mainBaseTabs.messageTab.key;
+        return showPane && showMassage;
     }
 
     public setVisible(visible: boolean): void {
-        // no
+        if (visible) {
+            mainViewData.tab = mainBaseTabs.messageTab.key
+            messageAreaViewModel.tab = MessageAreaViewType.GroupChat;
+        } else {
+            mainViewData.tab = mainBaseTabs.messageTab.key
+            messageAreaViewModel.tab = MessageAreaViewType.No;
+        }
     }
 }

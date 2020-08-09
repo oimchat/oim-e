@@ -2,6 +2,9 @@ import {MethodMapping} from '@/app/base/action/annotation/ActionDecorator';
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import GroupChatService from '@/app/com/main/module/business/chat/service/GroupChatService';
 import Content from '@/app/com/common/chat/Content';
+import ContentItemUtil from "@/app/com/common/chat/util/ContentItemUtil";
+import User from "@/app/com/main/module/business/user/bean/User";
+import UserInfoUtil from "@/app/com/main/common/util/UserInfoUtil";
 
 export default class GroupChatAction extends AbstractMaterial {
     private static action: string = '2.3.001';
@@ -12,8 +15,11 @@ export default class GroupChatAction extends AbstractMaterial {
             const userId: string = data.body.userId;
             const groupId: string = data.body.groupId;
             const content: Content = data.body.content;
+            const user: User = data.body.user;
+            ContentItemUtil.handle(content);
+            UserInfoUtil.handleAvatar(user);
             const ucs: GroupChatService = this.appContext.getMaterial(GroupChatService);
-            ucs.chat(true, userId, groupId, content);
+            ucs.chat(true, userId, user, groupId, content);
         }
     }
 }

@@ -6,7 +6,7 @@ export default interface MessageListView extends View {
 
     hasItem(type: string, key: string): boolean;
 
-    updateItemText(type: string, key: string, text: string, time: string): void;
+    updateItemText(type: string, key: string, text: string, timeText: string, timestamp: number): void;
 
     removeItem(type: string, key: string): void;
 

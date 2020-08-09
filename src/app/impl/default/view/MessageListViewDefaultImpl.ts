@@ -21,7 +21,7 @@ export default class MessageListViewDefaultImpl extends AbstractMaterial impleme
         // no
     }
 
-    public updateItemText(type: string, key: string, text: string, time: string): void {
+    public updateItemText(type: string, key: string, text: string, time: string, t: number): void {
         // no
     }
 

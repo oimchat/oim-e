@@ -219,7 +219,7 @@
             this.selectedTab(key);
         }
 
-        public setItemRed(type: string, red: boolean, count: number): void {
+        public setRed(type: string, red: boolean, count: number): void {
             count = (count > 99) ? 99 : count;
             for (const data of this.sideTabInfos) {
                 if (data.key === type) {

@@ -1,9 +1,10 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import Group from '@/app/com/main/module/business/group/bean/Group';
-import BaseUtil from '@/app/lib/util/BaseUtil';
 import GroupInfoUtil from '@/app/com/main/common/util/GroupInfoUtil';
+import ObjectUtil from "@/app/common/util/ObjectUtil";
 
 export default class GroupBox extends AbstractMaterial {
+
     /** 所有群<groupId,Group> */
     private allGroupMap: Map<string, Group> = new Map<string, Group>();
 
@@ -16,7 +17,13 @@ export default class GroupBox extends AbstractMaterial {
     public putGroup(group: Group): void {
         const groupId = group.id;
         GroupInfoUtil.handleAvatar(group);
-        this.allGroupMap.set(groupId, group);
+        const g = this.getGroup(groupId);
+        if (g) {
+            ObjectUtil.copyByTargetKey(g, group);
+        } else {
+            this.allGroupMap.set(groupId, group);
+        }
+
     }
 
     public putGroupList(list: Group[]) {
@@ -66,5 +73,15 @@ export default class GroupBox extends AbstractMaterial {
             }
         }
         return list;
+    }
+
+    public keepSize(max: number) {
+        const map: Map<string, Group> = this.allGroupMap;
+        const size = map.size;
+        const overflow = size - max;
+        for (let i = 0; i < overflow; i++) {
+            const key = map.keys().next().value;
+            map.delete(key);
+        }
     }
 }

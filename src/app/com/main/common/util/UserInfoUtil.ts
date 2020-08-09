@@ -1,5 +1,6 @@
 import User from '@/app/com/main/module/business/user/bean/User';
 import BaseUtil from '@/app/lib/util/BaseUtil';
+import UserBase from "@/app/com/main/module/business/user/bean/UserBase";
 
 export default class UserInfoUtil {
 
@@ -13,7 +14,7 @@ export default class UserInfoUtil {
     public static PUBLIC_STATIC_STATUS_INVISIBLE: string = '6';
     public static PUBLIC_STATIC_STATUS_OFFLINE: string = '7';
 
-    public static getShowName(user: User): string {
+    public static getShowName(user: UserBase): string {
         let showName = '';
         if (user) {
 
@@ -62,7 +63,7 @@ export default class UserInfoUtil {
         return offline;
     }
 
-    public static getHeadImage(user: User): string {
+    public static getHeadImage(user: UserBase): string {
         let image = UserInfoUtil.USER_HEAD_IMAGES + '1.png';
         if (user) {
             const head = user.head;
@@ -80,7 +81,7 @@ export default class UserInfoUtil {
         return image;
     }
 
-    public static handleAvatar(user: User): void {
+    public static handleAvatar(user: UserBase): void {
         if (user) {
             let head = user.head;
             const avatar = user.avatar;

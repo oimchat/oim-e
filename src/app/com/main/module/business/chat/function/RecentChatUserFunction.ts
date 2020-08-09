@@ -43,10 +43,10 @@ export default class RecentChatUserFunction extends AbstractMaterial {
                 showUser = (user) ? user : showUser;
 
                 userChatItemManager.addOrUpdate(showUser);
-
+                const timestamp = content.timestamp;
                 const showTime = CoreContentUtil.getChatShowTime(content.timestamp);
                 const text = CoreContentUtil.getText(content);
-                userChatItemManager.updateItemText(key, text, showTime);
+                userChatItemManager.updateItemText(key, text, showTime, timestamp);
             }
         }
     }

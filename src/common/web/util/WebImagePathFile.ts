@@ -2,7 +2,7 @@ import ImageValue from '@/app/com/common/chat/item/ImageValue';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import Content from '@/app/com/common/chat/Content';
 import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
-import FileUtil from '@/platform/e/util/FileUtil';
+import NodeFileUtil from '@/platform/e/util/NodeFileUtil';
 import WebImagePathUtil from '@/common/web/util/WebImagePathUtil';
 import Item from '@/app/com/common/chat/Item';
 import ImageToFileUtil from '@/common/web/util/ImageToFileUtil';
@@ -21,7 +21,7 @@ export default class WebImagePathFile {
                         if (url && url.startsWith('file')) {
                             const fileUrl = new URL(url);
                             const path = WebImagePathUtil.fileImageSourceToPath(url);
-                            const file: File = FileUtil.getFileByPath(path);
+                            const file: File = NodeFileUtil.getFileByPath(path);
                             if (file) {
                                 map.set(url, file);
                             }
@@ -44,7 +44,7 @@ export default class WebImagePathFile {
                     if (url && url.startsWith('file')) {
                         const fileUrl = new URL(url);
                         const path = WebImagePathUtil.fileImageSourceToPath(url);
-                        const file: File = FileUtil.getFileByPath(path);
+                        const file: File = NodeFileUtil.getFileByPath(path);
                         if (file) {
                             map.set(url, file);
                         }

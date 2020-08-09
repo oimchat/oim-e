@@ -1,7 +1,5 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
-import User from '@/app/com/main/module/business/user/bean/User';
 import BaseUtil from '@/app/lib/util/BaseUtil';
-import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 import ContactCategory from '@/app/com/main/module/business/contact/bean/ContactCategory';
 import ContactRelation from '@/app/com/main/module/business/contact/bean/ContactRelation';
 

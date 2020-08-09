@@ -1,4 +1,4 @@
-import ContentData from '@/platform/vue/view/model/chat/content/ContentData';
+import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
 
 export default class ChatViewData {
 
@@ -6,6 +6,6 @@ export default class ChatViewData {
     public showPrompt = false;
     public prompt = '';
     public nameVisible = false;
-    public list: ContentData[] = [];
+    public list: MessageContentWrap[] = [];
 
 }

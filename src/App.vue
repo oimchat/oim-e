@@ -1,11 +1,12 @@
 <template>
-    <div id="app" class="app-main">
+    <div id="app" class="app-background-image">
         <WindowDecorated></WindowDecorated>
         <router-view/>
     </div>
 </template>
 <script lang="ts">
     import './styles/oim/layout.css';
+    import './styles/oim/app.scss';
     import Vue from 'vue';
     import Component from 'vue-class-component';
     import WindowDecorated from '@/platform/e/view/WindowDecorated.vue';
@@ -19,11 +20,6 @@
     }
 </script>
 <style lang="scss">
-    .app-main {
-        width: 100%;
-        height: 100%;
-    }
-
     #app {
         width: 100%;
         height: 100%;

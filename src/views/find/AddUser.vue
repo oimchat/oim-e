@@ -73,13 +73,14 @@
     import ContactVerifyAnswer from '@/app/com/main/module/business/contact/data/ContactVerifyAnswer';
     import ContactAddApplyData from '@/app/com/main/module/business/contact/data/ContactAddApplyData';
     import ContactCategory from '@/app/com/main/module/business/contact/bean/ContactCategory';
-    import ContactListBox from '@/app/com/main/module/business/contact/box/ContactListBox';
+    import ContactRelationBox from '@/app/com/main/module/business/contact/box/ContactRelationBox';
     import ContactController from '@/app/com/main/module/business/contact/controller/ContactController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
     import ContactVerifySettingData from '@/app/com/main/module/business/contact/data/ContactVerifySettingData';
     import ContactVerifyQuestion from '@/app/com/main/module/business/contact/data/ContactVerifyQuestion';
     import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
+    import ContactCategoryBox from "@/app/com/main/module/business/contact/box/ContactCategoryBox";
 
 
     @Component({
@@ -113,7 +114,7 @@
             this.answerList = [];
             this.verifyType = '0';
 
-            const contactListBox: ContactListBox = app.appContext.getMaterial(ContactListBox);
+            const contactListBox: ContactCategoryBox = app.appContext.getMaterial(ContactCategoryBox);
             this.categoryList = contactListBox.getCategoryList();
             if (this.categoryList.length > 0) {
                 const category = this.categoryList[0];

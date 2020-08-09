@@ -1,7 +1,7 @@
 <template>
     <div class="only-full-pane">
         <div class="only-card only-full-pane">
-            <div class="top only-shadow">
+            <div class="top">
                 <div class="title-wrap">
                     <div class="title">群详细信息</div>
                     <div></div>
@@ -69,7 +69,7 @@
     import GroupRelation from '@/app/com/main/module/business/group/bean/GroupRelation';
     import app from '@/app/App';
     import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
-    import GroupListBox from '@/app/com/main/module/business/group/box/GroupListBox';
+    import GroupRelationBox from '@/app/com/main/module/business/group/box/GroupRelationBox';
     import User from '@/app/com/main/module/business/user/bean/User';
     import GroupMemberSender from '@/app/com/main/module/business/group/sender/GroupMemberSender';
     import DataBackAction from '@/app/base/net/DataBackAction';
@@ -96,7 +96,7 @@
 
         public setGroupId(groupId: string) {
             const groupBox: GroupBox = app.appContext.getMaterial(GroupBox);
-            const contactListBox: GroupListBox = app.appContext.getMaterial(GroupListBox);
+            const contactListBox: GroupRelationBox = app.appContext.getMaterial(GroupRelationBox);
             const group: Group = groupBox.getGroup(groupId);
             let relation: GroupRelation = new GroupRelation();
             const list = contactListBox.getGroupInGroupRelationListByGroupId(groupId);

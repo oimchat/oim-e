@@ -1,6 +1,6 @@
 <template>
-    <div class="main-page">
-        <div v-if="appInfo.disconnection" class="popup slide-down" tabindex="-1"
+    <div class="main-page app-background-color">
+        <div v-if="appInfo.disconnection" class="only-popup slide-down" tabindex="-1"
              style="width: 100%;text-align: center;bottom: 1px;position: fixed;top: unset;">
             <span style="color: #ffad33">网络已断开</span>
             <button v-show="!isReconnect" @click="reconnect" class="oim_button"
@@ -21,7 +21,9 @@
                             <q-tab :name="tab.key"
                                    :icon="tab.icon"
                                    @input="tab.doOnSelected()"
-                                   :label="''"/>
+                                   :label="''">
+                                <q-badge v-if="tab.redCount > 0" color="red" floating>{{tab.redCount}}</q-badge>
+                            </q-tab>
                         </template>
                     </q-tabs>
                 </div>
@@ -30,11 +32,11 @@
                 <!--begin oim-main-personal-->
                 <div class="oim-main-personal">
                     <div class="avatar">
-                        <img class="img" :src="personalData.avatar" alt="">
+                        <img class="img" :src="personalViewModel.personalData.avatar" alt="">
                     </div>
                     <div class="info">
                         <h3 class="nickname">
-                            <span class="display-name">{{personalData.name}}</span>
+                            <span class="display-name">{{personalViewModel.personalData.name}}</span>
                             <a id="main-down-menu" @click="onDownMenu($event,$root)" class="option" href="javascript:;">
                                 <i class="fas fa-bars"></i>
                             </a>
@@ -56,13 +58,13 @@
                             transition-prev="jump-up"
                             transition-next="jump-up"
                     >
-                        <q-tab-panel name="message_tab">
+                        <q-tab-panel :name="tabs.messageTab.key">
                             <message-list-pane class="only-full-pane only-scrollbar-y">
 
                             </message-list-pane>
                         </q-tab-panel>
 
-                        <q-tab-panel name="user_tab">
+                        <q-tab-panel :name="tabs.contactTab.key">
                             <contact-list-pane
                                     class="only-full-pane only-scrollbar-y"
                                     @on-node-context-menu='onUserNodeContextMenu'
@@ -72,7 +74,7 @@
                             </contact-list-pane>
                         </q-tab-panel>
 
-                        <q-tab-panel name="group_tab">
+                        <q-tab-panel :name="tabs.groupTab.key">
                             <group-list-pane
                                     class="only-full-pane only-scrollbar-y"
                                     id="group-list-pane"
@@ -83,7 +85,7 @@
                             </group-list-pane>
 
                         </q-tab-panel>
-                        <q-tab-panel name="module_tab">
+                        <q-tab-panel :name="tabs.moduleTab.key">
                             <div class="text-h4 q-mb-md">Movies</div>
                             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque
                                 magnam
@@ -114,18 +116,18 @@
                         transition-prev="jump-up"
                         transition-next="jump-up"
                 >
-                    <q-tab-panel name="message_tab">
+                    <q-tab-panel :name="tabs.messageTab.key">
                         <MessageAreaPane></MessageAreaPane>
                     </q-tab-panel>
 
-                    <q-tab-panel name="user_tab">
+                    <q-tab-panel :name="tabs.contactTab.key">
                         <UserInfoPane ref="userInfoPane" @on-to-send="openUserChat"></UserInfoPane>
                     </q-tab-panel>
 
-                    <q-tab-panel name="group_tab">
+                    <q-tab-panel :name="tabs.groupTab.key">
                         <GroupInfoPane ref="groupInfoPane" @on-to-send="openGroupChat"></GroupInfoPane>
                     </q-tab-panel>
-                    <q-tab-panel name="module_tab">
+                    <q-tab-panel :name="tabs.moduleTab.key">
                         <div class="box chat">
                             <router-view></router-view>
                         </div>
@@ -148,7 +150,7 @@
     import '../styles/oim/main.scss';
     import '../styles/oim/common.css';
     import '../styles/oim/component.scss';
-
+    import '../styles/oim/chat.css';
 
     // import '../styles/lib/font-awesome/4.7.0/css/font-awesome.min.css';
     // import '../styles/chat.css';
@@ -158,6 +160,7 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
 
     import mainViewData from '@/platform/web/view/data/MainViewData';
+    import mainBaseTabs from '@/platform/web/view/data/MainBaseTabs';
 
     import MainMenu from '@/views/main/MainMenu.vue';
 
@@ -192,7 +195,7 @@
     import ContextMenu from '@/views/common/menu/ContextMenu.vue';
 
     import app from '@/app/App';
-    import personalDataBox from '@/platform/vue/view/model/PersonalViewModel';
+    import personalViewModel from '@/platform/vue/view/model/PersonalViewModel';
 
 
     import PersonalData from './common/data/PersonalData';
@@ -237,12 +240,10 @@
             SettingPane,
         },
     })
-    export default class Main extends Vue implements MainView, MessageAllUnreadView {
+    export default class Main extends Vue implements MainView {
         private data = mainViewData;
-        private personalData: PersonalData = personalDataBox.personalData;
-        private currentTab: string = '';
-        private sideTabInfos: SideTabData[] = new Array<SideTabData>();
-        private sideTabBox: SideTabBox = new SideTabBox();
+        private tabs = mainBaseTabs;
+        private personalViewModel = personalViewModel;
         private appInfo = app;
 
         private isReconnect = false;
@@ -250,8 +251,6 @@
         // 声明周期钩子
         public mounted() {
             app.appContext.putViewObject(ViewEnum.MainView, this);
-            app.appContext.putViewObject(ViewEnum.MessageAllUnreadView, this);
-            this.init();
             mainViewData.initialize();
         }
 
@@ -268,92 +267,6 @@
             }
         }
 
-        public showTab(key: string): void {
-            this.selectedTab(key);
-        }
-
-        public setItemRed(type: string, red: boolean, count: number): void {
-            count = (count > 99) ? 99 : count;
-            for (const data of this.sideTabInfos) {
-                if (data.key === type) {
-                    data.red = red;
-                    data.redCount = count;
-                    break;
-                }
-            }
-        }
-
-        public isItemShowing(type: string): boolean {
-            return this.currentTab === type;
-        }
-
-        private init(): void {
-            this.initTabs();
-            this.initializePersonal();
-        }
-
-        private initializePersonal(): void {
-            //
-        }
-
-        private initTabs(): void {
-            const onTabSelected: (data: SideTabData) => void = (d: SideTabData) => {
-                if (d) {
-                    const key = d.key;
-                    this.onTabSelected(key);
-                }
-            };
-
-            let data: SideTabData = new SideTabData();
-            data.key = 'message_tab';
-            data.normalImage = 'assets/images/main/tab/message_normal.png';
-            data.selectedImage = 'assets/images/main/tab/message_selected.png';
-            data.selected = true;
-            // data.red = true;
-            // data.redCount = 22;
-            data.setOnSelected(onTabSelected);
-            this.sideTabInfos.push(data);
-
-            data = new SideTabData();
-            data.key = 'user_tab';
-            data.normalImage = 'assets/images/main/tab/user_normal.png';
-            data.selectedImage = 'assets/images/main/tab/user_selected.png';
-            data.image = data.normalImage;
-            data.setOnSelected(onTabSelected);
-            this.sideTabInfos.push(data);
-
-            data = new SideTabData();
-            data.key = 'group_tab';
-            data.normalImage = 'assets/images/main/tab/group_normal.png';
-            data.selectedImage = 'assets/images/main/tab/group_selected.png';
-            data.image = data.normalImage;
-            data.setOnSelected(onTabSelected);
-            this.sideTabInfos.push(data);
-
-            data = new SideTabData();
-            data.key = 'module_tab';
-            data.normalImage = 'assets/images/main/tab/app_normal.png';
-            data.selectedImage = 'assets/images/main/tab/app_selected.png';
-            data.image = data.normalImage;
-            data.setOnSelected(onTabSelected);
-            this.sideTabInfos.push(data);
-        }
-
-        private selectedTab(key: string): void {
-            if (this.currentTab === key) {
-                return;
-            }
-            for (const data of this.sideTabInfos) {
-                if (data.key === key) {
-                    this.sideTabBox.select(data);
-                    break;
-                }
-            }
-        }
-
-        private onTabSelected(key: string): void {
-            this.currentTab = key;
-        }
 
         private onDownMenu(e: MouseEvent, root: Vue): void {
             this.openMenu(e, root, 'mainDownMenu');
@@ -376,12 +289,10 @@
 
         private searchOnUserSelected(data: ItemData) {
             this.onUserSelected(data);
-            this.selectedTab('user_tab');
         }
 
         private searchOnGroupSelected(data: ItemData) {
             this.onGroupSelected(data);
-            this.selectedTab('group_tab');
         }
 
         private onUserSelected(data: ItemData) {
@@ -443,7 +354,6 @@
         }
 
         private openUserChat(userId: string) {
-            this.selectedTab('message_tab');
             const userChatService: UserChatInfoService = app.appContext.getMaterial(UserChatInfoService);
             const userChatItemController: UserChatItemController = app.appContext.getMaterial(UserChatItemController);
 
@@ -452,7 +362,6 @@
         }
 
         private openGroupChat(groupId: string) {
-            this.selectedTab('message_tab');
             const groupChatInfoService: GroupChatInfoService = app.appContext.getMaterial(GroupChatInfoService);
             const groupChatItemController: GroupChatItemController = app.appContext.getMaterial(GroupChatItemController);
             const groupMemberListController: GroupMemberListController = app.appContext.getMaterial(GroupMemberListController);

@@ -6,7 +6,7 @@ import DataBackAction from '@/app/base/net/DataBackAction';
 import Group from '@/app/com/main/module/business/group/bean/Group';
 import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
 import Page from '@/app/com/common/data/Page';
-import ContentData from '@/platform/vue/view/model/chat/content/ContentData';
+import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
 import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
 import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 import GroupChatQuery from '@/app/com/main/module/business/chat/data/GroupChatQuery';
@@ -17,7 +17,7 @@ import Prompter from '@/app/com/main/component/Prompter';
 
 export default class GroupChatDataService extends AbstractMaterial {
 
-    public queryList(query: GroupChatQuery, page: Page, back: (page: Page, contents: ContentData[]) => void) {
+    public queryList(query: GroupChatQuery, page: Page, back: (page: Page, contents: MessageContentWrap[]) => void) {
         const prompter: Prompter = this.appContext.getMaterial(Prompter);
         const own = this;
         const groupChatSender: GroupChatDataSender = this.appContext.getMaterial(GroupChatDataSender);
@@ -44,12 +44,12 @@ export default class GroupChatDataService extends AbstractMaterial {
         groupChatSender.queryList(query, page, queryBack);
     }
 
-    private doBack(page: Page, items: GroupChatData[], back: (page: Page, contents: ContentData[]) => void): void {
+    private doBack(page: Page, items: GroupChatData[], back: (page: Page, contents: MessageContentWrap[]) => void): void {
         if (items) {
             const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
             const groupBox: GroupBox = this.appContext.getMaterial(GroupBox);
             const ownUserId = pb.getUserId();
-            const list: ContentData[] = [];
+            const list: MessageContentWrap[] = [];
             const length = items.length;
             for (let i = length - 1; i >= 0; i--) {
                 const data = items[i];
@@ -78,7 +78,7 @@ export default class GroupChatDataService extends AbstractMaterial {
 
                 const showName = chatUser.nickname;
 
-                const contentData: ContentData = new ContentData();
+                const contentData: MessageContentWrap = new MessageContentWrap();
                 contentData.key = messageKey;
                 contentData.id = contentId;
                 contentData.content = content;

@@ -9,8 +9,9 @@
     import ContextMenu from '@/views/common/menu/ContextMenu.vue';
 
     import app from '@/app/App';
-    import GroupListBox from '@/app/com/main/module/business/group/box/GroupListBox';
+    import GroupRelationBox from '@/app/com/main/module/business/group/box/GroupRelationBox';
     import GroupCategoryController from '@/app/com/main/module/business/group/controller/GroupCategoryController';
+    import GroupCategoryBox from "@/app/com/main/module/business/group/box/GroupCategoryBox";
 
     @Component({
         components: {
@@ -50,7 +51,7 @@
                 },
             });
 
-            const groupListBox: GroupListBox = app.appContext.getMaterial(GroupListBox);
+            const groupListBox: GroupCategoryBox = app.appContext.getMaterial(GroupCategoryBox);
             const categoryList = groupListBox.getCategoryList();
             const size = categoryList.length;
             if (size > 0) {
@@ -107,7 +108,7 @@
 
         private openUpdateName(categoryId: string) {
             const groupCategoryController: GroupCategoryController = app.appContext.getMaterial(GroupCategoryController);
-            const groupListBox: GroupListBox = app.appContext.getMaterial(GroupListBox);
+            const groupListBox: GroupCategoryBox = app.appContext.getMaterial(GroupCategoryBox);
             const category = groupListBox.getCategory(categoryId);
             let name = category.name;
             this.$Modal.confirm({

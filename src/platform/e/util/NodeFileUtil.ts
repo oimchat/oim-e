@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-export default class FileUtil {
+export default class NodeFileUtil {
     public static getFileByPath(filePath: string): File {
        // const fileUrl = new URL(filePath);
 

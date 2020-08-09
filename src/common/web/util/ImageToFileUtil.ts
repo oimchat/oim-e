@@ -4,28 +4,79 @@ import BaseUtil from '@/app/lib/util/BaseUtil';
 
 export default class ImageToFileUtil {
 
+    public static isBase64(url: string) {
+        let is = false;
+        if (url) {
+            const reg = /^\s*data:([a-z]+\/[a-z0-9-+.]+(;[a-z-]+=[a-z0-9-]+)?)?(;base64)?,([a-z0-9!$&',()*+;=\-._~:@\/?%\s]*?)\s*$/i;
+            is = (reg.test(url));
+        }
+        return is
+    }
+
+    public static getImageFileByBase64(dataUrl: string): Promise<File> {
+        return new Promise<File>((resolve) => {
+            /*
+             打印信息如下：
+             {
+              dataURL: "data:image/png;base64,xxx"
+              type: "image/jpg"
+             }
+             */
+            const file = ImageToFileUtil.convertBlobToFile(dataUrl);
+            resolve(file);
+        });
+    }
+
+    public static convertBlobToFile(dataUrl: string): File {
+        const blob = ImageToFileUtil.convertBase64UrlToBlob(dataUrl);
+        // console.log(blob);
+        /*
+         打印信息如下：
+         Blob {size: 9585, type: "image/jpg"}
+         */
+        const date: Date = new Date();
+        const name = '1.png';
+        const type = blob.type;
+
+        const lastModified: number = (date) ? date.getMilliseconds() : 0;
+        const fp = {
+            type: type,
+            lastModified,
+        } as FilePropertyBag;
+        const file = new File([blob], name, fp);
+        return file;
+    }
+
     /**
      * 将以base64的图片url数据转换为Blob
      * 用url方式表示的base64图片数据
      */
-    public static convertBase64UrlToBlob(base64: { dataUrl: string, type: string }): Blob {
-        const dataUrl = base64.dataUrl;
-        const type = base64.type;
+    public static convertBase64UrlToBlob(dataUrl: string): Blob {
+
+        const array = dataUrl.split(',');
+        const type = array[0];
         // 去掉url的头，并转换为byte
-        const bytes = window.atob(dataUrl.split(',')[1]);
+        const data = array[1];
+        const temp = type.match(/:(.*?);/);
+        let mime = 'image/png';
+        if (temp) {
+            mime = temp[1];
+        }
+
+        const bytes = window.atob(data);
         // 处理异常,将ascii码小于0的转换为大于0
         const ab = new ArrayBuffer(bytes.length);
         const ia = new Uint8Array(ab);
         for (let i = 0; i < bytes.length; i++) {
             ia[i] = bytes.charCodeAt(i);
         }
-        return new Blob([ab], {type});
+        return new Blob([ab], {type: mime});
     }
 
     /*
      * 图片的绝对路径地址 转换成base64编码 如下代码：
      */
-    public static getBase64Image(img: any): { dataUrl: string, type: string } {
+    public static getBase64Image(img: any): string {
         const canvas = document.createElement('canvas');
         canvas.width = img.width;
         canvas.height = img.height;
@@ -33,10 +84,7 @@ export default class ImageToFileUtil {
         ctx.drawImage(img, 0, 0, img.width, img.height);
         const ext = img.src.substring(img.src.lastIndexOf('.') + 1).toLowerCase();
         const dataUrl = canvas.toDataURL('image/' + ext);
-        return {
-            dataUrl,
-            type: 'image/' + ext,
-        };
+        return dataUrl;
     }
 
 
@@ -55,27 +103,7 @@ export default class ImageToFileUtil {
                   type: "image/jpg"
                  }
                  */
-                const blob = ImageToFileUtil.convertBase64UrlToBlob(base64);
-                // console.log(blob);
-                /*
-                 打印信息如下：
-                 Blob {size: 9585, type: "image/jpg"}
-                 */
-                const date: Date = new Date();
-
-                const fileInfo = {
-                    name: '1.png', // optional when using `path`
-                    type: 'image/png',
-                    lastModified: date,
-                };
-                const lastModified: number = (fileInfo.lastModified) ? fileInfo.lastModified.getMilliseconds() : 0;
-                const fp = {
-                    type: fileInfo.type,
-                    lastModified,
-                } as FilePropertyBag;
-
-
-                const file = new File([blob], fileInfo.name, fp);
+                const file = ImageToFileUtil.convertBlobToFile(base64);
                 resolve(file);
             };
         });
@@ -106,11 +134,16 @@ export default class ImageToFileUtil {
         if (items && items.length > 0) {
             const urls: string[] = [];
             for (const item of items) {
-                const iv: ImageValue = BaseUtil.jsonToObject(item.value);
-                if (iv) {
-                    const url = iv.url;
-                    if (url && url.startsWith('file')) {
-                        urls.push(url);
+                if (item.type === Item.TYPE_IMAGE) {
+                    const value = item.value;
+                    const iv: ImageValue = (value instanceof String) ? BaseUtil.jsonToObject(value.toString()) : value;
+                    if (iv) {
+                        const url = iv.url;
+                        if (url) {
+                            if (url.startsWith('file') || ImageToFileUtil.isBase64(url)) {
+                                urls.push(url);
+                            }
+                        }
                     }
                 }
             }

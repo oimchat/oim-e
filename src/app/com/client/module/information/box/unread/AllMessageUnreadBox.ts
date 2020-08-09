@@ -54,7 +54,7 @@ export default class AllMessageUnreadBox extends AbstractMaterial implements Bas
     }
 
     public addChangeEvent(e: DataChange<number>) {
-        if (this.changeEvents.includes(e)) {
+        if (!this.changeEvents.includes(e)) {
             this.changeEvents.push(e);
         }
     }

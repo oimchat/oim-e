@@ -1,7 +1,7 @@
 <template>
     <div style="height: 100%">
         <RootPane
-                :items="nodes"
+                :items="model.nodes"
                 :box="box"
                 @on-node-context-menu='onNodeContextMenu'
                 @on-item-selected="onItemSelected"
@@ -11,11 +11,11 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import RootPane from '../../../common/list/RootPane.vue';
-    import NodeData from '../../../common/list/NodeData';
-    import ListData from '@/impl/data/ListData';
+    import RootPane from '@/views/common/list/RootPane.vue';
+    import NodeData from '@/views/common/list/NodeData';
     import ItemData from '@/views/common/list/ItemData';
     import ItemBox from '@/views/common/list/ItemBox';
+    import groupListPaneViewModel from '@/platform/vue/view/model/GroupListPaneViewModel';
 
     @Component({
         components: {
@@ -23,7 +23,7 @@
         },
     })
     export default class GroupListPane extends Vue {
-        public nodes: NodeData[] = ListData.groupNodes;
+        private model = groupListPaneViewModel;
         private box: ItemBox = new ItemBox();
 
         public mounted() {

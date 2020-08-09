@@ -468,7 +468,7 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import MessagePane from '@/views/common/chat/MessagePane.vue';
+    import MessagePane from '@/views/common/chat/ReadPane.vue';
 
     @Component({
         components: {

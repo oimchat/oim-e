@@ -26,6 +26,8 @@ import GroupChatViewDefaultImpl from '@/app/impl/default/view/GroupChatViewDefau
 import GroupMemberListViewDefaultImpl from '@/app/impl/default/view/GroupMemberListViewDefaultImpl';
 import GroupListPaneViewDefaultImpl from '@/app/impl/default/view/GroupListPaneViewDefaultImpl';
 import MainViewDefaultImpl from '@/app/impl/default/view/MainViewDefaultImpl';
+import ComponentInitializer from '@/app/initialize/ComponentInitializer';
+import MessageAllUnreadViewDefaultImpl from '@/app/impl/default/view/MessageAllUnreadViewDefaultImpl';
 
 
 class App {
@@ -128,6 +130,7 @@ class App {
         this.appContext.putView(ViewEnum.UserChatView, UserChatViewDefaultImpl);
         this.appContext.putView(ViewEnum.GroupChatView, GroupChatViewDefaultImpl);
         this.appContext.putView(ViewEnum.GroupMemberListView, GroupMemberListViewDefaultImpl);
+        this.appContext.putView(ViewEnum.MessageAllUnreadView, MessageAllUnreadViewDefaultImpl);
     }
 
     private buildModule(): void {
@@ -140,6 +143,7 @@ class App {
 
     private buildLaunch(): void {
         this.putInitializer(new ActionInitializer());
+        this.putInitializer(new ComponentInitializer());
         this.putInitializer(new HttpInitializer());
         this.putInitializer(new ServerInitializer());
     }

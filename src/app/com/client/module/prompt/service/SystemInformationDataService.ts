@@ -15,15 +15,6 @@ export default class SystemInformationDataService extends AbstractMaterial {
 
         const systemInformItemManager: SystemInformationItemManager = this.appContext.getMaterial(SystemInformationItemManager);
         const systemMessageUnreadBox: SystemMessageUnreadBox = this.appContext.getMaterial(SystemMessageUnreadBox);
-        const allMessageUnreadBox: AllMessageUnreadBox = this.appContext.getMaterial(AllMessageUnreadBox);
-        const messageAllUnreadManager: MessageAllUnreadManager = this.appContext.getMaterial(MessageAllUnreadManager);
-
-        const unreadCount = systemMessageUnreadBox.getUnreadCount(type);
-        // allMessageUnreadBox.minusUnread(unreadCount);
-
-        const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
-        const totalRed = totalUnreadCount > 0;
-        messageAllUnreadManager.setMessageItemRed(totalRed, totalUnreadCount);
 
         systemMessageUnreadBox.setUnreadCount(type, 0);
         systemInformItemManager.setItemRed(type, false, 0);

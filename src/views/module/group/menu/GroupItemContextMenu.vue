@@ -15,7 +15,7 @@
     import app from '@/app/App';
     import PersonalGroupMemberListBox from '@/app/com/main/module/business/group/box/PersonalGroupMemberListBox';
     import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
-    import GroupListBox from '@/app/com/main/module/business/group/box/GroupListBox';
+    import GroupRelationBox from '@/app/com/main/module/business/group/box/GroupRelationBox';
 
     import InviteJoinGroup from '@/views/main/group/InviteJoinGroupPane.vue';
     import GroupRelationController from '@/app/com/main/module/business/group/controller/GroupRelationController';
@@ -26,6 +26,7 @@
     import NavMenu from '@/views/common/menu/NavMenu.vue';
     import NavMenuData from '@/views/common/menu/NavMenuData';
     import NavMenuItemData from '@/views/common/menu/NavMenuItemData';
+    import GroupCategoryBox from "@/app/com/main/module/business/group/box/GroupCategoryBox";
 
     @Component({
         components: {
@@ -51,7 +52,7 @@
 
         public show(e: MouseEvent, groupId: string) {
             const own = this;
-            const groupListBox: GroupListBox = app.appContext.getMaterial(GroupListBox);
+            const groupListBox: GroupCategoryBox = app.appContext.getMaterial(GroupCategoryBox);
             const personalGroupMemberListBox: PersonalGroupMemberListBox = app.appContext.getMaterial(PersonalGroupMemberListBox);
             const position = personalGroupMemberListBox.getPosition(groupId);
             const list: any = [];

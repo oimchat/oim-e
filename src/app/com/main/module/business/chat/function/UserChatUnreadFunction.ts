@@ -32,17 +32,14 @@ export default class UserChatUnreadFunction extends AbstractMaterial {
 
 
         const isChatShowing: boolean = userChatInfoManager.isChatShowing(userId);
-        const isTabShowing: boolean = messageAllUnreadManager.isMessageItemShowing();
-        if ((!isChatShowing || !isTabShowing)) {
+        if ((!isChatShowing)) {
             userMessageUnreadBox.plusUnreadCount(userId, count);
             // allMessageUnreadBox.plusUnread(count);
 
             const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
             const unreadCount = userMessageUnreadBox.getUnreadCount(userId);
             const red = unreadCount > 0;
-            const totalRed = totalUnreadCount > 0;
             userChatItemManager.setItemRed(userId, red, unreadCount);
-            messageAllUnreadManager.setMessageItemRed(totalRed, totalUnreadCount);
         }
     }
 
@@ -51,20 +48,15 @@ export default class UserChatUnreadFunction extends AbstractMaterial {
         const userChatInfoManager: UserChatInfoManager = this.appContext.getMaterial(UserChatInfoManager);
         const userChatItemManager: UserChatItemManager = this.appContext.getMaterial(UserChatItemManager);
         const userMessageUnreadBox: UserMessageUnreadBox = this.appContext.getMaterial(UserMessageUnreadBox);
-        const allMessageUnreadBox: AllMessageUnreadBox = this.appContext.getMaterial(AllMessageUnreadBox);
-        const messageAllUnreadManager: MessageAllUnreadManager = this.appContext.getMaterial(MessageAllUnreadManager);
 
         let unreadCount = userMessageUnreadBox.getUnreadCount(userId);
 
         userMessageUnreadBox.setUnreadCount(userId, 0);
         // allMessageUnreadBox.minusUnread(unreadCount);
 
-        const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
         unreadCount = userMessageUnreadBox.getUnreadCount(userId);
 
         const red = unreadCount > 0;
-        const totalRed = totalUnreadCount > 0;
         userChatItemManager.setItemRed(userId, red, unreadCount);
-        messageAllUnreadManager.setMessageItemRed(totalRed, totalUnreadCount);
     }
 }

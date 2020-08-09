@@ -39,11 +39,11 @@ export default class RecentChatGroupFunction extends AbstractMaterial {
                 group = groupBox.getGroup(groupId);
 
                 groupChatItemManager.addOrUpdate(group);
-
+                const timestamp = content.timestamp;
                 const showTime = CoreContentUtil.getChatShowTime(content.timestamp);
                 const text = CoreContentUtil.getText(content);
 
-                groupChatItemManager.updateItemText(key, text, showTime);
+                groupChatItemManager.updateItemText(key, text, showTime, timestamp);
             }
         }
     }

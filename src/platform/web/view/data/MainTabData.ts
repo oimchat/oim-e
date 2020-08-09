@@ -15,6 +15,10 @@ class MainTabData {
             this.onSelected(this);
         }
     }
+
+    public equalKey(key: string): boolean {
+        return this.key === key;
+    }
 }
 
 export default MainTabData;

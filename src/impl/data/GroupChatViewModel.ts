@@ -6,6 +6,8 @@ import Content from '@/app/com/common/chat/Content';
 import app from '@/app/App';
 import MessageAppendType from '@/app/com/main/module/setting/message/type/MessageAppendType';
 import MessageAppendGroupSetting from '@/app/com/main/module/setting/message/MessageAppendGroupSetting';
+import UserChatDataController from "@/app/com/main/module/business/chat/controller/UserChatDataController";
+import GroupChatDataController from "@/app/com/main/module/business/chat/controller/GroupChatDataController";
 
 class GroupChatViewModel extends ChatViewModel {
 
@@ -28,7 +30,7 @@ class GroupChatViewModel extends ChatViewModel {
 
         const users: User[] = this.getMemberUserList(groupId);
         this.groupMemberData.users = users;
-        this.messageInfo.showNameVisible = true;
+        this.data.nameVisible = true;
     }
 
     public setName(name: string) {
@@ -111,6 +113,30 @@ class GroupChatViewModel extends ChatViewModel {
             this.groupMemberUserListMap.set(key, list);
         }
         return list;
+    }
+
+    public loadHistory() {
+        let messageKey = '';
+        const groupId = this.chatData.key;
+        if (this.data.list && this.data.list.length > 0) {
+            messageKey = this.geFirstMessageKey(groupId);
+            // 历史记录时记录当前聊天界面的id
+            this.cacheData.data.lastMessageKey = messageKey;
+
+            const length = this.data.list.length;
+            if (length < 500) {
+                const groupChatController: GroupChatDataController = app.appContext.getMaterial(GroupChatDataController);
+                groupChatController.loadHistory(groupId, messageKey, 20);
+            } else {
+                this.data.prompt = '更多内容请看历史记录。';
+                if (!this.data.showPrompt) {
+                    this.data.showPrompt = true;
+                    setTimeout(() => {
+                        this.data.showPrompt = false;
+                    }, 3000);
+                }
+            }
+        }
     }
 }
 

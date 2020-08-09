@@ -1,5 +1,4 @@
 import User from '@/app/com/main/module/business/user/bean/User';
-import ContentData from '@/platform/vue/view/model/chat/content/ContentData';
 import Content from '@/app/com/common/chat/Content';
 import ChatCacheData from '@/views/main/message/chat/ChatCacheData';
 import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
@@ -7,17 +6,22 @@ import app from '@/app/App';
 import MessageSwitchSetting from '@/app/com/main/module/setting/message/MessageSwitchSetting';
 import MessageAppendType from '@/app/com/main/module/setting/message/type/MessageAppendType';
 import MessageTimeSettingStore from '@/app/com/main/module/setting/message/MessageTimeSettingStore';
+import ContentItemUtil from "@/app/com/common/chat/util/ContentItemUtil";
+import ContentWrap from "@/common/vue/data/content/ContentWrap";
+import MessageContentWrap from "@/common/vue/data/content/impl/message/MessageContentWrap";
+import ContentWrapType from "@/common/vue/data/content/ContentWrapType";
+import DateUtil from "@/app/lib/util/DateUtil";
 
 
 export default class ChatMessageModel {
 
-    public messageInfo = {
+    public data = {
         key: '',
         showPrompt: false,
         prompt: '',
         lastTimestamp: 0,
-        showNameVisible: false,
-        list: [] as ContentData[],
+        nameVisible: false,
+        list: [] as ContentWrap[],
     };
 
     public cacheData = {
@@ -39,15 +43,15 @@ export default class ChatMessageModel {
             return '';
         },
     };
-    private listMap: Map<string, ContentData[]> = new Map<string, ContentData[]>();
-    private keyMap: Map<string, Map<string, ContentData>> = new Map<string, Map<string, ContentData>>();
+    private listMap: Map<string, ContentWrap[]> = new Map<string, ContentWrap[]>();
+    private keyMap: Map<string, Map<string, ContentWrap>> = new Map<string, Map<string, ContentWrap>>();
     private dataMap: Map<string, ChatCacheData> = new Map<string, ChatCacheData>();
 
     public clear(): void {
         this.listMap.clear();
         this.keyMap.clear();
         this.dataMap.clear();
-        this.messageInfo.list = [] as ContentData[];
+        this.data.list = [] as ContentWrap[];
         this.cacheData.data = new ChatCacheData();
         this.nodeClear();
     }
@@ -58,9 +62,9 @@ export default class ChatMessageModel {
 
     public setChat(key: string) {
         const own = this;
-        const list = this.getList(key);
-        const data = this.getCacheData(key);
-        this.messageInfo.list = list;
+        const list = this.getOrCreateList(key);
+        const data = this.getOrCreateCacheData(key);
+        this.data.list = list;
         this.cacheData.key = key;
         this.cacheData.data = data;
         data.scrollTopCount = 0;
@@ -96,21 +100,21 @@ export default class ChatMessageModel {
     }
 
     public insertBefore(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content): void {
-        this.insert(isReceive, isOwn, key, showName, chatUser, content, true);
+        this.insert(isReceive, isOwn, key, showName, chatUser, content);
         if (typeof this.cacheData.updateScrollIntoView === 'function') {
-            const lastContentId = this.cacheData.data.lastContentId;
-            if (lastContentId) {
+            const lastMessageKey = this.cacheData.data.lastMessageKey;
+            if (lastMessageKey) {
                 setTimeout(() => {
-                    this.cacheData.updateScrollIntoView(lastContentId);
+                    this.cacheData.updateScrollIntoView(lastMessageKey);
                 }, 50);
             }
         }
     }
 
     public insertLast(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content): void {
-        const cacheData = this.getCacheData(key);
+        const cacheData = this.getOrCreateCacheData(key);
         const scrollPosition = cacheData.scrollPosition;
-        this.insert(isReceive, isOwn, key, showName, chatUser, content, false);
+        this.insert(isReceive, isOwn, key, showName, chatUser, content);
         if (typeof this.cacheData.updateScroll === 'function') {
             if (scrollPosition === 'bottom') {
                 setTimeout(() => {
@@ -124,48 +128,56 @@ export default class ChatMessageModel {
             if (text && text.length > 100) {
                 text = text.substring(0, 99) + '...';
             }
-            this.messageInfo.prompt = showName + ':' + text;
-            if (!this.messageInfo.showPrompt) {
-                this.messageInfo.showPrompt = true;
+            this.data.prompt = showName + ':' + text;
+            if (!this.data.showPrompt) {
+                this.data.showPrompt = true;
                 setTimeout(() => {
-                    this.messageInfo.showPrompt = false;
-                }, 3000);
+                    this.data.showPrompt = false;
+                }, 6000);
             }
         }
     }
 
-    public insert(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content, isBefore?: boolean): void {
+    public insert(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content): void {
+        ContentItemUtil.handle(content);
 
         const messageTimeSettingStore: MessageTimeSettingStore = app.appContext.getMaterial(MessageTimeSettingStore);
         const mergeMillisecond = messageTimeSettingStore.messageTimeSetting.mergeMillisecond;
 
         const contentId = content.id;
         const messageKey = content.key;
-        const map = this.getMap(key);
-        const list = this.getList(key);
-        let data: ContentData | undefined = map.get(messageKey);
-        if (data) {
+        const map = this.getOrCreateMap(key);
+        const list = this.getOrCreateList(key);
+        let wrap: ContentWrap | undefined = map.get(messageKey);
+
+        let data: MessageContentWrap;
+        if (wrap) {
+            data = wrap.getData(MessageContentWrap);
             if (isOwn) {
                 const status: number = (isReceive) ? 1 : 0;
                 data.status = status;
             }
         } else {
-            const lastTimestamp = this.messageInfo.lastTimestamp;
+            const lastTimestamp = this.data.lastTimestamp;
             const timestamp = content.timestamp;
+
+            const isBefore = (lastTimestamp > timestamp);
 
             const intervalMillisecond = isBefore ? (lastTimestamp - timestamp) : (timestamp - lastTimestamp);
 
-            data = new ContentData();
+            data = new MessageContentWrap();
             data.key = messageKey;
             data.id = contentId;
             data.content = content;
             data.name = showName;
+            data.avatar = chatUser.avatar;
             data.user = chatUser;
             data.isOwn = isOwn;
             data.timeVisible = (intervalMillisecond > mergeMillisecond);
-            data.nameVisible = this.messageInfo.showNameVisible;
+            data.nameVisible = this.data.nameVisible;
+            data.timeText = this.getTimeText(timestamp);
 
-            this.messageInfo.lastTimestamp = content.timestamp;
+            this.data.lastTimestamp = timestamp;
 
             if (isOwn) {
                 const status: number = (isReceive) ? 1 : 0;
@@ -178,52 +190,112 @@ export default class ChatMessageModel {
                 list.push(data);
             }
             map.set(messageKey, data);
-            this.checkSize(key, 600);
+            this.keepSize(key, 600);
+            this.sort(list);
         }
     }
 
-    public checkSize(key: string, max: number) {
+    public checkSize(key: string, max: number): boolean {
+        const list = this.getOrCreateList(key);
+        const length = list.length;
+        return length < max;
+    }
+
+    public keepSize(key: string, max: number) {
         const map = this.getMap(key);
         const list = this.getList(key);
-        const length = list.length;
-        if (length > max) {
-            const size = length - max;
-            for (let i = 0; i < size; i++) {
-                const data = list[0];
-                const messageKey = data.key;
-                map.delete(messageKey);
-                list.splice(0, 1);
+        if (list) {
+            const length = list.length;
+            if (length > max) {
+                const size = length - max;
+                for (let i = 0; i < size; i++) {
+                    const wrap = list[i];
+                    if (ContentWrapType.message === wrap.type) {
+                        let data: MessageContentWrap = wrap.getData(MessageContentWrap);
+                        const messageKey = data.key;
+                        if (map) {
+                            map.delete(messageKey);
+                        }
+                    }
+                    list.splice(0, 1);
+                }
             }
         }
     }
 
     public updateStatus(key: string, messageKey: string, status: number) {
-        const map = this.getMap(key);
-        const data: ContentData | undefined = map.get(messageKey);
-        if (data) {
+        const map = this.getOrCreateMap(key);
+        const wrap: ContentWrap | undefined = map.get(messageKey);
+        if (wrap) {
+            let data: MessageContentWrap = wrap.getData(MessageContentWrap);
             data.status = status;
         }
     }
 
-    private getList(key: string): ContentData[] {
+    public getLastMessageKey(key: string): string {
+        let messageKey: any;
+        const list = this.getList(key);
+        if (list) {
+            const length = list.length;
+            for (let i = length - 1; i >= 0; i--) {
+                const wrap = list[i];
+                if (ContentWrapType.message === wrap.type) {
+                    let data: MessageContentWrap = wrap.getData(MessageContentWrap);
+                    messageKey = data.key;
+                    break;
+                }
+            }
+        }
+        return messageKey;
+    }
+
+    public geFirstMessageKey(key: string): string {
+        let messageKey: any;
+        const list = this.getList(key);
+        if (list) {
+            const length = list.length;
+            for (let i = 0; i < length; i++) {
+                const wrap = list[i];
+                if (ContentWrapType.message === wrap.type) {
+                    let data: MessageContentWrap = wrap.getData(MessageContentWrap);
+                    messageKey = data.key;
+                    break;
+                }
+            }
+        }
+        return messageKey;
+    }
+
+    private getList(key: string): ContentWrap[] {
+        const list: any = this.listMap.get(key);
+        return list;
+    }
+
+    private getMap(key: string): Map<string, ContentWrap> {
+        const map: any = this.keyMap.get(key);
+        return map;
+    }
+
+
+    private getOrCreateList(key: string): ContentWrap[] {
         let list = this.listMap.get(key);
         if (!list) {
-            list = [] as ContentData[];
+            list = [] as ContentWrap[];
             this.listMap.set(key, list);
         }
         return list;
     }
 
-    private getMap(key: string): Map<string, ContentData> {
+    private getOrCreateMap(key: string): Map<string, ContentWrap> {
         let map = this.keyMap.get(key);
         if (!map) {
-            map = new Map<string, ContentData>();
+            map = new Map<string, ContentWrap>();
             this.keyMap.set(key, map);
         }
         return map;
     }
 
-    private getCacheData(key: string): ChatCacheData {
+    private getOrCreateCacheData(key: string): ChatCacheData {
         let data = this.dataMap.get(key);
         if (!data) {
             data = new ChatCacheData();
@@ -242,6 +314,31 @@ export default class ChatMessageModel {
         if (typeof this.cacheData.setInnerHTML === 'function') {
             this.cacheData.setInnerHTML(html);
         }
+    }
+
+    private sort(list: ContentWrap[]) {
+        if (list) {
+            list.sort((a: ContentWrap, b: ContentWrap) => {
+                const timestamp1: number = a.getTimestamp();
+                const timestamp2: number = b.getTimestamp();
+                return timestamp1 - timestamp2;
+            })
+        }
+    }
+
+    private getTimeText(timestamp: number) {
+        let time = '';
+        if (timestamp) {
+
+            const messageTimeSettingStore: MessageTimeSettingStore = app.appContext.getMaterial(MessageTimeSettingStore);
+            const date = (timestamp) ? new Date(timestamp) : new Date();
+
+            const dateTimestamp = new Date().getTime();
+            const durationMillisecond = (dateTimestamp - timestamp);
+            const format = messageTimeSettingStore.getPastTimeFormatValue(durationMillisecond);
+            time = DateUtil.format(format, date);
+        }
+        return time;
     }
 }
 

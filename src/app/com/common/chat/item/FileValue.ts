@@ -1,3 +1,5 @@
+import Section from "@/app/com/common/chat/Section";
+
 export default class FileValue {
 
     public static TYPE_LOCAL: string = '1';

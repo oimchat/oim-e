@@ -3,9 +3,13 @@ import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/main/module/business/user/bean/User';
 import Content from '@/app/com/common/chat/Content';
 import userChatViewModel from '@/impl/data/UserChatViewModel';
-import ContactListBox from '@/app/com/main/module/business/contact/box/ContactListBox';
+import ContactRelationBox from '@/app/com/main/module/business/contact/box/ContactRelationBox';
 import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 import ContactService from '@/app/com/main/module/business/contact/service/ContactService';
+import messageAreaViewModel from "@/platform/web/view/model/MessageAreaViewModel";
+import MessageAreaViewType from "@/platform/web/view/model/MessageAreaViewType";
+import mainViewData from "@/platform/web/view/data/MainViewData";
+import mainBaseTabs from "@/platform/web/view/data/MainBaseTabs";
 
 export default class UserChatViewImpl extends AbstractMaterial implements UserChatView {
 
@@ -14,7 +18,7 @@ export default class UserChatViewImpl extends AbstractMaterial implements UserCh
         let name = '';
         if (user) {
             const userId = user.id;
-            const contactListBox: ContactListBox = this.appContext.getMaterial(ContactListBox);
+            const contactListBox: ContactRelationBox = this.appContext.getMaterial(ContactRelationBox);
             const list = contactListBox.getContactInContactRelationListByUserId(userId);
 
             if (list && list.length > 0) {
@@ -56,9 +60,18 @@ export default class UserChatViewImpl extends AbstractMaterial implements UserCh
 
 
     public isVisible(): boolean {
-        return false;
+        const showPane = messageAreaViewModel.tab === MessageAreaViewType.UserChat;
+        const showMassage = mainViewData.tab === mainBaseTabs.messageTab.key;
+        return showPane && showMassage;
     }
 
     public setVisible(visible: boolean): void {
+        if (visible) {
+            mainViewData.tab = mainBaseTabs.messageTab.key
+            messageAreaViewModel.tab = MessageAreaViewType.UserChat;
+        } else {
+            mainViewData.tab = mainBaseTabs.messageTab.key
+            messageAreaViewModel.tab = MessageAreaViewType.No;
+        }
     }
 }

@@ -84,7 +84,7 @@
     import GroupRelation from '../../src/app/com/main/module/business/group/bean/GroupRelation';
     import app from '@/app/App';
     import GroupBox from '../../src/app/com/main/module/business/group/box/GroupBox';
-    import GroupListBox from '../../src/app/com/main/module/business/group/box/GroupListBox';
+    import GroupRelationBox from '../../src/app/com/main/module/business/group/box/GroupRelationBox';
     import User from '../../src/app/com/main/module/business/user/bean/User';
     import UserBox from '../../src/app/com/main/module/business/user/box/UserBox';
     import GroupMemberSender from '../../src/app/com/main/module/business/group/sender/GroupMemberSender';
@@ -121,7 +121,7 @@
         public setGroupId(groupId: string) {
             this.groupId = groupId;
             const groupBox: GroupBox = app.appContext.getMaterial(GroupBox);
-            const contactListBox: GroupListBox = app.appContext.getMaterial(GroupListBox);
+            const contactListBox: GroupRelationBox = app.appContext.getMaterial(GroupRelationBox);
             const group: Group = groupBox.getGroup(groupId);
             let relation: GroupRelation = new GroupRelation();
             const list = contactListBox.getGroupInGroupRelationListByGroupId(groupId);

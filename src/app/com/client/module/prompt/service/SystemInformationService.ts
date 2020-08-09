@@ -25,10 +25,10 @@ export default class SystemInformationService extends AbstractMaterial {
         if (!systemInformationItemManager.hasItem(type)) {
             systemInformationItemManager.addOrUpdate(type);
         }
-        systemInformationItemManager.updateItemText(type, text, showTime);
+        const timestamp = new Date().getMilliseconds();
+        systemInformationItemManager.updateItemText(type, text, showTime, timestamp);
         const isShowing: boolean = systemInformationManager.isShowing(type);
-        const isTabShowing: boolean = messageAllUnreadManager.isMessageItemShowing();
-        if ((!isShowing || !isTabShowing)) {
+        if ((!isShowing)) {
             if (count) {
                 for (let j = 0; j < count; j++) {
                     systemMessageUnreadBox.plusUnread(type);
@@ -40,12 +40,9 @@ export default class SystemInformationService extends AbstractMaterial {
             }
 
 
-            const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
             const unreadCount = systemMessageUnreadBox.getUnreadCount(type);
             const red = unreadCount > 0;
-            const totalRed = totalUnreadCount > 0;
             systemInformationItemManager.setItemRed(type, red, unreadCount);
-            messageAllUnreadManager.setMessageItemRed(totalRed, totalUnreadCount);
 
             const promptManager: PromptManager = this.appContext.getMaterial(PromptManager);
             promptManager.playSound(SoundType.System);

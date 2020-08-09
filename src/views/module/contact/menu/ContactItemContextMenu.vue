@@ -14,8 +14,9 @@
     import app from '@/app/App';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import ContactListBox from '@/app/com/main/module/business/contact/box/ContactListBox';
+    import ContactRelationBox from '@/app/com/main/module/business/contact/box/ContactRelationBox';
     import ContactRelationController from '@/app/com/main/module/business/contact/controller/ContactRelationController';
+    import ContactCategoryBox from "@/app/com/main/module/business/contact/box/ContactCategoryBox";
 
     @Component({
         components: {
@@ -37,7 +38,7 @@
 
         public show(e: MouseEvent, userId: string) {
             const own = this;
-            const contactListBox: ContactListBox = app.appContext.getMaterial(ContactListBox);
+            const contactListBox: ContactCategoryBox = app.appContext.getMaterial(ContactCategoryBox);
             const list: any = [];
 
             const categoryList = contactListBox.getCategoryList();

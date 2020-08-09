@@ -63,7 +63,7 @@
     $color-light-main: #69cbe9;
     $color-gray: #dddddd;
     $color-light-gray: #eeeeee;
-    $color-default: #666666;
+    $color-default: #000000;
     $box-shadow: #aaaaaa;
     $color-message-bg: #5fb878;
 
@@ -82,7 +82,7 @@
             i {
                 color: $color-default;
                 font-weight: bolder;
-                font-size: 1.6rem;
+                font-size: 1.2rem;
                 width: 30px;
             }
 

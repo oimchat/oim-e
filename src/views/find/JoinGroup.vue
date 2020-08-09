@@ -73,7 +73,7 @@
     import app from '@/app/App';
 
     import GroupCategory from '@/app/com/main/module/business/group/bean/GroupCategory';
-    import GroupListBox from '@/app/com/main/module/business/group/box/GroupListBox';
+    import GroupRelationBox from '@/app/com/main/module/business/group/box/GroupRelationBox';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
     import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
@@ -83,6 +83,7 @@
     import GroupJoinVerifyQuestion from '@/app/com/main/module/business/group/bean/GroupJoinVerifyQuestion';
     import GroupSettingController from '@/app/com/main/module/business/group/controller/GroupSettingController';
     import GroupJoinController from '@/app/com/main/module/business/group/controller/GroupJoinController';
+    import GroupCategoryBox from "@/app/com/main/module/business/group/box/GroupCategoryBox";
 
 
     @Component({
@@ -116,7 +117,7 @@
             this.answerList = [];
             this.joinType = '0';
 
-            const groupListBox: GroupListBox = app.appContext.getMaterial(GroupListBox);
+            const groupListBox: GroupCategoryBox = app.appContext.getMaterial(GroupCategoryBox);
             this.categoryList = groupListBox.getCategoryList();
             if (this.categoryList.length > 0) {
                 const category = this.categoryList[0];

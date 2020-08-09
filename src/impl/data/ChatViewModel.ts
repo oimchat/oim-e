@@ -1,6 +1,6 @@
 import ChatMessageModel from '@/impl/data/ChatMessageModel';
 import User from '@/app/com/main/module/business/user/bean/User';
-import ContentData from '@/platform/vue/view/model/chat/content/ContentData';
+import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
 import Content from '@/app/com/common/chat/Content';
 
 export default class ChatViewModel extends ChatMessageModel {

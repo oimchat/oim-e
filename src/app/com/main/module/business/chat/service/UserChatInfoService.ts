@@ -19,15 +19,7 @@ export default class UserChatInfoService extends AbstractMaterial {
         const userChatManager: UserChatManager = this.appContext.getMaterial(UserChatManager);
         const userChatItemManager: UserChatItemManager = this.appContext.getMaterial(UserChatItemManager);
         const userMessageUnreadBox: UserMessageUnreadBox = this.appContext.getMaterial(UserMessageUnreadBox);
-        const allMessageUnreadBox: AllMessageUnreadBox = this.appContext.getMaterial(AllMessageUnreadBox);
-        const messageAllUnreadManager: MessageAllUnreadManager = this.appContext.getMaterial(MessageAllUnreadManager);
 
-        const unreadCount = userMessageUnreadBox.getUnreadCount(userId);
-        // allMessageUnreadBox.minusUnread(unreadCount);
-
-        const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
-        const totalRed = totalUnreadCount > 0;
-        messageAllUnreadManager.setMessageItemRed(totalRed, totalUnreadCount);
 
         userMessageUnreadBox.setUnreadCount(userId, 0);
         userChatItemManager.setItemRed(userId, false, 0);

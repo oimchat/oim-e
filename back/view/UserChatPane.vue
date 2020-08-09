@@ -10,16 +10,39 @@
                 </div>
             </div>
         </div>
+
+        <q-splitter
+                v-model="150"
+                horizontal
+                style="height: 400px"
+        >
+
+            <template v-slot:before>
+                <div class="q-pa-md">
+                    <div class="text-h4 q-mb-md">Before</div>
+                    <div v-for="n in 20" :key="n" class="q-my-md">{{ n }}. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.</div>
+                </div>
+            </template>
+
+            <template v-slot:after>
+                <div class="q-pa-md">
+                    <div class="text-h4 q-mb-md">After</div>
+                    <div v-for="n in 20" :key="n" class="q-my-md">{{ n }}. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.</div>
+                </div>
+            </template>
+
+        </q-splitter>
+
         <!--end HD-->
         <!--begin BD-->
         <div ref="messageListPane" @scroll="handleScroll" class="scroll-wrapper box_bd chat_bd scrollbar-dynamic"
              style="position: absolute;">
-            <MessagePane :items="messageInfo.list"></MessagePane>
+            <MessagePane :items="model.data.list"></MessagePane>
         </div>
-        <div v-if='messageInfo.showPrompt' class="popup members_wrp slide-down" tabindex="-1" style="">
+        <div v-if='model.data.showPrompt' class="popup members_wrp slide-down" tabindex="-1" style="">
             <div class="members compatible">
                 <div class="members_inner">
-                    {{messageInfo.prompt}}
+                    {{model.data.prompt}}
                 </div>
             </div>
         </div>
@@ -29,7 +52,7 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import MessagePane from '@/views/common/chat/MessagePane.vue';
+    import MessagePane from '@/views/common/chat/ReadPane.vue';
     import WritePane from '@/views/common/chat/WritePane.vue';
 
     import userChatViewModel from '@/impl/data/UserChatViewModel';
@@ -56,8 +79,10 @@
         },
     })
     export default class UserChatPane extends Vue {
+
+        private model = userChatViewModel;
         private chatData = userChatViewModel.chatData;
-        private messageInfo = userChatViewModel.messageInfo;
+        private messageInfo = userChatViewModel.data;
         private cacheData = userChatViewModel.cacheData;
         private selectionStart: number = 0;
 
@@ -304,28 +329,7 @@
         }
 
         private loadHistory() {
-            let messageKey = '';
-            const userId = this.chatData.key;
-            if (this.messageInfo.list && this.messageInfo.list.length > 0) {
-                messageKey = this.messageInfo.list[0].key;
-                // 历史记录时记录当前聊天界面的id
-                const contentId = this.messageInfo.list[0].id;
-                this.cacheData.data.lastContentId = contentId;
-
-                const length = this.messageInfo.list.length;
-                if (length < 500) {
-                    const userChatController: UserChatDataController = app.appContext.getMaterial(UserChatDataController);
-                    userChatController.loadHistory(userId, messageKey, 20);
-                } else {
-                    this.messageInfo.prompt = '更多内容请看历史记录。';
-                    if (!this.messageInfo.showPrompt) {
-                        this.messageInfo.showPrompt = true;
-                        setTimeout(() => {
-                            this.messageInfo.showPrompt = false;
-                        }, 3000);
-                    }
-                }
-            }
+            userChatViewModel.loadHistory();
         }
     }
 </script>

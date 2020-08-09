@@ -17,15 +17,6 @@ export default class GroupChatInfoService extends AbstractMaterial {
         const groupChatManager: GroupChatManager = this.appContext.getMaterial(GroupChatManager);
         const groupChatItemManager: GroupChatItemManager = this.appContext.getMaterial(GroupChatItemManager);
         const groupMessageUnreadBox: GroupMessageUnreadBox = this.appContext.getMaterial(GroupMessageUnreadBox);
-        const allMessageUnreadBox: AllMessageUnreadBox = this.appContext.getMaterial(AllMessageUnreadBox);
-        const messageAllUnreadManager: MessageAllUnreadManager = this.appContext.getMaterial(MessageAllUnreadManager);
-
-        const unreadCount = groupMessageUnreadBox.getUnreadCount(groupId);
-        // allMessageUnreadBox.minusUnread(unreadCount);
-
-        const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
-        const totalRed = totalUnreadCount > 0;
-        messageAllUnreadManager.setMessageItemRed(totalRed, totalUnreadCount);
 
         groupMessageUnreadBox.setUnreadCount(groupId, 0);
         groupChatItemManager.setItemRed(groupId, false, 0);
@@ -42,15 +33,6 @@ export default class GroupChatInfoService extends AbstractMaterial {
         const groupChatManager: GroupChatManager = this.appContext.getMaterial(GroupChatManager);
         const groupChatItemManager: GroupChatItemManager = this.appContext.getMaterial(GroupChatItemManager);
         const groupMessageUnreadBox: GroupMessageUnreadBox = this.appContext.getMaterial(GroupMessageUnreadBox);
-        const allMessageUnreadBox: AllMessageUnreadBox = this.appContext.getMaterial(AllMessageUnreadBox);
-        const messageAllUnreadManager: MessageAllUnreadManager = this.appContext.getMaterial(MessageAllUnreadManager);
-
-        const unreadCount = groupMessageUnreadBox.getUnreadCount(groupId);
-        // allMessageUnreadBox.minusUnread(unreadCount);
-
-        const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
-        const totalRed = totalUnreadCount > 0;
-        messageAllUnreadManager.setMessageItemRed(totalRed, totalUnreadCount);
 
         groupMessageUnreadBox.setUnreadCount(groupId, 0);
         groupChatItemManager.setItemRed(groupId, false, 0);

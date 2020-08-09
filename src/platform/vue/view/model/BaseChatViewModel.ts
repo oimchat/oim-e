@@ -1,11 +1,12 @@
-import ContentData from '@/platform/vue/view/model/chat/content/ContentData';
+import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
+import ContentWrap from "@/common/vue/data/content/ContentWrap";
 
 class BaseChatViewModel {
     public key = '';
     public showPrompt = false;
     public prompt = '';
     public nameVisible = false;
-    public list: ContentData[] = [];
+    public list: MessageContentWrap[] = [];
 
     public messageInfo = {
         key: '',
@@ -13,7 +14,7 @@ class BaseChatViewModel {
         prompt: '',
         lastTimestamp: 0,
         showNameVisible: false,
-        list: [] as ContentData[],
+        list: [] as ContentWrap[],
     };
 
     public initialize() {

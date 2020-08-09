@@ -31,7 +31,7 @@
     import ContactVerifyAnswer from '@/app/com/main/module/business/contact/data/ContactVerifyAnswer';
     import ContactAddApplyData from '@/app/com/main/module/business/contact/data/ContactAddApplyData';
     import ContactCategory from '@/app/com/main/module/business/contact/bean/ContactCategory';
-    import ContactListBox from '@/app/com/main/module/business/contact/box/ContactListBox';
+    import ContactRelationBox from '@/app/com/main/module/business/contact/box/ContactRelationBox';
     import ContactController from '@/app/com/main/module/business/contact/controller/ContactController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
@@ -40,6 +40,7 @@
     import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
     import ContactAddHandleData from '@/app/com/main/module/business/contact/data/ContactAddHandleData';
     import ContactAddApply from '@/app/com/main/module/business/contact/bean/ContactAddApply';
+    import ContactCategoryBox from "@/app/com/main/module/business/contact/box/ContactCategoryBox";
 
 
     @Component({
@@ -68,7 +69,7 @@
 
         private initialize(): void {
             this.handle = new ContactAddHandleData();
-            const contactListBox: ContactListBox = app.appContext.getMaterial(ContactListBox);
+            const contactListBox: ContactCategoryBox = app.appContext.getMaterial(ContactCategoryBox);
             this.categoryList = contactListBox.getCategoryList();
             if (this.categoryList.length > 0) {
                 const category = this.categoryList[0];

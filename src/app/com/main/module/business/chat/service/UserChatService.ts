@@ -17,45 +17,78 @@ import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadMana
 import UserChatDataSender from '@/app/com/main/module/business/chat/sender/UserChatDataSender';
 import VoicePromptUserSetting from '@/app/com/main/module/setting/prompt/VoicePromptUserSetting';
 import VoicePromptType from '@/app/com/main/module/setting/prompt/type/VoicePromptType';
+import UserAccess from "@/app/com/main/module/business/user/access/UserAccess";
+import ContactAccess from "@/app/com/main/module/business/contact/access/ContactAccess";
+import UserInfoUtil from "@/app/com/main/common/util/UserInfoUtil";
 
 
 export default class UserChatService extends AbstractMaterial {
 
     public chat(isReceive: boolean, sendUserId: string, receiveUserId: string, content: Content) {
         const own = this;
-        const ub: UserBox = this.appContext.getMaterial(UserBox);
+        const userAccess: UserAccess = this.appContext.getMaterial(UserAccess);
+        const contactAccess: ContactAccess = this.appContext.getMaterial(ContactAccess);
         const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
 
         const ownUserId = pb.getUserId();
         const ownUser: User = pb.getUser();
-        const isOwn: boolean = sendUserId === ownUserId;
+        const isChatUserOwn: boolean = sendUserId === ownUserId;
 
-        const showUserId: string = (isOwn) ? receiveUserId : sendUserId;
-        const ud: User = ub.getUser(showUserId);
+        const showUserId: string = (isChatUserOwn) ? receiveUserId : sendUserId;
 
-        const showUserData: User = ud;
-        const chatUserData: User = (isOwn) ? ownUser : ud;
+        const isShowUserContact = contactAccess.isContact(showUserId);
 
-        if (null == showUserData) {
-            const dataBackAction: DataBackAction = {
-                back(data: any): void {
-                    if (data && data.body) {
-
-                        const user: User = data.body.user;
-                        if (null != user) {
-                            ub.putUser(user);
-                            const showUser = user;
-                            const chatUser = (isOwn) ? ownUser : user;
-                            own.showChatMessage(isReceive, sendUserId, receiveUserId, isOwn, showUser, chatUser, content);
-                        }
-                    }
-                },
-            } as DataBackAction;
-            const userSender: UserSender = this.appContext.getMaterial(UserSender);
-            userSender.getUser(showUserId, dataBackAction);
+        if (isShowUserContact) {
+            userAccess.getUserById(showUserId, (success: boolean, user: User) => {
+                if (!success || !user) {
+                    user = new User();
+                    user.id = showUserId;
+                    user.nickname = '加载失败的联系人';
+                    user.avatar = UserInfoUtil.getDefaultAvatar();
+                }
+                let showUser: User = user;
+                let chatUser: User = (isChatUserOwn) ? ownUser : user;
+                own.showChatMessage(isReceive, sendUserId, receiveUserId, isChatUserOwn, showUser, chatUser, content);
+            });
         } else {
-            this.showChatMessage(isReceive, sendUserId, receiveUserId, isOwn, showUserData, chatUserData, content);
+            userAccess.getTempUserById(showUserId, (success: boolean, user: User) => {
+                if (!success || !user) {
+                    user = new User();
+                    user.id = showUserId;
+                    user.nickname = '加载失败的临时会话用户';
+                    user.avatar = UserInfoUtil.getDefaultAvatar();
+                }
+                let showUser: User = user;
+                let chatUser: User = (isChatUserOwn) ? ownUser : user;
+                own.showChatMessage(isReceive, sendUserId, receiveUserId, isChatUserOwn, showUser, chatUser, content);
+            });
         }
+
+        // const ud: User = ub.getUser(showUserId);
+        //
+        // const showUserData: User = ud;
+        // const chatUserData: User = (isChatUserOwn) ? ownUser : ud;
+        //
+        // if (null == showUserData) {
+        //     const dataBackAction: DataBackAction = {
+        //         back(data: any): void {
+        //             if (data && data.body) {
+        //
+        //                 const user: User = data.body.user;
+        //                 if (null != user) {
+        //                     ub.putUser(user);
+        //                     const showUser = user;
+        //                     const chatUser = (isChatUserOwn) ? ownUser : user;
+        //                     own.showChatMessage(isReceive, sendUserId, receiveUserId, isChatUserOwn, showUser, chatUser, content);
+        //                 }
+        //             }
+        //         },
+        //     } as DataBackAction;
+        //     const userSender: UserSender = this.appContext.getMaterial(UserSender);
+        //     userSender.getUser(showUserId, dataBackAction);
+        // } else {
+        //     this.showChatMessage(isReceive, sendUserId, receiveUserId, isChatUserOwn, showUserData, chatUserData, content);
+        // }
     }
 
     public showChatMessage(
@@ -82,20 +115,18 @@ export default class UserChatService extends AbstractMaterial {
         if (!userChatItemManager.hasItem(userId)) {
             userChatItemManager.addOrUpdate(showUser);
         }
-
-        userChatItemManager.updateItemText(userId, text, showTime);
+        const timestamp = content.timestamp;
+        userChatItemManager.updateItemText(userId, text, showTime, timestamp);
         const isChatShowing: boolean = userChatInfoManager.isChatShowing(userId);
-        const isTabShowing: boolean = messageAllUnreadManager.isMessageItemShowing();
-        if ((!isChatShowing || !isTabShowing) && !isOwn) {
+
+        if ((!isChatShowing) && !isOwn) {
             userMessageUnreadBox.plusUnread(userId);
             // allMessageUnreadBox.plusUnread(1);
 
             const totalUnreadCount = allMessageUnreadBox.getTotalUnreadCount();
             const unreadCount = userMessageUnreadBox.getUnreadCount(userId);
             const red = unreadCount > 0;
-            const totalRed = totalUnreadCount > 0;
             userChatItemManager.setItemRed(userId, red, unreadCount);
-            messageAllUnreadManager.setMessageItemRed(totalRed, totalUnreadCount);
 
             // promptManager.put()
         } else if (!isOwn) {
@@ -109,7 +140,7 @@ export default class UserChatService extends AbstractMaterial {
 
             const voicePromptType = userVoicePromptSetting.getType(userId);
             if (VoicePromptType.unread === voicePromptType) {
-                if ((!isChatShowing || !isTabShowing) && !isOwn) {
+                if ((!isChatShowing) && !isOwn) {
                     const promptManager: PromptManager = this.appContext.getMaterial(PromptManager);
                     promptManager.playSound(SoundType.Message);
                 }

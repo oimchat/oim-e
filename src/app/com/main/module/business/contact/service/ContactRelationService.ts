@@ -4,7 +4,7 @@ import ContactRelation from '@/app/com/main/module/business/contact/bean/Contact
 import DataBackAction from '@/app/base/net/DataBackAction';
 import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
 import ContactRelationSender from '@/app/com/main/module/business/contact/sender/ContactRelationSender';
-import ContactListBox from '@/app/com/main/module/business/contact/box/ContactListBox';
+import ContactRelationBox from '@/app/com/main/module/business/contact/box/ContactRelationBox';
 
 export default class ContactRelationService extends AbstractMaterial {
 
@@ -55,7 +55,7 @@ export default class ContactRelationService extends AbstractMaterial {
     public moveCategory(contactUserIds: string[], categoryId: string) {
         if (contactUserIds && categoryId) {
             const ccm: ContactListManager = this.appContext.getMaterial(ContactListManager);
-            const contactListBox: ContactListBox = this.appContext.getMaterial(ContactListBox);
+            const contactListBox: ContactRelationBox = this.appContext.getMaterial(ContactRelationBox);
             const list: ContactRelation[] = [];
             const oldCategoryIds: string[] = [];
             // 找到原来的分组

@@ -12,6 +12,16 @@ body, html {
 .main-inner {
     height: 100%;
     width: 100%;
+}
+
+.main-background-image {
+    height: 100%;
+    margin: 0 auto;
+    background: url(../../images/common/b.png) no-repeat 50%;
+    background-size: cover
+}
+
+.main-background-color {
     background-color: $oim-main-background-color !important;
 }
 
@@ -34,11 +44,16 @@ body, html {
     .q-tab__icon {
         width: 30px;
         height: 30px;
-        font-size: 30px;
+        font-size: 24px;
     }
 
     .q-tab__content {
-        height: 60px;
+        height: 55px;
+    }
+
+    .q-badge {
+        top: 7px;
+        right: -3px;
     }
 }
 
@@ -209,4 +224,18 @@ body, html {
 
 .oim-content-card {
     background-color: #ffffff;
+}
+
+
+.oim-chat-pane {
+    width: 100%;
+    position: absolute;
+    top: 65px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    .q-splitter {
+        height: 100%;
+    }
 }

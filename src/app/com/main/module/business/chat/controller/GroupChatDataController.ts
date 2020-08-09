@@ -5,12 +5,12 @@ import GroupChatService from '@/app/com/main/module/business/chat/service/GroupC
 import GroupChatQuery from '@/app/com/main/module/business/chat/data/GroupChatQuery';
 import GroupChatDataSender from '@/app/com/main/module/business/chat/sender/GroupChatDataSender';
 import GroupChatDataService from '@/app/com/main/module/business/chat/service/GroupChatDataService';
-import ContentData from '@/platform/vue/view/model/chat/content/ContentData';
+import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
 
 
 export default class GroupChatDataController extends AbstractMaterial {
 
-    public queryList(query: GroupChatQuery, page: Page, back: (page: Page, contents: ContentData[]) => void): void {
+    public queryList(query: GroupChatQuery, page: Page, back: (page: Page, contents: MessageContentWrap[]) => void): void {
         const service: GroupChatDataService = this.appContext.getMaterial(GroupChatDataService);
         service.queryList(query, page, back);
     }

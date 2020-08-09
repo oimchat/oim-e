@@ -1,62 +1,64 @@
 <template>
-    <div>
-        <div class="box_ft">
-            <div class="toolbar">
-                <a @click="showFacePane" unselectable="on" onmousedown="return false;" class="oim_chat_face"
-                   href="javascript:;" title="表情"></a>
-                <!--                <a class="oim_chat_screencut " href="javascript:;" title="截屏"></a>-->
-                <Upload class='chat_send_file_list' style="display: inline;"
-                        multiple
-                        :disabled="uploadInfo.fileDisabled"
-                        :show-upload-list="true"
-                        :on-success="handleSuccess"
-                        :action="uploadInfo.fileAction">
-                    <a class="oim_chat_pic" title="文件">
-                    </a>
-                </Upload>
-                <Upload class='chat_send_file_list' style="display: inline;"
-                        multiple
-                        :format="['jpg','jpeg','png','gif','bmp']"
-                        :max-size="2048"
-                        :disabled="uploadInfo.imageDisabled"
-                        :show-upload-list="true"
-                        :on-success="handleImageSuccess"
-                        :on-format-error="handleImageFormatError"
-                        :on-exceeded-size="handleImageMaxSize"
-                        :action="uploadInfo.imageAction">
-                    <Icon type="ios-image" style="font-size: 30px" title="图片"/>
-                </Upload>
-                <div class='chat_send_file_list' style="display: inline;height: 30px">
-                    <div style="position: absolute;display: inline;padding-top: 2px;padding-left: 3px;">
-                        <i @click="shot" class="fa fa-scissors fa-2x" aria-hidden="true"
-                           style="color: #2b2b2b;"
-                        ></i>
-                    </div>
+    <div class="only-full-pane" style="overflow: hidden">
+        <div class="container">
+            <div class="header">
+                <div class="toolbar">
+                    <button @click="showFacePane" title="表情" class="tool-icon-warp">
+                        <i class="fas fa-laugh"></i>
+                    </button>
+                    <button class="tool-icon-warp" title="文件">
+                        <el-upload
+                                multiple
+                                :disabled="uploadInfo.fileDisabled"
+                                :show-file-list="true"
+                                :on-success="handleSuccess"
+                                :action="uploadInfo.fileAction">
+                            <i class="fas fa-folder-plus"></i>
+                        </el-upload>
+                    </button>
+                    <button class="tool-icon-warp" itle="图片">
+                        <el-upload
+                                multiple
+                                accept=".jpg,.jpeg,.png,.gif,.bmp,.JPG,.JPEG,.PNG,.GIF,.BMP'"
+                                :disabled="uploadInfo.imageDisabled"
+                                :show-file-list="true"
+                                :on-success="handleImageSuccess"
+                                :before-upload="beforeImageUpload"
+                                :action="uploadInfo.imageAction">
+                            <i class="fas fa-image"></i>
+                        </el-upload>
+                    </button>
+                    <button @click="shot" class="tool-icon-warp" href="javascript:void(0)">
+                        <i class="fas fa-cut"></i>
+                    </button>
+                    <slot></slot>
                 </div>
             </div>
-            <FacePane ref="facePane" @on-selected="onFaceSelected"></FacePane>
-            <div class="content ">
-                <pre ref='inputArea'
-                     @keypress="onKeypress"
-                     @keyup="onKeyup"
-                     class="flex edit_area"
-                     contenteditable="true">
-                </pre>
-                <span class="caret_pos_helper"></span>
+            <div class="middle">
+                <div class="content ">
+                    <pre ref='inputArea'
+                         @keypress="onKeypress"
+                         @keyup="onKeyup"
+                         class="edit-area input-area"
+                         contenteditable="true">
+                    </pre>
+                    <span class="caret_pos_helper"></span>
+                </div>
             </div>
-            <div class="action">
-                <span class="desc ">按下Shift+Enter换行</span>
-                <a @click='send' class="oim_button oim_button_send" href="javascript:;">发送</a>
+            <div class="footer">
+                <div class="action">
+                    <span class="desc ">按下Shift+Enter换行</span>
+                    <a @click='send' class="button button-send only-component-color" href="javascript:;">发送</a>
+                </div>
             </div>
         </div>
-        <!--end FT-->
-        <div class="catch-drop-area"></div>
+        <FacePane ref="facePane" :data="faceModel" @on-selected="onFaceSelected"></FacePane>
     </div>
 </template>
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import FacePane from '@/views/common/chat/FacePane.vue';
+    import FacePane from '@/views/common/face/FacePane.vue';
     import DocumentUtil from '@/common/web/util/DocumentUtil';
     import app from '@/app/App';
     import {ServerType, Protocol} from '@/app/common/config/constant/ServerConstant';
@@ -70,6 +72,11 @@
     import TextJudgeUtil from '@/app/lib/util/TextJudgeUtil';
     import TextValueJudgeUtil from '@/common/web/util/TextValueJudgeUtil';
     import PasteHandlerUtil from '@/common/web/util/PasteHandlerUtil';
+    import ImageFileUtil from '@/app/common/util/ImageFileUtil';
+    import FileCheckUtil from '@/app/common/util/FileCheckUtil';
+    import FaceItem from '@/app/com/main/module/support/face/data/FaceItem';
+    import FaceImageUtil from '@/common/web/common/face/FaceImageUtil';
+    import FaceModel from '@/views/common/face/FaceModel';
 
     @Component({
         components: {
@@ -84,6 +91,15 @@
             imageAction: '',
             imageDisabled: false,
         };
+
+        private fileList = [{
+            name: 'food.jpeg',
+            url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
+        }, {
+            name: 'food2.jpeg',
+            url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
+        }];
+        private faceModel: FaceModel = new FaceModel();
 
         public mounted() {
             this.initialize();
@@ -160,9 +176,10 @@
         }
 
         private showFacePane(e: Event) {
-            const facePaneName = 'facePane';
-            const facePane: any = this.$refs[facePaneName];
-            facePane.setShow(true);
+            if (e instanceof MouseEvent) {
+                const me = e as MouseEvent;
+                this.faceModel.show(me.clientX, me.clientY);
+            }
         }
 
         private shot(e: Event) {
@@ -177,20 +194,9 @@
             });
         }
 
-        private onFaceSelected(categoryId: string, value: string) {
-            if (categoryId === 'emoji') {
-                const p = emojiImageBox.getPictureByKey(value);
-                if (p) {
-                    const html = '<img src="assets/images/common/face/' + categoryId + '/' + p + '" value="' + categoryId + ',' + value + '" name="face" />';
-                    this.insertHtmlAtCursor(html);
-                } else {
-                    this.insertHtmlAtCursor(value);
-                }
-            } else if (categoryId === 'classical') {
-                const html = '<img src="assets/images/common/face/classical/gif/' + value + '.gif" value="' + categoryId + ',' + value + '" name="face" />';
-                this.insertHtmlAtCursor(html);
-            } else {
-                const html = '<img src="assets/images/common/face/' + categoryId + '/' + value + '.png" value="' + categoryId + ',' + value + '" name="face" />';
+        private onFaceSelected(face: FaceItem) {
+            if (face) {
+                const html = FaceImageUtil.createFaceImageHtml(face);
                 this.insertHtmlAtCursor(html);
             }
         }
@@ -260,17 +266,31 @@
 
             if (data && data.body) {
 
-
                 const imageData = data.body;
                 const id = imageData.id;
                 const name = imageData.name;
                 const size = imageData.size;
                 const url = imageData.url;
 
-
                 const html = '<img style="max-width: 60%" src="' + url + '"/>';
                 this.insertHtmlAtCursor(html);
             }
+        }
+
+
+        private beforeImageUpload(file: File) {
+            const maxSiz = (1024 * 1024 * 2);
+            const isImage = ImageFileUtil.isImageByFile(file);
+            let checkMaxSize = false;
+            if (!isImage) {
+                this.handleImageFormatError(file);
+            } else {
+                checkMaxSize = FileCheckUtil.checkMaxSize(maxSiz, file);
+                if (!checkMaxSize) {
+                    this.handleImageMaxSize(file);
+                }
+            }
+            return isImage && checkMaxSize;
         }
 
         private handleImageFormatError(file: File) {
@@ -311,13 +331,129 @@
     }
 
 </script>
-
-<style lang="less">
-    .chat_send_file_list {
-        > .ivu-upload-list {
-            float: right;
-            overflow-y: auto;
-            max-height: 130px;
+<style lang="scss">
+    .tool-icon-warp {
+        .el-upload-list {
+            position: absolute;
+            right: 20px;
+            z-index: 1024;
         }
+    }
+</style>
+<style lang="scss" scoped>
+
+    .container {
+        background: #fff;
+        margin: 0 auto;
+        height: 100%;
+    }
+
+    .header {
+        height: 40px;
+        /*background: pink;*/
+    }
+
+    .middle {
+        height: calc(100% - 80px);
+    }
+
+    .footer {
+        min-height: 40px;
+        height: 40px;
+        padding: 0px;
+        /*background: pink;*/
+    }
+
+
+    .toolbar {
+        height: 100%;
+        padding: 8px 15px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal;
+    }
+
+    .tool-icon-warp {
+        text-align: center;
+        display: inline-block;
+        padding: 2px;
+        margin-left: 5px;
+        margin-right: 5px;
+        cursor: pointer;
+        background: transparent;
+        border: transparent;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal;
+
+        i {
+            color: #979797;
+            font-size: 1.3rem;
+        }
+    }
+
+    .tool-icon-warp:hover {
+        background-color: #d0caca;
+    }
+
+    .content {
+        height: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        outline: none;
+        border: 0;
+        font-size: 14px;
+    }
+
+    .input-area {
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        border: 0;
+        outline: 0;
+        line-height: inherit;
+        background-color: transparent;
+        color: inherit;
+        font-family: inherit
+    }
+
+    .edit-area {
+        position: relative
+    }
+
+    .action {
+        text-align: right;
+        margin-top: 5px;
+        margin-right: 25px;
+    }
+
+    .desc {
+        color: #888;
+        font-size: 12px;
+        margin-left: 10px;
+        margin-right: 7px
+    }
+
+    .button {
+        display: inline-block;
+        border: 1px solid #c1c1c1;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        padding: 3px 20px;
+        font-size: 14px
+    }
+
+    .button-send {
+        background-color: #fff;
+        color: #222;
+        padding-left: 30px;
+        padding-right: 30px
+    }
+
+    .button-send:hover {
+        background-color: #f8f8f8
     }
 </style>

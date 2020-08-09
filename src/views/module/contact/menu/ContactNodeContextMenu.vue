@@ -9,8 +9,9 @@
     import ContextMenu from '@/views/common/menu/ContextMenu.vue';
 
     import app from '@/app/App';
-    import ContactListBox from '@/app/com/main/module/business/contact/box/ContactListBox';
+    import ContactRelationBox from '@/app/com/main/module/business/contact/box/ContactRelationBox';
     import ContactCategoryController from '@/app/com/main/module/business/contact/controller/ContactCategoryController';
+    import ContactCategoryBox from "@/app/com/main/module/business/contact/box/ContactCategoryBox";
 
     @Component({
         components: {
@@ -50,7 +51,7 @@
                 },
             });
 
-            const contactListBox: ContactListBox = app.appContext.getMaterial(ContactListBox);
+            const contactListBox: ContactCategoryBox = app.appContext.getMaterial(ContactCategoryBox);
             const categoryList = contactListBox.getCategoryList();
             const size = categoryList.length;
             if (size > 0) {
@@ -107,7 +108,7 @@
 
         private openUpdateName(categoryId: string) {
             const contactCategoryController: ContactCategoryController = app.appContext.getMaterial(ContactCategoryController);
-            const contactListBox: ContactListBox = app.appContext.getMaterial(ContactListBox);
+            const contactListBox: ContactCategoryBox = app.appContext.getMaterial(ContactCategoryBox);
             const category = contactListBox.getCategory(categoryId);
             let name = category.name;
             this.$Modal.confirm({

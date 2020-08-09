@@ -75,13 +75,13 @@ export default abstract class AbstractMessageUnreadBox extends AbstractMaterial 
     }
 
     public addAllChangeEvent(e: DataChange<number>) {
-        if (this.allChangeEvents.includes(e)) {
+        if (!this.allChangeEvents.includes(e)) {
             this.allChangeEvents.push(e);
         }
     }
 
     public addChangeEvent(e: DataChange<{ key: string, unreadCount: number }>) {
-        if (this.changeEvents.includes(e)) {
+        if (!this.changeEvents.includes(e)) {
             this.changeEvents.push(e);
         }
     }

@@ -35,8 +35,9 @@
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
     import ContactCategory from '@/app/com/main/module/business/contact/bean/ContactCategory';
-    import ContactListBox from '@/app/com/main/module/business/contact/box/ContactListBox';
+    import ContactRelationBox from '@/app/com/main/module/business/contact/box/ContactRelationBox';
     import ContactRelationController from '@/app/com/main/module/business/contact/controller/ContactRelationController';
+    import ContactCategoryBox from "@/app/com/main/module/business/contact/box/ContactCategoryBox";
 
 
     @Component({
@@ -62,7 +63,7 @@
         }
 
         public loadList() {
-            const contactListBox: ContactListBox = app.appContext.getMaterial(ContactListBox);
+            const contactListBox: ContactCategoryBox = app.appContext.getMaterial(ContactCategoryBox);
             this.list = contactListBox.getCategoryList();
         }
 
