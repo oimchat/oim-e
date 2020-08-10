@@ -11,7 +11,7 @@ import TextJudgeUtil from '@/app/lib/util/TextJudgeUtil';
 
 export default class ContentUtil {
 
-    public static getContent(nodes: any[]): Content {
+    public static getContent(nodes:  any): Content {
         let content: Content | any;
         if (nodes && nodes.length > 0) {
             content = new Content();

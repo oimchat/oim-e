@@ -1,8 +1,10 @@
 import FaceItem from '@/app/com/main/module/support/face/data/FaceItem';
 
 export default class FaceImageUtil {
+
     public static createFaceImageHtml(face: FaceItem): string {
-        const html = '<img src="' + face.path + '" value="' + face.categoryId + ',' + face.key + '" name="face" />';
+        const value = face.categoryId + ',' + face.key;
+        const html = '<img src="' + face.path + '" title="' + face.text + '" value="' + value + '" name="face"  alt="' + face.text + '"/>';
         return html;
     }
 }

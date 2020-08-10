@@ -6,11 +6,13 @@ import app from '@/app/App';
 import MessageSwitchSetting from '@/app/com/main/module/setting/message/MessageSwitchSetting';
 import MessageAppendType from '@/app/com/main/module/setting/message/type/MessageAppendType';
 import MessageTimeSettingStore from '@/app/com/main/module/setting/message/MessageTimeSettingStore';
-import ContentItemUtil from "@/app/com/common/chat/util/ContentItemUtil";
-import ContentWrap from "@/common/vue/data/content/ContentWrap";
-import MessageContentWrap from "@/common/vue/data/content/impl/message/MessageContentWrap";
-import ContentWrapType from "@/common/vue/data/content/ContentWrapType";
-import DateUtil from "@/app/lib/util/DateUtil";
+import ContentItemUtil from '@/app/com/common/chat/util/ContentItemUtil';
+import ContentWrap from '@/common/vue/data/content/ContentWrap';
+import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
+import ContentWrapType from '@/common/vue/data/content/ContentWrapType';
+import DateUtil from '@/app/lib/util/DateUtil';
+import MessageStatusType from '@/common/vue/data/content/impl/message/MessageStatusType';
+import DataBackAction from '@/app/base/net/DataBackAction';
 
 
 export default class ChatMessageModel {
@@ -43,6 +45,7 @@ export default class ChatMessageModel {
             return '';
         },
     };
+
     private listMap: Map<string, ContentWrap[]> = new Map<string, ContentWrap[]>();
     private keyMap: Map<string, Map<string, ContentWrap>> = new Map<string, Map<string, ContentWrap>>();
     private dataMap: Map<string, ChatCacheData> = new Map<string, ChatCacheData>();
@@ -148,13 +151,13 @@ export default class ChatMessageModel {
         const messageKey = content.key;
         const map = this.getOrCreateMap(key);
         const list = this.getOrCreateList(key);
-        let wrap: ContentWrap | undefined = map.get(messageKey);
+        const wrap: ContentWrap | undefined = map.get(messageKey);
 
         let data: MessageContentWrap;
         if (wrap) {
             data = wrap.getData(MessageContentWrap);
             if (isOwn) {
-                const status: number = (isReceive) ? 1 : 0;
+                const status: number = (isReceive) ? MessageStatusType.succeed : MessageStatusType.sending;
                 data.status = status;
             }
         } else {
@@ -180,7 +183,7 @@ export default class ChatMessageModel {
             this.data.lastTimestamp = timestamp;
 
             if (isOwn) {
-                const status: number = (isReceive) ? 1 : 0;
+                const status: number = (isReceive) ? MessageStatusType.succeed : MessageStatusType.sending;
                 data.status = status;
             }
 
@@ -211,7 +214,7 @@ export default class ChatMessageModel {
                 for (let i = 0; i < size; i++) {
                     const wrap = list[i];
                     if (ContentWrapType.message === wrap.type) {
-                        let data: MessageContentWrap = wrap.getData(MessageContentWrap);
+                        const data: MessageContentWrap = wrap.getData(MessageContentWrap);
                         const messageKey = data.key;
                         if (map) {
                             map.delete(messageKey);
@@ -227,7 +230,7 @@ export default class ChatMessageModel {
         const map = this.getOrCreateMap(key);
         const wrap: ContentWrap | undefined = map.get(messageKey);
         if (wrap) {
-            let data: MessageContentWrap = wrap.getData(MessageContentWrap);
+            const data: MessageContentWrap = wrap.getData(MessageContentWrap);
             data.status = status;
         }
     }
@@ -240,7 +243,7 @@ export default class ChatMessageModel {
             for (let i = length - 1; i >= 0; i--) {
                 const wrap = list[i];
                 if (ContentWrapType.message === wrap.type) {
-                    let data: MessageContentWrap = wrap.getData(MessageContentWrap);
+                    const data: MessageContentWrap = wrap.getData(MessageContentWrap);
                     messageKey = data.key;
                     break;
                 }
@@ -257,7 +260,7 @@ export default class ChatMessageModel {
             for (let i = 0; i < length; i++) {
                 const wrap = list[i];
                 if (ContentWrapType.message === wrap.type) {
-                    let data: MessageContentWrap = wrap.getData(MessageContentWrap);
+                    const data: MessageContentWrap = wrap.getData(MessageContentWrap);
                     messageKey = data.key;
                     break;
                 }
@@ -322,7 +325,7 @@ export default class ChatMessageModel {
                 const timestamp1: number = a.getTimestamp();
                 const timestamp2: number = b.getTimestamp();
                 return timestamp1 - timestamp2;
-            })
+            });
         }
     }
 

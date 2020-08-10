@@ -40,8 +40,7 @@
                          @keypress="onKeypress"
                          @keyup="onKeyup"
                          class="edit-area input-area"
-                         contenteditable="true">
-                    </pre>
+                         contenteditable="true"/>
                     <span class="caret_pos_helper"></span>
                 </div>
             </div>
@@ -63,20 +62,19 @@
     import app from '@/app/App';
     import {ServerType, Protocol} from '@/app/common/config/constant/ServerConstant';
     import ServerController from '@/app/com/main/module/business/server/controller/ServerController';
-    import emojiImageBox from '@/app/lib/EmojiImageBox';
     import FileSeverApi from '@/app/com/main/module/support/file/constant/FileSeverApi';
     import ContentUploadImageService from '@/app/com/main/module/support/file/service/ContentUploadImageService';
     import UploadResult from '@/app/com/main/module/support/file/data/UploadResult';
     import screenShot from '@/platform/e/module/ScreenShotInvoke';
-    import BaseUtil from '@/app/lib/util/BaseUtil';
-    import TextJudgeUtil from '@/app/lib/util/TextJudgeUtil';
-    import TextValueJudgeUtil from '@/common/web/util/TextValueJudgeUtil';
     import PasteHandlerUtil from '@/common/web/util/PasteHandlerUtil';
     import ImageFileUtil from '@/app/common/util/ImageFileUtil';
     import FileCheckUtil from '@/app/common/util/FileCheckUtil';
     import FaceItem from '@/app/com/main/module/support/face/data/FaceItem';
     import FaceImageUtil from '@/common/web/common/face/FaceImageUtil';
     import FaceModel from '@/views/common/face/FaceModel';
+    import WebContentAnalysisUtil from '@/common/web/util/WebContentAnalysisUtil';
+    import WriteMapper from '@/views/common/chat/WriteMapper';
+    import Content from '@/app/com/common/chat/Content';
 
     @Component({
         components: {
@@ -92,13 +90,13 @@
             imageDisabled: false,
         };
 
-        private fileList = [{
-            name: 'food.jpeg',
-            url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
-        }, {
-            name: 'food2.jpeg',
-            url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
-        }];
+        @Prop({
+            type: WriteMapper,
+            required: false,
+            default: () => (new WriteMapper()),
+        })
+        private data!: WriteMapper;
+
         private faceModel: FaceModel = new FaceModel();
 
         public mounted() {
@@ -139,6 +137,7 @@
                             own.uploadImage(file);
                         });
                 });
+                this.data.setElement(inputAreaElement);
                 // inputAreaElement.addEventListener('',(e:KeyboardEvent)=>{})
             }
 
@@ -201,10 +200,21 @@
             }
         }
 
+
         private send() {
+            const own = this;
             const inputAreaPaneName = 'inputArea';
             const inputArea = this.$refs[inputAreaPaneName];
-            this.onSend(inputArea as Element);
+            if (inputArea) {
+                const area = inputArea as any;
+                const childNodes = area.childNodes;
+                if (childNodes) {
+                    const content = WebContentAnalysisUtil.getContent(childNodes);
+                    if (content) {
+                        own.onSend(content);
+                    }
+                }
+            }
         }
 
         private imageReader(item: DataTransferItem) {
@@ -222,25 +232,6 @@
             // reader.readAsDataURL( file );
         };
 
-        @Emit('on-send')
-        private onSend(e: Element, files?: File[]) {
-            // no
-        }
-
-        @Emit('on-key-press')
-        private keypress(evt: KeyboardEvent, e: Element) {
-            // no
-        }
-
-        @Emit('on-key-up')
-        private keyup(evt: KeyboardEvent, e: Element) {
-            // no
-        }
-
-        @Emit('on-file')
-        private onFile(data: any, file: File) {
-            // no
-        }
 
         private handleSuccess(data: any, file: File, fileList: File[]) {
             this.onFile(data, file);
@@ -328,8 +319,27 @@
                 }
             });
         }
-    }
 
+        @Emit('on-send')
+        private onSend(content: Content) {
+            // no
+        }
+
+        @Emit('on-key-press')
+        private keypress(evt: KeyboardEvent, e: Element) {
+            // no
+        }
+
+        @Emit('on-key-up')
+        private keyup(evt: KeyboardEvent, e: Element) {
+            // no
+        }
+
+        @Emit('on-file')
+        private onFile(data: any, file: File) {
+            // no
+        }
+    }
 </script>
 <style lang="scss">
     .tool-icon-warp {

@@ -1,8 +1,8 @@
 <template>
-    <div class="only-full-pane outer" style="overflow-y: auto;overflow-x: hidden"
+    <div ref="messageScrollPane" class="only-full-pane outer" style="overflow-y: auto;overflow-x: hidden"
          @scroll="handleScroll" @mousewheel="handleMousewheel" v-viewer="viewerOptions">
         <div class="inner">
-            <template v-for="item of items">
+            <template v-for="item of data.items">
                 <template v-if="item.type===wrapType.message">
                     <ContentPane :data="item"></ContentPane>
                 </template>
@@ -14,8 +14,9 @@
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import ContentPane from '@/views/common/chat/ContentPane.vue';
-    import ContentWrap from "@/common/vue/data/content/ContentWrap";
-    import ContentWrapType from "@/common/vue/data/content/ContentWrapType";
+    import ContentWrap from '@/common/vue/data/content/ContentWrap';
+    import ContentWrapType from '@/common/vue/data/content/ContentWrapType';
+    import ReadMapper from '@/views/common/chat/ReadMapper';
 
     @Component({
         components: {
@@ -24,6 +25,15 @@
     })
     export default class ReadPane extends Vue {
         private wrapType = ContentWrapType;
+
+        @Prop({
+            type: ReadMapper,
+            required: false,
+            default: () => (new ReadMapper()),
+        })
+        private data!: ReadMapper;
+
+
         @Prop({
             type: Array,
             required: false,
@@ -33,7 +43,7 @@
 
         private scrollData = {
             scrollTopCount: 0,
-        }
+        };
 
         private viewerOptions = {
             toolbar: true, url: 'data-source', className: 'chat-img', filter: (img: any) => {
@@ -46,6 +56,18 @@
             },
         };
 
+        public mounted() {
+            this.initialize();
+        }
+
+        public initialize() {
+            const messageScrollPaneName = 'messageScrollPane';
+            const messageScrollPaneView: any = this.$refs[messageScrollPaneName];
+            if (messageScrollPaneView instanceof Element) {
+                const scrollElement = messageScrollPaneView as Element;
+                this.data.setScrollElement(scrollElement);
+            }
+        }
 
         private handleMousewheel(e: Event) {
             const own = this;
@@ -115,12 +137,12 @@
             }
         }
 
+        @Emit('on-scroll')
         private onScroll(info: { event: Event, scrollHeight: number, scrollTop: number, scrollPosition: string }) {
-            this.$emit('on-scroll', info);
         }
 
+        @Emit('on-scroll-top')
         private onTop() {
-            this.$emit('on-top');
         }
     }
 </script>

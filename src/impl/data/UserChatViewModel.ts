@@ -4,7 +4,10 @@ import ChatViewModel from '@/impl/data/ChatViewModel';
 import app from '@/app/App';
 import MessageAppendUserSetting from '@/app/com/main/module/setting/message/MessageAppendUserSetting';
 import MessageAppendType from '@/app/com/main/module/setting/message/type/MessageAppendType';
-import UserChatDataController from "@/app/com/main/module/business/chat/controller/UserChatDataController";
+import UserChatDataController from '@/app/com/main/module/business/chat/controller/UserChatDataController';
+import UserChatController from '@/app/com/main/module/business/chat/controller/UserChatController';
+import DataBackAction from '@/app/base/net/DataBackAction';
+import MessageStatusType from '@/common/vue/data/content/impl/message/MessageStatusType';
 
 class UserChatViewModel extends ChatViewModel {
 
@@ -12,6 +15,8 @@ class UserChatViewModel extends ChatViewModel {
         const userId = (user) ? user.id : '';
         this.setChat(userId);
         this.chatData.key = userId;
+        this.chatData.avatar = user.avatar;
+        this.chatData.text = user.signature;
     }
 
     public setName(name: string) {
@@ -54,6 +59,28 @@ class UserChatViewModel extends ChatViewModel {
                     }, 3000);
                 }
             }
+        }
+    }
+
+    public send(c: Content, back: (success: boolean, message: string) => void) {
+        if (c) {
+            const own = this;
+            this.handleSend(c, (success, key, content, message) => {
+                if (success) {
+                    const sendBack: DataBackAction = {
+                        lost(data: any): void {
+                            own.updateStatus(key, content.key, MessageStatusType.fail);
+                        }, timeOut(data: any): void {
+                            own.updateStatus(key, content.key, MessageStatusType.fail);
+                        },
+                    } as DataBackAction;
+                    const userChatController: UserChatController = app.appContext.getMaterial(UserChatController);
+                    userChatController.userChat(key, content, sendBack);
+                }
+                back(success, message);
+            });
+        } else {
+            back(false, '消息不能为空！');
         }
     }
 }

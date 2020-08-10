@@ -6,7 +6,6 @@ import Content from '@/app/com/common/chat/Content';
 import app from '@/app/App';
 import MessageAppendType from '@/app/com/main/module/setting/message/type/MessageAppendType';
 import MessageAppendGroupSetting from '@/app/com/main/module/setting/message/MessageAppendGroupSetting';
-import UserChatDataController from "@/app/com/main/module/business/chat/controller/UserChatDataController";
 import GroupChatDataController from "@/app/com/main/module/business/chat/controller/GroupChatDataController";
 
 class GroupChatViewModel extends ChatViewModel {
@@ -27,6 +26,8 @@ class GroupChatViewModel extends ChatViewModel {
         const groupId = (group) ? group.id : '';
         this.setChat(groupId);
         this.chatData.key = groupId;
+        this.chatData.avatar = group.avatar;
+        this.chatData.text = group.introduce;
 
         const users: User[] = this.getMemberUserList(groupId);
         this.groupMemberData.users = users;

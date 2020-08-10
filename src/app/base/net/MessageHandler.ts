@@ -38,7 +38,7 @@ export default class MessageHandler {
             const back: DataBackAction | any = object.back; // 信息发送后都回调
             const parallel: boolean = object.parallel;
             this.dataMap.delete(key);
-            if (!NetUtil.isEmpty(back)) {
+            if (!NetUtil.isEmpty(back) && typeof back.back === 'function') {
                 back.back(data);
             }
             if (parallel) {
