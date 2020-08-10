@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>OIM</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="stylesheet" href="css/layout.css">
+        <link rel="stylesheet" href="css/chat.css">
+        <link rel="stylesheet" href="css/face.css">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+
+        <div class="main">
+            <div class="main_inner" >
+
+                <div class="sidebar">
+                    <div class="sidebar-tab">
+                        <ul>
+                            <li id="chat_tab">
+                                <div class="wrap">
+                                    <img class="sidebar-tab-icon" height="36" width="36" alt="消息列表" src="images/main/tab/message_selected.png" />
+                                    <div id="chat_tab_red" ></div>
+                                </div>
+                            </li>
+                            <li id="user_tab">
+                                <div class="wrap">
+                                    <img class="sidebar-tab-icon" height="36" width="36" alt="通讯录" src="images/main/tab/user_normal.png" />
+                                </div>
+                            </li>
+                            <li id="more_tab">
+                                <div class="wrap">
+                                    <img class="sidebar-tab-icon" height="36" width="36" alt="应用列表" src="images/main/tab/group_normal.png"/>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-tab-more" id="tab-more" >
+                        <a id="bottom_menu" href="javascript:void(0);">
+                            <img src="images/main/tab/button_menu.png" alt=""/>
+                        </a>
+                    </div>
+                </div>
+
+                <!--begin panel-->
+                <div class="panel">
+                    <!--begin header-->
+                    <div class="header">
+                        <div class="avatar">
+                            <img class="img" src="images/common/head/user/1.png" alt="" >
+                        </div>
+                        <div class="info">
+                            <h3 class="nickname">
+                                <span class="display_name">忧郁de星辰</span>
+                                <a class="opt" href="javascript:;" ><i class="oim_chat_add"></i></a>
+                            </h3>
+                        </div>
+                    </div>
+                    <!--end header-->
+                    <!--begin search-->
+                    <div class="search_bar" id="search_bar">
+                        <i class="oim_chat_search"></i>
+                        <input class="frm_search" type="text" placeholder="搜索">
+                    </div>
+                    <!--end search-->
+                    <!--begin tab-->
+                    <div class="tab" style="padding-bottom: 16px;">
+
+                    </div>
+                    <!--end tab-->
+
+                    <!--begin nav view-->
+                    <!-- uiView: navView -->
+
+
+                    <div class="nav_view"  style="visibility: visible; width: auto;">
+
+                        <div style="overflow-y:auto" class="scroll-wrapper chat_list scrollbar" >
+                            <div class="">
+                                <div class="chat_item slide-left " >
+                                    <div class="ext">
+                                        <p class="attr">12:51</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                        <i class="icon oim_chat_red_dot_middle" >1</i>
+                                    </div>
+
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text">忧郁de星辰</span>
+                                        </h3>
+                                        <p class="msg">
+                                            <span class="">？？</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div  class="">
+                                <div class="chat_item slide-left active">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                        <p class="attr" >
+                                            <i class="oim_chat_no-remind oim_chat_no-remind_hl" ></i>
+                                        </p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div><div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!--end nav view-->
+                </div>
+                <!--end panel-->
+                <!--begin chat-->
+                <!-- uiView: contentView -->
+                <div  style="height:100%;" class="">
+                    <div id="chatArea" class="box chat">
+
+                        <!--begin HD-->
+                        <div class="box_hd">
+                            <!--<a class="ext oim_chat_add_friend" href="javascript:;" ng-click="showChatRoomMembers($event)" ng-show="currentContact.isRoomContact()" title="成员"></a>-->
+                            <!--<a class="ext oim_chat_add_friend" href="javascript:;" ng-click="showProfile($event)" ng-show="!currentContact.isRoomContact()" title="Profile"></a>-->
+                            <div id="chatRoomMembersWrap">
+
+                                <div id="mmpop_chat_room_members" class="mmpop  members_wrp slide-down" tabindex="-1" style="">
+                                    <div class=" members">
+                                        <div  class="members_inner ">
+                                            <div class="member opt">
+                                                <i class="oim_chat_add_friends" ng-click="createChatroom()"></i>
+                                            </div>
+                                            <div class="member">
+                                                <img class="avatar" src="images/common/head/user/1.png"  alt="" title="">
+                                                <p class="nickname" >陈娅楠</p>
+                                            </div>
+                                            <div class="member">
+                                                <img class="avatar" src="images/common/head/user/1.png"  alt="" title="">
+                                                <p class="nickname" >陈娅楠</p>
+                                            </div>
+                                            <div class="member">
+                                                <img class="avatar" src="images/common/head/user/1.png"  alt="" title="">
+                                                <p class="nickname" >陈娅楠</p>
+                                            </div>
+                                            <div class="member">
+                                                <img class="avatar" src="images/common/head/user/1.png"  alt="" title="">
+                                                <p class="nickname" >陈娅楠</p>
+                                            </div>
+                                        </div><!-- end ngIf: !currentContact.isRoomContact() -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="title_wrap">
+                                <div class="title poi" >
+                                    <a class="title_name " data-username="" ></a>
+                                    <!-- ngIf: currentContact.MemberList.length -->
+                                    <i class="oim_chat_down_icon ng-hide" ></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end HD-->
+                        <!--begin BD-->
+
+                        <div class="scroll-wrapper box_bd chat_bd scrollbar-dynamic" style="position: absolute;">
+                            <div class=""  style="margin-bottom: 0px; margin-right: 0px; height: 100%;">
+                                <div>
+
+
+                                    <div class="">
+                                        <div class="clearfix">
+                                            <div style="overflow: hidden;">
+                                                <!-- 系统消息 -->
+                                                <!-- ngSwitchWhen: 10000 -->
+                                                <!-- ngSwitchDefault:  -->
+                                                <div class="message  left" >
+                                                    <!-- ngIf: message.MMTime||(newMsg && newMsg==message) -->
+                                                    <div class="message_system ">
+                                                        <!-- ngIf: (isScrollToUnread && newMsg==message) -->
+                                                        <!-- ngIf: (message.MMTime&&!(newMsg && newMsg==message)) -->
+                                                        <div class="content  ">16:37</div>
+                                                        <!-- end ngIf: (message.MMTime&&!(newMsg && newMsg==message)) --></div>
+                                                    <!-- end ngIf: message.MMTime||(newMsg && newMsg==message) -->
+                                                    <img class="avatar" src="images/common/head/user/2.png" title="忧郁de星辰" >
+                                                    <div class="content">
+                                                        <!-- ngIf: message.MMIsChatRoom && !message.MMIsSend -->
+                                                        <!-- ngIf: message.MsgType != CONF.MSGTYPE_EMOTICON -->
+                                                        <div class="bubble js_message_bubble  bubble_default left">
+
+                                                            <!--news消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_TEXT && message.MMPeerUserName == 'newsapp' -->
+
+                                                            <!--红包消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_RED_ENVELOPES -->
+                                                            <!--纯文本消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_TEXT && message.SubMsgType != CONF.MSGTYPE_LOCATION -->
+                                                            <div class="bubble_cont " >
+                                                                <div class="plain">
+                                                                    <pre class="js_message_plain " >哈哈哈哈，这是测试<br>一个样式<img class="qqemoji qqemoji23" src="images/common/head/user/2.png"><img class="qqemoji qqemoji41" src="images/common/head/user/2.png"></pre>
+                                                                    <img class="ico_loading ng-hide" src="" alt="">
+                                                                    <i class="ico_fail oim_chat_message_fail ng-hide" title="重新发送"></i>
+                                                                </div>
+                                                            </div>
+                                                            <!-- end ngIf: message.MsgType == CONF.MSGTYPE_TEXT && message.SubMsgType != CONF.MSGTYPE_LOCATION -->
+
+                                                            <!-- 地理消息 -->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_TEXT && message.SubMsgType == CONF.MSGTYPE_LOCATION -->
+
+
+
+                                                            <!--图片消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_IMAGE -->
+
+                                                            <!--语音消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_VOICE -->
+
+                                                            <!--视频消息 todo-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_VIDEO -->
+
+                                                            <!--小视频消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_MICROVIDEO -->
+
+
+                                                            <!--名片消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_SHARECARD -->
+
+
+
+                                                            <!--朋友验证消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_VERIFYMSG -->
+
+                                                            <!--链接消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_URL -->
+
+                                                            <!--附件-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_ATTACH -->
+
+                                                            <!-- 模版消息 -->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_READER_TYPE -->
+
+                                                        </div><!-- end ngIf: message.MsgType != CONF.MSGTYPE_EMOTICON -->
+
+                                                        <!--表情消息-->
+                                                        <!-- ngIf: message.MsgType == CONF.MSGTYPE_EMOTICON -->
+
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- ngRepeat: message in chatContent -->
+                                    <div class="">
+                                        <div class="clearfix" >
+                                            <div  style="overflow: hidden;" >
+                                                <!-- 系统消息 -->
+                                                <!-- ngSwitchWhen: 10000 -->
+                                                <!-- ngSwitchDefault:  -->
+                                                <div ng-switch-default="" class="message left" >
+                                                    <!-- ngIf: message.MMTime||(newMsg && newMsg==message) -->
+                                                    <div class="message_system ">
+                                                        <!-- ngIf: (isScrollToUnread && newMsg==message) -->
+                                                        <!-- ngIf: (message.MMTime&&!(newMsg && newMsg==message)) -->
+                                                        <div class="content  ">16:49</div>
+                                                        <!-- end ngIf: (message.MMTime&&!(newMsg && newMsg==message)) -->
+                                                    </div>
+                                                    <!-- end ngIf: message.MMTime||(newMsg && newMsg==message) -->
+                                                    <img class="avatar" src="images/common/head/user/2.png"  title="忧郁de星辰" >
+                                                    <div class="content">
+                                                        <!-- ngIf: message.MMIsChatRoom && !message.MMIsSend -->
+                                                        <!-- ngIf: message.MsgType != CONF.MSGTYPE_EMOTICON -->
+                                                        <div class="bubble js_message_bubble  bubble_default left" >
+
+                                                            <!--news消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_TEXT && message.MMPeerUserName == 'newsapp' -->
+
+                                                            <!--红包消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_RED_ENVELOPES -->
+                                                            <!--纯文本消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_TEXT && message.SubMsgType != CONF.MSGTYPE_LOCATION -->
+
+                                                            <!-- 地理消息 -->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_TEXT && message.SubMsgType == CONF.MSGTYPE_LOCATION -->
+                                                            <div class="bubble_cont ">
+                                                                <div class="location">
+                                                                    <a href="http://apis.map.qq.com/uri/v1/geocoder?coord=22.542622,114.114914" target="_blank">
+                                                                        <img alt="" class="img" src="">
+                                                                        <p class="desc ">鸿隆世纪广场A座(深圳市罗湖区)</p>
+                                                                    </a>
+                                                                </div>
+                                                            </div><!-- end ngIf: message.MsgType == CONF.MSGTYPE_TEXT && message.SubMsgType == CONF.MSGTYPE_LOCATION -->
+
+
+
+                                                            <!--图片消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_IMAGE -->
+
+                                                            <!--语音消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_VOICE -->
+
+                                                            <!--视频消息 todo-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_VIDEO -->
+
+                                                            <!--小视频消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_MICROVIDEO -->
+
+
+                                                            <!--名片消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_SHARECARD -->
+
+
+
+                                                            <!--朋友验证消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_VERIFYMSG -->
+
+                                                            <!--链接消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_URL -->
+
+                                                            <!--附件-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_ATTACH -->
+
+                                                            <!-- 模版消息 -->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_READER_TYPE -->
+
+                                                        </div><!-- end ngIf: message.MsgType != CONF.MSGTYPE_EMOTICON -->
+
+                                                        <!--表情消息-->
+                                                        <!-- ngIf: message.MsgType == CONF.MSGTYPE_EMOTICON -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- end ngRepeat: message in chatContent -->
+                                    <div class="">
+                                        <div class="clearfix">
+                                            <div style="overflow: hidden;" >
+                                                <!-- 系统消息 -->
+                                                <!-- ngSwitchWhen: 10000 -->
+                                                <!-- ngSwitchDefault:  -->
+                                                <div class="message  left" >
+                                                    <!-- ngIf: message.MMTime||(newMsg && newMsg==message) -->
+
+                                                    <img class="avatar" src="images/common/head/user/2.png" title="忧郁de星辰">
+                                                    <div class="content">
+                                                        <!-- ngIf: message.MMIsChatRoom && !message.MMIsSend -->
+                                                        <!-- ngIf: message.MsgType != CONF.MSGTYPE_EMOTICON -->
+                                                        <div class="bubble js_message_bubble  bubble_default left" >
+
+                                                            <!--news消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_TEXT && message.MMPeerUserName == 'newsapp' -->
+
+                                                            <!--红包消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_RED_ENVELOPES -->
+                                                            <!--纯文本消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_TEXT && message.SubMsgType != CONF.MSGTYPE_LOCATION -->
+
+                                                            <!-- 地理消息 -->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_TEXT && message.SubMsgType == CONF.MSGTYPE_LOCATION -->
+
+
+
+                                                            <!--图片消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_IMAGE -->
+
+                                                            <!--语音消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_VOICE -->
+
+                                                            <!--视频消息 todo-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_VIDEO -->
+
+                                                            <!--小视频消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_MICROVIDEO -->
+
+
+                                                            <!--名片消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_SHARECARD -->
+                                                            <div class="bubble_cont primary " >
+                                                                <div class="card">
+                                                                    <div class="card_hd"><!-- ngIf: message.RecommendInfo.VerifyFlag --><!-- ngIf: !message.RecommendInfo.VerifyFlag -->
+                                                                        <p ng-if="!message.RecommendInfo.VerifyFlag" class="">个人名片</p><!-- end ngIf: !message.RecommendInfo.VerifyFlag --></div>
+                                                                    <div class="card_bd">
+                                                                        <div class="card_avatar">
+                                                                            <img class="img" alt="" src="images/common/head/user/2.png">
+                                                                        </div>
+                                                                        <div class="info">
+                                                                            <h3 class="display_name " ng-bind-html="message.RecommendInfo.NickName">忧郁de星辰</h3>
+                                                                            <!--<p class="signature" ng-bind-html="message.MMUserName"></p>-->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- end ngIf: message.MsgType == CONF.MSGTYPE_SHARECARD -->
+
+
+
+                                                            <!--朋友验证消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_VERIFYMSG -->
+
+                                                            <!--链接消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_URL -->
+
+                                                            <!--附件-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_ATTACH -->
+
+                                                            <!-- 模版消息 -->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_READER_TYPE -->
+
+                                                        </div><!-- end ngIf: message.MsgType != CONF.MSGTYPE_EMOTICON -->
+
+                                                        <!--表情消息-->
+                                                        <!-- ngIf: message.MsgType == CONF.MSGTYPE_EMOTICON -->
+
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- end ngRepeat: message in chatContent --><div class="">
+                                    <div class="clearfix" >
+                                        <div style="overflow: hidden;" >
+                                            <!-- 系统消息 -->
+                                            <!-- ngSwitchWhen: 10000 -->
+                                            <!-- ngSwitchDefault:  -->
+                                            <div class="message  right" >
+                                                <!-- ngIf: message.MMTime||(newMsg && newMsg==message) -->
+
+
+
+                                                <img class="avatar" src="images/common/head/user/2.png" title="烙灵" >
+                                                <div class="content">
+                                                    <!-- ngIf: message.MMIsChatRoom && !message.MMIsSend -->
+                                                    <!-- ngIf: message.MsgType != CONF.MSGTYPE_EMOTICON -->
+                                                    <div class="bubble js_message_bubble  bubble_primary right no_arrow" >
+
+                                                        <!--news消息-->
+                                                        <!-- ngIf: message.MsgType == CONF.MSGTYPE_TEXT && message.MMPeerUserName == 'newsapp' -->
+
+                                                        <!--红包消息-->
+                                                        <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_RED_ENVELOPES -->
+                                                        <!--纯文本消息-->
+                                                        <!-- ngIf: message.MsgType == CONF.MSGTYPE_TEXT && message.SubMsgType != CONF.MSGTYPE_LOCATION -->
+
+                                                        <!-- 地理消息 -->
+                                                        <!-- ngIf: message.MsgType == CONF.MSGTYPE_TEXT && message.SubMsgType == CONF.MSGTYPE_LOCATION -->
+
+
+
+                                                        <!--图片消息-->
+                                                        <!-- ngIf: message.MsgType == CONF.MSGTYPE_IMAGE -->
+
+                                                        <!--语音消息-->
+                                                        <!-- ngIf: message.MsgType == CONF.MSGTYPE_VOICE -->
+
+                                                        <!--视频消息 todo-->
+                                                        <!-- ngIf: message.MsgType == CONF.MSGTYPE_VIDEO --><div class="bubble_cont ">
+                                                        <div class="video" ng-click="showVideo(message.MsgId)">
+                                                            <!-- ngIf: message.MMStatus!=1 && message.MMFileStatus !== CONF.MM_SEND_FILE_STATUS_FAIL -->
+                                                            <img height="120" width="160" class="msg-img " src="" style="height: 960px; width: 540px;"><!-- end ngIf: message.MMStatus!=1 && message.MMFileStatus !== CONF.MM_SEND_FILE_STATUS_FAIL -->
+                                                            <!-- ngIf: message.MMStatus!=1 && message.MMFileStatus !== CONF.MM_SEND_FILE_STATUS_FAIL -->
+                                                            <i class="oim_chat_paly "></i><!-- end ngIf: message.MMStatus!=1 && message.MMFileStatus !== CONF.MM_SEND_FILE_STATUS_FAIL -->
+                                                            <!-- ngIf: message.MMStatus!=1 && message.MMFileStatus !== CONF.MM_SEND_FILE_STATUS_FAIL -->
+                                                            <i class="arrow "></i><!-- end ngIf: message.MMStatus!=1 && message.MMFileStatus !== CONF.MM_SEND_FILE_STATUS_FAIL -->
+                                                            <!-- ngIf: message.MMStatus == 1 || message.MMFileStatus == CONF.MM_SEND_FILE_STATUS_FAIL -->
+
+                                                            <p class="loading ng-hide" >
+                                                                <img src="" alt="">
+                                                            </p>
+                                                        </div>
+
+                                                    </div><!-- end ngIf: message.MsgType == CONF.MSGTYPE_VIDEO -->
+
+                                                        <!--小视频消息-->
+                                                        <!-- ngIf: message.MsgType == CONF.MSGTYPE_MICROVIDEO -->
+
+
+                                                        <!--名片消息-->
+                                                        <!-- ngIf: message.MsgType == CONF.MSGTYPE_SHARECARD -->
+
+
+
+                                                        <!--朋友验证消息-->
+                                                        <!-- ngIf: message.MsgType == CONF.MSGTYPE_VERIFYMSG -->
+
+                                                        <!--链接消息-->
+                                                        <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_URL -->
+
+                                                        <!--附件-->
+                                                        <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_ATTACH -->
+
+                                                        <!-- 模版消息 -->
+                                                        <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_READER_TYPE -->
+
+                                                    </div><!-- end ngIf: message.MsgType != CONF.MSGTYPE_EMOTICON -->
+
+                                                    <!--表情消息-->
+                                                    <!-- ngIf: message.MsgType == CONF.MSGTYPE_EMOTICON -->
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- end ngRepeat: message in chatContent -->
+                                    <div class="">
+                                        <div class="clearfix">
+                                            <div style="overflow: hidden;">
+                                                <!-- 系统消息 -->
+                                                <!-- ngSwitchWhen: 10000 -->
+                                                <!-- ngSwitchDefault:  -->
+                                                <div class="message  right" >
+                                                    <!-- ngIf: message.MMTime||(newMsg && newMsg==message) -->
+                                                    <img class="avatar" src="images/common/head/user/2.png" title="烙灵" >
+                                                    <div class="content">
+                                                        <!-- ngIf: message.MMIsChatRoom && !message.MMIsSend -->
+                                                        <!-- ngIf: message.MsgType != CONF.MSGTYPE_EMOTICON -->
+                                                        <div class="bubble js_message_bubble  bubble_primary right" >
+
+                                                            <!--news消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_TEXT && message.MMPeerUserName == 'newsapp' -->
+
+                                                            <!--红包消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_RED_ENVELOPES -->
+                                                            <!--纯文本消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_TEXT && message.SubMsgType != CONF.MSGTYPE_LOCATION -->
+
+                                                            <!-- 地理消息 -->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_TEXT && message.SubMsgType == CONF.MSGTYPE_LOCATION -->
+
+
+
+                                                            <!--图片消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_IMAGE -->
+
+                                                            <!--语音消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_VOICE -->
+
+                                                            <!--视频消息 todo-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_VIDEO -->
+
+                                                            <!--小视频消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_MICROVIDEO -->
+
+
+                                                            <!--名片消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_SHARECARD -->
+
+
+
+                                                            <!--朋友验证消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_VERIFYMSG -->
+
+                                                            <!--链接消息-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_URL -->
+
+                                                            <!--附件-->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_ATTACH -->
+                                                            <div class="bubble_cont primary ">
+                                                                <div class="attach">
+                                                                    <div class="attach_bd">
+                                                                        <div class="cover" >
+                                                                            <!-- ngSwitchWhen: txt -->
+                                                                            <i class="icon-txt "></i>
+                                                                            <!-- ngSwitchWhen: pdf -->
+                                                                            <!-- ngSwitchWhen: xls -->
+                                                                            <!-- ngSwitchWhen: xlsx -->
+                                                                            <!-- ngSwitchWhen: doc -->
+                                                                            <!-- ngSwitchWhen: docx -->
+                                                                            <!-- ngSwitchWhen: ppt -->
+                                                                            <!-- ngSwitchWhen: pptx -->
+                                                                            <!-- ngSwitchWhen: zip -->
+                                                                            <!-- ngSwitchWhen: numbers -->
+                                                                            <!-- ngSwitchWhen: pages -->
+                                                                            <!-- ngSwitchWhen: key -->
+                                                                            <!-- ngSwitchDefault:  -->
+                                                                        </div>
+                                                                        <div class="cont">
+                                                                            <p class="title ">客户端.txt</p>
+                                                                            <div class="opr">
+                                                                                <span class="">54B</span>
+                                                                                <span class="sep">|</span>
+                                                                                <!-- ngIf: message.MMFileStatus == CONF.MM_SEND_FILE_STATUS_QUEUED
+                                                                                || message.MMFileStatus == CONF.MM_SEND_FILE_STATUS_SENDING
+                                                                                || message.MMStatus == CONF.MSG_SEND_STATUS_SENDING -->
+                                                                                <!-- ngIf: message.MMFileStatus == CONF.MM_SEND_FILE_STATUS_SUCCESS  && (message.MMStatus == CONF.MSG_SEND_STATUS_SUCC || message.MMStatus === undefined) -->
+                                                                                <a  href="" class="">下载</a>
+                                                                                <!-- end ngIf: message.MMFileStatus == CONF.MM_SEND_FILE_STATUS_SUCCESS  && (message.MMStatus == CONF.MSG_SEND_STATUS_SUCC || message.MMStatus === undefined) -->
+                                                                                <!-- ngIf: message.MMFileStatus == CONF.MM_SEND_FILE_STATUS_CANCEL -->
+                                                                                <!-- ngIf: message.MMFileStatus == CONF.MM_SEND_FILE_STATUS_FAIL || message.MMStatus == CONF.MSG_SEND_STATUS_FAIL -->
+                                                                                <!-- ngIf: message.MMFileStatus == CONF.MM_SEND_FILE_STATUS_QUEUED || message.MMFileStatus == CONF.MM_SEND_FILE_STATUS_SENDING -->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- end ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_ATTACH -->
+
+                                                            <!-- 模版消息 -->
+                                                            <!-- ngIf: message.MsgType == CONF.MSGTYPE_APP && message.AppMsgType == CONF.APPMSGTYPE_READER_TYPE -->
+
+                                                        </div><!-- end ngIf: message.MsgType != CONF.MSGTYPE_EMOTICON -->
+
+                                                        <!--表情消息-->
+                                                        <!-- ngIf: message.MsgType == CONF.MSGTYPE_EMOTICON -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end ngRepeat: message in chatContent -->
+                                    <div class="bottom-placeholder " style="height: 0px;">
+
+                                    </div>
+                                </div>
+
+                                <!--<div message-directive
+                                     ng-repeat="message in chatContent track by message.MsgId"
+                                     class="clearfix"
+                                     ng-class="{'slide-top':messagesAnimate}"
+                                     ></div>
+                                -->
+                            </div>
+                        </div>
+                        <!--end BD-->
+                        <!--begin FT-->
+                        <div class="box_ft  ng-hide" >
+                            <div class="toolbar" id="tool_bar">
+                                <a class="oim_chat_face" href="javascript:;" title="表情"></a>
+                                <a class="oim_chat_screencut "  href="javascript:;" title="截屏"></a>
+                                <a class="oim_chat_pic js_fileupload  webuploader-container"  title="图片和文件">
+                                    <div class="webuploader-pick"></div>
+                                    <div id="rt_rt_1c39vaq8v1jb81kac8rs1qeldfe1" style="position: absolute; top: 0px; left: 0px; width: 30px; height: 30px; overflow: hidden; bottom: auto; right: auto;">
+                                        <input type="file" name="file" class="webuploader-element-invisible" >
+                                        <label style="opacity:0;width:100%;height:100%;display:block;cursor:pointer;background:rgb(255, 255, 255);"></label>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="content " >
+                                <pre id="editArea" contenteditable-directive="" mm-paste="" class="flex edit_area   " contenteditable="true" ng-blur="editAreaBlur($event)" ng-model="editAreaCtn" ng-click="editAreaClick($event)" ng-keyup="editAreaKeyup($event)" ng-keydown="editAreaKeydown($event)"></pre>
+                                <span class="caret_pos_helper" id="caretPosHelper"></span>
+                            </div>
+
+                            <div class="action">
+                                <span class="desc ">按下Shift+Enter换行</span>
+                                <a class="oim_button oim_button_send" href="javascript:;" ng-click="sendTextMessage()">发送</a>
+                            </div>
+                        </div>
+                        <!--end FT-->
+                        <div id="J_CatchDrop" class="catch-drop-area"></div>
+                    </div>
+                </div>
+                <!--end chat-->
+            </div>
+            <p class="copyright">
+                <span>© 1998 - 2018 OIM Inc. All Rights Reserved</span>
+                <span class="sep"></span>
+                <a href="http://www.oimchat.com" target="_blank">帮助</a>
+            </p>
+        </div>
+    </body>
+</html>

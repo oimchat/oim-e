@@ -13,7 +13,7 @@
     import ChangeGroupOwnerPane from '@/views/module/group/ChangeGroupOwnerPane.vue';
 
     import app from '@/app/App';
-    import PersonalGroupMemberListBox from '@/app/com/main/module/business/group/box/PersonalGroupMemberListBox';
+    import GroupMemberListOfPersonalBox from '@/app/com/main/module/business/group/box/GroupMemberListOfPersonalBox';
     import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
     import GroupRelationBox from '@/app/com/main/module/business/group/box/GroupRelationBox';
 
@@ -53,7 +53,7 @@
         public show(e: MouseEvent, groupId: string) {
             const own = this;
             const groupListBox: GroupCategoryBox = app.appContext.getMaterial(GroupCategoryBox);
-            const personalGroupMemberListBox: PersonalGroupMemberListBox = app.appContext.getMaterial(PersonalGroupMemberListBox);
+            const personalGroupMemberListBox: GroupMemberListOfPersonalBox = app.appContext.getMaterial(GroupMemberListOfPersonalBox);
             const position = personalGroupMemberListBox.getPosition(groupId);
             const list: any = [];
             const items: NavMenuItemData[] = [];

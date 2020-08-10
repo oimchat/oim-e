@@ -14,7 +14,6 @@
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import ContentPane from '@/views/common/chat/ContentPane.vue';
-    import ContentWrap from '@/common/vue/data/content/ContentWrap';
     import ContentWrapType from '@/common/vue/data/content/ContentWrapType';
     import ReadMapper from '@/views/common/chat/ReadMapper';
 
@@ -32,18 +31,6 @@
             default: () => (new ReadMapper()),
         })
         private data!: ReadMapper;
-
-
-        @Prop({
-            type: Array,
-            required: false,
-            default: () => (new Array<ContentWrap>()),
-        })
-        private items!: ContentWrap[];
-
-        private scrollData = {
-            scrollTopCount: 0,
-        };
 
         private viewerOptions = {
             toolbar: true, url: 'data-source', className: 'chat-img', filter: (img: any) => {
@@ -79,31 +66,15 @@
                 if (deltaY < 0) {
                     // 向上
                     const target = ev.target;
-                    const node = target as Element;
-                    const height = node.scrollHeight;
+                    // const node = target as Element;
+                    const node = this.data.getScrollElement();
                     const top = node.scrollTop;
 
-                    const clientHeight = node.clientHeight;
-                    let position = '';
-                    const a = (height - top);
-                    const b = (clientHeight + 25);
-
-                    if (height === clientHeight) {
-                        // 滚动条没有出来
-                        if (top === 0) {
-                            own.scrollData.scrollTopCount++;
-                            if (own.scrollData.scrollTopCount > 3) {
-                                own.scrollData.scrollTopCount = 0;
-                                own.onTop();
-                            }
-                        }
-                    } else {
-                        if (top === 0) {
-                            own.scrollData.scrollTopCount++;
-                            if (own.scrollData.scrollTopCount > 3) {
-                                own.scrollData.scrollTopCount = 0;
-                                own.onTop();
-                            }
+                    if (top === 0) {
+                        own.data.scrollData.scrollTopCount++;
+                        if (own.data.scrollData.scrollTopCount > 3) {
+                            own.data.scrollData.scrollTopCount = 0;
+                            own.onTop();
                         }
                     }
                 }

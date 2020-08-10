@@ -4,7 +4,7 @@
         <div class="top">
             <div :class="'top-title-warp'">
                 <div class="ext">
-                    <p class="attr">{{777}}</p>
+                    <slot name="top-extend"></slot>
                 </div>
                 <div class="avatar">
                     <img :class="'img'" :src="data.info.avatar?data.info.avatar:avatar" alt="头像">

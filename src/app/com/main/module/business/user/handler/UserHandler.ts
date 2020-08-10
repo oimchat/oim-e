@@ -4,7 +4,8 @@ import User from '@/app/com/main/module/business/user/bean/User';
 import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
 import UserSender from '@/app/com/main/module/business/user/sender/UserSender';
 import UserBox from '@/app/com/main/module/business/user/box/UserBox';
-import UserInfoUtil from "@/app/com/main/common/util/UserInfoUtil";
+import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
+import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
 
 export default class UserHandler extends AbstractMaterial {
 
@@ -51,5 +52,40 @@ export default class UserHandler extends AbstractMaterial {
         } else {
             back(false, user);
         }
+    }
+
+    public getUsersByIds(ids: string[], back: (success: boolean, users: User[], message: string) => void) {
+        const userSender: UserSender = this.appContext.getMaterial(UserSender);
+        const userBack: DataBackAction = {
+            back(data: any): void {
+                let mark = false;
+                let text = '请求失败！';
+                let list: User[] = [];
+                if (data) {
+                    const info = data.info;
+                    if (info) {
+                        if (info.success && data.body) {
+                            const items: User[] = data.body.items;
+                            if (items) {
+                                for (const u of list) {
+                                    UserInfoUtil.handleAvatar(u);
+                                }
+                                list = items;
+                                mark = true;
+                                text = '';
+                            }
+                        }
+                    }
+                }
+                back(mark, list, text);
+            },
+            lost(data: any): void {
+                back(false, [], '请求失败！');
+            },
+            timeOut(data: any): void {
+                back(false, [], '请求超时！');
+            },
+        } as DataBackAction;
+        userSender.getUsers(ids, userBack, false);
     }
 }

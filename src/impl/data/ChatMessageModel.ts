@@ -68,6 +68,8 @@ export default class ChatMessageModel {
         const list = this.getOrCreateList(key);
         const data = this.getOrCreateCacheData(key);
         this.data.list = list;
+        this.data.key = key;
+
         this.cacheData.key = key;
         this.cacheData.data = data;
         data.scrollTopCount = 0;

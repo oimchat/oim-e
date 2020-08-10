@@ -93,7 +93,7 @@
     import GroupMember from '../../src/app/com/main/module/business/group/bean/GroupMember';
     import GroupRelationController from '../../src/app/com/main/module/business/group/controller/GroupRelationController';
     import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
-    import PersonalGroupMemberListBox from '../../src/app/com/main/module/business/group/box/PersonalGroupMemberListBox';
+    import GroupMemberListOfPersonalBox from '../../src/app/com/main/module/business/group/box/GroupMemberListOfPersonalBox';
     import GroupMemberService from '../../src/app/com/main/module/business/group/service/GroupMemberService';
 
     @Component({
@@ -243,7 +243,7 @@
             this.showMore = false;
 
             const groupId = this.groupId;
-            const personalGroupMemberListBox: PersonalGroupMemberListBox = app.appContext.getMaterial(PersonalGroupMemberListBox);
+            const personalGroupMemberListBox: GroupMemberListOfPersonalBox = app.appContext.getMaterial(GroupMemberListOfPersonalBox);
             const position = personalGroupMemberListBox.getPosition(groupId);
             this.isOwner = (GroupMember.POSITION_OWNER === position);
         }

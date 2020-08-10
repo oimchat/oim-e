@@ -1,34 +1,67 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import Page from '@/app/com/common/data/Page';
 import GroupMemberSender from '@/app/com/main/module/business/group/sender/GroupMemberSender';
-import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
+import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
+import User from '@/app/com/main/module/business/user/bean/User';
+import DataBackAction from '@/app/base/net/DataBackAction';
+import UserAccess from '@/app/com/main/module/business/user/access/UserAccess';
 
 export default class GroupMemberHandler extends AbstractMaterial {
 
-    public loadAllOwnerGroupMemberList(): void {
+    public getGroupMemberUserPageList(groupId: string, page: Page, back: (success: boolean, memberList: GroupMember[], userList: User[], message: string) => void) {
         const own = this;
-        const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
-        const userId = pb.getUserId();
-        const sender: GroupMemberSender = this.appContext.getMaterial(GroupMemberSender);
-        const dataBack = this.appContext.createDataBackAction((data: any) => {
-            if (data.body && data.body.count) {
-                const count: number = data.body.count;
-                own.loadOwnerGroupMemberListByCount(count);
+        const userAccess: UserAccess = this.appContext.getMaterial(UserAccess);
+
+        own.getGroupMemberPageList(groupId, page, (mark, members, text) => {
+            if (mark) {
+                const userIds: string[] = [];
+                for (const value of members) {
+                    if (value) {
+                        const userId = value.userId;
+                        userIds.push(userId);
+                    }
+                }
+                userAccess.getUsersByIds(userIds, (s, users, m) => {
+                    if (s) {
+                        back(s, members, users, m);
+                    } else {
+                        back(mark, members, users, text);
+                    }
+                });
+            } else {
+                back(mark, members, [], text);
             }
         });
-        sender.getOwnerGroupMemberCountByUserId(userId, dataBack);
     }
 
-    public loadOwnerGroupMemberListByCount(count: number): void {
-        const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
-        const userId = pb.getUserId();
-        const page: Page = new Page();
-        page.setTotalCount(count);
-        const totalPage = page.getTotalPage();
+    public getGroupMemberPageList(groupId: string, page: Page, back: (success: boolean, memberList: GroupMember[], message: string) => void) {
         const sender: GroupMemberSender = this.appContext.getMaterial(GroupMemberSender);
-        for (let i = 0; i < totalPage; i++) {
-            page.number = (i + 1);
-            sender.getOwnerGroupMemberListByUserId(userId, page);
-        }
+
+        let members: GroupMember[];
+        let mark = false;
+        let text = '请求失败！';
+
+        const memberBack: DataBackAction = {
+            back(data: any): void {
+                if (data) {
+                    const info = data.info;
+                    if (info) {
+                        if (info.success && data.body) {
+                            members = data.body.items;
+                            mark = true;
+                            text = '';
+                        }
+                    }
+                }
+                back(mark, members, text);
+            },
+            lost(data: any): void {
+                back(mark, members, text);
+            },
+            timeOut(data: any): void {
+                back(false, members, '请求超时！');
+            },
+        } as DataBackAction;
+        sender.getGroupMemberList(groupId, page, memberBack);
     }
 }

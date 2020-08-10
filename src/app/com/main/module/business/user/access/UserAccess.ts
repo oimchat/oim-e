@@ -3,7 +3,7 @@ import DataChange from '@/app/base/event/DataChange';
 import User from '@/app/com/main/module/business/user/bean/User';
 import UserListener from '@/app/com/main/module/business/user/listener/UserListener';
 import UserHandler from '@/app/com/main/module/business/user/handler/UserHandler';
-import UserTempBox from "@/app/com/main/module/business/user/box/UserTempBox";
+import UserTempBox from '@/app/com/main/module/business/user/box/UserTempBox';
 
 export default class UserAccess extends AbstractMaterial {
 
@@ -32,5 +32,10 @@ export default class UserAccess extends AbstractMaterial {
                 back(success, user);
             });
         }
+    }
+
+    public getUsersByIds(ids: string[], back: (success: boolean, users: User[], message: string) => void) {
+        const userHandler: UserHandler = this.appContext.getMaterial(UserHandler);
+        userHandler.getUsersByIds(ids, back);
     }
 }

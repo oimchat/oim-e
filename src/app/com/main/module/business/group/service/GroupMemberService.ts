@@ -1,6 +1,6 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
-import PersonalGroupMemberListBox from '@/app/com/main/module/business/group/box/PersonalGroupMemberListBox';
+import GroupMemberListOfPersonalBox from '@/app/com/main/module/business/group/box/GroupMemberListOfPersonalBox';
 import User from '@/app/com/main/module/business/user/bean/User';
 import GroupMemberManager from '@/app/com/main/module/business/group/manager/GroupMemberManager';
 import GroupMemberBox from '@/app/com/main/module/business/group/box/GroupMemberBox';
@@ -17,13 +17,13 @@ import GroupJoinApply from '@/app/com/main/module/business/group/bean/GroupJoinA
 export default class GroupMemberService extends AbstractMaterial {
 
     public setOwnerGroupMemberList(list: GroupMember[]) {
-        const box: PersonalGroupMemberListBox = this.appContext.getMaterial(PersonalGroupMemberListBox);
+        const box: GroupMemberListOfPersonalBox = this.appContext.getMaterial(GroupMemberListOfPersonalBox);
         box.putGroupMemberList(list);
     }
 
     public loadOwnerGroupMember(groupId: string) {
         const personalBox: PersonalBox = this.appContext.getMaterial(PersonalBox);
-        const box: PersonalGroupMemberListBox = this.appContext.getMaterial(PersonalGroupMemberListBox);
+        const box: GroupMemberListOfPersonalBox = this.appContext.getMaterial(GroupMemberListOfPersonalBox);
         const manager: GroupMemberListManager = this.appContext.getMaterial(GroupMemberListManager);
         const memberUserBox: GroupMemberUserBox = this.appContext.getMaterial(GroupMemberUserBox);
         const memberBox: GroupMemberBox = this.appContext.getMaterial(GroupMemberBox);
@@ -86,7 +86,6 @@ export default class GroupMemberService extends AbstractMaterial {
         const page: Page = new Page();
         page.setTotalCount(count);
         const totalPage = page.getTotalPage();
-        const sender: GroupMemberSender = this.appContext.getMaterial(GroupMemberSender);
         for (let i = 0; i < totalPage; i++) {
             page.number = (i + 1);
             own.getMemberPageList(groupId, page, back);
@@ -220,7 +219,7 @@ export default class GroupMemberService extends AbstractMaterial {
         const memberBox: GroupMemberBox = this.appContext.getMaterial(GroupMemberBox);
         memberBox.updatePosition(groupId, userId, position);
 
-        const personalGroupMemberListBox: PersonalGroupMemberListBox = this.appContext.getMaterial(PersonalGroupMemberListBox);
+        const personalGroupMemberListBox: GroupMemberListOfPersonalBox = this.appContext.getMaterial(GroupMemberListOfPersonalBox);
         const personalBox: PersonalBox = this.appContext.getMaterial(PersonalBox);
 
         const ownerUserId = personalBox.getUserId();

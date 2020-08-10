@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>OIM</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="stylesheet" href="css/layout.css">
+        <link rel="stylesheet" href="css/chat.css">
+        <link rel="stylesheet" href="css/face.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/menu.css">
+    </head>
+    <body>
+
+        <div class="main">
+            <div class="main_inner" >
+
+                <div class="sidebar">
+                    <div class="sidebar-tab">
+                        <ul>
+                            <li id="chat_tab">
+                                <div class="wrap">
+                                    <img class="sidebar-tab-icon" height="36" width="36" alt="消息列表" src="images/main/tab/message_selected.png" />
+                                    <div id="chat_tab_red" ></div>
+                                </div>
+                            </li>
+                            <li id="user_tab">
+                                <div class="wrap">
+                                    <img class="sidebar-tab-icon" height="36" width="36" alt="通讯录" src="images/main/tab/user_normal.png" />
+                                </div>
+                            </li>
+                            <li id="more_tab">
+                                <div class="wrap">
+                                    <img class="sidebar-tab-icon" height="36" width="36" alt="应用列表" src="images/main/tab/group_normal.png"/>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-tab-more" id="tab-more" >
+                        <a id="bottom_menu" href="javascript:void(0);">
+                            <img src="images/main/tab/button_menu.png" alt=""/>
+                        </a>
+                    </div>
+                </div>
+
+                <!--begin panel-->
+                <div class="panel">
+                    <!--begin header-->
+                    <div class="header">
+                        <div class="avatar">
+                            <img class="img" src="images/common/head/user/1.png" alt="" >
+                        </div>
+                        <div class="info">
+                            <h3 class="nickname">
+                                <span class="display_name">忧郁de星辰</span>
+                                <a class="opt" href="javascript:;" ><i class="oim_chat_add"></i></a>
+                            </h3>
+                        </div>
+                    </div>
+                    <!--end header-->
+                    <!--begin search-->
+                    <div class="search_bar" >
+                        <i class="oim_chat_search"></i>
+                        <input class="frm_search" type="text" placeholder="搜索">
+                        <div class="mmpop recommendation" tabindex="-1">
+                            <div class="scroll-wrapper contacts scrollbar-dynamic" style="position: relative;">
+                                <div class="contacts scrollbar-dynamic scroll-content " style="margin-bottom: 0px; margin-right: 0px; overflow-y:auto">
+                                    <!--data-height-calc="heightCalc"-->
+                                    <div class="">
+                                        <div class="top-placeholder " style="height: 0px;"></div>
+                                        <!-- ngRepeat: item in allContacts -->
+                                        <div class="">
+                                            <!-- ngIf: item.type=="header" -->
+                                            <h4 class="contact_title first">好友</h4><!-- end ngIf: item.type=="header" -->
+                                            <!-- ngIf: item.type!="header" -->
+                                        </div><!-- end ngRepeat: item in allContacts -->
+                                        <div class="">
+                                            <!-- ngIf: item.type=="header" -->
+                                            <!-- ngIf: item.type!="header" -->
+                                            <div class="">
+                                                <!-- ngIf: showOrderSymbol&&user.MMC -->
+                                                <div class="contact_item on" >
+                                                    <div class="avatar">
+                                                        <img class="img" src="" alt="">
+                                                    </div>
+                                                    <div class="info">
+                                                        <h4 class="nickname" >卜美兰</h4>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end ngIf: item.type!="header" -->
+                                        </div>
+                                        <!-- end ngRepeat: item in allContacts -->
+                                        <div class="">
+                                            <!-- ngIf: item.type=="header" -->
+                                            <h4 class="contact_title">群组</h4><!-- end ngIf: item.type=="header" -->
+                                            <!-- ngIf: item.type!="header" -->
+                                        </div>
+                                        <div class="">
+                                            <!-- ngIf: item.type=="header" -->
+                                            <!-- ngIf: item.type!="header" -->
+                                            <div class="">
+                                                <!-- ngIf: showOrderSymbol&&user.MMC -->
+                                                <div class="contact_item">
+                                                    <div class="avatar">
+                                                        <img class="img" src="" alt="">
+                                                    </div>
+                                                    <div class="info">
+                                                        <h4 class="nickname" >崇文花园新能源车充电交流</h4>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end ngIf: item.type!="header" -->
+                                        </div>
+                                        <!-- end ngRepeat: item in allContacts -->
+                                        <div class="bottom-placeholder" style="height: 991px;"></div></div>
+                                    <!-- ngIf: !allContacts.length -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end search-->
+                    <!--begin tab-->
+                    <div class="tab" style="padding-bottom: 16px;">
+
+                    </div>
+                    <!--end tab-->
+
+                    <!--begin nav view-->
+                    <!-- uiView: navView -->
+
+
+                    <div class="nav_view"  style="visibility: visible; width: auto;">
+
+                        <div style="overflow-y:auto" class="scroll-wrapper chat_list scrollbar" >
+                            <div class="">
+                                <div class="chat_item slide-left " >
+                                    <div class="ext">
+                                        <p class="attr">12:51</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                        <i class="icon oim_chat_red_dot_middle" >1</i>
+                                    </div>
+
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text">忧郁de星辰</span>
+                                        </h3>
+                                        <p class="msg">
+                                            <span class="">？？</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div  class="">
+                                <div class="chat_item slide-left active">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                        <p class="attr" >
+                                            <i class="oim_chat_no-remind oim_chat_no-remind_hl" ></i>
+                                        </p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div><div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="">
+                                <div class="chat_item slide-left">
+                                    <div class="ext">
+                                        <p class="attr ">13:46</p>
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
+                                            <span class="nickname_text" >陈娅楠</span>
+                                        </h3>
+                                        <p class="" >
+                                            <span  class="msg">感觉有点闷热</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!--end nav view-->
+
+
+
+                    <div id="mmpop_system_menu" class="mmpop  system_menu" tabindex="-1" style="top: 60px; left: 85px;">
+                        <ul class="dropdown_menu">
+                            <li>
+                                <!-- ngIf: !isNotifyOpen -->
+                                <!-- ngIf: isNotifyOpen --><a tabindex="-1" href="javascript:;"  title="关闭桌面通知" class="">
+                                <i class="menu_icon_push_on"></i>关闭桌面通知        </a><!-- end ngIf: isNotifyOpen -->
+                            </li>
+                            <li>
+                                <!-- ngIf: !isSoundOpen -->
+                                <!-- ngIf: isSoundOpen --><a tabindex="-1" href="javascript:;"  title="关闭声音" class="">
+                                <i class="menu_icon_volume_on"></i>关闭声音        </a><!-- end ngIf: isSoundOpen -->
+                            </li>
+                            <li>
+                                <a tabindex="-1" href="javascript:;" ng-click="feedback()" title="意见反馈">
+                                    <i class="menu_icon_feedback"></i>意见反馈        </a>
+                            </li>
+                            <li class="last_child">
+                                <a tabindex="-1" href="javascript:;" ng-click="loginout()" title="退出">
+                                    <i class="menu_icon_quit"></i>退出        </a>
+                            </li>
+                            <ul class="dropdown_menu">
+                                <li>
+                                    <!-- ngIf: !isNotifyOpen -->
+                                    <!-- ngIf: isNotifyOpen --><a tabindex="-1" href="javascript:;"  title="关闭桌面通知" class="">
+                                    <i class="menu_icon_push_on"></i>关闭桌面通知        </a><!-- end ngIf: isNotifyOpen -->
+                                </li>
+                                <li>
+                                    <!-- ngIf: !isSoundOpen -->
+                                    <!-- ngIf: isSoundOpen --><a tabindex="-1" href="javascript:;"  title="关闭声音" class="">
+                                    <i class="menu_icon_volume_on"></i>关闭声音        </a><!-- end ngIf: isSoundOpen -->
+                                </li>
+                                <li>
+                                    <a tabindex="-1" href="javascript:;" ng-click="feedback()" title="意见反馈">
+                                        <i class="menu_icon_feedback"></i>意见反馈        </a>
+                                </li>
+                                <li class="last_child">
+                                    <a tabindex="-1" href="javascript:;" ng-click="loginout()" title="退出">
+                                        <i class="menu_icon_quit"></i>退出        </a>
+                                </li>
+                            </ul>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <!--end panel-->
+                <!--begin chat-->
+                <!-- uiView: contentView -->
+                <div  style="height:100%;" class="">
+                    <div class="box ">
+                        <div class="box_hd with_border">
+                            <div class="title_wrap">
+                                <div class="title">详细信息</div>
+                            </div>
+                        </div>
+                        <div class="box_bd">
+                            <!-- ngIf: currentContact -->
+                            <div class="">
+                                <div class="profile">
+
+                                    <div class="avatar">
+                                        <img class="img" src="images/common/head/user/2.png" alt="">
+                                    </div>
+
+                                    <div class="nickname_area">
+                                        <h4 class="nickname">菜明</h4>
+                                        <i class="oim_chat_men"></i>
+                                        <!--<i class="oim_chat_women"></i>-->
+                                    </div>
+
+                                    <p class="signature" >所有的姗姗来迟 都是为等一个深情款款的你</p>
+
+                                    <div class="meta_area">
+                                        <div class="meta_item">
+                                            <!-- ngIf: !user.isRoomContact() -->
+                                            <label class="label ">备注：</label><!-- end ngIf: !user.isRoomContact() -->
+                                            <!-- ngIf: user.isRoomContact() -->
+                                            <p class="value" >菜明</p>
+                                        </div>
+                                        <!-- ngIf: user.Province -->
+                                        <div class="meta_item " ng-if="user.Province">
+                                            <label class="label">地区：</label>
+                                            <p class="value">England London</p>
+                                        </div><!-- end ngIf: user.Province -->
+                                    </div>
+
+                                    <div class="action_area">
+                                        <a class="button" ui-sref="chat({userName:user.UserName})" href="#">发消息</a>
+                                    </div>
+                                    <!--<div class="profile_hd">-->
+                                    <!---->
+                                    <!--</div>-->
+                                    <!--<div class="profile_bd">-->
+                                    <!--<div class="meta">-->
+                                    <!--&lt;!&ndash; <div class="item">-->
+                                    <!--<label class="label" for="">微信号</label>-->
+                                    <!--<span class="value">{{user.UserName}}</span>-->
+                                    <!--</div> &ndash;&gt;-->
+                                    <!--<div class="item" ng-if="user.Signature">-->
+                                    <!--<span class="value" ng-bind-html="user.Signature"></span>-->
+                                    <!--</div>-->
+                                    <!--<div class="item location" ng-if="user.Province">-->
+                                    <!--<span class="value">{{user.Province}} {{user.City}}</span>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="profile_ft">-->
+                                    <!--<div class="action">-->
+                                    <!--<a class="send" ui-sref="chat({userName:user.UserName})" href="javascript:;">发消息</a>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                </div>
+                            </div><!-- end ngIf: currentContact -->
+                            <!-- ngIf: !currentContact -->
+                        </div>
+                    </div>
+                </div>
+                <!--end chat-->
+            </div>
+            <p class="copyright">
+                <span>© 1998 - 2018 OIM Inc. All Rights Reserved</span>
+                <span class="sep"></span>
+                <a href="http://www.oimchat.com" target="_blank">帮助</a>
+            </p>
+        </div>
+    </body>
+</html>

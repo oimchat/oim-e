@@ -1,7 +1,7 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
 
-export default class PersonalGroupMemberListBox extends AbstractMaterial {
+export default class GroupMemberListOfPersonalBox extends AbstractMaterial {
 
     /*** 成员列表<groupId,GroupMember>*/
     private groupMemberMap: Map<string, GroupMember> = new Map<string, GroupMember>();
@@ -27,6 +27,19 @@ export default class PersonalGroupMemberListBox extends AbstractMaterial {
         return groupMember;
     }
 
+    public getGroupMember(groupId: string): GroupMember {
+        const gm: any = this.groupMemberMap.get(groupId);
+        return gm;
+    }
+
+    public getNickname(groupId: string): string {
+        let nickname = '';
+        const gm = this.groupMemberMap.get(groupId);
+        if (gm) {
+            nickname = gm.nickname;
+        }
+        return nickname;
+    }
 
     public getPosition(groupId: string): string {
         let position = GroupMember.POSITION_NORMAL;

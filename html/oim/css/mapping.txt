@@ -1,0 +1,14 @@
+btn oim_button
+web_wechat_xxx oim_chat
+menuicon_chat menu_icon_chat
+menuicon menu_icon
+titlebar title_bar
+addfriend add_friend
+wireframe wire_frame
+addchat_searchicon add_chat_search_icon
+ChatListBanner_Close chat_list_banner_close
+
+menu_icon_copylink menu_icon_copy_link
+menu_icon_newtab menu_icon_new_tab
+oim_chat_reddot_ oim_chat_red_dot_
+chatroom_ chat_room_

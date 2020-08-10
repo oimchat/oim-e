@@ -6,7 +6,7 @@ import ContactCategoryHandler from '@/app/com/main/module/business/contact/handl
 import ContactRelationHandler from '@/app/com/main/module/business/contact/handler/ContactRelationHandler';
 import GroupCategoryHandler from '@/app/com/main/module/business/group/handler/GroupCategoryHandler';
 import GroupRelationHandler from '@/app/com/main/module/business/group/handler/GroupRelationHandler';
-import GroupMemberHandler from '@/app/com/main/module/business/group/handler/GroupMemberHandler';
+import GroupMemberOfOwnerHandler from '@/app/com/main/module/business/group/handler/GroupMemberOfOwnerHandler';
 
 export default class AppService extends AbstractMaterial {
 
@@ -63,7 +63,7 @@ export default class AppService extends AbstractMaterial {
     }
 
     public loadOwnerGroupMemberList(): void {
-        const handler: GroupMemberHandler = this.appContext.getMaterial(GroupMemberHandler);
+        const handler: GroupMemberOfOwnerHandler = this.appContext.getMaterial(GroupMemberOfOwnerHandler);
         handler.loadAllOwnerGroupMemberList();
     }
 }

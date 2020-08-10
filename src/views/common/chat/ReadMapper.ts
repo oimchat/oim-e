@@ -3,10 +3,17 @@ import ContentWrap from '@/common/vue/data/content/ContentWrap';
 export default class ReadMapper {
 
     public items: ContentWrap [] = [];
+    public scrollData = {
+        scrollTopCount: 0,
+    };
     private scrollElement: Element = document.createElement('div');
 
     public setScrollElement(scrollElement: Element) {
         this.scrollElement = scrollElement;
+    }
+
+    public getScrollElement(): Element {
+        return this.scrollElement;
     }
 
     public setScrollTop(size: number): void {

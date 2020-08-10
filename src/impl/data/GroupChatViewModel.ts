@@ -6,7 +6,10 @@ import Content from '@/app/com/common/chat/Content';
 import app from '@/app/App';
 import MessageAppendType from '@/app/com/main/module/setting/message/type/MessageAppendType';
 import MessageAppendGroupSetting from '@/app/com/main/module/setting/message/MessageAppendGroupSetting';
-import GroupChatDataController from "@/app/com/main/module/business/chat/controller/GroupChatDataController";
+import GroupChatDataController from '@/app/com/main/module/business/chat/controller/GroupChatDataController';
+import DataBackAction from '@/app/base/net/DataBackAction';
+import MessageStatusType from '@/common/vue/data/content/impl/message/MessageStatusType';
+import GroupChatController from '@/app/com/main/module/business/chat/controller/GroupChatController';
 
 class GroupChatViewModel extends ChatViewModel {
 
@@ -137,6 +140,28 @@ class GroupChatViewModel extends ChatViewModel {
                     }, 3000);
                 }
             }
+        }
+    }
+
+    public send(c: Content, back: (success: boolean, message: string) => void) {
+        if (c) {
+            const own = this;
+            this.handleSend(c, (success, key, content, message) => {
+                if (success) {
+                    const sendBack: DataBackAction = {
+                        lost(data: any): void {
+                            own.updateStatus(key, content.key, MessageStatusType.fail);
+                        }, timeOut(data: any): void {
+                            own.updateStatus(key, content.key, MessageStatusType.fail);
+                        },
+                    } as DataBackAction;
+                    const groupChatController: GroupChatController = app.appContext.getMaterial(GroupChatController);
+                    groupChatController.chat(key, content, sendBack);
+                }
+                back(success, message);
+            });
+        } else {
+            back(false, '消息不能为空！');
         }
     }
 }

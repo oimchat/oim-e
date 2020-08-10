@@ -1,55 +1,45 @@
 <template>
     <div class="box chat">
-        <!--begin HD-->
-        <div class="box_hd">
-            <div></div>
-            <div class="title_wrap">
-                <div class="title poi">
-                    <a @click="handleShowList" class="title_name ng-binding" data-username="">{{chatData.name}}</a>
-                    <i class="oim_chat_down_icon "></i>
+        <base-chat-pane :data="data"
+                        @on-read-scroll-top="onReadScrollTop"
+                        @on-read-scroll="onReadScroll"
+
+                        @on-write-key-press="onKeyPress"
+                        @on-write-send="send"
+        >
+            <template slot="top-extend">
+                <div style="float: right">
+                    <i @click="showMore = true"
+                       class="fas fa-arrow-alt-circle-down top-icon">
+                    </i>
                 </div>
-                <div v-if='isOwner' style="float: right">
-                    <Icon @click="showMore = true" type="ios-arrow-dropdown"
-                          style='font-size: 32px;cursor: pointer'/>
+            </template>
+        </base-chat-pane>
+
+        <!--end HD-->
+        <div v-if='model.data.showPrompt' class="popup members-warp slide-down" tabindex="-1" style="">
+            <div class="members compatible">
+                <div class="members-inner">
+                    {{model.data.prompt}}
                 </div>
             </div>
         </div>
-        <div>
-            <div v-if="showList" class="popup members_wrp slide-down" tabindex="-1" style="">
-                <div class="members compatible">
-                    <div class="members_inner">
-                        <div v-for='item in groupMemberData.users' @contextmenu='memberContextMenu($event,item)'
-                             class="member">
-                            <img class="avatar" :src="item.avatar" alt="" :title="getNickname(item)">
-                            <p class="nickname" style="text-align: center;">{{getNickname(item)}}</p>
+        <Drawer title="更多" width="340" :mask="false" :closable="true" v-model="showMore">
+            <div v-if='isOwner'>
+                <GroupJoinSettingPane :groupId='model.chatData.key'></GroupJoinSettingPane>
+            </div>
+            <div>
+                <div class="members-warp slide-down" tabindex="-1" style="">
+                    <div class="members compatible">
+                        <div class="members-inner">
+                            <div v-for='item in groupMemberData.users' @contextmenu='memberContextMenu($event,item)'
+                                 class="member">
+                                <img class="avatar" :src="item.avatar" alt="" :title="getNickname(item)">
+                                <p class="nickname" style="text-align: center;">{{getNickname(item)}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!--end HD-->
-        <!--begin BD-->
-        <div ref="messageListPane" @scroll="handleScroll" class="scroll-wrapper box_bd chat_bd scrollbar-dynamic"
-             style="position: absolute;">
-            <MessagePane :items="messageInfo.list"></MessagePane>
-        </div>
-        <div v-if='messageInfo.showPrompt' class="popup members_wrp slide-down" tabindex="-1" style="">
-            <div class="members compatible">
-                <div class="members_inner">
-                    {{messageInfo.prompt}}
-                </div>
-            </div>
-        </div>
-        <WritePane ref="writePane"
-                   @on-send="send"
-                   @on-key-press='onKeyPress'
-                   @on-key-up='onKeyUp'
-                   @on-file="onSendFile">
-
-        </WritePane>
-        <Drawer title="更多" width="340" :mask="false" :closable="true" v-model="showMore">
-            <div v-if='showMore'>
-                <GroupJoinSettingPane :groupId='chatData.key'></GroupJoinSettingPane>
             </div>
         </Drawer>
         <GroupMemberContextMenu ref='groupMemberContextMenu'></GroupMemberContextMenu>
@@ -58,8 +48,9 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import MessagePane from '@/views/common/chat/ReadPane.vue';
-    import WritePane from '@/views/common/chat/WritePane.vue';
+    import BaseChatPane from '@/views/module/chat/BaseChatPane.vue';
+    import BaseChatMapper from '@/views/module/chat/BaseChatMapper';
+
 
     import GroupJoinSettingPane from '@/views/module/group/GroupJoinSettingPane.vue';
     import GroupMemberContextMenu from '@/views/module/group/GroupMemberContextMenu.vue';
@@ -67,37 +58,28 @@
     import groupChatViewModel from '@/impl/data/GroupChatViewModel';
 
     import app from '@/app/App';
-    import GroupChatController from '@/app/com/main/module/business/chat/controller/GroupChatController';
-    import ContentUtil from '@/impl/util/ContentUtil';
     import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
-    import ContentUploadImageService from '@/app/com/main/module/support/file/service/ContentUploadImageService';
-    import UploadResult from '@/app/com/main/module/support/file/data/UploadResult';
-    import ImageValue from '@/app/com/common/chat/item/ImageValue';
-    import BaseUtil from '@/app/lib/util/BaseUtil';
     import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
     import User from '@/app/com/main/module/business/user/bean/User';
     import Section from '@/app/com/common/chat/Section';
     import Content from '@/app/com/common/chat/Content';
     import Item from '@/app/com/common/chat/Item';
     import FileValue from '@/app/com/common/chat/item/FileValue';
-    import PersonalGroupMemberListBox from '@/app/com/main/module/business/group/box/PersonalGroupMemberListBox';
+    import GroupMemberListOfPersonalBox from '@/app/com/main/module/business/group/box/GroupMemberListOfPersonalBox';
     import GroupMemberService from '@/app/com/main/module/business/group/service/GroupMemberService';
-    import DocumentUtil from '@/common/web/util/DocumentUtil';
-    import GroupChatDataController from '@/app/com/main/module/business/chat/controller/GroupChatDataController';
-    import ImageItemFileConverter from '@/app/define/file/ImageItemFileConverter';
+    import PromptType from '@/app/com/client/define/prompt/PromptType';
+    import ContentWrap from '@/common/vue/data/content/ContentWrap';
 
     @Component({
         components: {
-            MessagePane,
-            WritePane,
+            BaseChatPane,
             GroupJoinSettingPane,
             GroupMemberContextMenu,
         },
     })
     export default class GroupChatPane extends Vue {
-        private chatData = groupChatViewModel.chatData;
-        private messageInfo = groupChatViewModel.data;
-        private cacheData = groupChatViewModel.cacheData;
+        private data: BaseChatMapper = new BaseChatMapper();
+        private model = groupChatViewModel;
 
         private groupMemberData: {
             users: User[],
@@ -110,181 +92,80 @@
 
         public mounted() {
             this.initialize();
+            const own = this;
+            const data = this.data;
+            const model = this.model;
+            this.data.info = model.chatData;
+            this.data.readMapper.items = model.data.list;
 
-            groupChatViewModel.cacheData.updateScroll = (size: number) => {
-                const messageListPaneName = 'messageListPane';
-                const messageListPane: any = this.$refs[messageListPaneName];
-                if (messageListPane) {
-                    messageListPane.scrollTop = size;
-                }
+            model.cacheData.updateScroll = (size: number) => {
+                data.readMapper.setScrollTop(size);
             };
 
-            groupChatViewModel.cacheData.getScrollHeight = () => {
-                const messageListPaneName = 'messageListPane';
-                const messageListPane: any = this.$refs[messageListPaneName];
-                const height = (messageListPane) ? messageListPane.scrollHeight : 0;
-                return height;
+            model.cacheData.getScrollHeight = () => {
+                return data.readMapper.getScrollHeight();
             };
 
-            groupChatViewModel.cacheData.setInnerHTML = (html: string) => {
-                const writePaneName = 'writePane';
-                const writePane: any = this.$refs[writePaneName];
-                if (writePane) {
-                    writePane.setInnerHTML(html);
-                }
+            model.cacheData.updateScrollIntoView = (viewId: string) => {
+                data.readMapper.updateScrollIntoView(viewId);
+            };
+
+            model.cacheData.setInnerHTML = (html: string) => {
+                data.writeMapper.setInnerHTML(html);
             };
         }
 
         private initialize() {
             const own = this;
             // todo
-            const messageListPaneName = 'messageListPane';
-            const messageListPane = this.$refs[messageListPaneName];
-            if (messageListPane instanceof Element) {
-                const messageListElement = messageListPane as Element;
-                messageListElement.addEventListener('mousewheel', (e: Event) => {
-                    if (e instanceof WheelEvent) {
-                        const ev: WheelEvent = e as WheelEvent;
-
-                        const deltaY = e.deltaY;
-
-                        if (deltaY < 0) {
-                            // 向上
-                            const target = messageListElement;
-                            const node = target as Element;
-                            const height = node.scrollHeight;
-                            const top = node.scrollTop;
-
-                            const clientHeight = node.clientHeight;
-                            let position = '';
-                            const a = (height - top);
-                            const b = (clientHeight + 25);
-
-                            if (height === clientHeight) {
-                                // 滚动条没有出来
-                                if (top === 0) {
-                                    position = 'top';
-                                    own.cacheData.data.scrollTopCount++;
-                                    if (own.cacheData.data.scrollTopCount > 3) {
-                                        own.loadHistory();
-                                        own.cacheData.data.scrollTopCount = 0;
-                                    }
-                                }
-                            } else {
-                                if (a < b) {
-                                    position = 'bottom';
-                                } else if (top === 0) {
-                                    position = 'top';
-                                    own.cacheData.data.scrollTopCount++;
-                                    if (own.cacheData.data.scrollTopCount > 3) {
-                                        own.loadHistory();
-                                        own.cacheData.data.scrollTopCount = 0;
-                                    }
-                                } else {
-                                    position = 'middle';
-                                }
-                            }
-                        }
-                    }
-                });
-            }
             this.keyChange();
         }
 
-        private onKeyPress(e: KeyboardEvent, inputArea: Element) {
-
-            if (e.key === '@') {
-                e.returnValue = false;
-                DocumentUtil.getCursorLocation(inputArea);
-                return false;
-            }
+        private onReadScroll(info: { event: Event, scrollHeight: number, scrollTop: number, scrollPosition: string }) {
+            this.handleScroll(info);
         }
 
-        private onKeyUp(e: KeyboardEvent, inputArea: Element) {
-            this.cacheData.data.html = (inputArea).innerHTML;
+        private onReadScrollTop() {
+            this.loadHistory();
         }
 
-        private send(inputArea: any) {
-            const childNodes: Element[] = inputArea.childNodes;
-            if (childNodes) {
-                const groupId = this.chatData.key;
-                const content = ContentUtil.getContent(childNodes);
-                if (content) {
-                    const text = CoreContentUtil.getText(content);
-                    const itemSize = CoreContentUtil.getItemSize(content);
-                    if (text.length > 10000 || itemSize > 1000) {
-                        this.$Notice.warning({
-                            title: '警告',
-                            desc: '内容过长！',
-                        });
-                    }
-                    if (itemSize === 0) {
-                        inputArea.innerHTML = '';
-                        this.cacheData.data.html = '';
-                    } else {
-                        const items = CoreContentUtil.getImageItemList(content);
-                        try {
+        private onKeyPress() {
+            const own = this;
+            const model = this.model;
+            const data = this.data;
+            model.cacheData.data.html = data.writeMapper.getInnerHTML();
+        }
 
-                            // const map: Map<string, File> = (wuh) ? wuh.getFileMapByItems(items) : new Map<string, File>(); //
-                            const handleItemsBack = (map: Map<string, File>) => {
-                                if (map.size > 0) {
-                                    const cuis: ContentUploadImageService = app.appContext.getMaterial(ContentUploadImageService);
-                                    cuis.uploadImages(map, (success: boolean, rm: Map<string, UploadResult>, message?: string) => {
-                                        if (success) {
-                                            for (const item of items) {
-                                                const iv: ImageValue = BaseUtil.jsonToObject(item.value);
-                                                if (iv) {
-                                                    const key = iv.url;
-                                                    const ur = rm.get(key);
-                                                    if (ur && ur.result && ur.result.body) {
-                                                        const data = ur.result.body;
-                                                        const id = data.id;
-                                                        const name = data.name;
-                                                        const size = data.size;
-                                                        const url = data.url;
-                                                        iv.id = id;
-                                                        iv.name = name;
-                                                        iv.size = size;
-                                                        iv.url = url;
-
-                                                        item.value = BaseUtil.objectToJson(iv);
-                                                    }
-                                                }
-                                            }
-
-                                            const groupChatController: GroupChatController = app.appContext.getMaterial(GroupChatController);
-                                            groupChatController.chat(groupId, content);
-                                            inputArea.innerHTML = '';
-                                            this.cacheData.data.html = '';
-
-                                        }
-                                    });
-                                } else {
-                                    const groupChatController: GroupChatController = app.appContext.getMaterial(GroupChatController);
-                                    groupChatController.chat(groupId, content);
-                                    inputArea.innerHTML = '';
-                                    this.cacheData.data.html = '';
-                                }
-                            };
-                            const wuh: ImageItemFileConverter = app.appContext.getObject(ImageItemFileConverter.name);
-                            if (wuh) {
-                                wuh.handleItems(items, handleItemsBack);
-                            } else {
-                                handleItemsBack(new Map<string, File>());
-                            }
-                        } catch (e) {
-                            this.$Notice.warning({
-                                title: '警告',
-                                desc: '图片无法发送！',
-                            });
+        private send(content: Content) {
+            const model = this.model;
+            const data = this.data;
+            if (content) {
+                const text = CoreContentUtil.getText(content);
+                const itemSize = CoreContentUtil.getItemSize(content);
+                if (text.length > 10000 || itemSize > 1000) {
+                    app.prompt('内容过长！', '警告', PromptType.warn);
+                }
+                if (itemSize === 0) {
+                    data.writeMapper.setInnerHTML('');
+                    data.writeMapper.keepCursorLastIndex();
+                    model.cacheData.data.html = '';
+                } else {
+                    model.send(content, (success, message) => {
+                        if (!success) {
+                            app.prompt(message, '警告', PromptType.warn);
+                        } else {
+                            data.writeMapper.setInnerHTML('');
+                            data.writeMapper.keepCursorLastIndex();
+                            model.cacheData.data.html = '';
                         }
-                    }
+                    });
                 }
             }
         }
 
         private onSendFile(result: any, file: File) {
-
+            const model = this.model;
+            const data = this.data;
             if (result && result.body) {
 
                 const content: Content = new Content();
@@ -307,54 +188,42 @@
                 iv.size = size;
                 iv.url = url;
 
-                item.value = BaseUtil.objectToJson(iv);
+                item.value = iv;
                 section.items.push(item);
-
-                const groupId = this.chatData.key;
-                const groupChatController: GroupChatController = app.appContext.getMaterial(GroupChatController);
-                groupChatController.chat(groupId, content);
+                model.send(content, (success, message) => {
+                    if (!success) {
+                        app.prompt(message, '警告', PromptType.warn);
+                    }
+                });
             }
         }
 
-        private handleScroll(e: Event) {
+        private handleScroll(info: { event: Event, scrollHeight: number, scrollTop: number, scrollPosition: string }) {
             const own = this;
-            const target = e.target;
-            if (target instanceof Element) {
-                const node = target as Element;
-                const height = node.scrollHeight;
-                const top = node.scrollTop;
-
-                const clientHeight = node.clientHeight;
-                let position = '';
-
-                const a = (height - top);
-                const b = (clientHeight + 25);
-
-                if (a < b) {
-                    position = 'bottom';
-                } else if (top === 0) {
-                    position = 'top';
-                } else {
-                    position = 'middle';
-                }
-                own.cacheData.data.scrollHeight = height;
-                own.cacheData.data.scrollTop = top;
-                own.cacheData.data.scrollPosition = position;
+            const model = this.model;
+            if (info) {
+                model.cacheData.data.scrollHeight = info.scrollHeight;
+                model.cacheData.data.scrollTop = info.scrollTop;
+                model.cacheData.data.scrollPosition = info.scrollPosition;
             }
-        }
-
-        @Watch('messageInfo.list')
-        private listChange(): void {
-            // no
         }
 
         private loadHistory() {
             groupChatViewModel.loadHistory();
         }
 
+        @Watch('model.chatData.key')
+        private list(nv: ContentWrap[], ov: ContentWrap[]) {
+            const data = this.data;
+            const model = this.model;
+            this.data.info = model.chatData;
+            this.data.readMapper.items = model.data.list;
+        }
+
+
         private getNickname(user: User): string {
             const service: GroupMemberService = app.appContext.getMaterial(GroupMemberService);
-            const groupId = this.chatData.key;
+            const groupId = this.model.cacheData.key;
             let nickname = '';
             if (user) {
                 nickname = service.getUserShowName(groupId, user);
@@ -366,20 +235,20 @@
             this.showList = !this.showList;
         }
 
-        @Watch('chatData.key')
+        @Watch('model.cacheData.key')
         private keyChange(): void {
             // no
             this.showList = false;
             this.showMore = false;
 
-            const groupId = this.cacheData.key;
-            const personalGroupMemberListBox: PersonalGroupMemberListBox = app.appContext.getMaterial(PersonalGroupMemberListBox);
+            const groupId = this.model.cacheData.key;
+            const personalGroupMemberListBox: GroupMemberListOfPersonalBox = app.appContext.getMaterial(GroupMemberListOfPersonalBox);
             const position = personalGroupMemberListBox.getPosition(groupId);
             this.isOwner = (GroupMember.POSITION_OWNER === position);
         }
 
         private memberContextMenu(e: MouseEvent, user: User) {
-            const groupId = this.chatData.key;
+            const groupId = this.model.cacheData.key;
             const userId = user.id;
             const menuName = 'groupMemberContextMenu';
             const menu: any = this.$refs[menuName];
@@ -389,5 +258,86 @@
 </script>
 
 <style scoped>
+    .top-icon {
+        font-size: 22px;
+        cursor: pointer;
+        margin-right: 5px;
+    }
 
+    .members-warp {
+        top: 50px;
+        margin-top: 1px;
+        box-shadow: 1px 1px 1px #e0e0e0;
+        -moz-box-shadow: 1px 1px 1px #e0e0e0;
+        -webkit-box-shadow: 1px 1px 1px #e0e0e0;
+        width: 100%
+    }
+
+    .members {
+        padding: 10px 4px 8px 17px;
+        background-color: #eee;
+        border-bottom: 1px solid #dedede
+    }
+
+    .members-inner {
+        margin-right: -4px;
+        max-height: 300px;
+        overflow-y: auto;
+        overflow-x: hidden
+    }
+
+    .members-inner:after {
+        content: "";
+        display: block;
+        clear: both
+    }
+
+    .member {
+        float: left;
+        position: relative;
+        height: 85px;
+        margin-right: 7px;
+        margin-left: 7px;
+        padding-top: 10px
+    }
+
+    .member.opt {
+        cursor: pointer;
+        margin-right: 15px
+    }
+
+    .member .avatar {
+        display: block;
+        cursor: pointer;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background-color: #ccc
+    }
+
+    .member .nickname {
+        color: #888;
+        width: 72px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal;
+        font-size: 12px;
+        margin-left: -8px;
+        vertical-align: middle
+    }
+
+    .member .nickname .emoji {
+        vertical-align: -4px
+    }
+
+    .member .opt {
+        position: absolute;
+        font-size: 0;
+        cursor: pointer;
+        width: 18px;
+        height: 10px;
+        top: 2px;
+        right: 0
+    }
 </style>

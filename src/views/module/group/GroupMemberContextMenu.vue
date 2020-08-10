@@ -9,7 +9,7 @@
     import ContextMenu from '@/views/common/menu/ContextMenu.vue';
 
     import app from '@/app/App';
-    import PersonalGroupMemberListBox from '@/app/com/main/module/business/group/box/PersonalGroupMemberListBox';
+    import GroupMemberListOfPersonalBox from '@/app/com/main/module/business/group/box/GroupMemberListOfPersonalBox';
     import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
 
     import DataBackAction from '@/app/base/net/DataBackAction';
@@ -39,7 +39,7 @@
             const own = this;
 
             const personalBox: PersonalBox = app.appContext.getMaterial(PersonalBox);
-            const personalGroupMemberListBox: PersonalGroupMemberListBox = app.appContext.getMaterial(PersonalGroupMemberListBox);
+            const personalGroupMemberListBox: GroupMemberListOfPersonalBox = app.appContext.getMaterial(GroupMemberListOfPersonalBox);
             const memberBox: GroupMemberBox = app.appContext.getMaterial(GroupMemberBox);
 
             const ownerUserId = personalBox.getUserId();

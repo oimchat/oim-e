@@ -156,7 +156,7 @@
             userChatViewModel.loadHistory();
         }
 
-        @Watch('model.data.list')
+        @Watch('model.chatData.key')
         private list(nv: ContentWrap[], ov: ContentWrap[]) {
             const data = this.data;
             const model = this.model;
