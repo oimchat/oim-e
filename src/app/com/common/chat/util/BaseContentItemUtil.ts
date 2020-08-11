@@ -1,8 +1,8 @@
-import Content from "@/app/com/common/chat/Content";
-import Item from "@/app/com/common/chat/Item";
-import BaseUtil from "@/app/lib/util/BaseUtil";
+import Content from '@/app/com/common/chat/Content';
+import Item from '@/app/com/common/chat/Item';
+import BaseUtil from '@/app/lib/util/BaseUtil';
 
-export default class ContentItemUtil {
+export default class BaseContentItemUtil {
 
     public static handle(content: Content) {
         if (null != content) {
@@ -13,7 +13,7 @@ export default class ContentItemUtil {
                     if (items) {
                         for (const item of items) {
                             if (Item.TYPE_TEXT !== item.type) {
-                                item.value = ContentItemUtil.convertItemValue(item.value);
+                                item.value = BaseContentItemUtil.convertItemValue(item.value);
                             }
                         }
                     }

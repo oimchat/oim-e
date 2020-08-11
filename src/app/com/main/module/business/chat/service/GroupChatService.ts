@@ -6,7 +6,7 @@ import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox
 import GroupChatInfoManager from '@/app/com/main/module/business/chat/manager/GroupChatInfoManager';
 import GroupChatItemManager from '@/app/com/main/module/business/chat/manager/GroupChatItemManager';
 import GroupMessageUnreadBox from '@/app/com/main/module/business/chat/box/unread/GroupMessageUnreadBox';
-import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
+import CoreContentUtil from '@/app/com/common/chat/util/CoreContentUtil';
 import PromptManager from '@/app/com/client/module/prompt/manager/PromptManager';
 import SoundType from '@/app/com/client/define/prompt/SoundType';
 import AllMessageUnreadBox from '@/app/com/client/module/information/box/unread/AllMessageUnreadBox';
@@ -14,12 +14,12 @@ import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadMana
 import Group from '@/app/com/main/module/business/group/bean/Group';
 import VoicePromptType from '@/app/com/main/module/setting/prompt/type/VoicePromptType';
 import VoicePromptGroupSetting from '@/app/com/main/module/setting/prompt/VoicePromptGroupSetting';
-import GroupRelationAccess from "@/app/com/main/module/business/group/access/GroupRelationAccess";
-import GroupAccess from "@/app/com/main/module/business/group/access/GroupAccess";
-import UserAccess from "@/app/com/main/module/business/user/access/UserAccess";
-import ContactAccess from "@/app/com/main/module/business/contact/access/ContactAccess";
-import UserInfoUtil from "@/app/com/main/common/util/UserInfoUtil";
-import GroupInfoUtil from "@/app/com/main/common/util/GroupInfoUtil";
+import GroupRelationAccess from '@/app/com/main/module/business/group/access/GroupRelationAccess';
+import GroupAccess from '@/app/com/main/module/business/group/access/GroupAccess';
+import UserAccess from '@/app/com/main/module/business/user/access/UserAccess';
+import ContactAccess from '@/app/com/main/module/business/contact/access/ContactAccess';
+import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
+import GroupInfoUtil from '@/app/com/main/common/util/GroupInfoUtil';
 
 
 export default class GroupChatService extends AbstractMaterial {
@@ -46,7 +46,7 @@ export default class GroupChatService extends AbstractMaterial {
                     g.name = '加载失败的群';
                     g.avatar = GroupInfoUtil.getDefaultAvatar();
                 }
-                own.showChat(isReceive, isChatUserOwn, g, chatUserId, user, content)
+                own.showChat(isReceive, isChatUserOwn, g, chatUserId, user, content);
             });
         } else {
             groupAccess.getTempGroupById(groupId, (success, g) => {
@@ -56,7 +56,7 @@ export default class GroupChatService extends AbstractMaterial {
                     g.name = '加载失败的临时群';
                     g.avatar = GroupInfoUtil.getDefaultAvatar();
                 }
-                own.showChat(isReceive, isChatUserOwn, g, chatUserId, user, content)
+                own.showChat(isReceive, isChatUserOwn, g, chatUserId, user, content);
             });
         }
 

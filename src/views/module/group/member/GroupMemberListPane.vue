@@ -20,7 +20,7 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import GroupMemberItem from '@/views/module/group/member/GroupMemberItem.vue';
 
-    import GroupMemberContextMenu from '@/views/module/group/GroupMemberContextMenu.vue';
+    import GroupMemberContextMenu from '@/views/module/group/member/menu/GroupMemberContextMenu.vue';
 
     import GroupMemberListEntity from '@/views/module/group/member/GroupMemberListEntity';
     import User from '@/app/com/main/module/business/user/bean/User';

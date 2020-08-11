@@ -1,5 +1,5 @@
 <template>
-    <div :class="'icon-item-simple'">
+    <div :class="'icon-item-simple'" @contextmenu="$emit('contextmenu', $event)">
         <div class="avatar">
             <img :class="'img'" :src="avatar" alt="头像">
         </div>
@@ -34,6 +34,7 @@
             default: () => (''),
         })
         private name!: string;
+
     }
 </script>
 
@@ -42,7 +43,7 @@
 
     .icon-item-simple {
         overflow: hidden;
-        padding: 0 18px 0;
+        padding: 2px 18px 2px;
         /*border-bottom: 1px solid #647481;*/
         position: relative
     }

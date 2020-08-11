@@ -71,7 +71,7 @@ export default abstract class AbstractMessageUnreadBox extends AbstractMaterial 
     }
 
     public initialize(): void {
-
+        // no
     }
 
     public addAllChangeEvent(e: DataChange<number>) {

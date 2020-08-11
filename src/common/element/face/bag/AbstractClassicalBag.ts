@@ -1,7 +1,7 @@
-import FaceItem from "@/app/com/main/module/support/face/data/FaceItem";
+import FaceItem from '@/app/com/main/module/support/face/data/FaceItem';
 
-import FaceCategory from "@/app/com/main/module/support/face/data/FaceCategory";
-import AbstractBag from "../base/AbstractBag";
+import FaceCategory from '@/app/com/main/module/support/face/data/FaceCategory';
+import AbstractBag from '../base/AbstractBag';
 
 export default abstract class AbstractClassicalBag extends AbstractBag {
 
@@ -24,7 +24,7 @@ export default abstract class AbstractClassicalBag extends AbstractBag {
     }
 
     public initialize(faceCategory: FaceCategory): void {
-        faceCategory.name = "经典表情";
+        faceCategory.name = '经典表情';
         faceCategory.id = 'classical';
 
         this.put('classical,0,惊讶', true);

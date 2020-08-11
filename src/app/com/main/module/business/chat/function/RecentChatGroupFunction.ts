@@ -5,7 +5,7 @@ import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox
 import GroupChatItemManager from '@/app/com/main/module/business/chat/manager/GroupChatItemManager';
 import GroupChatInfoManager from '@/app/com/main/module/business/chat/manager/GroupChatInfoManager';
 import User from '@/app/com/main/module/business/user/bean/User';
-import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
+import CoreContentUtil from '@/app/com/common/chat/util/CoreContentUtil';
 import UserBox from '@/app/com/main/module/business/user/box/UserBox';
 import GroupChatData from '@/app/com/main/module/business/chat/data/GroupChatData';
 import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';

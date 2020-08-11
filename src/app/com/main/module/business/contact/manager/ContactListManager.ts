@@ -8,7 +8,7 @@ import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 import UserBox from '@/app/com/main/module/business/user/box/UserBox';
 import User from '@/app/com/main/module/business/user/bean/User';
 import ContactRelation from '@/app/com/main/module/business/contact/bean/ContactRelation';
-import ContactCategoryBox from "@/app/com/main/module/business/contact/box/ContactCategoryBox";
+import ContactCategoryBox from '@/app/com/main/module/business/contact/box/ContactCategoryBox';
 
 export default class ContactListManager extends AbstractMaterial {
 

@@ -151,10 +151,10 @@
                 message: '请输入服务器地址',
                 prompt: {
                     model: url,
-                    type: 'text' // optional
+                    type: 'text', // optional
                 },
                 cancel: true,
-                persistent: true
+                persistent: true,
             }).onOk((data: any) => {
                 if ('' !== data && null !== data) {
                     asm.setServerUrl(data);

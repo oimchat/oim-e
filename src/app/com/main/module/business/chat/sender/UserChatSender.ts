@@ -4,7 +4,7 @@ import DataBackAction from '@/app/base/net/DataBackAction';
 import Content from '@/app/com/common/chat/Content';
 import AbstractSender from '@/app/com/main/common/base/sender/AbstractSender';
 
-export default class UserChatSender extends AbstractSender  {
+export default class UserChatSender extends AbstractSender {
 
     private action: string = '2.2.001';
 

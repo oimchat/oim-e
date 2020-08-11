@@ -9,7 +9,7 @@ import UserSender from '@/app/com/main/module/business/user/sender/UserSender';
 import UserChatInfoManager from '@/app/com/main/module/business/chat/manager/UserChatInfoManager';
 import UserChatItemManager from '@/app/com/main/module/business/chat/manager/UserChatItemManager';
 import UserMessageUnreadBox from '@/app/com/main/module/business/chat/box/unread/UserMessageUnreadBox';
-import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
+import CoreContentUtil from '@/app/com/common/chat/util/CoreContentUtil';
 import PromptManager from '@/app/com/client/module/prompt/manager/PromptManager';
 import SoundType from '@/app/com/client/define/prompt/SoundType';
 import AllMessageUnreadBox from '@/app/com/client/module/information/box/unread/AllMessageUnreadBox';
@@ -17,9 +17,9 @@ import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadMana
 import UserChatDataSender from '@/app/com/main/module/business/chat/sender/UserChatDataSender';
 import VoicePromptUserSetting from '@/app/com/main/module/setting/prompt/VoicePromptUserSetting';
 import VoicePromptType from '@/app/com/main/module/setting/prompt/type/VoicePromptType';
-import UserAccess from "@/app/com/main/module/business/user/access/UserAccess";
-import ContactAccess from "@/app/com/main/module/business/contact/access/ContactAccess";
-import UserInfoUtil from "@/app/com/main/common/util/UserInfoUtil";
+import UserAccess from '@/app/com/main/module/business/user/access/UserAccess';
+import ContactAccess from '@/app/com/main/module/business/contact/access/ContactAccess';
+import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 
 
 export default class UserChatService extends AbstractMaterial {

@@ -1,6 +1,5 @@
-import User from '@/app/com/main/module/business/user/bean/User';
 import BaseUtil from '@/app/lib/util/BaseUtil';
-import UserBase from "@/app/com/main/module/business/user/bean/UserBase";
+import UserBase from '@/app/com/main/module/business/user/bean/UserBase';
 
 export default class UserInfoUtil {
 

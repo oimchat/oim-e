@@ -1,6 +1,6 @@
 import ChatMessageModel from '@/platform/vue/view/model/ChatMessageModel';
 import Content from '@/app/com/common/chat/Content';
-import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
+import CoreContentUtil from '@/app/com/common/chat/util/CoreContentUtil';
 import ContentUploadImageService from '@/app/com/main/module/support/file/service/ContentUploadImageService';
 import app from '@/app/App';
 import UploadResult from '@/app/com/main/module/support/file/data/UploadResult';

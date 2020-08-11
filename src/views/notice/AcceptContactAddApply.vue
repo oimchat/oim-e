@@ -40,7 +40,7 @@
     import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
     import ContactAddHandleData from '@/app/com/main/module/business/contact/data/ContactAddHandleData';
     import ContactAddApply from '@/app/com/main/module/business/contact/bean/ContactAddApply';
-    import ContactCategoryBox from "@/app/com/main/module/business/contact/box/ContactCategoryBox";
+    import ContactCategoryBox from '@/app/com/main/module/business/contact/box/ContactCategoryBox';
 
 
     @Component({

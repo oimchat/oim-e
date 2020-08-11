@@ -3,7 +3,7 @@ import Message from '@/app/base/message/Message';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import Content from '@/app/com/common/chat/Content';
 import AbstractSender from '@/app/com/main/common/base/sender/AbstractSender';
-import UserBase from "@/app/com/main/module/business/user/bean/UserBase";
+import UserBase from '@/app/com/main/module/business/user/bean/UserBase';
 
 export default class GroupChatSender extends AbstractSender {
 

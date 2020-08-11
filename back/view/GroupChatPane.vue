@@ -62,14 +62,14 @@
     import WritePane from '@/views/common/chat/WritePane.vue';
 
     import GroupJoinSettingPane from '@/views/module/group/GroupJoinSettingPane.vue';
-    import GroupMemberContextMenu from '@/views/module/group/GroupMemberContextMenu.vue';
+    import GroupMemberContextMenu from '../../src/views/module/group/member/menu/GroupMemberContextMenu.vue';
 
     import groupChatViewModel from '../../src/platform/vue/view/model/GroupChatViewModel';
 
     import app from '@/app/App';
     import GroupChatController from '@/app/com/main/module/business/chat/controller/GroupChatController';
     import ContentUtil from '@/impl/util/ContentUtil';
-    import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
+    import CoreContentUtil from '../../src/app/com/common/chat/util/CoreContentUtil';
     import ContentUploadImageService from '@/app/com/main/module/support/file/service/ContentUploadImageService';
     import UploadResult from '@/app/com/main/module/support/file/data/UploadResult';
     import ImageValue from '@/app/com/common/chat/item/ImageValue';

@@ -1,11 +1,17 @@
 <template>
     <div>
+        <NavMenu :name="menu.name" :data="navMenu"></NavMenu>
         <ContextMenu :list="menu.list" :underline="true" :arrow="true" :name="menu.name"></ContextMenu>
     </div>
 </template>
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
+
+    import NavMenu from '@/views/common/menu/NavMenu.vue';
+    import NavMenuData from '@/views/common/menu/NavMenuData';
+    import NavMenuItemData from '@/views/common/menu/NavMenuItemData';
+
     import ContextMenu from '@/views/common/menu/ContextMenu.vue';
 
     import app from '@/app/App';
@@ -20,11 +26,12 @@
 
     @Component({
         components: {
+            NavMenu,
             ContextMenu,
         },
     })
     export default class GroupMemberContextMenu extends Vue {
-
+        private navMenu: NavMenuData = new NavMenuData();
         private menu = {
             name: 'groupMemberContextMenu',
             list: [],
@@ -57,55 +64,52 @@
             const isUserOwner = GroupMember.POSITION_OWNER === userPosition;
             const isUserAdmin = GroupMember.POSITION_ADMIN === userPosition;
             const isUserNormal = GroupMember.POSITION_NORMAL === userPosition;
-
+            const items: NavMenuItemData[] = [];
+            let item = new NavMenuItemData();
             const list: any = [];
             if ((isPersonalOwner || (isPersonalAdmin && isUserNormal)) && !isMe) {
-                list.push({
-                    text: '从本群删除',
-                    icon: 'of address-book',
-                    onClick: (item: any, data: any) => {
-                        // todo
-                        own.deleteMember(groupId, userId);
-                    },
+                item = new NavMenuItemData();
+                item.text = '从本群删除';
+                // item.icon = 'fas fa-edit';
+                item.addClickEvent(() => {
+                    own.deleteMember(groupId, userId);
                 });
+                items.push(item);
             }
 
             if (isPersonalOwner && isUserNormal) {
-                list.push({
-                    text: '设为管理员',
-                    icon: 'of address-book',
-                    onClick: (item: any, data: any) => {
-                        // todo
-                        own.updatePosition(groupId, userId, GroupMember.POSITION_ADMIN);
-                    },
+                item = new NavMenuItemData();
+                item.text = '设为管理员';
+                // item.icon = 'fas fa-edit';
+                item.addClickEvent(() => {
+                    own.updatePosition(groupId, userId, GroupMember.POSITION_ADMIN);
                 });
+                items.push(item);
             }
 
             if (isPersonalOwner && isUserAdmin) {
-                list.push({
-                    text: '取消管理员',
-                    icon: 'of address-book',
-                    onClick: (item: any, data: any) => {
-                        // todo
-                        own.updatePosition(groupId, userId, GroupMember.POSITION_NORMAL);
-                    },
+                item = new NavMenuItemData();
+                item.text = '取消管理员';
+                // item.icon = 'fas fa-edit';
+                item.addClickEvent(() => {
+                    own.updatePosition(groupId, userId, GroupMember.POSITION_NORMAL);
                 });
+                items.push(item);
             }
 
             if (((isPersonalOwner || isPersonalAdmin) && isUserNormal) || isMe) {
-                list.push({
-                    text: '修改群中昵称',
-                    icon: 'of address-book',
-                    onClick: (item: any, data: any) => {
-                        // todo
-                        own.openUpdateNickname(groupId, userId);
-                    },
+                item = new NavMenuItemData();
+                item.text = '修改群中昵称';
+                // item.icon = 'fas fa-edit';
+                item.addClickEvent(() => {
+                    own.openUpdateNickname(groupId, userId);
                 });
+                items.push(item);
             }
 
-            this.menu.list = list;
+            this.navMenu.items = items;
 
-            if (this.menu.list.length > 0) {
+            if (this.navMenu.items.length > 0) {
                 this.openMenu(e, this.menu.name);
             }
         }

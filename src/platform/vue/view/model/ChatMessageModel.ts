@@ -1,12 +1,12 @@
 import User from '@/app/com/main/module/business/user/bean/User';
 import Content from '@/app/com/common/chat/Content';
 import ChatCacheData from '@/views/main/message/chat/ChatCacheData';
-import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
+import CoreContentUtil from '@/app/com/common/chat/util/CoreContentUtil';
 import app from '@/app/App';
 import MessageSwitchSetting from '@/app/com/main/module/setting/message/MessageSwitchSetting';
 import MessageAppendType from '@/app/com/main/module/setting/message/type/MessageAppendType';
 import MessageTimeSettingStore from '@/app/com/main/module/setting/message/MessageTimeSettingStore';
-import ContentItemUtil from '@/app/com/common/chat/util/ContentItemUtil';
+import BaseContentItemUtil from '@/app/com/common/chat/util/BaseContentItemUtil';
 import ContentWrap from '@/common/vue/data/content/ContentWrap';
 import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
 import ContentWrapType from '@/common/vue/data/content/ContentWrapType';
@@ -144,7 +144,7 @@ export default class ChatMessageModel {
     }
 
     public insert(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content): void {
-        ContentItemUtil.handle(content);
+        BaseContentItemUtil.handle(content);
 
         const messageTimeSettingStore: MessageTimeSettingStore = app.appContext.getMaterial(MessageTimeSettingStore);
         const mergeMillisecond = messageTimeSettingStore.messageTimeSetting.mergeMillisecond;

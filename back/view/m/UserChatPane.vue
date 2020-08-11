@@ -49,7 +49,7 @@
     import app from '@/app/App';
     import UserChatController from '@/app/com/main/module/business/chat/controller/UserChatController';
     import ContentUtil from '@/impl/util/ContentUtil';
-    import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
+    import CoreContentUtil from '../../../src/app/com/common/chat/util/CoreContentUtil';
     import ContentUploadImageService from '@/app/com/main/module/support/file/service/ContentUploadImageService';
     import UploadResult from '@/app/com/main/module/support/file/data/UploadResult';
     import ImageValue from '@/app/com/common/chat/item/ImageValue';

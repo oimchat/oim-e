@@ -64,6 +64,7 @@ export default class AllMessageUnreadBox extends AbstractMaterial implements Bas
     }
 
     public initialize(): void {
+        // no
     }
 
     private plusTotalUnread(): void {

@@ -1,6 +1,6 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import SystemInformationItemManager from '@/app/com/main/manager/SystemInformationItemManager';
-import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
+import CoreContentUtil from '@/app/com/common/chat/util/CoreContentUtil';
 import PromptManager from '@/app/com/client/module/prompt/manager/PromptManager';
 import SoundType from '@/app/com/client/define/prompt/SoundType';
 import AllMessageUnreadBox from '@/app/com/client/module/information/box/unread/AllMessageUnreadBox';

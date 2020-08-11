@@ -39,10 +39,9 @@ export default abstract class AbstractBag implements BaseBag {
         return path;
     }
 
-    abstract getBasePath(categoryId: string): string;
+    public abstract getBasePath(categoryId: string): string;
 
-    abstract getExtension(categoryId: string, key: string): string;
+    public abstract getExtension(categoryId: string, key: string): string;
 
-    abstract initialize(faceCategory: FaceCategory): void;
+    public abstract initialize(faceCategory: FaceCategory): void;
 }
-

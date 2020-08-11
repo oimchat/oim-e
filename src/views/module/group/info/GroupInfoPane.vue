@@ -24,8 +24,29 @@
                             <div class="oim-meta-area-pane compatible">
                                 <div class="oim-meta-area-item">
                                     <label class="label ">备注：{{model.relation.remark}}
-                                        <a v-if="model.isJoin" @click="updateRemark">
+                                        <a v-if="model.isJoin">
                                             <i class="fa fa-edit" aria-hidden="true"></i>
+                                            <q-popup-edit v-model="model.relation.remark"
+                                                          @save="setRemark"
+                                            >
+                                                <template
+                                                        v-slot="{ initialValue, value, emitValue, validate, set, cancel }">
+                                                    <q-input
+                                                            autofocus
+                                                            dense
+                                                            :value="model.relation.remark"
+                                                            hint="备注"
+                                                            @input="emitValue"
+                                                    >
+                                                        <template v-slot:after>
+                                                            <q-btn flat dense color="negative" icon="cancel"
+                                                                   @click.stop="cancel"/>
+                                                            <q-btn flat dense color="positive" icon="check_circle"
+                                                                   @click.stop="set"/>
+                                                        </template>
+                                                    </q-input>
+                                                </template>
+                                            </q-popup-edit>
                                         </a>
                                     </label>
                                 </div>
@@ -63,7 +84,7 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
 
     import GroupJoinSettingPane from '@/views/module/group/GroupJoinSettingPane.vue';
-    import GroupMemberContextMenu from '@/views/module/group/GroupMemberContextMenu.vue';
+    import GroupMemberContextMenu from '@/views/module/group/member/menu/GroupMemberContextMenu.vue';
 
     import Group from '@/app/com/main/module/business/group/bean/Group';
     import GroupRelation from '@/app/com/main/module/business/group/bean/GroupRelation';
@@ -77,9 +98,9 @@
     import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
     import GroupRelationController from '@/app/com/main/module/business/group/controller/GroupRelationController';
     import GroupMemberService from '@/app/com/main/module/business/group/service/GroupMemberService';
-    import CommonIcon from "@/platform/web/common/CommonIcon";
+    import CommonIcon from '@/platform/web/common/CommonIcon';
 
-    import groupInfoViewModel from "@/platform/vue/view/model/GroupInfoViewModel";
+    import groupInfoViewModel from '@/platform/vue/view/model/GroupInfoViewModel';
 
     @Component({
         components: {
@@ -136,12 +157,13 @@
             // no
         }
 
-
-        private updateRemark(): void {
+        private setRemark(text: string) {
             const own = this;
             const groupId = this.model.groupId;
             const oldRemark = (this.model.relation) ? this.model.relation.remark : '';
-            let text = '';
+            if (!text) {
+                return;
+            }
 
             const back: DataBackAction = {
                 back(data: any): void {
@@ -162,34 +184,7 @@
                 },
             } as DataBackAction;
             const ccc: GroupRelationController = app.appContext.getMaterial(GroupRelationController);
-
-
-            this.$Modal.confirm({
-                title: '修改备注',
-                render: (h: any) => {
-                    return h('Input', {
-                        props: {
-                            value: oldRemark,
-                            autofocus: true,
-                            placeholder: '输入备注',
-                        },
-                        on: {
-                            input: (t: string) => {
-                                text = t;
-                            },
-                        },
-                    });
-                },
-                onOk: () => {
-                    if (!text) {
-                        text = '';
-                    }
-                    ccc.updateRemark(groupId, text, back);
-                },
-                onCancel: () => {
-                    // no
-                },
-            });
+            ccc.updateRemark(groupId, text, back);
         }
 
         private memberContextMenu(e: MouseEvent, user: User) {

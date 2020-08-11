@@ -3,7 +3,7 @@ import Item from "@/app/com/common/chat/Item";
 import ImageItemValue from "@/common/vue/data/content/impl/message/item/ImageItemValue";
 import AudioItemValue from "@/common/vue/data/content/impl/message/item/AudioItemValue";
 import VideoItemValue from "@/common/vue/data/content/impl/message/item/VideoItemValue";
-import ContentItemUtil from "@/app/com/common/chat/util/ContentItemUtil";
+import BaseContentItemUtil from "@/app/com/common/chat/util/BaseContentItemUtil";
 import ObjectUtil from "@/app/common/util/ObjectUtil";
 import FileValue from "@/app/com/common/chat/item/FileValue";
 import AudioValue from "@/app/com/common/chat/item/AudioValue";
@@ -56,7 +56,7 @@ class ItemValueConverter {
     public convertToRateValue(type: string, v: any): any {
         let value: any;
         const clazz = this.rateMap.get(type);
-        v = ContentItemUtil.convertItemValue(v);
+        v = BaseContentItemUtil.convertItemValue(v);
         if (clazz) {
             value = ObjectUtil.convert(clazz, v);
         } else {
@@ -68,7 +68,7 @@ class ItemValueConverter {
     public convertToBaseValue(type: string, v: any): any {
         let value: any;
         const clazz = this.baseMap.get(type);
-        v = ContentItemUtil.convertItemValue(v);
+        v = BaseContentItemUtil.convertItemValue(v);
         if (clazz) {
             value = ObjectUtil.convert(clazz, v);
         } else {

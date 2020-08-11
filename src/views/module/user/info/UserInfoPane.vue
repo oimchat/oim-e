@@ -27,8 +27,29 @@
                         <div class="oim-meta-area-pane compatible">
                             <div class="oim-meta-area-item">
                                 <label class="label ">备注：{{model.relation.remark}}
-                                    <a v-if="model.isContact" @click="updateRemark">
+                                    <a v-if="model.isContact">
                                         <i class="fa fa-edit" aria-hidden="true"></i>
+                                        <q-popup-edit v-model="model.relation.remark"
+                                                      @save="setRemark"
+                                        >
+                                            <template
+                                                    v-slot="{ initialValue, value, emitValue, validate, set, cancel }">
+                                                <q-input
+                                                        autofocus
+                                                        dense
+                                                        :value="model.relation.remark"
+                                                        hint="备注"
+                                                        @input="emitValue"
+                                                >
+                                                    <template v-slot:after>
+                                                        <q-btn flat dense color="negative" icon="cancel"
+                                                               @click.stop="cancel"/>
+                                                        <q-btn flat dense color="positive" icon="check_circle"
+                                                               @click.stop="set"/>
+                                                    </template>
+                                                </q-input>
+                                            </template>
+                                        </q-popup-edit>
                                     </a>
                                 </label>
                             </div>
@@ -73,8 +94,8 @@
     import ContactRelationController from '@/app/com/main/module/business/contact/controller/ContactRelationController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import userInfoViewModel from "@/platform/vue/view/model/UserInfoViewModel";
-    import CommonIcon from "@/platform/web/common/CommonIcon";
+    import userInfoViewModel from '@/platform/vue/view/model/UserInfoViewModel';
+    import CommonIcon from '@/platform/web/common/CommonIcon';
 
 
     @Component({
@@ -111,11 +132,13 @@
             // no
         }
 
-        private updateRemark(): void {
+        private setRemark(remark: string) {
             const own = this;
             const contactUserId = this.model.userId;
             const oldRemark = (this.model.relation) ? this.model.relation.remark : '';
-            let text = '';
+            if (!remark) {
+                return;
+            }
 
             const back: DataBackAction = {
                 back(data: any): void {
@@ -123,7 +146,7 @@
                         const info = data.info;
                         if (info) {
                             if (info.success) {
-                                own.model.relation.remark = text;
+                                own.model.relation.remark = remark;
                             }
                         }
                     }
@@ -136,34 +159,7 @@
                 },
             } as DataBackAction;
             const ccc: ContactRelationController = app.appContext.getMaterial(ContactRelationController);
-
-
-            this.$Modal.confirm({
-                title: '修改备注',
-                render: (h: any) => {
-                    return h('Input', {
-                        props: {
-                            value: oldRemark,
-                            autofocus: true,
-                            placeholder: '输入备注',
-                        },
-                        on: {
-                            input: (t: string) => {
-                                text = t;
-                            },
-                        },
-                    });
-                },
-                onOk: () => {
-                    if (!text) {
-                        text = '';
-                    }
-                    ccc.updateRemark(contactUserId, text, back);
-                },
-                onCancel: () => {
-                    // no
-                },
-            });
+            ccc.updateRemark(contactUserId, remark, back);
         }
     }
 </script>

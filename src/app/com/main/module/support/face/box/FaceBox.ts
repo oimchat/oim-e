@@ -1,8 +1,8 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import AppContext from '@/app/base/context/AppContext';
-import FaceItem from "@/app/com/main/module/support/face/data/FaceItem";
-import BaseBag from "@/app/com/main/module/support/face/base/BaseBag";
-import FaceCategory from "@/app/com/main/module/support/face/data/FaceCategory";
+import FaceItem from '@/app/com/main/module/support/face/data/FaceItem';
+import BaseBag from '@/app/com/main/module/support/face/base/BaseBag';
+import FaceCategory from '@/app/com/main/module/support/face/data/FaceCategory';
 
 export default class FaceBox extends AbstractMaterial {
 

@@ -1,5 +1,5 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
-import GroupRelationBox from "@/app/com/main/module/business/group/box/GroupRelationBox";
+import GroupRelationBox from '@/app/com/main/module/business/group/box/GroupRelationBox';
 
 export default class GroupRelationAccess extends AbstractMaterial {
 

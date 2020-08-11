@@ -5,7 +5,7 @@ import DataBackAction from '@/app/base/net/DataBackAction';
 import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
 import GroupInfoSender from '@/app/com/main/module/business/group/sender/GroupInfoSender';
 import GroupListManager from '@/app/com/main/module/business/group/manager/GroupListManager';
-import GroupListener from "@/app/com/main/module/business/group/listener/GroupListener";
+import GroupListener from '@/app/com/main/module/business/group/listener/GroupListener';
 
 export default class GroupInfoService extends AbstractMaterial {
 

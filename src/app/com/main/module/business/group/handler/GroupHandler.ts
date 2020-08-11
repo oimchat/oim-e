@@ -1,10 +1,10 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
-import GroupInfoUtil from "@/app/com/main/common/util/GroupInfoUtil";
-import Group from "@/app/com/main/module/business/group/bean/Group";
-import GroupBox from "@/app/com/main/module/business/group/box/GroupBox";
-import GroupInfoSender from "@/app/com/main/module/business/group/sender/GroupInfoSender";
+import GroupInfoUtil from '@/app/com/main/common/util/GroupInfoUtil';
+import Group from '@/app/com/main/module/business/group/bean/Group';
+import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
+import GroupInfoSender from '@/app/com/main/module/business/group/sender/GroupInfoSender';
 
 export default class GroupHandler extends AbstractMaterial {
 

@@ -5,7 +5,7 @@ import Content from '@/app/com/common/chat/Content';
 import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
 import UserChatItemManager from '@/app/com/main/module/business/chat/manager/UserChatItemManager';
 import UserChatInfoManager from '@/app/com/main/module/business/chat/manager/UserChatInfoManager';
-import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
+import CoreContentUtil from '@/app/com/common/chat/util/CoreContentUtil';
 import UserChatData from '@/app/com/main/module/business/chat/data/UserChatData';
 
 

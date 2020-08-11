@@ -1,4 +1,3 @@
-import Section from "@/app/com/common/chat/Section";
 
 export default class FileValue {
 

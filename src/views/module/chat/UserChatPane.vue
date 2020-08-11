@@ -17,7 +17,7 @@
     import userChatViewModel from '@/platform/vue/view/model/UserChatViewModel';
     import app from '@/app/App';
 
-    import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
+    import CoreContentUtil from '@/app/com/common/chat/util/CoreContentUtil';
     import Content from '@/app/com/common/chat/Content';
     import Section from '@/app/com/common/chat/Section';
     import Item from '@/app/com/common/chat/Item';

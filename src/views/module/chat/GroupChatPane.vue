@@ -46,12 +46,12 @@
     import GroupMemberListPane from '@/views/module/group/member/GroupMemberListPane.vue';
 
     import GroupJoinSettingPane from '@/views/module/group/GroupJoinSettingPane.vue';
-    import GroupMemberContextMenu from '@/views/module/group/GroupMemberContextMenu.vue';
+    import GroupMemberContextMenu from '@/views/module/group/member/menu/GroupMemberContextMenu.vue';
 
     import groupChatViewModel from '@/platform/vue/view/model/GroupChatViewModel';
 
     import app from '@/app/App';
-    import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
+    import CoreContentUtil from '@/app/com/common/chat/util/CoreContentUtil';
     import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
     import User from '@/app/com/main/module/business/user/bean/User';
     import Section from '@/app/com/common/chat/Section';

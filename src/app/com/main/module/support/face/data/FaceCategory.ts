@@ -1,4 +1,4 @@
-import FaceItem from "@/app/com/main/module/support/face/data/FaceItem";
+import FaceItem from '@/app/com/main/module/support/face/data/FaceItem';
 
 export default class FaceCategory {
     public id: string = '';

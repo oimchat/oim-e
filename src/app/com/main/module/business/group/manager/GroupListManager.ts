@@ -8,7 +8,7 @@ import GroupInfoUtil from '@/app/com/main/common/util/GroupInfoUtil';
 import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
 import Group from '@/app/com/main/module/business/group/bean/Group';
 import GroupRelation from '@/app/com/main/module/business/group/bean/GroupRelation';
-import GroupCategoryBox from "@/app/com/main/module/business/group/box/GroupCategoryBox";
+import GroupCategoryBox from '@/app/com/main/module/business/group/box/GroupCategoryBox';
 
 export default class GroupListManager extends AbstractMaterial {
 

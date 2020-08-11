@@ -1,9 +1,9 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
-import DataChange from "@/app/base/event/DataChange";
-import Group from "@/app/com/main/module/business/group/bean/Group";
-import GroupListener from "@/app/com/main/module/business/group/listener/GroupListener";
-import GroupHandler from "@/app/com/main/module/business/group/handler/GroupHandler";
-import GroupTempBox from "@/app/com/main/module/business/group/box/GroupTempBox";
+import DataChange from '@/app/base/event/DataChange';
+import Group from '@/app/com/main/module/business/group/bean/Group';
+import GroupListener from '@/app/com/main/module/business/group/listener/GroupListener';
+import GroupHandler from '@/app/com/main/module/business/group/handler/GroupHandler';
+import GroupTempBox from '@/app/com/main/module/business/group/box/GroupTempBox';
 
 export default class GroupAccess extends AbstractMaterial {
 

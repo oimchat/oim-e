@@ -1,6 +1,6 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import DataChange from '@/app/base/event/DataChange';
-import Group from "../bean/Group";
+import Group from '../bean/Group';
 
 export default class GroupListener extends AbstractMaterial {
 

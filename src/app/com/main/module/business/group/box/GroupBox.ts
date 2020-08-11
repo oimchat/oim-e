@@ -1,7 +1,7 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import Group from '@/app/com/main/module/business/group/bean/Group';
 import GroupInfoUtil from '@/app/com/main/common/util/GroupInfoUtil';
-import ObjectUtil from "@/app/common/util/ObjectUtil";
+import ObjectUtil from '@/app/common/util/ObjectUtil';
 
 export default class GroupBox extends AbstractMaterial {
 
