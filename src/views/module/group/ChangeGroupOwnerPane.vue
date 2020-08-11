@@ -45,7 +45,8 @@
     import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
     import GroupMemberSender from '@/app/com/main/module/business/group/sender/GroupMemberSender';
     import GroupBusinessController from '@/app/com/main/module/business/group/controller/GroupBusinessController';
-    import GroupMemberListController from '@/app/com/main/module/business/group/controller/GroupMemberListController';
+    import GroupMemberListViewController from '@/app/com/main/module/business/group/controller/GroupMemberListViewController';
+    import GroupMemberUserController from '@/app/com/main/module/business/group/controller/GroupMemberUserController';
 
 
     @Component({
@@ -104,9 +105,9 @@
             const groupId = this.groupId;
 
             const own = this;
-            const controller: GroupMemberListController = app.appContext.getMaterial(GroupMemberListController);
+            const controller: GroupMemberUserController = app.appContext.getMaterial(GroupMemberUserController);
 
-            controller.getAllMemberDataList(groupId, (success, memberList, userList, message) => {
+            controller.getAllMemberUserList(groupId, (success, memberList, userList, message) => {
                 if (success) {
                     own.setGroupMemberList(memberList);
                     own.setUserList(userList);

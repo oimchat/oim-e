@@ -1,6 +1,6 @@
 import MessageListView from '@/app/com/client/module/message/view/MessageListView';
 
-import messageListModel from '@/impl/data/MessageListModel';
+import messageListModel from '@/platform/vue/view/model/MessageListModel';
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 
 export default class MessageListViewImpl extends AbstractMaterial implements MessageListView {

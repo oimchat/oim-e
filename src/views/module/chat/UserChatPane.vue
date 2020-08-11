@@ -14,7 +14,7 @@
     import BaseChatPane from '@/views/module/chat/BaseChatPane.vue';
     import BaseChatMapper from '@/views/module/chat/BaseChatMapper';
 
-    import userChatViewModel from '@/impl/data/UserChatViewModel';
+    import userChatViewModel from '@/platform/vue/view/model/UserChatViewModel';
     import app from '@/app/App';
 
     import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';

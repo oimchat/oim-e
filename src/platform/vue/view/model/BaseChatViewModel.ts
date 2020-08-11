@@ -1,5 +1,5 @@
 import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
-import ContentWrap from "@/common/vue/data/content/ContentWrap";
+import ContentWrap from '@/common/vue/data/content/ContentWrap';
 
 class BaseChatViewModel {
     public key = '';

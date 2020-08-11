@@ -80,7 +80,8 @@
     import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
     import GroupRelationController from '@/app/com/main/module/business/group/controller/GroupRelationController';
     import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
-    import GroupMemberListController from '@/app/com/main/module/business/group/controller/GroupMemberListController';
+    import GroupMemberListViewController from '@/app/com/main/module/business/group/controller/GroupMemberListViewController';
+    import GroupMemberUserController from '@/app/com/main/module/business/group/controller/GroupMemberUserController';
 
     @Component({
         components: {},
@@ -158,9 +159,9 @@
 
             const userBox: UserBox = app.appContext.getMaterial(UserBox);
             const groupBox: GroupBox = app.appContext.getMaterial(GroupBox);
-            const controller: GroupMemberListController = app.appContext.getMaterial(GroupMemberListController);
+            const controller: GroupMemberUserController = app.appContext.getMaterial(GroupMemberUserController);
 
-            controller.getAllMemberDataList(groupId, (success, memberList, userList, message) => {
+            controller.getAllMemberUserList(groupId, (success, memberList, userList, message) => {
                 if (success) {
                     own.setGroupMemberList(memberList);
                     own.setUserList(userList);

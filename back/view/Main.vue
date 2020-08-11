@@ -159,7 +159,7 @@
     import GroupChatItemController from '../../src/app/com/main/module/business/chat/controller/GroupChatItemController';
     import Platform from '@/app/common/util/Platform';
     import NodeData from './common/list/NodeData';
-    import GroupMemberListController from '../../src/app/com/main/module/business/group/controller/GroupMemberListController';
+    import GroupMemberListViewController from '../../src/app/com/main/module/business/group/controller/GroupMemberListViewController';
     import LoginController from '../../src/app/com/main/module/business/index/controller/LoginController';
     import Prompt from '@/platform/web/common/Prompt';
 
@@ -347,7 +347,7 @@
                 const groupInfoPane: any = this.$refs[groupInfoPaneName];
                 groupInfoPane.setGroupId(groupId);
 
-                const groupMemberListController: GroupMemberListController = app.appContext.getMaterial(GroupMemberListController);
+                const groupMemberListController: GroupMemberListViewController = app.appContext.getMaterial(GroupMemberListViewController);
                 groupMemberListController.loadMemberListByGroupId(groupId);
             }
         }
@@ -402,7 +402,7 @@
             this.selectedTab('message_tab');
             const groupChatInfoService: GroupChatInfoService = app.appContext.getMaterial(GroupChatInfoService);
             const groupChatItemController: GroupChatItemController = app.appContext.getMaterial(GroupChatItemController);
-            const groupMemberListController: GroupMemberListController = app.appContext.getMaterial(GroupMemberListController);
+            const groupMemberListController: GroupMemberListViewController = app.appContext.getMaterial(GroupMemberListViewController);
 
             groupChatInfoService.showGroupChatById(groupId);
             groupChatItemController.showGroupChatItemById(groupId);

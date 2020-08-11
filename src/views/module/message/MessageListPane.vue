@@ -8,7 +8,7 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import IconListPane from '../../common/list/IconListPane.vue';
     import IconItemData from '../../common/list/IconItemData';
-    import messageListModel from '@/impl/data/MessageListModel';
+    import messageListModel from '@/platform/vue/view/model/MessageListModel';
     import IconItemBox from '@/views/common/list/IconItemBox';
 
     @Component({

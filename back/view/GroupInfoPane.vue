@@ -78,7 +78,7 @@
     import GroupJoinSettingPane from '@/views/module/group/GroupJoinSettingPane.vue';
     import GroupMemberContextMenu from '@/views/module/group/GroupMemberContextMenu.vue';
 
-    import groupChatViewModel from '@/impl/data/GroupChatViewModel';
+    import groupChatViewModel from '../../src/platform/vue/view/model/GroupChatViewModel';
 
     import Group from '../../src/app/com/main/module/business/group/bean/Group';
     import GroupRelation from '../../src/app/com/main/module/business/group/bean/GroupRelation';

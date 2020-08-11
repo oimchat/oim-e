@@ -1,7 +1,7 @@
 import UserChatView from '@/app/com/main/module/business/chat/view/UserChatView';
 import User from '@/app/com/main/module/business/user/bean/User';
 import Content from '@/app/com/common/chat/Content';
-import userChatViewModel from '@/impl/data/UserChatViewModel';
+import userChatViewModel from '@/platform/vue/view/model/UserChatViewModel';
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 
 export default class UserChatViewDefaultImpl extends AbstractMaterial implements UserChatView {

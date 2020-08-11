@@ -28,18 +28,11 @@
             <div v-if='isOwner'>
                 <GroupJoinSettingPane :groupId='model.chatData.key'></GroupJoinSettingPane>
             </div>
-            <div>
-                <div class="members-warp slide-down" tabindex="-1" style="">
-                    <div class="members compatible">
-                        <div class="members-inner">
-                            <div v-for='item in groupMemberData.users' @contextmenu='memberContextMenu($event,item)'
-                                 class="member">
-                                <img class="avatar" :src="item.avatar" alt="" :title="getNickname(item)">
-                                <p class="nickname" style="text-align: center;">{{getNickname(item)}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div style="height: 100%;margin-top: 20px">
+                <group-member-list-pane
+                        :group-id="model.chatData.key"
+                >
+                </group-member-list-pane>
             </div>
         </Drawer>
         <GroupMemberContextMenu ref='groupMemberContextMenu'></GroupMemberContextMenu>
@@ -50,12 +43,12 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import BaseChatPane from '@/views/module/chat/BaseChatPane.vue';
     import BaseChatMapper from '@/views/module/chat/BaseChatMapper';
-
+    import GroupMemberListPane from '@/views/module/group/member/GroupMemberListPane.vue';
 
     import GroupJoinSettingPane from '@/views/module/group/GroupJoinSettingPane.vue';
     import GroupMemberContextMenu from '@/views/module/group/GroupMemberContextMenu.vue';
 
-    import groupChatViewModel from '@/impl/data/GroupChatViewModel';
+    import groupChatViewModel from '@/platform/vue/view/model/GroupChatViewModel';
 
     import app from '@/app/App';
     import CoreContentUtil from '@/app/com/main/common/util/CoreContentUtil';
@@ -73,6 +66,7 @@
     @Component({
         components: {
             BaseChatPane,
+            GroupMemberListPane,
             GroupJoinSettingPane,
             GroupMemberContextMenu,
         },

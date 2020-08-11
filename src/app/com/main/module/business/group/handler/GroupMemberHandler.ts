@@ -5,8 +5,73 @@ import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
 import User from '@/app/com/main/module/business/user/bean/User';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import UserAccess from '@/app/com/main/module/business/user/access/UserAccess';
+import ObjectUtil from '@/app/common/util/ObjectUtil';
 
 export default class GroupMemberHandler extends AbstractMaterial {
+
+
+    public getAllMemberUserList(groupId: string, back: (success: boolean, memberList: GroupMember[], userList: User[], message: string) => void) {
+        const own = this;
+        const sender: GroupMemberSender = this.appContext.getMaterial(GroupMemberSender);
+        const countBack = this.appContext.createDataBackAction((data: any) => {
+            if (data.body && data.body.count) {
+                const count: number = data.body.count;
+                own.getMemberUserListByCount(groupId, count, back);
+            }
+        });
+        sender.getGroupMemberCount(groupId, countBack);
+    }
+
+    public getMemberUserListByCount(groupId: string, count: number, back: (success: boolean, memberList: GroupMember[], userList: User[], message: string) => void): void {
+        const own = this;
+        const page: Page = new Page();
+        page.setTotalCount(count);
+        const totalPage = page.getTotalPage();
+        const promises: Array<Promise<{ success: boolean, members: GroupMember[], users: User[], message: string }>> = [];
+        for (let i = 0; i < totalPage; i++) {
+            const promise = new Promise<{ success: boolean, members: GroupMember[], users: User[], message: string }>((resolve) => {
+                const pg: Page = new Page();
+                pg.number = (i + 1);
+                own.getGroupMemberUserPageList(groupId, pg, (
+                    mark,
+                    ms,
+                    us,
+                    text) => {
+                    resolve({success: mark, members: ms, users: us, message: text});
+                });
+            });
+            promises.push(promise);
+        }
+        Promise.all(promises).then((values) => {
+            let success: boolean = true;
+            let members: GroupMember[] = [];
+            let users: User[] = [];
+            let message: string = '';
+            const length = values.length;
+            for (let i = 0; i < length; i++) {
+                const value = values[i];
+                if (value.success) {
+                    if (value.members) {
+                        for (const m of value.members) {
+                            members.push(m);
+                        }
+                    }
+                    if (value.users) {
+                        for (const u of value.users) {
+                            users.push(u);
+                        }
+                    }
+                } else {
+                    success = false;
+                    members = [];
+                    users = [];
+                    message = value.message;
+                    break;
+                }
+            }
+            back(success, members, users, message);
+        });
+    }
 
     public getGroupMemberUserPageList(groupId: string, page: Page, back: (success: boolean, memberList: GroupMember[], userList: User[], message: string) => void) {
         const own = this;
@@ -47,9 +112,13 @@ export default class GroupMemberHandler extends AbstractMaterial {
                     const info = data.info;
                     if (info) {
                         if (info.success && data.body) {
+                            const p: Page = data.body.page;
                             members = data.body.items;
                             mark = true;
                             text = '';
+                            if (p) {
+                                ObjectUtil.copyByTargetKey(page, p);
+                            }
                         }
                     }
                 }

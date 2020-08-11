@@ -1,7 +1,7 @@
 import GroupMemberListView from '@/app/com/main/module/business/group/view/GroupMemberListView';
 import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
 import User from '@/app/com/main/module/business/user/bean/User';
-import groupChatViewModel from '@/impl/data/GroupChatViewModel';
+import groupChatViewModel from '@/platform/vue/view/model/GroupChatViewModel';
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 
 export default class GroupMemberListViewImpl extends AbstractMaterial implements GroupMemberListView {

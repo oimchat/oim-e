@@ -1,6 +1,6 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import ListPaneView from '@/app/com/client/common/view/ListPaneView';
-import ListBox from '@/impl/data/ListBox';
+import ListBox from '@/platform/vue/view/data/ListBox';
 
 export default abstract class AbstractListPaneView extends AbstractMaterial implements ListPaneView {
 

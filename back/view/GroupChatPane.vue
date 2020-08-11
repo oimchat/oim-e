@@ -64,7 +64,7 @@
     import GroupJoinSettingPane from '@/views/module/group/GroupJoinSettingPane.vue';
     import GroupMemberContextMenu from '@/views/module/group/GroupMemberContextMenu.vue';
 
-    import groupChatViewModel from '@/impl/data/GroupChatViewModel';
+    import groupChatViewModel from '../../src/platform/vue/view/model/GroupChatViewModel';
 
     import app from '@/app/App';
     import GroupChatController from '@/app/com/main/module/business/chat/controller/GroupChatController';

@@ -3,7 +3,7 @@
         <!--begin HD-->
         <div class="top">
             <div :class="'top-title-warp'">
-                <div class="ext">
+                <div class="top-extend">
                     <slot name="top-extend"></slot>
                 </div>
                 <div class="avatar">
@@ -158,6 +158,7 @@
     }
 
     .top-extend {
+        margin-top: 20px;
         float: right;
     }
 
@@ -177,7 +178,7 @@
         background: #cbced0
     }
 
-    .top-title-warp.active .ext, .top-title-warp.active .info .msg {
+    .top-title-warp.active .top-extend, .top-title-warp.active .info .msg {
         color: #181818
     }
 
@@ -248,14 +249,14 @@
         height: 1.5em
     }
 
-    .top-title-warp .ext {
+    .top-title-warp .top-extend {
         float: right;
         color: #6b6f7c;
         font-size: 13px;
         text-align: right
     }
 
-    .top-title-warp .ext .attr {
+    .top-title-warp .top-extend .attr {
         height: 19px;
         line-height: 1.5
     }

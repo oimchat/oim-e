@@ -1,5 +1,5 @@
 import Group from '@/app/com/main/module/business/group/bean/Group';
-import ChatViewModel from '@/impl/data/ChatViewModel';
+import ChatViewModel from '@/platform/vue/view/model/ChatViewModel';
 import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
 import User from '@/app/com/main/module/business/user/bean/User';
 import Content from '@/app/com/common/chat/Content';

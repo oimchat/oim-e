@@ -3,8 +3,8 @@ import Vuex from 'vuex';
 
 import appObject from '@/app/App';
 import platformInitialize from '@/platform/initialize/PlatformInitialize';
-import groupChatViewModel from '@/impl/data/GroupChatViewModel';
-import userChatViewModel from '@/impl/data/UserChatViewModel';
+import groupChatViewModel from '@/platform/vue/view/model/GroupChatViewModel';
+import userChatViewModel from '@/platform/vue/view/model/UserChatViewModel';
 
 Vue.use(Vuex);
 

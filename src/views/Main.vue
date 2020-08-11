@@ -180,7 +180,7 @@
 
     import UserInfoPane from './module/user/info/UserInfoPane.vue';
     import PersonalInfoPane from './main/pane/PersonalInfoPane.vue';
-    import GroupInfoPane from './main/pane/GroupInfoPane.vue';
+    import GroupInfoPane from './module/group/info/GroupInfoPane.vue';
 
     import MessageAreaPane from './main/message/MessageAreaPane.vue';
     import ModuleMenu from '@/views/main/ModuleMenu.vue';
@@ -213,7 +213,7 @@
     import GroupChatInfoService from '@/app/com/main/module/business/chat/service/GroupChatInfoService';
     import GroupChatItemController from '@/app/com/main/module/business/chat/controller/GroupChatItemController';
     import NodeData from './common/list/NodeData';
-    import GroupMemberListController from '@/app/com/main/module/business/group/controller/GroupMemberListController';
+    import GroupMemberListViewController from '@/app/com/main/module/business/group/controller/GroupMemberListViewController';
     import LoginController from '@/app/com/main/module/business/index/controller/LoginController';
     import Prompt from '@/platform/web/common/Prompt';
 
@@ -311,7 +311,7 @@
                 const groupInfoPane: any = this.$refs[groupInfoPaneName];
                 groupInfoPane.setGroupId(groupId);
 
-                const groupMemberListController: GroupMemberListController = app.appContext.getMaterial(GroupMemberListController);
+                const groupMemberListController: GroupMemberListViewController = app.appContext.getMaterial(GroupMemberListViewController);
                 groupMemberListController.loadMemberListByGroupId(groupId);
             }
         }
@@ -364,7 +364,7 @@
         private openGroupChat(groupId: string) {
             const groupChatInfoService: GroupChatInfoService = app.appContext.getMaterial(GroupChatInfoService);
             const groupChatItemController: GroupChatItemController = app.appContext.getMaterial(GroupChatItemController);
-            const groupMemberListController: GroupMemberListController = app.appContext.getMaterial(GroupMemberListController);
+            const groupMemberListController: GroupMemberListViewController = app.appContext.getMaterial(GroupMemberListViewController);
 
             groupChatInfoService.showGroupChatById(groupId);
             groupChatItemController.showGroupChatItemById(groupId);

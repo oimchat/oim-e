@@ -3,7 +3,7 @@ import GroupChatInfoManager from '@/app/com/main/module/business/chat/manager/Gr
 import GroupChatItemManager from '@/app/com/main/module/business/chat/manager/GroupChatItemManager';
 import GroupChatInfoService from '@/app/com/main/module/business/chat/service/GroupChatInfoService';
 import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
-import GroupMemberListController from '@/app/com/main/module/business/group/controller/GroupMemberListController';
+import GroupMemberListViewController from '@/app/com/main/module/business/group/controller/GroupMemberListViewController';
 import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
 import RecentChatSender from '@/app/com/main/module/business/chat/sender/RecentChatSender';
 import RecentChat from '@/app/com/main/module/business/chat/bean/RecentChat';
@@ -13,7 +13,7 @@ export default class GroupChatItemEvent extends AbstractMaterial {
     public onSelect(key: string): void {
         const groupChatInfoService: GroupChatInfoService = this.appContext.getMaterial(GroupChatInfoService);
         groupChatInfoService.showGroupChatById(key);
-        const groupMemberListController: GroupMemberListController = this.appContext.getMaterial(GroupMemberListController);
+        const groupMemberListController: GroupMemberListViewController = this.appContext.getMaterial(GroupMemberListViewController);
         groupMemberListController.loadMemberListByGroupId(key);
     }
 

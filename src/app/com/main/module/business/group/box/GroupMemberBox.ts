@@ -1,6 +1,7 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
+import ObjectUtil from '@/app/common/util/ObjectUtil';
 
 export default class GroupMemberBox extends AbstractMaterial {
 
@@ -13,7 +14,12 @@ export default class GroupMemberBox extends AbstractMaterial {
         const userId = groupMember.userId;
 
         const groupMemberMap = this.getGroupMemberMapByGroupId(groupId);
-        groupMemberMap.set(userId, groupMember);
+        const m = groupMemberMap.get(userId);
+        if (m) {
+            ObjectUtil.copyByTargetKey(m, groupMember);
+        } else {
+            groupMemberMap.set(userId, groupMember);
+        }
     }
 
     public getGroupMemberMapByGroupId(groupId: string): Map<string, GroupMember> {

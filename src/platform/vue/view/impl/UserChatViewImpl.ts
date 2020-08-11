@@ -2,14 +2,14 @@ import UserChatView from '@/app/com/main/module/business/chat/view/UserChatView'
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/main/module/business/user/bean/User';
 import Content from '@/app/com/common/chat/Content';
-import userChatViewModel from '@/impl/data/UserChatViewModel';
+import userChatViewModel from '@/platform/vue/view/model/UserChatViewModel';
 import ContactRelationBox from '@/app/com/main/module/business/contact/box/ContactRelationBox';
 import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 import ContactService from '@/app/com/main/module/business/contact/service/ContactService';
-import messageAreaViewModel from "@/platform/web/view/model/MessageAreaViewModel";
-import MessageAreaViewType from "@/platform/web/view/model/MessageAreaViewType";
-import mainViewData from "@/platform/web/view/data/MainViewData";
-import mainBaseTabs from "@/platform/web/view/data/MainBaseTabs";
+import messageAreaViewModel from '@/platform/web/view/model/MessageAreaViewModel';
+import MessageAreaViewType from '@/platform/web/view/model/MessageAreaViewType';
+import mainViewData from '@/platform/web/view/data/MainViewData';
+import mainBaseTabs from '@/platform/web/view/data/MainBaseTabs';
 
 export default class UserChatViewImpl extends AbstractMaterial implements UserChatView {
 
@@ -67,10 +67,10 @@ export default class UserChatViewImpl extends AbstractMaterial implements UserCh
 
     public setVisible(visible: boolean): void {
         if (visible) {
-            mainViewData.tab = mainBaseTabs.messageTab.key
+            mainViewData.tab = mainBaseTabs.messageTab.key;
             messageAreaViewModel.tab = MessageAreaViewType.UserChat;
         } else {
-            mainViewData.tab = mainBaseTabs.messageTab.key
+            mainViewData.tab = mainBaseTabs.messageTab.key;
             messageAreaViewModel.tab = MessageAreaViewType.No;
         }
     }

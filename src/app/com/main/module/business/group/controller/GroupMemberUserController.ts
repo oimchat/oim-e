@@ -10,4 +10,9 @@ export default class GroupMemberUserController extends AbstractMaterial {
         const handler: GroupMemberHandler = this.appContext.getMaterial(GroupMemberHandler);
         handler.getGroupMemberUserPageList(groupId, page, back);
     }
+
+    public getAllMemberUserList(groupId: string, back: (success: boolean, memberList: GroupMember[], userList: User[], message: string) => void): void {
+        const handler: GroupMemberHandler = this.appContext.getMaterial(GroupMemberHandler);
+        handler.getAllMemberUserList(groupId, back);
+    }
 }

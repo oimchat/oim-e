@@ -55,7 +55,7 @@
     import MessagePane from '@/views/common/chat/ReadPane.vue';
     import WritePane from '@/views/common/chat/WritePane.vue';
 
-    import userChatViewModel from '@/impl/data/UserChatViewModel';
+    import userChatViewModel from '../../src/platform/vue/view/model/UserChatViewModel';
 
     import app from '@/app/App';
     import UserChatController from '@/app/com/main/module/business/chat/controller/UserChatController';

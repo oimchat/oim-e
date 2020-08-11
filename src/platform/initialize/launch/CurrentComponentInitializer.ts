@@ -11,8 +11,8 @@ import MessageTimeSettingStore from '@/app/com/main/module/setting/message/Messa
 import LoginController from '@/app/com/main/module/business/index/controller/LoginController';
 import GroupChatManager from '@/app/com/main/module/business/chat/manager/GroupChatManager';
 import UserChatManager from '@/app/com/main/module/business/chat/manager/UserChatManager';
-import groupChatViewModel from '@/impl/data/GroupChatViewModel';
-import userChatViewModel from '@/impl/data/UserChatViewModel';
+import groupChatViewModel from '@/platform/vue/view/model/GroupChatViewModel';
+import userChatViewModel from '@/platform/vue/view/model/UserChatViewModel';
 import InitializeConverge from '@/app/com/main/module/business/index/converge/InitializeConverge';
 import AppContext from '@/app/base/context/AppContext';
 import ImageItemFileConverter from '@/app/define/file/ImageItemFileConverter';
