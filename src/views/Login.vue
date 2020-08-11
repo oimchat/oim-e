@@ -83,131 +83,131 @@
 </template>
 
 <script lang="ts">
-    import '../styles/oim/login.scss';
-    import Vue from 'vue';
-    import Component from 'vue-class-component';
-    import app from '@/app/App';
-    import AppSettingManager from '@/app/com/client/module/setting/manager/AppSettingManager';
-    import ServerService from '@/app/com/main/module/business/server/service/ServerService';
-    import loginViewModel from '@/platform/vue/view/model/LoginViewModel';
-    import {Dialog} from 'quasar';
+import '../styles/oim/login.scss';
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import app from '@/app/App';
+import AppSettingManager from '@/app/com/client/module/setting/manager/AppSettingManager';
+import ServerService from '@/app/com/main/module/business/server/service/ServerService';
+import loginViewModel from '@/platform/vue/view/model/LoginViewModel';
+import {Dialog} from 'quasar';
 
-    @Component({})
-    export default class Login extends Vue {
-
-        private model = loginViewModel;
-        private url: string = '';
-        private isPassword: boolean = true;
-        public onLogin: (success: boolean, message?: string) => void = (
-            (success: boolean, message?: string) => {
-                if (message) {
-                    this.$Notice.warning({
-                        desc: message,
-                    });
-                }
-                if (success) {
-                    this.toMain();
-                }
+@Component({})
+export default class Login extends Vue {
+    public onLogin: (success: boolean, message?: string) => void = (
+        (success: boolean, message?: string) => {
+            if (message) {
+                this.$Notice.warning({
+                    desc: message,
+                });
             }
-        );
-
-        public mounted() {
-            // no
-            loginViewModel.onLogin = this.onLogin;
-            loginViewModel.initialize();
+            if (success) {
+                this.toMain();
+            }
         }
+    );
 
+    private model = loginViewModel;
+    private url: string = '';
+    private isPassword: boolean = true;
 
-        private login(): void {
-            const own = this;
-            const back = this.onLogin;
-            const form: any = this.$refs['form'];
-            form.validate().then((success: boolean) => {
-                if (success) {
-                    loginViewModel.login(
-                        () => {
-                            return true;
-                        },
-                        back);
-                } else {
-                    // 哦，不，用户至少
-                    // 填写了一个无效值
-                }
-            });
-        }
-
-        private setting(): void {
-            const asm: AppSettingManager = app.appContext.getMaterial(AppSettingManager);
-            let url = asm.getServerUrl();
-
-            const addressBack = (success: boolean, message?: string) => {
-                if (!success) {
-                    app.prompt('获取服务器地址失败！请检查网络是否正常');
-                }
-            };
-            const serverService: ServerService = app.appContext.getMaterial(ServerService);
-            Dialog.create({
-                title: '设置',
-                message: '请输入服务器地址',
-                prompt: {
-                    model: url,
-                    type: 'text', // optional
-                },
-                cancel: true,
-                persistent: true,
-            }).onOk((data: any) => {
-                if ('' !== data && null !== data) {
-                    asm.setServerUrl(data);
-                    serverService.loadServerAddress(addressBack);
-                }
-                // console.log('>>>> OK, received', data)
-            }).onCancel(() => {
-                // console.log('>>>> Cancel')
-            }).onDismiss(() => {
-                // console.log('I am triggered on both OK and Cancel')
-            });
-
-
-            // this.$Modal.confirm({
-            //     title: '设置服务地址',
-            //     render: (h: any) => {
-            //         return h('Input', {
-            //             props: {
-            //                 value: url,
-            //                 autofocus: true,
-            //                 placeholder: '设置服务地址',
-            //             },
-            //             on: {
-            //                 input: (text: string) => {
-            //                     url = text;
-            //                 },
-            //             },
-            //         });
-            //     },
-            //     onOk: () => {
-            //         if ('' !== url && null !== url) {
-            //             asm.setServerUrl(url);
-            //             serverService.loadServerAddress(addressBack);
-            //         }
-            //     },
-            //     onCancel: () => {
-            //         // no
-            //     },
-            // });
-        }
-
-        private register(): void {
-            this.$router.push({path: '/register'});
-        }
-
-        private resetPassword(): void {
-            this.$router.push({path: '/reset.password'});
-        }
-
-        private toMain(): void {
-            this.$router.push({path: '/main'});
-        }
+    public mounted() {
+        // no
+        loginViewModel.onLogin = this.onLogin;
+        loginViewModel.initialize();
     }
+
+
+    private login(): void {
+        const own = this;
+        const back = this.onLogin;
+        const form: any = this.$refs.form;
+        form.validate().then((success: boolean) => {
+            if (success) {
+                loginViewModel.login(
+                    () => {
+                        return true;
+                    },
+                    back);
+            } else {
+                // 哦，不，用户至少
+                // 填写了一个无效值
+            }
+        });
+    }
+
+    private setting(): void {
+        const asm: AppSettingManager = app.appContext.getMaterial(AppSettingManager);
+        const url = asm.getServerUrl();
+
+        const addressBack = (success: boolean, message?: string) => {
+            if (!success) {
+                app.prompt('获取服务器地址失败！请检查网络是否正常');
+            }
+        };
+        const serverService: ServerService = app.appContext.getMaterial(ServerService);
+        Dialog.create({
+            title: '设置',
+            message: '请输入服务器地址',
+            prompt: {
+                model: url,
+                type: 'text', // optional
+            },
+            cancel: true,
+            persistent: true,
+        }).onOk((data: any) => {
+            if ('' !== data && null !== data) {
+                asm.setServerUrl(data);
+                serverService.loadServerAddress(addressBack);
+            }
+            // console.log('>>>> OK, received', data)
+        }).onCancel(() => {
+            // console.log('>>>> Cancel')
+        }).onDismiss(() => {
+            // console.log('I am triggered on both OK and Cancel')
+        });
+
+
+        // this.$Modal.confirm({
+        //     title: '设置服务地址',
+        //     render: (h: any) => {
+        //         return h('Input', {
+        //             props: {
+        //                 value: url,
+        //                 autofocus: true,
+        //                 placeholder: '设置服务地址',
+        //             },
+        //             on: {
+        //                 input: (text: string) => {
+        //                     url = text;
+        //                 },
+        //             },
+        //         });
+        //     },
+        //     onOk: () => {
+        //         if ('' !== url && null !== url) {
+        //             asm.setServerUrl(url);
+        //             serverService.loadServerAddress(addressBack);
+        //         }
+        //     },
+        //     onCancel: () => {
+        //         // no
+        //     },
+        // });
+    }
+
+    private register(): void {
+        this.$router.push({path: '/register'});
+    }
+
+    private resetPassword(): void {
+        this.$router.push({path: '/reset.password'});
+    }
+
+    private toMain(): void {
+        this.$router.push({path: '/main'});
+    }
+}
 </script>
 
 <style scoped>

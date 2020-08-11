@@ -20,9 +20,9 @@ export default class GroupAccess extends AbstractMaterial {
     public getTempGroupById(groupId: string, back: (success: boolean, group: Group) => void): void {
         const groupHandler: GroupHandler = this.appContext.getMaterial(GroupHandler);
         const groupTempBox: GroupTempBox = this.appContext.getMaterial(GroupTempBox);
-        const group: Group = groupTempBox.getGroup(groupId);
-        if (group) {
-            back(true, group);
+        const g: Group = groupTempBox.getGroup(groupId);
+        if (g) {
+            back(true, g);
         } else {
             groupHandler.getGroupFromServerById(groupId, (success, group) => {
                 if (success && group) {

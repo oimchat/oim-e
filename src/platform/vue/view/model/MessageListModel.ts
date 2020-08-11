@@ -95,7 +95,7 @@ class MessageListModel {
                 const timestamp1: number = a.lastTimestamp;
                 const timestamp2: number = b.lastTimestamp;
                 return timestamp2 - timestamp1;
-            })
+            });
         }
     }
 

@@ -4,7 +4,7 @@ export default class ImageFileUtil {
     public static isImageByName(name: string): boolean {
         let isImage = false;
         if (typeof name === 'string' && name) {
-            let fileName = name.toLowerCase();
+            const fileName = name.toLowerCase();
             for (const e of ImageFileUtil.imageFiles) {
                 if (fileName.endsWith('.' + e)) {
                     isImage = true;

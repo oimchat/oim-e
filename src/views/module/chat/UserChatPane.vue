@@ -121,11 +121,11 @@
                 item.type = Item.TYPE_FILE;
 
 
-                const data = result.body;
-                const id = data.id;
-                const name = data.name;
-                const size = data.size;
-                const url = data.url;
+                const body = result.body;
+                const id = body.id;
+                const name = body.name;
+                const size = body.size;
+                const url = body.url;
                 const iv: FileValue = new FileValue();
                 iv.id = id;
                 iv.name = name;

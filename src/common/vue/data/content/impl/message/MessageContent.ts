@@ -1,5 +1,5 @@
-import Font from "@/app/com/common/chat/Font";
-import Section from "@/app/com/common/chat/Section";
+import Font from '@/app/com/common/chat/Font';
+import Section from '@/app/com/common/chat/Section';
 
 class MessageContent {
 

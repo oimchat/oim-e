@@ -1,5 +1,5 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
-import GroupCategory from "@/app/com/main/module/business/group/bean/GroupCategory";
+import GroupCategory from '@/app/com/main/module/business/group/bean/GroupCategory';
 
 
 export default class GroupCategoryBox extends AbstractMaterial {

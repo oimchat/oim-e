@@ -1,8 +1,8 @@
 import Initializer from '@/app/base/initialize/Initializer';
 import AppContext from '@/app/base/context/AppContext';
-import DataChange from "@/app/base/event/DataChange";
-import MessageAllUnreadManager from "@/app/com/main/manager/MessageAllUnreadManager";
-import AllMessageUnreadBox from "@/app/com/client/module/information/box/unread/AllMessageUnreadBox";
+import DataChange from '@/app/base/event/DataChange';
+import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadManager';
+import AllMessageUnreadBox from '@/app/com/client/module/information/box/unread/AllMessageUnreadBox';
 
 
 export default class ComponentInitializer implements Initializer {
@@ -27,7 +27,7 @@ export default class ComponentInitializer implements Initializer {
                 const red = (count > 0);
                 const messageAllUnreadManager: MessageAllUnreadManager = appContext.getMaterial(MessageAllUnreadManager);
                 messageAllUnreadManager.setItemRed(red, count);
-            }
+            },
         } as DataChange<number>;
 
         const allMessageUnreadBox: AllMessageUnreadBox = appContext.getMaterial(AllMessageUnreadBox);

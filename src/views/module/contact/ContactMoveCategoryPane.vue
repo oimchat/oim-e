@@ -30,76 +30,76 @@
 </template>
 
 <script lang="ts">
-    import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import app from '@/app/App';
-    import DataBackAction from '@/app/base/net/DataBackAction';
-    import Prompt from '@/platform/web/common/Prompt';
-    import ContactCategory from '@/app/com/main/module/business/contact/bean/ContactCategory';
-    import ContactRelationBox from '@/app/com/main/module/business/contact/box/ContactRelationBox';
-    import ContactRelationController from '@/app/com/main/module/business/contact/controller/ContactRelationController';
-    import ContactCategoryBox from "@/app/com/main/module/business/contact/box/ContactCategoryBox";
+import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
+import app from '@/app/App';
+import DataBackAction from '@/app/base/net/DataBackAction';
+import Prompt from '@/platform/web/common/Prompt';
+import ContactCategory from '@/app/com/main/module/business/contact/bean/ContactCategory';
+import ContactRelationBox from '@/app/com/main/module/business/contact/box/ContactRelationBox';
+import ContactRelationController from '@/app/com/main/module/business/contact/controller/ContactRelationController';
+import ContactCategoryBox from '@/app/com/main/module/business/contact/box/ContactCategoryBox';
 
 
-    @Component({
-        components: {},
-    })
-    export default class ContactMoveCategoryPane extends Vue {
-        private show: boolean = false;
-        private userId: string = '';
-        private categoryId: string = '';
-        private list: ContactCategory[] = [];
+@Component({
+    components: {},
+})
+export default class ContactMoveCategoryPane extends Vue {
+    private show: boolean = false;
+    private userId: string = '';
+    private categoryId: string = '';
+    private list: ContactCategory[] = [];
 
-        public mounted() {
-            // TODO
-        }
+    public mounted() {
+        // TODO
+    }
 
-        public setShow(show: boolean): void {
-            this.show = show;
-        }
+    public setShow(show: boolean): void {
+        this.show = show;
+    }
 
-        public setUserId(userId: string) {
-            this.userId = userId;
-            this.loadList();
-        }
+    public setUserId(userId: string) {
+        this.userId = userId;
+        this.loadList();
+    }
 
-        public loadList() {
-            const contactListBox: ContactCategoryBox = app.appContext.getMaterial(ContactCategoryBox);
-            this.list = contactListBox.getCategoryList();
-        }
+    public loadList() {
+        const contactListBox: ContactCategoryBox = app.appContext.getMaterial(ContactCategoryBox);
+        this.list = contactListBox.getCategoryList();
+    }
 
-        private handleSubmit() {
-            const userId: string = this.userId;
-            const categoryId: string = this.categoryId;
-            this.moveCategory(userId, categoryId);
-        }
+    private handleSubmit() {
+        const userId: string = this.userId;
+        const categoryId: string = this.categoryId;
+        this.moveCategory(userId, categoryId);
+    }
 
-        private moveCategory(userId: string, categoryId: string) {
-            const userIds = [userId];
+    private moveCategory(userId: string, categoryId: string) {
+        const userIds = [userId];
 
-            const back: DataBackAction = {
-                back(data: any): void {
-                    if (data) {
-                        const info = data.info;
-                        if (info) {
-                            if (info.success) {
-                                // no
-                            } else {
-                                Prompt.message(info, '', '');
-                            }
+        const back: DataBackAction = {
+            back(data: any): void {
+                if (data) {
+                    const info = data.info;
+                    if (info) {
+                        if (info.success) {
+                            // no
+                        } else {
+                            Prompt.message(info, '', '');
                         }
                     }
-                },
-                lost(data: any): void {
-                    Prompt.notice('请求失败！');
-                },
-                timeOut(data: any): void {
-                    Prompt.notice('请求超时！');
-                },
-            } as DataBackAction;
-            const contactRelationController: ContactRelationController = app.appContext.getMaterial(ContactRelationController);
-            contactRelationController.moveCategory(userIds, categoryId);
-        }
+                }
+            },
+            lost(data: any): void {
+                Prompt.notice('请求失败！');
+            },
+            timeOut(data: any): void {
+                Prompt.notice('请求超时！');
+            },
+        } as DataBackAction;
+        const contactRelationController: ContactRelationController = app.appContext.getMaterial(ContactRelationController);
+        contactRelationController.moveCategory(userIds, categoryId);
     }
+}
 </script>
 
 <style scoped>

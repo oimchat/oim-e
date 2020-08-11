@@ -26,53 +26,53 @@
 </template>
 
 <script lang="ts">
-    import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import MessageAreaView from '@/app/com/main/view/MessageAreaView';
-    import UserChatPane from '@/views/module/chat/UserChatPane.vue';
-    import GroupChatPane from '@/views/module/chat/GroupChatPane.vue';
-    import messageAreaViewType from '@/platform/web/view/model/MessageAreaViewType';
+import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
+import MessageAreaView from '@/app/com/main/view/MessageAreaView';
+import UserChatPane from '@/views/module/chat/UserChatPane.vue';
+import GroupChatPane from '@/views/module/chat/GroupChatPane.vue';
+import messageAreaViewType from '@/platform/web/view/model/MessageAreaViewType';
 
-    import ApplyHandleNotice from '@/views/notice/ApplyHandleNotice.vue';
+import ApplyHandleNotice from '@/views/notice/ApplyHandleNotice.vue';
 
-    import app from '@/app/App';
-    import ViewEnum from '@/app/com/client/common/view/ViewEnum';
+import app from '@/app/App';
+import ViewEnum from '@/app/com/client/common/view/ViewEnum';
 
-    import messageAreaViewModel from "@/platform/web/view/model/MessageAreaViewModel";
-    import CommonIcon from "@/platform/web/common/CommonIcon";
+import messageAreaViewModel from '@/platform/web/view/model/MessageAreaViewModel';
+import CommonIcon from '@/platform/web/common/CommonIcon';
 
-    @Component({
-        components: {
-            UserChatPane,
-            GroupChatPane,
-            ApplyHandleNotice,
-        },
-    })
-    export default class MessageAreaPane extends Vue implements MessageAreaView {
+@Component({
+    components: {
+        UserChatPane,
+        GroupChatPane,
+        ApplyHandleNotice,
+    },
+})
+export default class MessageAreaPane extends Vue implements MessageAreaView {
 
-        private model = messageAreaViewModel;
-        private noLogo = CommonIcon.noLogo;
+    private model = messageAreaViewModel;
+    private noLogo = CommonIcon.noLogo;
 
-        private type: string = 'no';
-        private userChatPaneName = 'userChatPane';
-        private messagePaneType = messageAreaViewType;
+    private type: string = 'no';
+    private userChatPaneName = 'userChatPane';
+    private messagePaneType = messageAreaViewType;
 
-        public mounted() {
-            app.appContext.putViewObject(ViewEnum.MessageAreaView, this);
-        }
-
-        public showType(type: string): void {
-            this.type = type;
-        }
-
-        public getType(): string {
-            return this.type;
-        }
-
-        private getView(name: string): any {
-            const view: any = this.$refs[name];
-            return view;
-        }
+    public mounted() {
+        app.appContext.putViewObject(ViewEnum.MessageAreaView, this);
     }
+
+    public showType(type: string): void {
+        this.type = type;
+    }
+
+    public getType(): string {
+        return this.type;
+    }
+
+    private getView(name: string): any {
+        const view: any = this.$refs[name];
+        return view;
+    }
+}
 </script>
 
 <style scoped>

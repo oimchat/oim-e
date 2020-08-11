@@ -110,10 +110,12 @@
 
         @Emit('on-scroll')
         private onScroll(info: { event: Event, scrollHeight: number, scrollTop: number, scrollPosition: string }) {
+            // no
         }
 
         @Emit('on-scroll-top')
         private onTop() {
+            // no
         }
     }
 </script>

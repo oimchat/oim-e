@@ -25,7 +25,7 @@ export default class PasteHandlerUtil {
 
                 const length = items.length;
                 const hasText = (BaseUtil.isNotEmpty(html)) && (BaseUtil.isNotEmpty(text));
-                if (length == 1 && !hasText) {
+                if (length === 1 && !hasText) {
                     const item = items[0];
                     if (item.kind === 'file') {
                         const file = item.getAsFile();

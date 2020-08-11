@@ -46,8 +46,8 @@ export default class UserChatService extends AbstractMaterial {
                     user.nickname = '加载失败的联系人';
                     user.avatar = UserInfoUtil.getDefaultAvatar();
                 }
-                let showUser: User = user;
-                let chatUser: User = (isChatUserOwn) ? ownUser : user;
+                const showUser: User = user;
+                const chatUser: User = (isChatUserOwn) ? ownUser : user;
                 own.showChatMessage(isReceive, sendUserId, receiveUserId, isChatUserOwn, showUser, chatUser, content);
             });
         } else {
@@ -58,8 +58,8 @@ export default class UserChatService extends AbstractMaterial {
                     user.nickname = '加载失败的临时会话用户';
                     user.avatar = UserInfoUtil.getDefaultAvatar();
                 }
-                let showUser: User = user;
-                let chatUser: User = (isChatUserOwn) ? ownUser : user;
+                const showUser: User = user;
+                const chatUser: User = (isChatUserOwn) ? ownUser : user;
                 own.showChatMessage(isReceive, sendUserId, receiveUserId, isChatUserOwn, showUser, chatUser, content);
             });
         }

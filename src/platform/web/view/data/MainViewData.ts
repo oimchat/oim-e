@@ -1,5 +1,5 @@
 import MainTabData from '@/platform/web/view/data/MainTabData';
-import mainBaseTabs from "@/platform/web/view/data/MainBaseTabs";
+import mainBaseTabs from '@/platform/web/view/data/MainBaseTabs';
 
 class MainViewData {
     public tab: string = mainBaseTabs.messageTab.key;

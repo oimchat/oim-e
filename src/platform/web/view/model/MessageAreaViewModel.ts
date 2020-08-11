@@ -1,4 +1,4 @@
-import MessageAreaViewType from "@/platform/web/view/model/MessageAreaViewType";
+import MessageAreaViewType from '@/platform/web/view/model/MessageAreaViewType';
 
 class MessageAreaViewModel {
 

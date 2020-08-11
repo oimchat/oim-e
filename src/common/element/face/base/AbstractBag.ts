@@ -15,6 +15,17 @@ export default abstract class AbstractBag implements BaseBag {
         return this.faceCategory;
     }
 
+    public createPath(key: string, extension: string, basePath: string): string {
+        const path = basePath + key + extension;
+        return path;
+    }
+
+    public abstract getBasePath(categoryId: string): string;
+
+    public abstract getExtension(categoryId: string, key: string): string;
+
+    public abstract initialize(faceCategory: FaceCategory): void;
+
     private setPath(faceCategory: FaceCategory): void {
         if (faceCategory) {
             const categoryId = faceCategory.id;
@@ -33,15 +44,4 @@ export default abstract class AbstractBag implements BaseBag {
             }
         }
     }
-
-    public createPath(key: string, extension: string, basePath: string): string {
-        const path = basePath + key + extension;
-        return path;
-    }
-
-    public abstract getBasePath(categoryId: string): string;
-
-    public abstract getExtension(categoryId: string, key: string): string;
-
-    public abstract initialize(faceCategory: FaceCategory): void;
 }

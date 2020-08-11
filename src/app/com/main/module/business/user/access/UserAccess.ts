@@ -20,9 +20,9 @@ export default class UserAccess extends AbstractMaterial {
     public getTempUserById(userId: string, back: (success: boolean, user: User) => void): void {
         const userHandler: UserHandler = this.appContext.getMaterial(UserHandler);
         const userTempBox: UserTempBox = this.appContext.getMaterial(UserTempBox);
-        const user: User = userTempBox.getUser(userId);
-        if (user) {
-            back(true, user);
+        const u: User = userTempBox.getUser(userId);
+        if (u) {
+            back(true, u);
         } else {
             userHandler.getUserFromServerById(userId, (success, user) => {
                 if (success && user) {

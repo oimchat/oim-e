@@ -30,96 +30,95 @@
 </template>
 
 <script lang="ts">
-    import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import EmojiBox from '@/app/lib/EmojiBox';
-    import app from '@/app/App';
-    import FaceBox from '@/app/com/main/module/support/face/box/FaceBox';
-    import FaceValue from '@/app/com/common/chat/item/FaceValue';
-    import emojiImageBox from '@/app/lib/EmojiImageBox';
-    import FaceCategory from '@/app/com/main/module/support/face/data/FaceCategory';
-    import FaceItem from '@/app/com/main/module/support/face/data/FaceItem';
-    import FaceModel from '@/views/common/face/FaceModel';
+import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
+import EmojiBox from '@/app/lib/EmojiBox';
+import app from '@/app/App';
+import FaceBox from '@/app/com/main/module/support/face/box/FaceBox';
+import FaceValue from '@/app/com/common/chat/item/FaceValue';
+import emojiImageBox from '@/app/lib/EmojiImageBox';
+import FaceCategory from '@/app/com/main/module/support/face/data/FaceCategory';
+import FaceItem from '@/app/com/main/module/support/face/data/FaceItem';
+import FaceModel from '@/views/common/face/FaceModel';
 
-    @Component({
-        components: {},
+@Component({
+    components: {},
+})
+export default class FacePane extends Vue {
+
+    private tab = '';
+    private tabs: Array<{ name: string, key: string }> = [];
+    private items: FaceCategory[] = [];
+    @Prop({
+        type: FaceModel,
+        required: false,
+        default: () => (new FaceModel()),
     })
-    export default class FacePane extends Vue {
-
-        private tab = '';
-        private tabs: { name: string, key: string }[] = [];
-        private items: FaceCategory[] = [];
-        @Prop({
-            type: FaceModel,
-            required: false,
-            default: () => (new FaceModel()),
-        })
-        private data!: FaceModel;
+    private data!: FaceModel;
 
 
-        public created() {
-            this.initializeEvent();
+    public created() {
+        this.initializeEvent();
+    }
+
+    public mounted() {
+        this.initializeData();
+    }
+
+    private initializeData() {
+        const own = this;
+        const faceBox: FaceBox = app.appContext.getMaterial(FaceBox);
+        this.items = faceBox.getFaceCategories();
+        const items = this.items;
+        const tabs: Array<{ name: string, key: string }> = [];
+        for (const v of items) {
+            tabs.push({name: v.name, key: v.id});
         }
-
-        public mounted() {
-            this.initializeData();
-        }
-
-        private initializeData() {
-            const own = this;
-            const faceBox: FaceBox = app.appContext.getMaterial(FaceBox);
-            this.items = faceBox.getFaceCategories();
-            const items = this.items;
-            const tabs: { name: string, key: string }[] = [];
-            for (const v of items) {
-                tabs.push({name: v.name, key: v.id});
-            }
-            this.tabs = tabs;
-            if (tabs.length > 0 && this.tab === '') {
-                this.tab = tabs[0].key;
-            }
-        }
-
-        private initializeEvent() {
-            const own = this;
-            document.addEventListener('click', (e) => {
-                if (e.target instanceof Element) {
-                    const n = e.target as Element;
-                    const name = n.getAttribute('tab-name');
-                    if (name !== 'face_tab') {
-                        own.data.visible = false;
-                    }
-                } else {
-                    own.data.visible = false;
-                }
-
-            }, true);
-        }
-
-        private onFace(value: FaceItem) {
-            this.selected(value);
-        }
-
-        private onTab(tab: string) {
-            this.tab = tab;
-        }
-
-        get axisComputed() {
-            const x = this.data.x;
-            const y = this.data.y;
-            const lx = x - 100;
-            const ly = y - 250;
-            return {
-                top: ly + 'px',
-                left: lx + 'px',
-            };
-        }
-
-        @Emit('on-selected')
-        private selected(value: FaceItem) {
-            // 选中
+        this.tabs = tabs;
+        if (tabs.length > 0 && this.tab === '') {
+            this.tab = tabs[0].key;
         }
     }
 
+    private initializeEvent() {
+        const own = this;
+        document.addEventListener('click', (e) => {
+            if (e.target instanceof Element) {
+                const n = e.target as Element;
+                const name = n.getAttribute('tab-name');
+                if (name !== 'face_tab') {
+                    own.data.visible = false;
+                }
+            } else {
+                own.data.visible = false;
+            }
+
+        }, true);
+    }
+
+    private onFace(value: FaceItem) {
+        this.selected(value);
+    }
+
+    private onTab(tab: string) {
+        this.tab = tab;
+    }
+
+    get axisComputed() {
+        const x = this.data.x;
+        const y = this.data.y;
+        const lx = x - 100;
+        const ly = y - 250;
+        return {
+            top: ly + 'px',
+            left: lx + 'px',
+        };
+    }
+
+    @Emit('on-selected')
+    private selected(value: FaceItem) {
+        // 选中
+    }
+}
 </script>
 
 <style scoped>

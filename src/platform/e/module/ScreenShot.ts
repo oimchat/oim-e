@@ -26,9 +26,9 @@ class ScreenShot {
 
             const url = path.join(base, exe);
 
-            const screen_window = execFile(url);
-            // console.log(screen_window)
-            screen_window.on('exit', (code: any) => {
+            const screenWindow = execFile(url);
+            // console.log(screenWindow)
+            screenWindow.on('exit', (code: any) => {
             });
         };
         screenWindow();
@@ -45,8 +45,8 @@ class ScreenShot {
                 base = path.join(__dirname, '../app/');
             }
             const url = path.join(base, exe);
-            const screenWin = execFile(url);
-            screenWin.on('exit', (code: any) => {
+            const screenWindow = execFile(url);
+            screenWindow.on('exit', (code: any) => {
 
                 if (code !== 1) {
                     return;

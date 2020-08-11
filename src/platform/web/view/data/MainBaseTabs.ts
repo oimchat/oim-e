@@ -1,4 +1,4 @@
-import MainTabData from "@/platform/web/view/data/MainTabData";
+import MainTabData from '@/platform/web/view/data/MainTabData';
 
 class MainBaseTabs {
     public tabs: MainTabData[] = [];

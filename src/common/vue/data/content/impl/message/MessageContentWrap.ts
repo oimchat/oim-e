@@ -1,6 +1,6 @@
 import Content from '@/app/com/common/chat/Content';
 import UserBase from '@/app/com/main/module/business/user/bean/UserBase';
-import ContentWrap from "@/common/vue/data/content/ContentWrap";
+import ContentWrap from '@/common/vue/data/content/ContentWrap';
 
 export default class MessageContentWrap extends ContentWrap {
 

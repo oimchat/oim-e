@@ -10,7 +10,7 @@ export default class ImageToFileUtil {
             const reg = /^\s*data:([a-z]+\/[a-z0-9-+.]+(;[a-z-]+=[a-z0-9-]+)?)?(;base64)?,([a-z0-9!$&',()*+;=\-._~:@\/?%\s]*?)\s*$/i;
             is = (reg.test(url));
         }
-        return is
+        return is;
     }
 
     public static getImageFileByBase64(dataUrl: string): Promise<File> {
@@ -40,7 +40,7 @@ export default class ImageToFileUtil {
 
         const lastModified: number = (date) ? date.getMilliseconds() : 0;
         const fp = {
-            type: type,
+            type,
             lastModified,
         } as FilePropertyBag;
         const file = new File([blob], name, fp);
