@@ -1,7 +1,6 @@
 <template>
-    <div
-            @click="onClick" @contextmenu='contextMenu'
-            :class="data.active? 'icon-list-item active' : 'icon-list-item'">
+    <div @click="onClick" @contextmenu='contextMenu'
+         :class="data.active? 'icon-list-item active' : 'icon-list-item'">
         <div class="ext">
             <p class="attr">{{data.time}}</p>
         </div>
@@ -18,7 +17,9 @@
                 <span class="">{{data.text}}</span>
             </p>
         </div>
-        <em @click="onDelete"></em>
+        <em class="close-icon" @click="onDelete">
+            <i class="fas fa-times-circle"></i>
+        </em>
     </div>
 </template>
 
@@ -50,7 +51,7 @@
             if (this.data) {
                 this.selected(this.data);
                 if (typeof this.data.onSelect === 'function') {
-                    this.data.onSelect(this.data.key);
+                    this.data.onSelect(this.data.key, this.data.getData());
                 }
             }
         }
@@ -58,14 +59,14 @@
         private onDelete() {
             if (this.data) {
                 if (typeof this.data.onDelete === 'function') {
-                    this.data.onDelete(this.data.key);
+                    this.data.onDelete(this.data.key, this.data.getData());
                 }
             }
         }
 
-        private contextMenu() {
+        private contextMenu(e: Event) {
             if (this.data) {
-                this.onContextMenu(this.data);
+                this.onContextMenu(e, this.data);
             }
         }
 
@@ -75,7 +76,7 @@
         }
 
         @Emit('on-context-menu')
-        private onContextMenu(data: IconItemData) {
+        private onContextMenu(e: Event, data: IconItemData) {
             // 菜单
         }
     }

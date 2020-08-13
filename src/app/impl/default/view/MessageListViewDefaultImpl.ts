@@ -5,7 +5,14 @@ import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 export default class MessageListViewDefaultImpl extends AbstractMaterial implements MessageListView {
 
 
-    public addOrUpdateItem(type: string, key: string, name: string, avatar: string, gray: boolean, onSelect: (key: string) => void, onDelete: (userId: string) => void): void {
+    public addOrUpdateItem(type: string,
+                           key: string,
+                           name: string,
+                           avatar: string,
+                           gray: boolean,
+                           value: any,
+                           onSelect: (key: string, value: any) => void,
+                           onDelete: (userId: string, value: any) => void): void {
         // no
     }
 

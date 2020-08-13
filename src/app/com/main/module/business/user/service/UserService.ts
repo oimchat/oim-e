@@ -8,6 +8,7 @@ import UserChatItemManager from '@/app/com/main/module/business/chat/manager/Use
 import UserBox from '@/app/com/main/module/business/user/box/UserBox';
 import UserListener from '@/app/com/main/module/business/user/listener/UserListener';
 import ObjectUtil from '@/app/common/util/ObjectUtil';
+import UserChatInfoManager from '@/app/com/main/module/business/chat/manager/UserChatInfoManager';
 
 export default class UserService extends AbstractMaterial {
 
@@ -32,6 +33,7 @@ export default class UserService extends AbstractMaterial {
 
     public updateUser(user: User): void {
         if (user) {
+            const id = user.id;
 
             const userBox: UserBox = this.appContext.getMaterial(UserBox);
             userBox.putUser(user);
@@ -43,10 +45,14 @@ export default class UserService extends AbstractMaterial {
             ccm.addOrUpdateUser(user);
 
             const userChatItemManager: UserChatItemManager = this.appContext.getMaterial(UserChatItemManager);
-            const id = user.id;
 
             if (userChatItemManager.hasItem(id)) {
-                userChatItemManager.addOrUpdateChatItemById(id);
+                userChatItemManager.addOrUpdate(user);
+            }
+
+            const userChatInfoManager: UserChatInfoManager = this.appContext.getMaterial(UserChatInfoManager);
+            if (userChatInfoManager.isChatShowing(id)) {
+                userChatInfoManager.updateInfo(user);
             }
         }
     }

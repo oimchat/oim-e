@@ -3,8 +3,8 @@ import GroupChatItemService from '@/app/com/main/module/business/chat/service/Gr
 
 export default class GroupChatItemController extends AbstractMaterial {
 
-    public showGroupChatItemById(userId: string) {
+    public showGroupChatItemById(groupId: string) {
         const groupChatItemService: GroupChatItemService = this.appContext.getMaterial(GroupChatItemService);
-        groupChatItemService.showGroupChatItemById(userId);
+        groupChatItemService.showGroupChatItemById(groupId);
     }
 }

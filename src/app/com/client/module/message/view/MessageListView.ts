@@ -2,7 +2,14 @@ import View from '@/app/com/client/common/view/View';
 
 export default interface MessageListView extends View {
 
-    addOrUpdateItem(type: string, key: string, name: string, avatar: string, gray: boolean, onSelect: (key: string) => void, onDelete: (key: string) => void): void;
+    addOrUpdateItem(type: string,
+                    key: string,
+                    name: string,
+                    avatar: string,
+                    gray: boolean,
+                    value: any,
+                    onSelect: (key: any, value: any) => void,
+                    onDelete: (key: string, value: any) => void): void;
 
     hasItem(type: string, key: string): boolean;
 

@@ -8,7 +8,7 @@ import ContactRelationBox from '@/app/com/main/module/business/contact/box/Conta
 
 export default class GroupMemberListEntity {
 
-
+    public groupId: string = '';
     public page: Page = new Page();
     public users: User[] = [];
     public members: GroupMember[] = [];
@@ -16,17 +16,18 @@ export default class GroupMemberListEntity {
 
 
     public initialize(groupId: string) {
+        this.groupId = groupId;
         this.page = new Page();
         this.users = [];
         this.members = [];
-        this.loadGroupMembers(groupId, 1);
+        this.loadGroupMembers(groupId);
     }
 
-    public loadGroupMembers(groupId: string, pageNumber: number) {
+    public loadGroupMembers(groupId: string) {
         const own = this;
         const page = this.page;
         const controller: GroupMemberUserController = app.appContext.getMaterial(GroupMemberUserController);
-        controller.getGroupMemberUserPageList(groupId, page, (
+        controller.loadAllMemberUserList(groupId, (
             success,
             memberList,
             userList,
@@ -41,7 +42,7 @@ export default class GroupMemberListEntity {
                     own.memberMap.set(m.userId, m);
                 }
             }
-            if (page.totalPage <= pageNumber) {
+            if (page.totalPage <= 0) {
                 page.number = page.totalPage;
             }
         });

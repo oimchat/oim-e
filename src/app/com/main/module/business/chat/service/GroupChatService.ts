@@ -38,27 +38,15 @@ export default class GroupChatService extends AbstractMaterial {
 
         const isJoin = groupRelationAccess.isJoin(groupId);
 
-        if (isJoin) {
-            groupAccess.getGroupById(groupId, (success, g) => {
-                if (!success || !g) {
-                    g = new Group();
-                    g.id = groupId;
-                    g.name = '加载失败的群';
-                    g.avatar = GroupInfoUtil.getDefaultAvatar();
-                }
-                own.showChat(isReceive, isChatUserOwn, g, chatUserId, user, content);
-            });
-        } else {
-            groupAccess.getTempGroupById(groupId, (success, g) => {
-                if (!success || !g) {
-                    g = new Group();
-                    g.id = groupId;
-                    g.name = '加载失败的临时群';
-                    g.avatar = GroupInfoUtil.getDefaultAvatar();
-                }
-                own.showChat(isReceive, isChatUserOwn, g, chatUserId, user, content);
-            });
-        }
+        groupAccess.getGroupById(groupId, (success, g) => {
+            if (!success || !g) {
+                g = new Group();
+                g.id = groupId;
+                g.name = isJoin ? '加载失败的群' : '加载失败的临时群';
+                g.avatar = GroupInfoUtil.getDefaultAvatar();
+            }
+            own.showChat(isReceive, isChatUserOwn, g, chatUserId, user, content);
+        });
 
 
         // const group = gb.getGroup(groupId);
@@ -105,29 +93,16 @@ export default class GroupChatService extends AbstractMaterial {
             own.showChatMessage(isReceive, isChatUserOwn, group, chatUser, content);
         } else {
             const isShowUserContact = contactAccess.isContact(chatUserId);
-            if (isShowUserContact) {
-                userAccess.getUserById(chatUserId, (success: boolean, user: User) => {
-                    if (!success || !user) {
-                        user = new User();
-                        user.id = chatUserId;
-                        user.nickname = '加载失败的成员';
-                        user.avatar = UserInfoUtil.getDefaultAvatar();
-                    }
-                    chatUser = user;
-                    own.showChatMessage(isReceive, isChatUserOwn, group, chatUser, content);
-                });
-            } else {
-                userAccess.getTempUserById(chatUserId, (success: boolean, user: User) => {
-                    if (!success || !user) {
-                        user = new User();
-                        user.id = chatUserId;
-                        user.nickname = '加载失败的用户';
-                        user.avatar = UserInfoUtil.getDefaultAvatar();
-                    }
-                    chatUser = user;
-                    own.showChatMessage(isReceive, isChatUserOwn, group, chatUser, content);
-                });
-            }
+            userAccess.getUserById(chatUserId, (success: boolean, user: User) => {
+                if (!success || !user) {
+                    user = new User();
+                    user.id = chatUserId;
+                    user.nickname = '加载失败的成员';
+                    user.avatar = UserInfoUtil.getDefaultAvatar();
+                }
+                chatUser = user;
+                own.showChatMessage(isReceive, isChatUserOwn, group, chatUser, content);
+            });
         }
     }
 

@@ -28,7 +28,7 @@
                     unit="px"
             >
                 <template v-slot:before>
-                    <MessagePane :items="model.data.list"></MessagePane>
+                    <MessagePane :items="model.messageInfo.list"></MessagePane>
                 </template>
                 <template v-slot:after>
                     <WritePane ref="writePane" @on-send="send" @on-key-press='onKeyPress'
@@ -70,16 +70,16 @@
     export default class UserChatPane extends Vue {
         private splitterModel = 190; // start at 150px
         private model = userChatViewModel;
-        private chatData = userChatViewModel.chatData;
-        private messageInfo = userChatViewModel.data;
-        private cacheData = userChatViewModel.cacheData;
+        private chatData = userChatViewModel.info;
+        private messageInfo = userChatViewModel.messageInfo;
+        private cacheData = userChatViewModel.viewData;
         private selectionStart: number = 0;
 
 
         public mounted() {
             this.initialize();
 
-            userChatViewModel.cacheData.updateScroll = (size: number) => {
+            userChatViewModel.viewData.updateScroll = (size: number) => {
                 const messageListPaneName = 'messageListPane';
                 const messageListPane: any = this.$refs[messageListPaneName];
                 if (messageListPane) {
@@ -87,21 +87,21 @@
                 }
             };
 
-            userChatViewModel.cacheData.getScrollHeight = () => {
+            userChatViewModel.viewData.getScrollHeight = () => {
                 const messageListPaneName = 'messageListPane';
                 const messageListPane: any = this.$refs[messageListPaneName];
                 const height = (messageListPane) ? messageListPane.scrollHeight : 0;
                 return height;
             };
 
-            userChatViewModel.cacheData.setInnerHTML = (html: string) => {
+            userChatViewModel.viewData.setInnerHTML = (html: string) => {
                 const writePaneName = 'writePane';
                 const writePane: any = this.$refs[writePaneName];
                 if (writePane) {
                     writePane.setInnerHTML(html);
                 }
             };
-            userChatViewModel.cacheData.updateScrollIntoView = (viewId: string) => {
+            userChatViewModel.viewData.updateScrollIntoView = (viewId: string) => {
                 // no
                 const messageListPaneName = 'messageListPane';
                 const messageListPane: any = this.$refs[messageListPaneName];
@@ -222,14 +222,14 @@
                                             }
 
                                             const userChatController: UserChatController = app.appContext.getMaterial(UserChatController);
-                                            userChatController.userChat(userId, content);
+                                            userChatController.chat(userId, content);
                                             inputArea.innerHTML = '';
                                             this.cacheData.data.html = '';
                                         }
                                     });
                                 } else {
                                     const userChatController: UserChatController = app.appContext.getMaterial(UserChatController);
-                                    userChatController.userChat(userId, content);
+                                    userChatController.chat(userId, content);
                                     inputArea.innerHTML = '';
                                     this.cacheData.data.html = '';
                                 }
@@ -281,7 +281,7 @@
 
                 const userId = this.chatData.key;
                 const userChatController: UserChatController = app.appContext.getMaterial(UserChatController);
-                userChatController.userChat(userId, content);
+                userChatController.chat(userId, content);
             }
         }
 

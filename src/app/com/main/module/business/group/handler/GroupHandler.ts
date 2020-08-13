@@ -13,7 +13,7 @@ export default class GroupHandler extends AbstractMaterial {
         if (group) {
             back(true, group);
         } else {
-            this.getGroupFromServerById(groupId, back);
+            this.getRemoteGroupById(groupId, back);
         }
     }
 
@@ -22,7 +22,7 @@ export default class GroupHandler extends AbstractMaterial {
         return groupBox.getGroup(groupId);
     }
 
-    public getGroupFromServerById(groupId: string, back: (success: boolean, group: Group) => void): void {
+    public getRemoteGroupById(groupId: string, back: (success: boolean, group: Group) => void): void {
         let group: Group | any;
         if (groupId) {
             const own = this;

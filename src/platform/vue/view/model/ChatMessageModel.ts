@@ -1,6 +1,6 @@
 import User from '@/app/com/main/module/business/user/bean/User';
 import Content from '@/app/com/common/chat/Content';
-import ChatCacheData from '@/views/main/message/chat/ChatCacheData';
+import ChatCacheData from '@/platform/vue/view/model/chat/ChatCacheData';
 import CoreContentUtil from '@/app/com/common/chat/util/CoreContentUtil';
 import app from '@/app/App';
 import MessageSwitchSetting from '@/app/com/main/module/setting/message/MessageSwitchSetting';
@@ -12,13 +12,16 @@ import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageCo
 import ContentWrapType from '@/common/vue/data/content/ContentWrapType';
 import DateUtil from '@/app/lib/util/DateUtil';
 import MessageStatusType from '@/common/vue/data/content/impl/message/MessageStatusType';
-import DataBackAction from '@/app/base/net/DataBackAction';
+import ChatReadViewEntityDefaultImpl from '@/platform/vue/view/entity/impl/ChatReadViewEntityDefaultImpl';
+import ChatReadViewEntity from '@/platform/vue/view/entity/ChatReadViewEntity';
+import ChatWriteViewEntity from '@/platform/vue/view/entity/ChatWriteViewEntity';
+import ChatWriteViewEntityDefaultImpl from '@/platform/vue/view/entity/impl/ChatWriteViewEntityDefaultImpl';
 
 
 export default class ChatMessageModel {
 
-    public data = {
-        key: '',
+
+    public messageInfo = {
         showPrompt: false,
         prompt: '',
         lastTimestamp: 0,
@@ -26,25 +29,17 @@ export default class ChatMessageModel {
         list: [] as ContentWrap[],
     };
 
-    public cacheData = {
+    public viewData = {
         key: '',
         data: new ChatCacheData(),
-        updateScroll: (size: number) => {
-            // no
-        },
-        updateScrollIntoView: (viewId: string) => {
-            // no
-        },
-        getScrollHeight: () => {
-            return 0;
-        },
-        setInnerHTML: (html: string) => {
-            // no
-        },
-        getInnerHTML: (): string => {
-            return '';
-        },
     };
+
+
+    private readViewEntity: ChatReadViewEntity = new ChatReadViewEntityDefaultImpl();
+    private writeViewEntity: ChatWriteViewEntity = new ChatWriteViewEntityDefaultImpl();
+    private onKeyChange: (key: string) => void = (() => {
+        // no
+    });
 
     private listMap: Map<string, ContentWrap[]> = new Map<string, ContentWrap[]>();
     private keyMap: Map<string, Map<string, ContentWrap>> = new Map<string, Map<string, ContentWrap>>();
@@ -54,8 +49,8 @@ export default class ChatMessageModel {
         this.listMap.clear();
         this.keyMap.clear();
         this.dataMap.clear();
-        this.data.list = [] as ContentWrap[];
-        this.cacheData.data = new ChatCacheData();
+        this.messageInfo.list = [] as ContentWrap[];
+        this.viewData.data = new ChatCacheData();
         this.nodeClear();
     }
 
@@ -67,11 +62,11 @@ export default class ChatMessageModel {
         const own = this;
         const list = this.getOrCreateList(key);
         const data = this.getOrCreateCacheData(key);
-        this.data.list = list;
-        this.data.key = key;
+        this.handleKeyChange(key);
+        this.messageInfo.list = list;
 
-        this.cacheData.key = key;
-        this.cacheData.data = data;
+        this.viewData.key = key;
+        this.viewData.data = data;
         data.scrollTopCount = 0;
         const top = data.scrollTop;
         const html = data.html;
@@ -82,7 +77,7 @@ export default class ChatMessageModel {
             this.setInnerHTML(html);
             if (MessageAppendType.last === switchType) {
                 if (top > 0) {
-                    own.updateScroll(top);
+                    own.setScrollTop(top);
                 } else {
                     own.toScrollBottom();
                 }
@@ -94,50 +89,67 @@ export default class ChatMessageModel {
     }
 
     public getChatKey(): string {
-        return this.cacheData.key;
+        return this.viewData.key;
+    }
+
+
+    public setReadViewEntity(readViewEntity: ChatReadViewEntity) {
+        if (readViewEntity) {
+            this.readViewEntity = readViewEntity;
+        }
+    }
+
+    public setWriteViewEntity(writeViewEntity: ChatWriteViewEntity) {
+        if (writeViewEntity) {
+            this.writeViewEntity = writeViewEntity;
+        }
+    }
+
+    public getReadViewEntity(): ChatReadViewEntity {
+        return this.readViewEntity;
+    }
+
+    public getWriteViewEntity(): ChatWriteViewEntity {
+        return this.writeViewEntity;
+    }
+
+    public setOnKeyChange(onKeyChange: (key: string) => void) {
+        if (onKeyChange && typeof onKeyChange === 'function') {
+            this.onKeyChange = onKeyChange;
+        }
     }
 
     public toScrollBottom() {
         setTimeout(() => {
-            const h = this.cacheData.getScrollHeight();
-            this.cacheData.updateScroll(h);
+            const h = this.readViewEntity.getScrollHeight();
+            this.readViewEntity.setScrollTop(h);
         }, 50);
     }
 
     public insertBefore(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content): void {
         this.insert(isReceive, isOwn, key, showName, chatUser, content);
-        if (typeof this.cacheData.updateScrollIntoView === 'function') {
-            const lastMessageKey = this.cacheData.data.lastMessageKey;
-            if (lastMessageKey) {
-                setTimeout(() => {
-                    this.cacheData.updateScrollIntoView(lastMessageKey);
-                }, 50);
-            }
-        }
+        const lastMessageKey = this.viewData.data.lastMessageKey;
+        this.updateScrollIntoView(lastMessageKey);
     }
 
     public insertLast(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content): void {
+        const own = this;
         const cacheData = this.getOrCreateCacheData(key);
         const scrollPosition = cacheData.scrollPosition;
         this.insert(isReceive, isOwn, key, showName, chatUser, content);
-        if (typeof this.cacheData.updateScroll === 'function') {
-            if (scrollPosition === 'bottom') {
-                setTimeout(() => {
-                    const h = this.cacheData.getScrollHeight();
-                    this.cacheData.updateScroll(h);
-                }, 50);
-            }
+        if (scrollPosition === 'bottom') {
+            own.toScrollBottom();
         }
         if (scrollPosition !== 'bottom') {
             let text = CoreContentUtil.getText(content);
             if (text && text.length > 100) {
                 text = text.substring(0, 99) + '...';
             }
-            this.data.prompt = showName + ':' + text;
-            if (!this.data.showPrompt) {
-                this.data.showPrompt = true;
+            this.messageInfo.prompt = showName + ':' + text;
+            if (!this.messageInfo.showPrompt) {
+                this.messageInfo.showPrompt = true;
                 setTimeout(() => {
-                    this.data.showPrompt = false;
+                    this.messageInfo.showPrompt = false;
                 }, 6000);
             }
         }
@@ -163,7 +175,7 @@ export default class ChatMessageModel {
                 data.status = status;
             }
         } else {
-            const lastTimestamp = this.data.lastTimestamp;
+            const lastTimestamp = this.messageInfo.lastTimestamp;
             const timestamp = content.timestamp;
 
             const isBefore = (lastTimestamp > timestamp);
@@ -179,10 +191,10 @@ export default class ChatMessageModel {
             data.user = chatUser;
             data.isOwn = isOwn;
             data.timeVisible = (intervalMillisecond > mergeMillisecond);
-            data.nameVisible = this.data.nameVisible;
+            data.nameVisible = this.messageInfo.nameVisible;
             data.timeText = this.getTimeText(timestamp);
 
-            this.data.lastTimestamp = timestamp;
+            this.messageInfo.lastTimestamp = timestamp;
 
             if (isOwn) {
                 const status: number = (isReceive) ? MessageStatusType.succeed : MessageStatusType.sending;
@@ -271,6 +283,10 @@ export default class ChatMessageModel {
         return messageKey;
     }
 
+    private handleKeyChange(key: string) {
+        this.onKeyChange(key);
+    }
+
     private getList(key: string): ContentWrap[] {
         const list: any = this.listMap.get(key);
         return list;
@@ -309,15 +325,25 @@ export default class ChatMessageModel {
         return data;
     }
 
-    private updateScroll(h: number) {
-        if (typeof this.cacheData.updateScroll === 'function') {
-            this.cacheData.updateScroll(h);
+    private updateScrollIntoView(viewId: string) {
+        if (typeof this.readViewEntity.updateScrollIntoView === 'function') {
+            if (viewId) {
+                setTimeout(() => {
+                    this.readViewEntity.updateScrollIntoView(viewId);
+                }, 50);
+            }
+        }
+    }
+
+    private setScrollTop(h: number) {
+        if (typeof this.readViewEntity.setScrollTop === 'function') {
+            this.readViewEntity.setScrollTop(h);
         }
     }
 
     private setInnerHTML(html: string) {
-        if (typeof this.cacheData.setInnerHTML === 'function') {
-            this.cacheData.setInnerHTML(html);
+        if (typeof this.writeViewEntity.setInnerHTML === 'function') {
+            this.writeViewEntity.setInnerHTML(html);
         }
     }
 

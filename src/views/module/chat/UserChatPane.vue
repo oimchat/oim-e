@@ -25,6 +25,10 @@
     import WebContentAnalysisUtil from '@/common/web/util/WebContentAnalysisUtil';
     import PromptType from '@/app/com/client/define/prompt/PromptType';
     import ContentWrap from '@/common/vue/data/content/ContentWrap';
+    import ChatReadViewEntity from '@/platform/vue/view/entity/ChatReadViewEntity';
+    import ChatWriteViewEntity from '@/platform/vue/view/entity/ChatWriteViewEntity';
+    import ChatReadViewEntityDefaultImpl from '@/platform/vue/view/entity/impl/ChatReadViewEntityDefaultImpl';
+    import ChatWriteViewEntityDefaultImpl from '@/platform/vue/view/entity/impl/ChatWriteViewEntityDefaultImpl';
 
     @Component({
         components: {
@@ -40,24 +44,33 @@
             const own = this;
             const data = this.data;
             const model = this.model;
-            this.data.info = model.chatData;
-            this.data.readMapper.items = model.data.list;
+            this.data.info = model.info;
+            this.data.readMapper.items = model.messageInfo.list;
 
-            model.cacheData.updateScroll = (size: number) => {
-                data.readMapper.setScrollTop(size);
-            };
-
-            model.cacheData.getScrollHeight = () => {
-                return data.readMapper.getScrollHeight();
-            };
-
-            model.cacheData.updateScrollIntoView = (viewId: string) => {
-                data.readMapper.updateScrollIntoView(viewId);
-            };
-
-            model.cacheData.setInnerHTML = (html: string) => {
-                data.writeMapper.setInnerHTML(html);
-            };
+            const readViewEntity: ChatReadViewEntity = {
+                setScrollTop(size: number) {
+                    data.readMapper.setScrollTop(size);
+                },
+                getScrollHeight(): number {
+                    return data.readMapper.getScrollHeight();
+                },
+                updateScrollIntoView(viewId: string): void {
+                    data.readMapper.updateScrollIntoView(viewId);
+                },
+            } as ChatReadViewEntityDefaultImpl;
+            const writeViewEntity: ChatWriteViewEntity = {
+                setInnerHTML(html: string) {
+                    data.writeMapper.setInnerHTML(html);
+                },
+                getInnerHTML() {
+                    return data.writeMapper.getInnerHTML();
+                },
+            } as ChatWriteViewEntityDefaultImpl;
+            model.setReadViewEntity(readViewEntity);
+            model.setWriteViewEntity(writeViewEntity);
+            model.setOnKeyChange((key: string) => {
+                // no
+            });
         }
 
         private initialize() {
@@ -77,7 +90,7 @@
             const own = this;
             const model = this.model;
             const data = this.data;
-            model.cacheData.data.html = data.writeMapper.getInnerHTML();
+            model.viewData.data.html = data.writeMapper.getInnerHTML();
         }
 
         private send(content: Content) {
@@ -92,7 +105,7 @@
                 if (itemSize === 0) {
                     data.writeMapper.setInnerHTML('');
                     data.writeMapper.keepCursorLastIndex();
-                    model.cacheData.data.html = '';
+                    model.viewData.data.html = '';
                 } else {
                     model.send(content, (success, message) => {
                         if (!success) {
@@ -100,7 +113,7 @@
                         } else {
                             data.writeMapper.setInnerHTML('');
                             data.writeMapper.keepCursorLastIndex();
-                            model.cacheData.data.html = '';
+                            model.viewData.data.html = '';
                         }
                     });
                 }
@@ -146,9 +159,9 @@
             const own = this;
             const model = this.model;
             if (info) {
-                model.cacheData.data.scrollHeight = info.scrollHeight;
-                model.cacheData.data.scrollTop = info.scrollTop;
-                model.cacheData.data.scrollPosition = info.scrollPosition;
+                model.viewData.data.scrollHeight = info.scrollHeight;
+                model.viewData.data.scrollTop = info.scrollTop;
+                model.viewData.data.scrollPosition = info.scrollPosition;
             }
         }
 
@@ -160,8 +173,8 @@
         private list(nv: ContentWrap[], ov: ContentWrap[]) {
             const data = this.data;
             const model = this.model;
-            this.data.info = model.chatData;
-            this.data.readMapper.items = model.data.list;
+            this.data.info = model.info;
+            this.data.readMapper.items = model.messageInfo.list;
         }
     }
 </script>

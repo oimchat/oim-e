@@ -68,6 +68,7 @@
     $color-message-bg: #5fb878;
 
     .im-top {
+        /* display: none;*/
         /* height: $top-height; */
         position: absolute;
         z-index: 9999;

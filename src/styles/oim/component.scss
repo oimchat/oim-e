@@ -281,16 +281,17 @@
     line-height: 1.5
 }
 
+.icon-list-item .close-icon {
+    display: none;
+    font-size: 24px;
+    color: #ef4949;
+    position: absolute;
+    right: 20px;
+    top: 18px;
+}
 
-.icon-list-item:hover em {
+.icon-list-item:hover .close-icon {
     display: block;
-    width: 19px;
-    height: 19px;
-    background: url(../../images/chat/item_close.png) no-repeat;
-    float: right;
-    /*margin-right: -228px;*/
-    margin-top: -29px;
-    position: relative;
 }
 
 .icon-list-item:hover {

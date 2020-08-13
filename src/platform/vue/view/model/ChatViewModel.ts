@@ -8,19 +8,20 @@ import ImageValue from '@/app/com/common/chat/item/ImageValue';
 import ImageItemFileConverter from '@/app/define/file/ImageItemFileConverter';
 
 export default class ChatViewModel extends ChatMessageModel {
-    public chatData = {
-        name: '',
+
+    public info = {
         key: '',
-        text: '',
         avatar: '',
+        name: '',
+        text: '',
     };
 
     public setName(name: string) {
-        this.chatData.name = name;
+        this.info.name = name;
     }
 
     public handleSend(c: Content, back: (success: boolean, key: string, content: Content, message: string) => void) {
-        const key = this.chatData.key;
+        const key = this.info.key;
         if (c) {
             try {
                 const messageKey = new Date().getMilliseconds() + '';

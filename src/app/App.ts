@@ -28,6 +28,7 @@ import GroupListPaneViewDefaultImpl from '@/app/impl/default/view/GroupListPaneV
 import MainViewDefaultImpl from '@/app/impl/default/view/MainViewDefaultImpl';
 import ComponentInitializer from '@/app/initialize/ComponentInitializer';
 import MessageAllUnreadViewDefaultImpl from '@/app/impl/default/view/MessageAllUnreadViewDefaultImpl';
+import ListenerInitializer from '@/app/initialize/ListenerInitializer';
 
 
 class App {
@@ -145,6 +146,7 @@ class App {
         this.putInitializer(new ActionInitializer());
         this.putInitializer(new ComponentInitializer());
         this.putInitializer(new HttpInitializer());
+        this.putInitializer(new ListenerInitializer());
         this.putInitializer(new ServerInitializer());
     }
 

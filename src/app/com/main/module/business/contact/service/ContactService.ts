@@ -19,7 +19,7 @@ export default class ContactService extends AbstractMaterial {
                 const id = data.id;
 
                 if (userChatItemManager.hasItem(id)) {
-                    userChatItemManager.addOrUpdateChatItemById(id);
+                    userChatItemManager.addOrUpdate(data);
                 }
             }
         }

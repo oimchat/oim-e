@@ -8,7 +8,14 @@ class MessageListModel {
 
     private map: Map<string, IconItemData> = new Map<string, IconItemData>();
 
-    public addOrUpdateItem(type: string, key: string, name: string, avatar: string, gray: boolean, onSelect: (key: string) => void, onDelete: (userId: string) => void): void {
+    public addOrUpdateItem(type: string,
+                           key: string,
+                           name: string,
+                           avatar: string,
+                           gray: boolean,
+                           value: any,
+                           onSelect: (key: string, value: any) => void,
+                           onDelete: (userId: string, value: any) => void): void {
         const id = this.getId(type, key);
         let item = this.map.get(id);
         if (!item) {
@@ -23,6 +30,7 @@ class MessageListModel {
         item.name = name;
         item.avatar = avatar;
         item.gray = gray;
+        item.setData(value);
         item.onSelect = onSelect;
         item.onDelete = onDelete;
         this.sort(this.list);

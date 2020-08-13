@@ -1,18 +1,24 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import Group from '@/app/com/main/module/business/group/bean/Group';
-import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
 import ViewEnum from '@/app/com/client/common/view/ViewEnum';
 import GroupChatView from '@/app/com/main/module/business/chat/view/GroupChatView';
+import Prompter from '@/app/com/main/component/Prompter';
+import GroupAccess from '@/app/com/main/module/business/group/access/GroupAccess';
 
 
 export default class GroupChatInfoManager extends AbstractMaterial {
 
     public showGroupChatById(groupId: string) {
-        const groupBox: GroupBox = this.appContext.getMaterial(GroupBox);
-        const group: Group = groupBox.getGroup(groupId);
-        if (group) {
-            this.showGroupChat(group);
-        }
+        const own = this;
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
+        const groupAccess: GroupAccess = this.appContext.getMaterial(GroupAccess);
+        groupAccess.getGroupById(groupId, (success, group) => {
+            if (success) {
+                own.showGroupChat(group);
+            } else {
+                prompter.warn('加载群失败');
+            }
+        });
     }
 
     public showGroupChat(group: Group) {
@@ -26,5 +32,10 @@ export default class GroupChatInfoManager extends AbstractMaterial {
         const groupChatView: GroupChatView = this.appContext.getView(ViewEnum.GroupChatView);
         showing = (groupChatView.isVisible() && groupChatView.isShowing(groupId));
         return showing;
+    }
+
+    public updateInfo(group: Group) {
+        const groupChatView: GroupChatView = this.appContext.getView(ViewEnum.GroupChatView);
+        groupChatView.setGroup(group);
     }
 }

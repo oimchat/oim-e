@@ -1,6 +1,6 @@
 export default interface ChatReadViewEntity {
 
-    updateScroll: (size: number) => void;
+    setScrollTop: (size: number) => void;
 
     updateScrollIntoView: (viewId: string) => void;
 

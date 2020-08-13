@@ -1,12 +1,15 @@
 <template>
     <div>
-        <ContextMenu :list="menu.list" :underline="true" :arrow="true" :name="menu.name"></ContextMenu>
+        <NavMenu :name="menu.name" :data="navMenu"></NavMenu>
     </div>
 </template>
 
 <script lang="ts">
 import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-import ContextMenu from '@/views/common/menu/ContextMenu.vue';
+
+import NavMenu from '@/views/common/menu/NavMenu.vue';
+import NavMenuData from '@/views/common/menu/NavMenuData';
+import NavMenuItemData from '@/views/common/menu/NavMenuItemData';
 
 import app from '@/app/App';
 import GroupRelationBox from '@/app/com/main/module/business/group/box/GroupRelationBox';
@@ -15,11 +18,11 @@ import GroupCategoryBox from '@/app/com/main/module/business/group/box/GroupCate
 
 @Component({
     components: {
-        ContextMenu,
+        NavMenu,
     },
 })
 export default class GroupNodeContextMenu extends Vue {
-
+    private navMenu: NavMenuData = new NavMenuData();
     private menu = {
         name: 'groupNodeContextMenu',
         list: [],
@@ -33,55 +36,58 @@ export default class GroupNodeContextMenu extends Vue {
     public show(e: MouseEvent, categoryId: string) {
         const own = this;
         const list: any = [];
+        const items: NavMenuItemData[] = [];
+        let item = new NavMenuItemData();
 
-        list.push({
-            text: '重命名',
-            icon: 'of address-book',
-            onClick: (item: any, data: any) => {
-                // todo
-                own.openUpdateName(categoryId);
-            },
+        item = new NavMenuItemData();
+        item.text = '重命名';
+        item.icon = 'fas fa-edit';
+        item.addClickEvent(() => {
+            own.openUpdateName(categoryId);
         });
-        list.push({
-            text: '删除分组',
-            icon: 'of address-book',
-            onClick: (item: any, data: any) => {
-                // todo
-                own.delete(categoryId);
-            },
+        items.push(item);
+
+
+        item = new NavMenuItemData();
+        item.text = '删除分组';
+        // item.icon = 'fas fa-edit';
+        item.addClickEvent(() => {
+            own.delete(categoryId);
         });
+        items.push(item);
 
         const groupListBox: GroupCategoryBox = app.appContext.getMaterial(GroupCategoryBox);
         const categoryList = groupListBox.getCategoryList();
         const size = categoryList.length;
         if (size > 0) {
-            const nodeList = [];
+            const nodeList: NavMenuItemData[] = [];
             for (let i = 0; i < size; i++) {
                 const data = categoryList[i];
                 const id = data.id;
                 const name = data.name;
                 if (categoryId !== id) {
-                    nodeList.push({
-                        text: (i + 1),
-                        icon: 'of address-book',
-                        onClick: (item: any, d: any) => {
-                            // todo
-                            own.updateSort(categoryId, i);
-                        },
+                    item = new NavMenuItemData();
+                    item.text = (i + 1) + '';
+                    item.icon = 'fas fa-edit';
+                    item.addClickEvent(() => {
+                        own.updateSort(categoryId, i);
                     });
+                    nodeList.push(item);
                 }
             }
 
-            list.push({
-                text: '修改排序',
-                icon: 'of address-book',
-                children: nodeList,
+            item = new NavMenuItemData();
+            item.text = '修改排序';
+            // item.icon = 'fas fa-edit';
+            item.addClickEvent(() => {
+                // no
             });
+            items.push(item);
+            item.children = nodeList;
         }
 
-        this.menu.list = list;
-
-        if (this.menu.list.length > 0) {
+        this.navMenu.items = items;
+        if (items.length > 0) {
             this.openMenu(e, this.menu.name);
         }
     }

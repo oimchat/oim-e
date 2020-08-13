@@ -1,17 +1,23 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/main/module/business/user/bean/User';
-import UserBox from '@/app/com/main/module/business/user/box/UserBox';
 import ViewEnum from '@/app/com/client/common/view/ViewEnum';
 import UserChatView from '@/app/com/main/module/business/chat/view/UserChatView';
+import Prompter from '@/app/com/main/component/Prompter';
+import UserAccess from '@/app/com/main/module/business/user/access/UserAccess';
 
 export default class UserChatInfoManager extends AbstractMaterial {
 
     public showUserChatById(userId: string) {
-        const userBox: UserBox = this.appContext.getMaterial(UserBox);
-        const user: User = userBox.getUser(userId);
-        if (user) {
-            this.showUserChat(user);
-        }
+        const own = this;
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
+        const userAccess: UserAccess = this.appContext.getMaterial(UserAccess);
+        userAccess.getUserById(userId, (success, user) => {
+            if (success) {
+                own.showUserChat(user);
+            } else {
+                prompter.warn('加载用户失败');
+            }
+        });
     }
 
     public showUserChat(user: User) {
@@ -25,5 +31,10 @@ export default class UserChatInfoManager extends AbstractMaterial {
         const userChatView: UserChatView = this.appContext.getView(ViewEnum.UserChatView);
         showing = (userChatView.isVisible() && userChatView.isShowing(userId));
         return showing;
+    }
+
+    public updateInfo(user: User) {
+        const userChatView: UserChatView = this.appContext.getView(ViewEnum.UserChatView);
+        userChatView.setUser(user);
     }
 }

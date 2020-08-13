@@ -1,9 +1,9 @@
-import {app, protocol, ipcMain, Tray, Menu, BrowserWindow, NativeImage, nativeImage} from 'electron';
 import path from 'path';
 
 const {execFile} = require('child_process');
 
 class ScreenShot {
+
     private isDevelopment: boolean = process.env.NODE_ENV !== 'production';
     private basePath: string = path.join(__dirname, '/');
 
@@ -13,7 +13,7 @@ class ScreenShot {
 
     public shotTemp(back: (file: File) => void): void {
         const own = this;
-        const screenWindow = () => {
+        const openWindow = () => {
             let base = own.basePath;
             const exe = 'lib/windows/PrintScr.exe';
             // const exe = 'lib/windows/PrintScr.exe';
@@ -31,7 +31,7 @@ class ScreenShot {
             screenWindow.on('exit', (code: any) => {
             });
         };
-        screenWindow();
+        openWindow();
     }
 
     public shot(back: (file: File) => void) {

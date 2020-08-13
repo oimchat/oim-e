@@ -8,6 +8,9 @@ import GroupInfoUtil from '@/app/com/main/common/util/GroupInfoUtil';
 import GroupRelationBox from '@/app/com/main/module/business/group/box/GroupRelationBox';
 import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
 import GroupChatItemEvent from '@/app/com/main/module/common/event/GroupChatItemEvent';
+import Prompter from '@/app/com/main/component/Prompter';
+import UserAccess from '@/app/com/main/module/business/user/access/UserAccess';
+import GroupAccess from '@/app/com/main/module/business/group/access/GroupAccess';
 
 export default class GroupChatItemManager extends AbstractMaterial {
     private type = 'group_chat';
@@ -17,18 +20,24 @@ export default class GroupChatItemManager extends AbstractMaterial {
         this.selectItem(groupId);
     }
 
+    public addOrUpdateChatItemById(groupId: string) {
+        const own = this;
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
+        const groupAccess: GroupAccess = this.appContext.getMaterial(GroupAccess);
+        groupAccess.getGroupById(groupId, (success, group) => {
+            if (success) {
+                own.addOrUpdate(group);
+            } else {
+                prompter.warn('加载群失败');
+            }
+        });
+    }
+
     public showGroupChatItem(group: Group) {
         this.addOrUpdate(group);
         this.selectItem(group.id);
     }
 
-    public addOrUpdateChatItemById(groupId: string) {
-        const groupBox: GroupBox = this.appContext.getMaterial(GroupBox);
-        const group: Group = groupBox.getGroup(groupId);
-        if (group) {
-            this.addOrUpdate(group);
-        }
-    }
 
     public addOrUpdate(group: Group) {
         if (group) {
@@ -56,7 +65,7 @@ export default class GroupChatItemManager extends AbstractMaterial {
             const groupChatItemEvent: GroupChatItemEvent = this.appContext.getMaterial(GroupChatItemEvent);
 
             const messageListView: MessageListView = this.appContext.getView(ViewEnum.MessageListView);
-            messageListView.addOrUpdateItem(this.type, groupId, name, avatar, gray, (key: string) => {
+            messageListView.addOrUpdateItem(this.type, groupId, name, avatar, gray, group, (key: string) => {
                 groupChatItemEvent.onSelect(key);
             }, (key: string) => {
                 groupChatItemEvent.onDelete(key);

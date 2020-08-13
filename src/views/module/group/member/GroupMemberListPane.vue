@@ -35,13 +35,23 @@
     })
     export default class GroupMemberListPane extends Vue {
         private entity: GroupMemberListEntity = new GroupMemberListEntity();
-
         @Prop({
             type: String,
             required: false,
             default: () => (''),
         })
         private groupId!: string;
+
+        public mounted() {
+            // no
+            this.updateList();
+        }
+
+        private updateList() {
+            const groupId = this.groupId;
+            const entity = this.entity;
+            entity.initialize(groupId);
+        }
 
         private getNickname(user: User): string {
             let nickname = '';
@@ -55,7 +65,7 @@
         }
 
         private memberContextMenu(e: MouseEvent, user: User) {
-            const groupId = this.groupId;
+            const groupId = this.entity.groupId;
             const userId = user.id;
             const menuName = 'groupMemberContextMenu';
             const menu: any = this.$refs[menuName];
@@ -63,9 +73,8 @@
         }
 
         @Watch('groupId')
-        private update(nv: string, ov: string) {
-            const groupId = nv;
-            this.entity.initialize(groupId);
+        private update() {
+            this.updateList();
         }
     }
 </script>

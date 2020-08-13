@@ -1,4 +1,3 @@
-import {shell, ipcRenderer, remote} from 'electron';
 import screenShot from '@/platform/e/module/ScreenShot';
 import path from 'path';
 
@@ -6,7 +5,9 @@ class ScreenShotInvoke {
     private basePath: string = path.join(__dirname, '/');
 
     public shot(back: (file: File) => void): void {
-        screenShot.shot(back);
+        screenShot.shot(back).then(r => {
+            // no
+        });
         // ipcRenderer.send('screenShot.shot');
     }
 

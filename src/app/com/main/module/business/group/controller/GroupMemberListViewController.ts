@@ -12,7 +12,7 @@ export default class GroupMemberListViewController extends AbstractMaterial {
         const prompter: Prompter = this.appContext.getMaterial(Prompter);
         const groupMemberService: GroupMemberService = this.appContext.getMaterial(GroupMemberService);
         const groupMemberListService: GroupMemberListService = this.appContext.getMaterial(GroupMemberListService);
-        groupMemberService.getAllMemberList(groupId, (success: boolean, memberList: GroupMember[], userList: User[], message: string) => {
+        groupMemberService.loadAllMemberUserList(groupId, (success: boolean, memberList: GroupMember[], userList: User[], message: string) => {
                 if (success) {
                     groupMemberListService.setGroupMembers(groupId, memberList, userList);
                 } else {

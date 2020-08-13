@@ -3,7 +3,6 @@ import DataChange from '@/app/base/event/DataChange';
 import Group from '@/app/com/main/module/business/group/bean/Group';
 import GroupListener from '@/app/com/main/module/business/group/listener/GroupListener';
 import GroupHandler from '@/app/com/main/module/business/group/handler/GroupHandler';
-import GroupTempBox from '@/app/com/main/module/business/group/box/GroupTempBox';
 
 export default class GroupAccess extends AbstractMaterial {
 
@@ -15,22 +14,5 @@ export default class GroupAccess extends AbstractMaterial {
     public getGroupById(groupId: string, back: (success: boolean, group: Group) => void): void {
         const groupHandler: GroupHandler = this.appContext.getMaterial(GroupHandler);
         groupHandler.getGroupById(groupId, back);
-    }
-
-    public getTempGroupById(groupId: string, back: (success: boolean, group: Group) => void): void {
-        const groupHandler: GroupHandler = this.appContext.getMaterial(GroupHandler);
-        const groupTempBox: GroupTempBox = this.appContext.getMaterial(GroupTempBox);
-        const g: Group = groupTempBox.getGroup(groupId);
-        if (g) {
-            back(true, g);
-        } else {
-            groupHandler.getGroupFromServerById(groupId, (success, group) => {
-                if (success && group) {
-                    groupTempBox.keepSize(10000);
-                    groupTempBox.putGroup(group);
-                }
-                back(success, group);
-            });
-        }
     }
 }

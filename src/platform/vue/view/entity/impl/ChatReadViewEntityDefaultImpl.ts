@@ -1,4 +1,4 @@
-import ChatReadViewEntity from '@/platform/vue/view/model/chat/ChatReadViewEntity';
+import ChatReadViewEntity from '@/platform/vue/view/entity/ChatReadViewEntity';
 
 class ChatReadViewEntityDefaultImpl implements ChatReadViewEntity {
 
@@ -6,7 +6,7 @@ class ChatReadViewEntityDefaultImpl implements ChatReadViewEntity {
         return 0;
     }
 
-    public updateScroll(size: number): void {
+    public setScrollTop(size: number): void {
         // no
     }
 

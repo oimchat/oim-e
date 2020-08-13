@@ -17,25 +17,24 @@
         </base-chat-pane>
 
         <!--end HD-->
-        <div v-if='model.data.showPrompt' class="popup members-warp slide-down" tabindex="-1" style="">
+        <div v-if='model.messageInfo.showPrompt' class="popup members-warp slide-down" tabindex="-1" style="">
             <div class="members compatible">
                 <div class="members-inner">
-                    {{model.data.prompt}}
+                    {{model.messageInfo.prompt}}
                 </div>
             </div>
         </div>
-        <Drawer title="更多" width="340" :mask="false" :closable="true" v-model="showMore">
+        <Drawer class="only-shadow" title="更多" width="340" :mask="false" :closable="true" v-model="showMore">
             <div v-if='isOwner'>
-                <GroupJoinSettingPane :groupId='model.chatData.key'></GroupJoinSettingPane>
+                <GroupJoinSettingPane :groupId='model.viewData.key'></GroupJoinSettingPane>
             </div>
             <div style="height: 100%;margin-top: 20px">
                 <group-member-list-pane
-                        :group-id="model.chatData.key"
+                        :group-id="model.viewData.key"
                 >
                 </group-member-list-pane>
             </div>
         </Drawer>
-        <GroupMemberContextMenu ref='groupMemberContextMenu'></GroupMemberContextMenu>
     </div>
 </template>
 
@@ -46,7 +45,6 @@
     import GroupMemberListPane from '@/views/module/group/member/GroupMemberListPane.vue';
 
     import GroupJoinSettingPane from '@/views/module/group/GroupJoinSettingPane.vue';
-    import GroupMemberContextMenu from '@/views/module/group/member/menu/GroupMemberContextMenu.vue';
 
     import groupChatViewModel from '@/platform/vue/view/model/GroupChatViewModel';
 
@@ -62,25 +60,22 @@
     import GroupMemberService from '@/app/com/main/module/business/group/service/GroupMemberService';
     import PromptType from '@/app/com/client/define/prompt/PromptType';
     import ContentWrap from '@/common/vue/data/content/ContentWrap';
+    import GroupMemberListEntity from '@/views/module/group/member/GroupMemberListEntity';
+    import ChatReadViewEntity from '@/platform/vue/view/entity/ChatReadViewEntity';
+    import ChatReadViewEntityDefaultImpl from '@/platform/vue/view/entity/impl/ChatReadViewEntityDefaultImpl';
+    import ChatWriteViewEntity from '@/platform/vue/view/entity/ChatWriteViewEntity';
+    import ChatWriteViewEntityDefaultImpl from '@/platform/vue/view/entity/impl/ChatWriteViewEntityDefaultImpl';
 
     @Component({
         components: {
             BaseChatPane,
             GroupMemberListPane,
             GroupJoinSettingPane,
-            GroupMemberContextMenu,
         },
     })
     export default class GroupChatPane extends Vue {
         private data: BaseChatMapper = new BaseChatMapper();
         private model = groupChatViewModel;
-
-        private groupMemberData: {
-            users: User[],
-        } = groupChatViewModel.groupMemberData;
-
-        private showList: boolean = false;
-
         private showMore: boolean = false;
         private isOwner: boolean = false;
 
@@ -89,24 +84,34 @@
             const own = this;
             const data = this.data;
             const model = this.model;
-            this.data.info = model.chatData;
-            this.data.readMapper.items = model.data.list;
+            this.data.info = model.info;
+            this.data.readMapper.items = model.messageInfo.list;
 
-            model.cacheData.updateScroll = (size: number) => {
-                data.readMapper.setScrollTop(size);
-            };
-
-            model.cacheData.getScrollHeight = () => {
-                return data.readMapper.getScrollHeight();
-            };
-
-            model.cacheData.updateScrollIntoView = (viewId: string) => {
-                data.readMapper.updateScrollIntoView(viewId);
-            };
-
-            model.cacheData.setInnerHTML = (html: string) => {
-                data.writeMapper.setInnerHTML(html);
-            };
+            const readViewEntity: ChatReadViewEntity = {
+                setScrollTop(size: number) {
+                    data.readMapper.setScrollTop(size);
+                },
+                getScrollHeight(): number {
+                    return data.readMapper.getScrollHeight();
+                },
+                updateScrollIntoView(viewId: string): void {
+                    data.readMapper.updateScrollIntoView(viewId);
+                },
+            } as ChatReadViewEntityDefaultImpl;
+            const writeViewEntity: ChatWriteViewEntity = {
+                setInnerHTML(html: string) {
+                    data.writeMapper.setInnerHTML(html);
+                },
+                getInnerHTML() {
+                    return data.writeMapper.getInnerHTML();
+                },
+            } as ChatWriteViewEntityDefaultImpl;
+            model.setReadViewEntity(readViewEntity);
+            model.setWriteViewEntity(writeViewEntity);
+            model.setOnKeyChange((key: string) => {
+                // no
+                own.keyChange();
+            });
         }
 
         private initialize() {
@@ -127,7 +132,7 @@
             const own = this;
             const model = this.model;
             const data = this.data;
-            model.cacheData.data.html = data.writeMapper.getInnerHTML();
+            model.viewData.data.html = data.writeMapper.getInnerHTML();
         }
 
         private send(content: Content) {
@@ -142,7 +147,7 @@
                 if (itemSize === 0) {
                     data.writeMapper.setInnerHTML('');
                     data.writeMapper.keepCursorLastIndex();
-                    model.cacheData.data.html = '';
+                    model.viewData.data.html = '';
                 } else {
                     model.send(content, (success, message) => {
                         if (!success) {
@@ -150,7 +155,7 @@
                         } else {
                             data.writeMapper.setInnerHTML('');
                             data.writeMapper.keepCursorLastIndex();
-                            model.cacheData.data.html = '';
+                            model.viewData.data.html = '';
                         }
                     });
                 }
@@ -196,9 +201,9 @@
             const own = this;
             const model = this.model;
             if (info) {
-                model.cacheData.data.scrollHeight = info.scrollHeight;
-                model.cacheData.data.scrollTop = info.scrollTop;
-                model.cacheData.data.scrollPosition = info.scrollPosition;
+                model.viewData.data.scrollHeight = info.scrollHeight;
+                model.viewData.data.scrollTop = info.scrollTop;
+                model.viewData.data.scrollPosition = info.scrollPosition;
             }
         }
 
@@ -210,14 +215,14 @@
         private list(nv: ContentWrap[], ov: ContentWrap[]) {
             const data = this.data;
             const model = this.model;
-            this.data.info = model.chatData;
-            this.data.readMapper.items = model.data.list;
+            this.data.info = model.info;
+            this.data.readMapper.items = model.messageInfo.list;
         }
 
 
         private getNickname(user: User): string {
             const service: GroupMemberService = app.appContext.getMaterial(GroupMemberService);
-            const groupId = this.model.cacheData.key;
+            const groupId = this.model.viewData.key;
             let nickname = '';
             if (user) {
                 nickname = service.getUserShowName(groupId, user);
@@ -225,28 +230,16 @@
             return nickname;
         }
 
-        private handleShowList() {
-            this.showList = !this.showList;
-        }
 
         @Watch('model.cacheData.key')
         private keyChange(): void {
             // no
-            this.showList = false;
             this.showMore = false;
 
-            const groupId = this.model.cacheData.key;
+            const groupId = this.model.viewData.key;
             const personalGroupMemberListBox: GroupMemberListOfPersonalBox = app.appContext.getMaterial(GroupMemberListOfPersonalBox);
             const position = personalGroupMemberListBox.getPosition(groupId);
             this.isOwner = (GroupMember.POSITION_OWNER === position);
-        }
-
-        private memberContextMenu(e: MouseEvent, user: User) {
-            const groupId = this.model.cacheData.key;
-            const userId = user.id;
-            const menuName = 'groupMemberContextMenu';
-            const menu: any = this.$refs[menuName];
-            menu.show(e, groupId, userId);
         }
     }
 </script>

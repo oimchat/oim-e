@@ -7,7 +7,7 @@ import appInfo from '@/platform/common/config/AppInfo';
 import AppSettingManager from '@/app/com/client/module/setting/manager/AppSettingManager';
 import Platform from '@/app/common/util/Platform';
 import AppInfo from '@/app/base/config/AppInfo';
-import AppInitializer from '@/impl/initialize/AppInitializer';
+import AppInitializer from '@/platform/vue/initialize/launch/AppInitializer';
 import CurrentComponentInitializer from '@/platform/initialize/launch/CurrentComponentInitializer';
 import routerManager from '@/router/RouterManager';
 import auth from '@/app/common/auth/Auth';

@@ -1,41 +1,37 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/main/module/business/user/bean/User';
 import UserChatInfoManager from '@/app/com/main/module/business/chat/manager/UserChatInfoManager';
-import UserChatItemManager from '@/app/com/main/module/business/chat/manager/UserChatItemManager';
-import UserMessageUnreadBox from '@/app/com/main/module/business/chat/box/unread/UserMessageUnreadBox';
-import AllMessageUnreadBox from '@/app/com/client/module/information/box/unread/AllMessageUnreadBox';
-import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadManager';
 import UserChatManager from '@/app/com/main/module/business/chat/manager/UserChatManager';
-import UserChatDataSender from '@/app/com/main/module/business/chat/sender/UserChatDataSender';
-import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
+import UserChatOpenManager from '@/app/com/main/module/business/chat/manager/UserChatOpenManager';
+import Prompter from '@/app/com/main/component/Prompter';
+import UserAccess from '@/app/com/main/module/business/user/access/UserAccess';
 
 
 export default class UserChatInfoService extends AbstractMaterial {
 
-    public showUserChatById(userId: string) {
-        const userChatInfoManager: UserChatInfoManager = this.appContext.getMaterial(UserChatInfoManager);
-        userChatInfoManager.showUserChatById(userId);
+    public showChatByInfo(user: User) {
+        if (user) {
+            const userId = user.id;
+            const userChatInfoManager: UserChatInfoManager = this.appContext.getMaterial(UserChatInfoManager);
+            const userChatOpenManager: UserChatOpenManager = this.appContext.getMaterial(UserChatOpenManager);
+            const userChatManager: UserChatManager = this.appContext.getMaterial(UserChatManager);
 
-        const userChatManager: UserChatManager = this.appContext.getMaterial(UserChatManager);
-        const userChatItemManager: UserChatItemManager = this.appContext.getMaterial(UserChatItemManager);
-        const userMessageUnreadBox: UserMessageUnreadBox = this.appContext.getMaterial(UserMessageUnreadBox);
-
-
-        userMessageUnreadBox.setUnreadCount(userId, 0);
-        userChatItemManager.setItemRed(userId, false, 0);
-
-        userChatManager.firstLoadHistory(userId, '', 10);
-
-        const personalBox: PersonalBox = this.appContext.getMaterial(PersonalBox);
-        const receiveUserId = personalBox.getUserId();
-        const sendUserId = userId;
-        // 标记消息已读
-        const userChatDataSender: UserChatDataSender = this.appContext.getMaterial(UserChatDataSender);
-        userChatDataSender.updateToReadBySendUserId(receiveUserId, sendUserId);
+            userChatInfoManager.showUserChat(user);
+            userChatOpenManager.openUserChatById(userId);
+            userChatManager.firstLoadHistory(userId, '', 10);
+        }
     }
 
-    public showUserChat(user: User) {
-        const userId = user.id;
-        this.showUserChatById(userId);
+    public showUserChatById(userId: string) {
+        const own = this;
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
+        const userAccess: UserAccess = this.appContext.getMaterial(UserAccess);
+        userAccess.getUserById(userId, (success, user) => {
+            if (success) {
+                own.showChatByInfo(user);
+            } else {
+                prompter.warn('加载用户失败');
+            }
+        });
     }
 }

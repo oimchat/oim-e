@@ -14,13 +14,13 @@ class UserChatViewModel extends ChatViewModel {
     public setUser(user: User) {
         const userId = (user) ? user.id : '';
         this.setChat(userId);
-        this.chatData.key = userId;
-        this.chatData.avatar = user.avatar;
-        this.chatData.text = user.signature;
+        this.info.key = userId;
+        this.info.avatar = user.avatar;
+        this.info.text = user.signature;
     }
 
     public setName(name: string) {
-        this.chatData.name = name;
+        this.info.name = name;
     }
 
 
@@ -29,33 +29,28 @@ class UserChatViewModel extends ChatViewModel {
         const setting: MessageAppendUserSetting = app.appContext.getMaterial(MessageAppendUserSetting);
         const type = setting.getType(key);
         if (MessageAppendType.bottom === type) {
-            if (typeof this.cacheData.updateScroll === 'function') {
-                setTimeout(() => {
-                    const h = this.cacheData.getScrollHeight();
-                    this.cacheData.updateScroll(h);
-                }, 50);
-            }
+            this.toScrollBottom();
         }
     }
 
     public loadHistory() {
         let messageKey = '';
-        const userId = this.chatData.key;
-        if (this.data.list && this.data.list.length > 0) {
+        const userId = this.info.key;
+        if (this.messageInfo.list && this.messageInfo.list.length > 0) {
             messageKey = this.geFirstMessageKey(userId);
             // 历史记录时记录当前聊天界面的id
-            this.cacheData.data.lastMessageKey = messageKey;
+            this.viewData.data.lastMessageKey = messageKey;
 
-            const length = this.data.list.length;
+            const length = this.messageInfo.list.length;
             if (length < 500) {
                 const userChatController: UserChatDataController = app.appContext.getMaterial(UserChatDataController);
                 userChatController.loadHistory(userId, messageKey, 20);
             } else {
-                this.data.prompt = '更多内容请看历史记录。';
-                if (!this.data.showPrompt) {
-                    this.data.showPrompt = true;
+                this.messageInfo.prompt = '更多内容请看历史记录。';
+                if (!this.messageInfo.showPrompt) {
+                    this.messageInfo.showPrompt = true;
                     setTimeout(() => {
-                        this.data.showPrompt = false;
+                        this.messageInfo.showPrompt = false;
                     }, 3000);
                 }
             }
@@ -75,7 +70,7 @@ class UserChatViewModel extends ChatViewModel {
                         },
                     } as DataBackAction;
                     const userChatController: UserChatController = app.appContext.getMaterial(UserChatController);
-                    userChatController.userChat(key, content, sendBack);
+                    userChatController.chat(key, content, sendBack);
                 }
                 back(success, message);
             });

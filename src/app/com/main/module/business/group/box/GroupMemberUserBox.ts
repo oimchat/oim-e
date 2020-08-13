@@ -7,7 +7,19 @@ export default class GroupMemberUserBox extends AbstractMaterial {
 
     /*** 成员列表<groupId,Map<userId, User>>*/
     private groupMemberListMap: Map<string, Map<string, User>> = new Map<string, Map<string, User>>();
+    private groupMemberUserListMap: Map<string, User[]> = new Map<string, User[]>();
 
+    public updateUser(user: User): void {
+        const userId = user.id;
+        const usersMap = this.groupMemberListMap;
+
+        for (const map of usersMap.values()) {
+            const u = map.get(userId);
+            if (u) {
+                ObjectUtil.copyByTargetKey(u, user);
+            }
+        }
+    }
 
     public putGroupMemberUser(groupId: string, user: User): void {
         const userId = user.id;
@@ -18,6 +30,17 @@ export default class GroupMemberUserBox extends AbstractMaterial {
             ObjectUtil.copyByTargetKey(u, user);
         } else {
             groupMemberMap.set(userId, user);
+        }
+        const list = this.getOrCreateMemberUserList(groupId);
+        let has = false;
+        list.forEach((value, index) => {
+            if (value.id === userId) {
+                has = true;
+                return;
+            }
+        });
+        if (!has) {
+            list.push(user);
         }
     }
 
@@ -31,13 +54,7 @@ export default class GroupMemberUserBox extends AbstractMaterial {
     }
 
     public getGroupMemberUserListByGroupId(groupId: string): User[] {
-        const groupMemberMap = this.getGroupMemberUserMapByGroupId(groupId);
-        const list: User[] = [];
-        const values = groupMemberMap.values();
-        for (const data of values) {
-            list.push(data);
-        }
-        return list;
+        return this.getGroupMemberUserList(groupId);
     }
 
     public getGroupMemberUser(groupId: string, userId: string): User {
@@ -60,6 +77,7 @@ export default class GroupMemberUserBox extends AbstractMaterial {
     public removeGroupMemberUserList(groupId: string): User[] {
         const map: any = this.groupMemberListMap.get(groupId);
         this.groupMemberListMap.delete(groupId);
+        this.groupMemberUserListMap.delete(groupId);
         const list: User[] = [];
         if (!BaseUtil.isEmpty(map)) {
             const values = (map.values());
@@ -80,20 +98,23 @@ export default class GroupMemberUserBox extends AbstractMaterial {
                 this.groupMemberListMap.delete(groupId);
             }
         }
+
+        const list = this.getGroupMemberUserList(groupId);
+        if (list) {
+            let index = -1;
+            for (const u of list) {
+                if (u.id === user.id) {
+                    index = list.indexOf(u);
+                }
+            }
+
+            if (index > -1) {
+                list.splice(index, 1);
+            }
+        }
         return user;
     }
 
-    public getGroupMemberUserList(groupId: string): User[] {
-        const list: User[] = [];
-        const map = this.groupMemberListMap.get(groupId);
-        if (map) {
-            const values = map.values();
-            for (const data of values) {
-                list.push(data);
-            }
-        }
-        return list;
-    }
 
     public getGroupMemberUserSize(categoryId: string): number {
         const map: any = this.groupMemberListMap.get(categoryId);
@@ -117,5 +138,23 @@ export default class GroupMemberUserBox extends AbstractMaterial {
             has = map.has(userId);
         }
         return has;
+    }
+
+    public getGroupMemberUserList(groupId: string): User[] {
+        let list: User[] = [];
+        const users = this.groupMemberUserListMap.get(groupId);
+        if (users) {
+            list = users;
+        }
+        return list;
+    }
+
+    private getOrCreateMemberUserList(groupId: string): User[] {
+        let list = this.groupMemberUserListMap.get(groupId);
+        if (!list) {
+            list = [];
+            this.groupMemberUserListMap.set(groupId, list);
+        }
+        return list;
     }
 }

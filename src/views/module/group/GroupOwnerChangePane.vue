@@ -107,7 +107,7 @@
             const own = this;
             const controller: GroupMemberUserController = app.appContext.getMaterial(GroupMemberUserController);
 
-            controller.getAllMemberUserList(groupId, (success, memberList, userList, message) => {
+            controller.loadAllMemberUserList(groupId, (success, memberList, userList, message) => {
                 if (success) {
                     own.setGroupMemberList(memberList);
                     own.setUserList(userList);

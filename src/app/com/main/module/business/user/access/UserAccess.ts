@@ -3,7 +3,6 @@ import DataChange from '@/app/base/event/DataChange';
 import User from '@/app/com/main/module/business/user/bean/User';
 import UserListener from '@/app/com/main/module/business/user/listener/UserListener';
 import UserHandler from '@/app/com/main/module/business/user/handler/UserHandler';
-import UserTempBox from '@/app/com/main/module/business/user/box/UserTempBox';
 
 export default class UserAccess extends AbstractMaterial {
 
@@ -12,30 +11,15 @@ export default class UserAccess extends AbstractMaterial {
         userListener.addChangeEvent(e);
     }
 
+
     public getUserById(userId: string, back: (success: boolean, user: User) => void): void {
         const userHandler: UserHandler = this.appContext.getMaterial(UserHandler);
         userHandler.getUserById(userId, back);
     }
 
-    public getTempUserById(userId: string, back: (success: boolean, user: User) => void): void {
-        const userHandler: UserHandler = this.appContext.getMaterial(UserHandler);
-        const userTempBox: UserTempBox = this.appContext.getMaterial(UserTempBox);
-        const u: User = userTempBox.getUser(userId);
-        if (u) {
-            back(true, u);
-        } else {
-            userHandler.getUserFromServerById(userId, (success, user) => {
-                if (success && user) {
-                    userTempBox.keepSize(10000);
-                    userTempBox.putUser(user);
-                }
-                back(success, user);
-            });
-        }
-    }
 
     public getUsersByIds(ids: string[], back: (success: boolean, users: User[], message: string) => void) {
         const userHandler: UserHandler = this.appContext.getMaterial(UserHandler);
-        userHandler.getUsersByIds(ids, back);
+        userHandler.getRemoteUsersByIds(ids, back);
     }
 }

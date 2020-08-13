@@ -1,6 +1,6 @@
 <template>
     <div ref="menuContainer" class="menu-container" :style="axisComputed" v-show="isShow">
-        <el-scrollbar wrap-class="scrollbar-wrapper">
+        <el-scrollbar wrap-class="scrollbar-wrapper" style="margin-bottom: 2px">
             <el-menu
                     :default-active="data.activeMenu"
                     :collapse="data.collapse"
@@ -141,7 +141,7 @@
         overflow-y: auto;
         max-height: calc(100% - 20px);
         position: fixed;
-        min-width: 160px;
+        min-width: 200px;
         user-select: none;
         -ms-user-select: none;
         -webkit-user-select: none;
@@ -204,6 +204,10 @@
 
     .el-submenu__icon-arrow {
         right: 15px;
+    }
+
+    .el-scrollbar__wrap {
+        margin-bottom: 0;
     }
 
     // when function collapsed

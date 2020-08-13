@@ -1,7 +1,8 @@
 <template>
-    <el-dialog
-            :visible.sync="show"
+    <Modal
+            v-model="show"
             width="560"
+            style="height: 100%"
             class="form-modal"
             center
     >
@@ -61,7 +62,7 @@
             <el-button type="primary" @click="handleUpdate">确定</el-button>
         </div>
         <UpdateHeadPane ref='updateHeadView' @on-done="updateHeadDone"></UpdateHeadPane>
-    </el-dialog>
+    </Modal>
 </template>
 
 <script lang="ts">
@@ -165,5 +166,7 @@
 </script>
 
 <style scoped>
-
+    .ivu-modal {
+        max-height: calc(100% - 50px);
+    }
 </style>

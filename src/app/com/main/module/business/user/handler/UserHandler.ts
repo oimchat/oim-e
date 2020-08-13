@@ -5,7 +5,6 @@ import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
 import UserSender from '@/app/com/main/module/business/user/sender/UserSender';
 import UserBox from '@/app/com/main/module/business/user/box/UserBox';
 import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
-import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
 
 export default class UserHandler extends AbstractMaterial {
 
@@ -14,7 +13,7 @@ export default class UserHandler extends AbstractMaterial {
         if (user) {
             back(true, user);
         } else {
-            this.getUserFromServerById(userId, back);
+            this.getRemoteUserById(userId, back);
         }
     }
 
@@ -23,7 +22,7 @@ export default class UserHandler extends AbstractMaterial {
         return userBox.getUser(userId);
     }
 
-    public getUserFromServerById(userId: string, back: (success: boolean, user: User) => void): void {
+    public getRemoteUserById(userId: string, back: (success: boolean, user: User) => void): void {
         let user: User | any;
         if (userId) {
             const own = this;
@@ -54,7 +53,7 @@ export default class UserHandler extends AbstractMaterial {
         }
     }
 
-    public getUsersByIds(ids: string[], back: (success: boolean, users: User[], message: string) => void) {
+    public getRemoteUsersByIds(ids: string[], back: (success: boolean, users: User[], message: string) => void) {
         const userSender: UserSender = this.appContext.getMaterial(UserSender);
         const userBack: DataBackAction = {
             back(data: any): void {

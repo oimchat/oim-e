@@ -11,6 +11,7 @@ import GroupMemberListViewManager from '@/app/com/main/module/business/group/man
 import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
 import GroupMemberHandler from '@/app/com/main/module/business/group/handler/GroupMemberHandler';
 import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
+import GroupMemberListener from '@/app/com/main/module/business/group/listener/GroupMemberListener';
 
 export default class GroupMemberService extends AbstractMaterial {
 
@@ -67,7 +68,7 @@ export default class GroupMemberService extends AbstractMaterial {
         return box.hasGroup(groupId);
     }
 
-    public getAllMemberList(groupId: string, back: (success: boolean, memberList: GroupMember[], userList: User[], message: string) => void) {
+    public loadAllMemberUserList(groupId: string, back: (success: boolean, memberList: GroupMember[], userList: User[], message: string) => void) {
         const own = this;
         if (this.isLoadMemberList(groupId)) {
             const members: GroupMember[] = this.getGroupMemberList(groupId);
@@ -82,7 +83,6 @@ export default class GroupMemberService extends AbstractMaterial {
                 memberList,
                 userList,
                 message) => {
-                back(success, memberList, userList, message);
                 if (success) {
                     memberBox.putGroupMemberList(memberList);
                     if (userList) {
@@ -92,6 +92,7 @@ export default class GroupMemberService extends AbstractMaterial {
                     }
                     memberUserBox.putGroupMemberUserList(groupId, userList);
                 }
+                back(success, memberList, userList, message);
             });
         }
     }
@@ -109,7 +110,7 @@ export default class GroupMemberService extends AbstractMaterial {
 
     public addMemberByUserId(groupId: string, userId: string) {
         const manager: GroupMemberListViewManager = this.appContext.getMaterial(GroupMemberListViewManager);
-        this.getAllMemberList(groupId, (success: boolean, memberList: GroupMember[], userList: User[], message: string) => {
+        this.loadAllMemberUserList(groupId, (success: boolean, memberList: GroupMember[], userList: User[], message: string) => {
             if (success) {
                 manager.setGroupMembers(groupId, memberList, userList);
             }
@@ -117,6 +118,8 @@ export default class GroupMemberService extends AbstractMaterial {
     }
 
     public updateMemberByUserId(groupId: string, userId: string) {
+
+        const listener: GroupMemberListener = this.appContext.getMaterial(GroupMemberListener);
         const manager: GroupMemberListViewManager = this.appContext.getMaterial(GroupMemberListViewManager);
         const memberUserBox: GroupMemberUserBox = this.appContext.getMaterial(GroupMemberUserBox);
         const memberBox: GroupMemberBox = this.appContext.getMaterial(GroupMemberBox);
@@ -128,6 +131,7 @@ export default class GroupMemberService extends AbstractMaterial {
                         if (info.success && data.body) {
                             const member = data.body;
                             memberBox.putGroupMember(member);
+                            listener.handleChangeEvent(member);
                             const user = memberUserBox.getGroupMemberUser(groupId, userId);
                             if (user) {
                                 manager.updateUser(groupId, user);

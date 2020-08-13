@@ -3,8 +3,6 @@ import GroupRelation from '@/app/com/main/module/business/group/bean/GroupRelati
 import GroupMemberListOfPersonalBox from '@/app/com/main/module/business/group/box/GroupMemberListOfPersonalBox';
 import app from '@/app/App';
 import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
-import User from '@/app/com/main/module/business/user/bean/User';
-import groupChatViewModel from '@/platform/vue/view/model/GroupChatViewModel';
 import Group from '@/app/com/main/module/business/group/bean/Group';
 
 class GroupInfoViewModel extends BaseGroupInfoViewModel {
@@ -13,11 +11,8 @@ class GroupInfoViewModel extends BaseGroupInfoViewModel {
     public isOwner: boolean = false;
     public isJoin: boolean = false;
 
-    public users: User[] = [];
-
     public setGroup(group: Group) {
         super.setGroup(group);
-        this.loadList();
     }
 
     public setRelation(relation: GroupRelation) {
@@ -35,11 +30,6 @@ class GroupInfoViewModel extends BaseGroupInfoViewModel {
         const personalGroupMemberListBox: GroupMemberListOfPersonalBox = app.appContext.getMaterial(GroupMemberListOfPersonalBox);
         const position = personalGroupMemberListBox.getPosition(groupId);
         this.isOwner = (GroupMember.POSITION_OWNER === position);
-    }
-
-    private loadList() {
-        const groupId = this.groupId;
-        this.users = groupChatViewModel.getMemberUserList(groupId);
     }
 }
 

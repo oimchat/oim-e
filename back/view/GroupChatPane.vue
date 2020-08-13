@@ -95,9 +95,9 @@
         },
     })
     export default class GroupChatPane extends Vue {
-        private chatData = groupChatViewModel.chatData;
-        private messageInfo = groupChatViewModel.data;
-        private cacheData = groupChatViewModel.cacheData;
+        private chatData = groupChatViewModel.info;
+        private messageInfo = groupChatViewModel.messageInfo;
+        private cacheData = groupChatViewModel.viewData;
 
         private groupMemberData: {
             users: User[],
@@ -111,7 +111,7 @@
         public mounted() {
             this.initialize();
 
-            groupChatViewModel.cacheData.updateScroll = (size: number) => {
+            groupChatViewModel.viewData.updateScroll = (size: number) => {
                 const messageListPaneName = 'messageListPane';
                 const messageListPane: any = this.$refs[messageListPaneName];
                 if (messageListPane) {
@@ -119,14 +119,14 @@
                 }
             };
 
-            groupChatViewModel.cacheData.getScrollHeight = () => {
+            groupChatViewModel.viewData.getScrollHeight = () => {
                 const messageListPaneName = 'messageListPane';
                 const messageListPane: any = this.$refs[messageListPaneName];
                 const height = (messageListPane) ? messageListPane.scrollHeight : 0;
                 return height;
             };
 
-            groupChatViewModel.cacheData.setInnerHTML = (html: string) => {
+            groupChatViewModel.viewData.setInnerHTML = (html: string) => {
                 const writePaneName = 'writePane';
                 const writePane: any = this.$refs[writePaneName];
                 if (writePane) {

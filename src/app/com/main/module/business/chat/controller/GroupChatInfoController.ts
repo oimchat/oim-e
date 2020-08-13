@@ -3,8 +3,8 @@ import GroupChatInfoService from '@/app/com/main/module/business/chat/service/Gr
 
 export default class GroupChatInfoController extends AbstractMaterial {
 
-    public showGroupChatById(userId: string) {
-        const userChatService: GroupChatInfoService = this.appContext.getMaterial(GroupChatInfoService);
-        userChatService.showGroupChatById(userId);
+    public showGroupChatById(groupId: string) {
+        const groupChatInfoService: GroupChatInfoService = this.appContext.getMaterial(GroupChatInfoService);
+        groupChatInfoService.showGroupChatById(groupId);
     }
 }

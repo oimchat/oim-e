@@ -1,11 +1,8 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/main/module/business/user/bean/User';
-import UserBox from '@/app/com/main/module/business/user/box/UserBox';
 import UserChatManager from '@/app/com/main/module/business/chat/manager/UserChatManager';
 import Content from '@/app/com/common/chat/Content';
 import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
-import DataBackAction from '@/app/base/net/DataBackAction';
-import UserSender from '@/app/com/main/module/business/user/sender/UserSender';
 import UserChatInfoManager from '@/app/com/main/module/business/chat/manager/UserChatInfoManager';
 import UserChatItemManager from '@/app/com/main/module/business/chat/manager/UserChatItemManager';
 import UserMessageUnreadBox from '@/app/com/main/module/business/chat/box/unread/UserMessageUnreadBox';
@@ -13,7 +10,6 @@ import CoreContentUtil from '@/app/com/common/chat/util/CoreContentUtil';
 import PromptManager from '@/app/com/client/module/prompt/manager/PromptManager';
 import SoundType from '@/app/com/client/define/prompt/SoundType';
 import AllMessageUnreadBox from '@/app/com/client/module/information/box/unread/AllMessageUnreadBox';
-import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadManager';
 import UserChatDataSender from '@/app/com/main/module/business/chat/sender/UserChatDataSender';
 import VoicePromptUserSetting from '@/app/com/main/module/setting/prompt/VoicePromptUserSetting';
 import VoicePromptType from '@/app/com/main/module/setting/prompt/type/VoicePromptType';
@@ -38,31 +34,18 @@ export default class UserChatService extends AbstractMaterial {
 
         const isShowUserContact = contactAccess.isContact(showUserId);
 
-        if (isShowUserContact) {
-            userAccess.getUserById(showUserId, (success: boolean, user: User) => {
-                if (!success || !user) {
-                    user = new User();
-                    user.id = showUserId;
-                    user.nickname = '加载失败的联系人';
-                    user.avatar = UserInfoUtil.getDefaultAvatar();
-                }
-                const showUser: User = user;
-                const chatUser: User = (isChatUserOwn) ? ownUser : user;
-                own.showChatMessage(isReceive, sendUserId, receiveUserId, isChatUserOwn, showUser, chatUser, content);
-            });
-        } else {
-            userAccess.getTempUserById(showUserId, (success: boolean, user: User) => {
-                if (!success || !user) {
-                    user = new User();
-                    user.id = showUserId;
-                    user.nickname = '加载失败的临时会话用户';
-                    user.avatar = UserInfoUtil.getDefaultAvatar();
-                }
-                const showUser: User = user;
-                const chatUser: User = (isChatUserOwn) ? ownUser : user;
-                own.showChatMessage(isReceive, sendUserId, receiveUserId, isChatUserOwn, showUser, chatUser, content);
-            });
-        }
+        userAccess.getUserById(showUserId, (success: boolean, user: User) => {
+            if (!success || !user) {
+
+                user = new User();
+                user.id = showUserId;
+                user.nickname = isShowUserContact ? '加载失败的联系人' : '加载失败的临时会话用户';
+                user.avatar = UserInfoUtil.getDefaultAvatar();
+            }
+            const showUser: User = user;
+            const chatUser: User = (isChatUserOwn) ? ownUser : user;
+            own.showChatMessage(isReceive, sendUserId, receiveUserId, isChatUserOwn, showUser, chatUser, content);
+        });
 
         // const ud: User = ub.getUser(showUserId);
         //
@@ -107,7 +90,6 @@ export default class UserChatService extends AbstractMaterial {
         const userChatItemManager: UserChatItemManager = this.appContext.getMaterial(UserChatItemManager);
         const userMessageUnreadBox: UserMessageUnreadBox = this.appContext.getMaterial(UserMessageUnreadBox);
         const allMessageUnreadBox: AllMessageUnreadBox = this.appContext.getMaterial(AllMessageUnreadBox);
-        const messageAllUnreadManager: MessageAllUnreadManager = this.appContext.getMaterial(MessageAllUnreadManager);
 
         const showTime = CoreContentUtil.getChatShowTime(content.timestamp);
         const text = CoreContentUtil.getText(content);

@@ -76,7 +76,6 @@
                 <GroupJoinSettingPane :groupId='groupId'></GroupJoinSettingPane>
             </div>
         </Drawer>
-        <GroupMemberContextMenu ref='groupMemberContextMenu'></GroupMemberContextMenu>
     </div>
 </template>
 
@@ -105,7 +104,6 @@
     @Component({
         components: {
             GroupJoinSettingPane,
-            GroupMemberContextMenu,
         },
     })
     export default class GroupInfoPane extends Vue {

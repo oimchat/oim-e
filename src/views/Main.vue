@@ -152,10 +152,6 @@
     import '../styles/oim/component.scss';
     import '../styles/oim/chat.css';
 
-    // import '../styles/lib/font-awesome/4.7.0/css/font-awesome.min.css';
-    // import '../styles/chat.css';
-    // import '../styles/component.scss';
-
 
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
 
@@ -190,32 +186,21 @@
     import SettingPane from '@/views/main/setting/SettingPane.vue';
 
 
-    import SideTabData from './main/SideTabData';
-
     import ContextMenu from '@/views/common/menu/ContextMenu.vue';
 
     import app from '@/app/App';
     import personalViewModel from '@/platform/vue/view/model/PersonalViewModel';
 
-
-    import PersonalData from './common/data/PersonalData';
-    import SideTabBox from './main/SideTabBox';
     import ItemData from './common/list/ItemData';
     import MainView from '@/app/com/client/common/view/MainView';
     import Client from '@/app/base/message/client/Client';
     import ViewEnum from '@/app/com/client/common/view/ViewEnum';
 
-
-    import UserChatInfoService from '@/app/com/main/module/business/chat/service/UserChatInfoService';
-    import UserChatItemService from '@/app/com/main/module/business/chat/service/UserChatItemService';
-    import UserChatItemController from '@/app/com/main/module/business/chat/controller/UserChatItemController';
-    import MessageAllUnreadView from '@/app/com/main/view/MessageAllUnreadView';
-    import GroupChatInfoService from '@/app/com/main/module/business/chat/service/GroupChatInfoService';
-    import GroupChatItemController from '@/app/com/main/module/business/chat/controller/GroupChatItemController';
     import NodeData from './common/list/NodeData';
-    import GroupMemberListViewController from '@/app/com/main/module/business/group/controller/GroupMemberListViewController';
     import LoginController from '@/app/com/main/module/business/index/controller/LoginController';
     import Prompt from '@/platform/web/common/Prompt';
+    import UserChatViewController from '@/app/com/main/module/business/chat/controller/UserChatViewController';
+    import GroupChatViewController from '@/app/com/main/module/business/chat/controller/GroupChatViewController';
 
 
     @Component({
@@ -310,9 +295,6 @@
                 const groupInfoPaneName = 'groupInfoPane';
                 const groupInfoPane: any = this.$refs[groupInfoPaneName];
                 groupInfoPane.setGroupId(groupId);
-
-                const groupMemberListController: GroupMemberListViewController = app.appContext.getMaterial(GroupMemberListViewController);
-                groupMemberListController.loadMemberListByGroupId(groupId);
             }
         }
 
@@ -354,21 +336,13 @@
         }
 
         private openUserChat(userId: string) {
-            const userChatService: UserChatInfoService = app.appContext.getMaterial(UserChatInfoService);
-            const userChatItemController: UserChatItemController = app.appContext.getMaterial(UserChatItemController);
-
-            userChatService.showUserChatById(userId);
-            userChatItemController.showUserChatItemById(userId);
+            const controller: UserChatViewController = app.appContext.getMaterial(UserChatViewController);
+            controller.showUserChatById(userId);
         }
 
         private openGroupChat(groupId: string) {
-            const groupChatInfoService: GroupChatInfoService = app.appContext.getMaterial(GroupChatInfoService);
-            const groupChatItemController: GroupChatItemController = app.appContext.getMaterial(GroupChatItemController);
-            const groupMemberListController: GroupMemberListViewController = app.appContext.getMaterial(GroupMemberListViewController);
-
-            groupChatInfoService.showGroupChatById(groupId);
-            groupChatItemController.showGroupChatItemById(groupId);
-            groupMemberListController.loadMemberListByGroupId(groupId);
+            const groupChatViewController: GroupChatViewController = app.appContext.getMaterial(GroupChatViewController);
+            groupChatViewController.showGroupChatById(groupId);
         }
 
 

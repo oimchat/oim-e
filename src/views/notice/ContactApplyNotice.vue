@@ -78,7 +78,7 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import AcceptContactAddApply from '@/views/notice/AcceptContactAddApply.vue';
+    import AcceptContactAddApply from '@/views/notice/ContactAddApplyAccept.vue';
     import app from '@/app/App';
     import ContactController from '@/app/com/main/module/business/contact/controller/ContactController';
     import ContactAddApply from '@/app/com/main/module/business/contact/bean/ContactAddApply';

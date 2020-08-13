@@ -6,8 +6,9 @@ import ContactRelation from '@/app/com/main/module/business/contact/bean/Contact
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 import ContactRelationBox from '@/app/com/main/module/business/contact/box/ContactRelationBox';
-import UserBox from '@/app/com/main/module/business/user/box/UserBox';
 import UserChatItemEvent from '@/app/com/main/module/common/event/UserChatItemEvent';
+import Prompter from '@/app/com/main/component/Prompter';
+import UserAccess from '@/app/com/main/module/business/user/access/UserAccess';
 
 export default class UserChatItemManager extends AbstractMaterial {
     private type = 'user_chat';
@@ -17,18 +18,25 @@ export default class UserChatItemManager extends AbstractMaterial {
         this.selectItem(userId);
     }
 
+    public addOrUpdateChatItemById(userId: string) {
+        const own = this;
+        const prompter: Prompter = this.appContext.getMaterial(Prompter);
+        const userAccess: UserAccess = this.appContext.getMaterial(UserAccess);
+        userAccess.getUserById(userId, (success, user) => {
+            if (success) {
+                own.addOrUpdate(user);
+            } else {
+                prompter.warn('加载用户失败');
+            }
+        });
+    }
+
+
     public showUserChatItem(user: User) {
         this.addOrUpdate(user);
         this.selectItem(user.id);
     }
 
-    public addOrUpdateChatItemById(userId: string) {
-        const userBox: UserBox = this.appContext.getMaterial(UserBox);
-        const user: User = userBox.getUser(userId);
-        if (user) {
-            this.addOrUpdate(user);
-        }
-    }
 
     public addOrUpdate(user: User) {
         if (user) {
@@ -57,7 +65,7 @@ export default class UserChatItemManager extends AbstractMaterial {
             const userChatItemEvent: UserChatItemEvent = this.appContext.getMaterial(UserChatItemEvent);
 
             const messageListView: MessageListView = this.appContext.getView(ViewEnum.MessageListView);
-            messageListView.addOrUpdateItem(this.type, userId, name, avatar, gray, (key: string) => {
+            messageListView.addOrUpdateItem(this.type, userId, name, avatar, gray, user, (key: string) => {
                 userChatItemEvent.onSelect(key);
             }, (key: string) => {
                 userChatItemEvent.onDelete(key);

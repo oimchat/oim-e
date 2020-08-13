@@ -6,9 +6,9 @@ import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox
 
 export default class UserChatController extends AbstractMaterial {
 
-    public userChat(receiveUserId: string, content: Content, back?: DataBackAction): void {
+    public chat(receiveUserId: string, content: Content, back?: DataBackAction): void {
         const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
         const userChatSender: UserChatSender = this.appContext.getMaterial(UserChatSender);
-        userChatSender.userChat(pb.getUserId(), receiveUserId, content, back);
+        userChatSender.chat(pb.getUserId(), receiveUserId, content, back);
     }
 }
