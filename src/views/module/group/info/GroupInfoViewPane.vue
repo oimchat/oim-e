@@ -83,18 +83,10 @@
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
 
     import GroupJoinSettingPane from '@/views/module/group/GroupJoinSettingPane.vue';
-    import GroupMemberContextMenu from '@/views/module/group/member/menu/GroupMemberContextMenu.vue';
-
-    import Group from '@/app/com/main/module/business/group/bean/Group';
-    import GroupRelation from '@/app/com/main/module/business/group/bean/GroupRelation';
     import app from '@/app/App';
-    import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
-    import GroupRelationBox from '@/app/com/main/module/business/group/box/GroupRelationBox';
     import User from '@/app/com/main/module/business/user/bean/User';
-    import GroupMemberSender from '@/app/com/main/module/business/group/sender/GroupMemberSender';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
     import GroupRelationController from '@/app/com/main/module/business/group/controller/GroupRelationController';
     import GroupMemberService from '@/app/com/main/module/business/group/service/GroupMemberService';
     import CommonIcon from '@/platform/web/common/CommonIcon';
@@ -106,30 +98,11 @@
             GroupJoinSettingPane,
         },
     })
-    export default class GroupInfoPane extends Vue {
+    export default class GroupInfoViewPane extends Vue {
         private model = groupInfoViewModel;
         private noLogo = CommonIcon.noLogo;
         private showList: boolean = false;
         private showMore: boolean = false;
-
-
-        public setGroupId(groupId: string) {
-            const groupBox: GroupBox = app.appContext.getMaterial(GroupBox);
-            const contactListBox: GroupRelationBox = app.appContext.getMaterial(GroupRelationBox);
-            const group: Group = groupBox.getGroup(groupId);
-            let relation: GroupRelation = new GroupRelation();
-            const list = contactListBox.getGroupInGroupRelationListByGroupId(groupId);
-            if (list && list.length > 0) {
-                relation = list[0];
-            }
-            this.setGroup(group, relation);
-        }
-
-        public setGroup(group: Group, relation: GroupRelation) {
-            this.model.setGroup(group);
-            this.model.setRelation(relation);
-        }
-
 
         private getNickname(user: User): string {
             const service: GroupMemberService = app.appContext.getMaterial(GroupMemberService);

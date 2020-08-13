@@ -1,6 +1,6 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/main/module/business/user/bean/User';
-import ViewEnum from '@/app/com/client/common/view/ViewEnum';
+import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 import UserChatView from '@/app/com/main/module/business/chat/view/UserChatView';
 import Prompter from '@/app/com/main/component/Prompter';
 import UserAccess from '@/app/com/main/module/business/user/access/UserAccess';
@@ -21,20 +21,20 @@ export default class UserChatInfoManager extends AbstractMaterial {
     }
 
     public showUserChat(user: User) {
-        const userChatView: UserChatView = this.appContext.getView(ViewEnum.UserChatView);
+        const userChatView: UserChatView = this.appContext.getView(WorkViewEnum.UserChatView);
         userChatView.setUser(user);
         userChatView.setVisible(true);
     }
 
     public isChatShowing(userId: string): boolean {
         let showing = false;
-        const userChatView: UserChatView = this.appContext.getView(ViewEnum.UserChatView);
+        const userChatView: UserChatView = this.appContext.getView(WorkViewEnum.UserChatView);
         showing = (userChatView.isVisible() && userChatView.isShowing(userId));
         return showing;
     }
 
     public updateInfo(user: User) {
-        const userChatView: UserChatView = this.appContext.getView(ViewEnum.UserChatView);
+        const userChatView: UserChatView = this.appContext.getView(WorkViewEnum.UserChatView);
         userChatView.setUser(user);
     }
 }

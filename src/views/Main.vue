@@ -121,7 +121,7 @@
                     </q-tab-panel>
 
                     <q-tab-panel :name="tabs.contactTab.key">
-                        <UserInfoPane ref="userInfoPane" @on-to-send="openUserChat"></UserInfoPane>
+                        <contact-info-view-pane ref="userInfoPane" @on-to-send="openUserChat"></contact-info-view-pane>
                     </q-tab-panel>
 
                     <q-tab-panel :name="tabs.groupTab.key">
@@ -174,9 +174,10 @@
     import GroupNodeContextMenu from '@/views/module/group/menu/GroupNodeContextMenu.vue';
     import UserNodeContextMenu from '@/views/module/contact/menu/ContactNodeContextMenu.vue';
 
-    import UserInfoPane from './module/user/info/UserInfoPane.vue';
+    import ContactInfoViewPane from '@/views/module/contact/info/ContactInfoViewPane.vue';
+    import UserInfoPane from './module/user/info/UserInfoCardPane.vue';
     import PersonalInfoPane from './main/pane/PersonalInfoPane.vue';
-    import GroupInfoPane from './module/group/info/GroupInfoPane.vue';
+    import GroupInfoPane from './module/group/info/GroupInfoViewPane.vue';
 
     import MessageAreaPane from './main/message/MessageAreaPane.vue';
     import ModuleMenu from '@/views/main/ModuleMenu.vue';
@@ -194,13 +195,15 @@
     import ItemData from './common/list/ItemData';
     import MainView from '@/app/com/client/common/view/MainView';
     import Client from '@/app/base/message/client/Client';
-    import ViewEnum from '@/app/com/client/common/view/ViewEnum';
+    import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 
     import NodeData from './common/list/NodeData';
     import LoginController from '@/app/com/main/module/business/index/controller/LoginController';
     import Prompt from '@/platform/web/common/Prompt';
     import UserChatViewController from '@/app/com/main/module/business/chat/controller/UserChatViewController';
     import GroupChatViewController from '@/app/com/main/module/business/chat/controller/GroupChatViewController';
+    import GroupInfoViewController from '@/app/com/main/module/business/group/controller/GroupInfoViewController';
+    import ContactInfoViewController from '@/app/com/main/module/business/contact/controller/ContactInfoViewController';
 
 
     @Component({
@@ -215,6 +218,7 @@
             UserItemContextMenu,
             GroupNodeContextMenu,
             UserNodeContextMenu,
+            ContactInfoViewPane,
             PersonalInfoPane,
             UserInfoPane,
             GroupInfoPane,
@@ -235,7 +239,7 @@
 
         // 声明周期钩子
         public mounted() {
-            app.appContext.putViewObject(ViewEnum.MainView, this);
+            app.appContext.putViewObject(WorkViewEnum.MainView, this);
             mainViewData.initialize();
         }
 
@@ -283,18 +287,24 @@
         private onUserSelected(data: ItemData) {
             if (data) {
                 const userId = data.key;
-                const userInfoPaneName = 'userInfoPane';
-                const userInfoPane: any = this.$refs[userInfoPaneName];
-                userInfoPane.setUserId(userId);
+                // const userInfoPaneName = 'userInfoPane';
+                // const userInfoPane: any = this.$refs[userInfoPaneName];
+                // userInfoPane.setUserId(userId);
+
+                const controller: ContactInfoViewController = app.appContext.getMaterial(ContactInfoViewController);
+                controller.showById(userId);
             }
         }
 
         private onGroupSelected(data: ItemData) {
             if (data) {
                 const groupId = data.key;
-                const groupInfoPaneName = 'groupInfoPane';
-                const groupInfoPane: any = this.$refs[groupInfoPaneName];
-                groupInfoPane.setGroupId(groupId);
+                // const groupInfoPaneName = 'groupInfoPane';
+                // const groupInfoPane: any = this.$refs[groupInfoPaneName];
+                // groupInfoPane.setGroupId(groupId);
+
+                const controller: GroupInfoViewController = app.appContext.getMaterial(GroupInfoViewController);
+                controller.showById(groupId);
             }
         }
 

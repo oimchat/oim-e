@@ -6,7 +6,7 @@ import AppContext from '@/app/base/context/AppContext';
 import SoundHandlerEnum from '@/app/com/client/define/prompt/SoundHandlerEnum';
 import WebSoundHandlerImpl from '@/common/web/impl/prompt/WebSoundHandlerImpl';
 import WebImagePathFile from '@/common/web/util/WebImagePathFile';
-import ViewEnum from '@/app/com/client/common/view/ViewEnum';
+import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 
 export default class WebComponentInitializer implements Initializer {
 

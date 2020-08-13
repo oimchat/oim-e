@@ -2,7 +2,7 @@
     <div ref="messageScrollPane" class="only-full-pane outer" style="overflow-y: auto;overflow-x: hidden"
          @scroll="handleScroll" @mousewheel="handleMousewheel" v-viewer="viewerOptions">
         <div class="inner">
-            <template v-for="item of data.items">
+            <template v-for="item of items">
                 <template v-if="item.type===wrapType.message">
                     <ContentPane :data="item"></ContentPane>
                 </template>
@@ -16,6 +16,7 @@
     import ContentPane from '@/views/common/chat/ContentPane.vue';
     import ContentWrapType from '@/common/vue/data/content/ContentWrapType';
     import ReadMapper from '@/views/common/chat/ReadMapper';
+    import ContentWrap from '@/common/vue/data/content/ContentWrap';
 
     @Component({
         components: {
@@ -31,6 +32,13 @@
             default: () => (new ReadMapper()),
         })
         private data!: ReadMapper;
+
+        @Prop({
+            type: Array,
+            required: false,
+            default: () => ([]),
+        })
+        public items!: ContentWrap [];
 
         private viewerOptions = {
             toolbar: true, url: 'data-source', className: 'chat-img', filter: (img: any) => {

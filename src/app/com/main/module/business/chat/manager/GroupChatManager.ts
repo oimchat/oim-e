@@ -1,6 +1,6 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/main/module/business/user/bean/User';
-import ViewEnum from '@/app/com/client/common/view/ViewEnum';
+import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 import Content from '@/app/com/common/chat/Content';
 import GroupChatView from '@/app/com/main/module/business/chat/view/GroupChatView';
 import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
@@ -24,7 +24,7 @@ export default class GroupChatManager extends AbstractMaterial {
 
     public chat(isReceive: boolean, isOwn: boolean, group: Group, chatUser: User, content: Content): void {
         const key = group.id;
-        const groupChatView: GroupChatView = this.appContext.getView(ViewEnum.GroupChatView);
+        const groupChatView: GroupChatView = this.appContext.getView(WorkViewEnum.GroupChatView);
         groupChatView.insertLast(isReceive, isOwn, key, chatUser, content);
     }
 
@@ -73,7 +73,7 @@ export default class GroupChatManager extends AbstractMaterial {
 
             const ownUserId = pb.getUserId();
             const isReceive = true;
-            const groupChatView: GroupChatView = this.appContext.getView(ViewEnum.GroupChatView);
+            const groupChatView: GroupChatView = this.appContext.getView(WorkViewEnum.GroupChatView);
             const length = contents.length;
             for (let i = length - 1; i >= 0; i--) {
                 const data = contents[i];

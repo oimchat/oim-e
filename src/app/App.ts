@@ -17,26 +17,17 @@ import HttpInitializer from '@/app/initialize/HttpInitializer';
 import NetModule from '@/app/com/common/module/NetModule';
 import Prompter from '@/app/com/main/component/Prompter';
 import ServerInitializer from '@/app/initialize/ServerInitializer';
-import ViewEnum from '@/app/com/client/common/view/ViewEnum';
-import PersonalViewDefaultImpl from '@/app/impl/default/view/PersonalViewDefaultImpl';
-import ContactListPaneViewDefaultImpl from '@/app/impl/default/view/ContactListPaneViewDefaultImpl';
-import MessageListViewDefaultImpl from '@/app/impl/default/view/MessageListViewDefaultImpl';
-import UserChatViewDefaultImpl from '@/app/impl/default/view/UserChatViewDefaultImpl';
-import GroupChatViewDefaultImpl from '@/app/impl/default/view/GroupChatViewDefaultImpl';
-import GroupMemberListViewDefaultImpl from '@/app/impl/default/view/GroupMemberListViewDefaultImpl';
-import GroupListPaneViewDefaultImpl from '@/app/impl/default/view/GroupListPaneViewDefaultImpl';
-import MainViewDefaultImpl from '@/app/impl/default/view/MainViewDefaultImpl';
 import ComponentInitializer from '@/app/initialize/ComponentInitializer';
-import MessageAllUnreadViewDefaultImpl from '@/app/impl/default/view/MessageAllUnreadViewDefaultImpl';
 import ListenerInitializer from '@/app/initialize/ListenerInitializer';
+import DefaultViewBuilder from '@/app/impl/default/DefaultViewBuilder';
 
 
 class App {
 
     public appContext: AppContext = new AppContext();
     public launchInitializerBox: InitializerBox = new InitializerBox();
-    public disconnection = false;
     public promptHandler: PromptHandler = new DefaultPromptHandlerImpl();
+    public disconnection = false;
 
     constructor() {
         // this.initializeApp();
@@ -123,15 +114,7 @@ class App {
     }
 
     private buildDefaultView(): void {
-        this.appContext.putView(ViewEnum.MainView, MainViewDefaultImpl);
-        this.appContext.putView(ViewEnum.PersonalView, PersonalViewDefaultImpl);
-        this.appContext.putView(ViewEnum.ContactListPaneView, ContactListPaneViewDefaultImpl);
-        this.appContext.putView(ViewEnum.GroupListPaneView, GroupListPaneViewDefaultImpl);
-        this.appContext.putView(ViewEnum.MessageListView, MessageListViewDefaultImpl);
-        this.appContext.putView(ViewEnum.UserChatView, UserChatViewDefaultImpl);
-        this.appContext.putView(ViewEnum.GroupChatView, GroupChatViewDefaultImpl);
-        this.appContext.putView(ViewEnum.GroupMemberListView, GroupMemberListViewDefaultImpl);
-        this.appContext.putView(ViewEnum.MessageAllUnreadView, MessageAllUnreadViewDefaultImpl);
+        new DefaultViewBuilder(this.appContext);
     }
 
     private buildModule(): void {

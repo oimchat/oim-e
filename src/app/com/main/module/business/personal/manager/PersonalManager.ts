@@ -2,7 +2,7 @@ import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/main/module/business/user/bean/User';
 import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
 import PersonalView from '@/app/com/main/module/business/personal/view/PersonalView';
-import ViewEnum from '@/app/com/client/common/view/ViewEnum';
+import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 
 export default class PersonalManager extends AbstractMaterial {
@@ -13,7 +13,7 @@ export default class PersonalManager extends AbstractMaterial {
         const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
         pb.setUser(user);
 
-        const pv: PersonalView = this.appContext.getView(ViewEnum.PersonalView);
+        const pv: PersonalView = this.appContext.getView(WorkViewEnum.PersonalView);
         pv.setUser(user);
     }
 
@@ -21,7 +21,7 @@ export default class PersonalManager extends AbstractMaterial {
         const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
         const user = pb.getUser();
         user.status = status;
-        const pv: PersonalView = this.appContext.getView(ViewEnum.PersonalView);
+        const pv: PersonalView = this.appContext.getView(WorkViewEnum.PersonalView);
         pv.setUser(user);
     }
 }

@@ -148,7 +148,7 @@
     import ItemData from './common/list/ItemData';
     import MainView from '../../src/app/com/client/common/view/MainView';
     import Client from '@/app/base/message/client/Client';
-    import ViewEnum from '../../src/app/com/client/common/view/ViewEnum';
+    import WorkViewEnum from '../../src/app/com/common/view/WorkViewEnum';
 
 
     import UserChatInfoService from '../../src/app/com/main/module/business/chat/service/UserChatInfoService';
@@ -197,8 +197,8 @@
 
         // 声明周期钩子
         public mounted() {
-            app.appContext.putViewObject(ViewEnum.MainView, this);
-            app.appContext.putViewObject(ViewEnum.MessageAllUnreadView, this);
+            app.appContext.putViewObject(WorkViewEnum.MainView, this);
+            app.appContext.putViewObject(WorkViewEnum.MessageAllUnreadView, this);
             this.init();
         }
 

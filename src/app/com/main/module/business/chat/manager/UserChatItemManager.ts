@@ -1,6 +1,6 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/main/module/business/user/bean/User';
-import ViewEnum from '@/app/com/client/common/view/ViewEnum';
+import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 import MessageListView from '@/app/com/client/module/message/view/MessageListView';
 import ContactRelation from '@/app/com/main/module/business/contact/bean/ContactRelation';
 import BaseUtil from '@/app/lib/util/BaseUtil';
@@ -64,7 +64,7 @@ export default class UserChatItemManager extends AbstractMaterial {
 
             const userChatItemEvent: UserChatItemEvent = this.appContext.getMaterial(UserChatItemEvent);
 
-            const messageListView: MessageListView = this.appContext.getView(ViewEnum.MessageListView);
+            const messageListView: MessageListView = this.appContext.getView(WorkViewEnum.MessageListView);
             messageListView.addOrUpdateItem(this.type, userId, name, avatar, gray, user, (key: string) => {
                 userChatItemEvent.onSelect(key);
             }, (key: string) => {
@@ -74,27 +74,27 @@ export default class UserChatItemManager extends AbstractMaterial {
     }
 
     public selectItem(userId: string) {
-        const messageListView: MessageListView = this.appContext.getView(ViewEnum.MessageListView);
+        const messageListView: MessageListView = this.appContext.getView(WorkViewEnum.MessageListView);
         messageListView.selectItem(this.type, userId);
     }
 
     public hasItem(userId: string): boolean {
-        const messageListView: MessageListView = this.appContext.getView(ViewEnum.MessageListView);
+        const messageListView: MessageListView = this.appContext.getView(WorkViewEnum.MessageListView);
         return messageListView.hasItem(this.type, userId);
     }
 
     public deleteItem(userId: string) {
-        const messageListView: MessageListView = this.appContext.getView(ViewEnum.MessageListView);
+        const messageListView: MessageListView = this.appContext.getView(WorkViewEnum.MessageListView);
         messageListView.removeItem(this.type, userId);
     }
 
     public updateItemText(userId: string, text: string, timeText: string, timestamp: number): void {
-        const messageListView: MessageListView = this.appContext.getView(ViewEnum.MessageListView);
+        const messageListView: MessageListView = this.appContext.getView(WorkViewEnum.MessageListView);
         messageListView.updateItemText(this.type, userId, text, timeText, timestamp);
     }
 
     public setItemRed(userId: string, red: boolean, count: number): void {
-        const messageListView: MessageListView = this.appContext.getView(ViewEnum.MessageListView);
+        const messageListView: MessageListView = this.appContext.getView(WorkViewEnum.MessageListView);
         messageListView.setItemRed(this.type, userId, red, count);
     }
 }

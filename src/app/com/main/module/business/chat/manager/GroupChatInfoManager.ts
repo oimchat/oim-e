@@ -1,6 +1,6 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import Group from '@/app/com/main/module/business/group/bean/Group';
-import ViewEnum from '@/app/com/client/common/view/ViewEnum';
+import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 import GroupChatView from '@/app/com/main/module/business/chat/view/GroupChatView';
 import Prompter from '@/app/com/main/component/Prompter';
 import GroupAccess from '@/app/com/main/module/business/group/access/GroupAccess';
@@ -22,20 +22,20 @@ export default class GroupChatInfoManager extends AbstractMaterial {
     }
 
     public showGroupChat(group: Group) {
-        const groupChatView: GroupChatView = this.appContext.getView(ViewEnum.GroupChatView);
+        const groupChatView: GroupChatView = this.appContext.getView(WorkViewEnum.GroupChatView);
         groupChatView.setGroup(group);
         groupChatView.setVisible(true);
     }
 
     public isChatShowing(groupId: string): boolean {
         let showing = false;
-        const groupChatView: GroupChatView = this.appContext.getView(ViewEnum.GroupChatView);
+        const groupChatView: GroupChatView = this.appContext.getView(WorkViewEnum.GroupChatView);
         showing = (groupChatView.isVisible() && groupChatView.isShowing(groupId));
         return showing;
     }
 
     public updateInfo(group: Group) {
-        const groupChatView: GroupChatView = this.appContext.getView(ViewEnum.GroupChatView);
+        const groupChatView: GroupChatView = this.appContext.getView(WorkViewEnum.GroupChatView);
         groupChatView.setGroup(group);
     }
 }

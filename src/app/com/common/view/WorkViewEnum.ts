@@ -1,8 +1,10 @@
-enum ViewEnum {
+enum WorkViewEnum {
     PersonalView,
     ContactListPaneView,
     GroupListPaneView,
     MainView,
+    ContactInfoView,
+    GroupInfoView,
     MessageAllUnreadView,
     MessageListView,
     MessageAreaView,
@@ -11,4 +13,4 @@ enum ViewEnum {
     GroupMemberListView,
 }
 
-export default ViewEnum;
+export default WorkViewEnum;

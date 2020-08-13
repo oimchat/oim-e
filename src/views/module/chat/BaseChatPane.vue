@@ -28,6 +28,7 @@
             >
                 <template v-slot:before>
                     <ReadPane :data="data.readMapper"
+                              :items="items"
                               @on-scroll="onScroll"
                               @on-scroll-top="onTop"
                     >
@@ -51,6 +52,7 @@
     import WritePane from '@/views/common/chat/WritePane.vue';
     import BaseChatMapper from '@/views/module/chat/BaseChatMapper';
     import Content from '@/app/com/common/chat/Content';
+    import ContentWrap from '@/common/vue/data/content/ContentWrap';
 
     @Component({
         components: {
@@ -67,6 +69,13 @@
             default: () => (new BaseChatMapper()),
         })
         private data!: BaseChatMapper;
+
+        @Prop({
+            type: Array,
+            required: false,
+            default: () => ([]),
+        })
+        public items!: ContentWrap [];
 
         public mounted() {
             this.initialize();

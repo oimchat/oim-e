@@ -36,8 +36,8 @@
             default: () => new NavMenuData(),
         })
         private data!: NavMenuData;
-// 是否显示
-        private isShow: boolean = true;
+        // 是否显示
+        private isShow: boolean = false;
         // 触发点坐标
         private axis: any = {
             x: 0,

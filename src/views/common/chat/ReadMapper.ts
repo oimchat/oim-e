@@ -2,7 +2,6 @@ import ContentWrap from '@/common/vue/data/content/ContentWrap';
 
 export default class ReadMapper {
 
-    public items: ContentWrap [] = [];
     public scrollData = {
         scrollTopCount: 0,
     };

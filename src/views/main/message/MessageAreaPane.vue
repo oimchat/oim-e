@@ -35,7 +35,7 @@ import messageAreaViewType from '@/platform/web/view/model/MessageAreaViewType';
 import ApplyHandleNotice from '@/views/notice/ApplyHandleNotice.vue';
 
 import app from '@/app/App';
-import ViewEnum from '@/app/com/client/common/view/ViewEnum';
+import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 
 import messageAreaViewModel from '@/platform/web/view/model/MessageAreaViewModel';
 import CommonIcon from '@/platform/web/common/CommonIcon';
@@ -57,7 +57,7 @@ export default class MessageAreaPane extends Vue implements MessageAreaView {
     private messagePaneType = messageAreaViewType;
 
     public mounted() {
-        app.appContext.putViewObject(ViewEnum.MessageAreaView, this);
+        app.appContext.putViewObject(WorkViewEnum.MessageAreaView, this);
     }
 
     public showType(type: string): void {

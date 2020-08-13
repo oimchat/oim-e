@@ -1,6 +1,6 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/main/module/business/user/bean/User';
-import ViewEnum from '@/app/com/client/common/view/ViewEnum';
+import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 import Content from '@/app/com/common/chat/Content';
 import UserChatView from '@/app/com/main/module/business/chat/view/UserChatView';
 import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
@@ -22,7 +22,7 @@ export default class UserChatManager extends AbstractMaterial {
 
     public chat(isReceive: boolean, isOwn: boolean, showUser: User, chatUser: User, content: Content): void {
         const key = showUser.id;
-        const userChatView: UserChatView = this.appContext.getView(ViewEnum.UserChatView);
+        const userChatView: UserChatView = this.appContext.getView(WorkViewEnum.UserChatView);
         userChatView.insertLast(isReceive, isOwn, key, chatUser, content);
     }
 
@@ -69,7 +69,7 @@ export default class UserChatManager extends AbstractMaterial {
             const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
             const ownUserId = pb.getUserId();
             const isReceive = true;
-            const userChatView: UserChatView = this.appContext.getView(ViewEnum.UserChatView);
+            const userChatView: UserChatView = this.appContext.getView(WorkViewEnum.UserChatView);
             const length = contents.length;
             for (let i = length - 1; i >= 0; i--) {
                 const data = contents[i];

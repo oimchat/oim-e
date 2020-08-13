@@ -5,38 +5,32 @@
         <i v-if="showPane" @click="clearSearch" class="oim-search-bar-close fas fa-times-circle"></i>
         <div :style="showPane?'display: block;':'display: none;'" class="only-popup recommendation" tabindex="-1">
             <div style="position: relative;">
-                <div class="results scrollbar-dynamic scroll-content"
+                <div class="results"
                      style="margin-bottom: 0px; margin-right: 0px;overflow-y:auto">
                     <div class="result-list">
                         <div class="top-placeholder " style="height: 0px;"></div>
                         <div v-if="showUserList" class="">
-                            <div class="">
-                                <h4 class="result-title first">好友</h4>
-                            </div>
-                            <div v-for="item of userList" class="">
+                            <div class="result-title first">好友</div>
+                            <template v-for="item of userList">
                                 <ItemPane :data="item" :box="box"
                                           @on-selected="onUserSelected">
                                 </ItemPane>
-                            </div>
+                            </template>
                         </div>
 
                         <div v-if="showGroupList" class="">
                             <div class="">
-                                <h4 class="result-title">群组</h4>
+                                <div class="result-title">群组</div>
                             </div>
-                            <div class="">
-                                <div v-for="item of groupList" class="">
-                                    <ItemPane :data="item" :box="box"
-                                              @on-selected="onGroupSelected">
-                                    </ItemPane>
-                                </div>
-                            </div>
+                            <template v-for="item of groupList">
+                                <ItemPane :data="item" :box="box"
+                                          @on-selected="onGroupSelected">
+                                </ItemPane>
+                            </template>
                         </div>
 
                         <div v-if="showFindUserList" class="">
-                            <div class="">
-                                <h4 class="result-title">查到的用户</h4>
-                            </div>
+                            <div class="result-title">查到的用户</div>
                             <div v-for="item of findUserList" class="find-item">
                                 <ItemPane :data="item" :box="box"></ItemPane>
                                 <div class="find-add">
@@ -52,16 +46,14 @@
                         </div>
 
                         <div v-if="showFindGroupList" class="">
-                            <div class="">
-                                <h4 class="result-title">查到的群</h4>
-                            </div>
+                            <div class="result-title">查到的群</div>
                             <div v-for="item of findGroupList" class="find-item">
                                 <ItemPane :data="item" :box="box"></ItemPane>
                                 <div class="find-add">
                                     <a @click="handleShowGroup(item.key)" href="javascript:void(0)">
                                         <i class="fa fa-address-card"></i>
                                     </a>
-                                    <span style="width: 10px">&nbsp;</span>
+                                    <span style="margin-right: 5px">&nbsp;</span>
                                     <a @click="handleJoinGroup(item.key)" href="javascript:void(0)">
                                         <i class="fa fa-plus"></i>
                                     </a>
@@ -195,33 +187,17 @@
                 return;
             }
             const own = this;
-            const back: DataBackAction = {
-                back(data: any): void {
-                    if (data) {
-                        const info = data.info;
-                        if (info) {
-                            if (info.success && data.body) {
-                                const list: User[] = data.body.items;
-                                own.setFindUserList(list);
-                            }
-                        }
-                    }
-                },
-                lost(data: any): void {
-                    // no
-                },
-                timeOut(data: any): void {
-                    // no
-                },
-            } as DataBackAction;
-
             const query: UserQuery = new UserQuery();
             const page: Page = new Page();
 
             page.size = 10;
             query.queryText = this.text;
             const uc: UserController = app.appContext.getMaterial(UserController);
-            uc.queryUserList(query, page, back);
+            uc.queryList(query, page, (success, message, users) => {
+                if (success) {
+                    own.setFindUserList(users);
+                }
+            });
         }
 
         private setFindUserList(list: User[]) {
@@ -278,7 +254,11 @@
             page.size = 10;
             query.queryText = this.text;
             const uc: GroupInfoController = app.appContext.getMaterial(GroupInfoController);
-            uc.queryGroupList(query, page, back);
+            uc.queryList(query, page, (success, message, groups) => {
+                if (success) {
+                    own.setFindGroupList(groups);
+                }
+            });
         }
 
         private setFindGroupList(list: Group[]) {
@@ -434,7 +414,7 @@
     }
 
     .recommendation {
-        background: #33363b;
+        background: #eeeeee;
         width: 244px;
         top: 36px;
         left: 0;
@@ -453,59 +433,40 @@
 
     .recommendation .result-item {
         overflow: hidden;
-        padding: 10px 9px;
         cursor: pointer;
         border-bottom: 1px solid #33363b;
         background-color: #393c43
     }
+
+    .recommendation .icon-list-item {
+        height: 40px;
+        padding: 5px 18px 5px;
+    }
+
 
     .recommendation .result-item.on {
         background: #595b64
     }
 
     .recommendation .result-title {
-        font-size: 18px;
+        font-size: 14px;
         padding: 3px 9px;
         font-weight: 400;
-        color: #787b87;
-        margin-top: 10px;
-        background-color: #393c43
-    }
-
-    .recommendation .result-title.first {
-        margin-top: 0
-    }
-
-    .recommendation .avatar {
-        float: left;
-        margin-right: 10px
+        color: #444343;
+        /*margin-top: 10px;*/
+        background-color: #c6c6c6
     }
 
     .recommendation .avatar .img {
         display: block;
         width: 30px;
         height: 30px;
-        border-radius: 2px
+        border-radius: 5px
     }
 
     .recommendation .info {
         overflow: hidden;
         line-height: 30px
-    }
-
-    .recommendation .info .nickname {
-        font-weight: 400;
-        color: #fff;
-        font-size: 14px;
-        width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        word-wrap: normal
-    }
-
-    .recommendation .info .nickname .emoji, .recommendation .info .nickname .face {
-        vertical-align: -4px
     }
 
 
@@ -530,7 +491,7 @@
         vertical-align: middle;
 
         a {
-            color: white;
+            color: #575656;
 
             :hover {
                 color: #35a328;

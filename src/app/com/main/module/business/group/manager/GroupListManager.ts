@@ -1,7 +1,7 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import GroupCategory from '@/app/com/main/module/business/group/bean/GroupCategory';
 import GroupRelationBox from '@/app/com/main/module/business/group/box/GroupRelationBox';
-import ViewEnum from '@/app/com/client/common/view/ViewEnum';
+import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 import ListPaneView from '@/app/com/client/common/view/ListPaneView';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import GroupInfoUtil from '@/app/com/main/common/util/GroupInfoUtil';
@@ -25,7 +25,7 @@ export default class GroupListManager extends AbstractMaterial {
             const contactListBox: GroupCategoryBox = this.appContext.getMaterial(GroupCategoryBox);
             contactListBox.clearCategory();
 
-            const listPaneView: ListPaneView = this.appContext.getView(ViewEnum.GroupListPaneView);
+            const listPaneView: ListPaneView = this.appContext.getView(WorkViewEnum.GroupListPaneView);
             listPaneView.clearCategory();
 
             if (list) {
@@ -67,7 +67,7 @@ export default class GroupListManager extends AbstractMaterial {
         const categoryId = category.id;
         const name = category.name;
 
-        const listPaneView: ListPaneView = this.appContext.getView(ViewEnum.GroupListPaneView);
+        const listPaneView: ListPaneView = this.appContext.getView(WorkViewEnum.GroupListPaneView);
         listPaneView.addOrUpdateCategory(categoryId, name, category.sort);
     }
 
@@ -77,7 +77,7 @@ export default class GroupListManager extends AbstractMaterial {
         if (category) {
             category.name = name;
 
-            const listPaneView: ListPaneView = this.appContext.getView(ViewEnum.GroupListPaneView);
+            const listPaneView: ListPaneView = this.appContext.getView(WorkViewEnum.GroupListPaneView);
             listPaneView.addOrUpdateCategory(categoryId, name, category.sort);
         }
     }
@@ -88,7 +88,7 @@ export default class GroupListManager extends AbstractMaterial {
         const contactListBox: GroupRelationBox = this.appContext.getMaterial(GroupRelationBox);
         groupCategoryBox.removeCategory(categoryId);
 
-        const listPaneView: ListPaneView = this.appContext.getView(ViewEnum.GroupListPaneView);
+        const listPaneView: ListPaneView = this.appContext.getView(WorkViewEnum.GroupListPaneView);
         listPaneView.removeCategory(categoryId);
 
         const defaultCategoryId = groupCategoryBox.getDefaultCategoryId();
@@ -119,7 +119,7 @@ export default class GroupListManager extends AbstractMaterial {
     }
 
     public updateCategoryMember(categoryId: string): void {
-        const listPaneView: ListPaneView = this.appContext.getView(ViewEnum.GroupListPaneView);
+        const listPaneView: ListPaneView = this.appContext.getView(WorkViewEnum.GroupListPaneView);
         listPaneView.clearCategoryMember(categoryId);
         const groupBox: GroupBox = this.appContext.getMaterial(GroupBox);
         const contactListBox: GroupRelationBox = this.appContext.getMaterial(GroupRelationBox);
@@ -161,7 +161,7 @@ export default class GroupListManager extends AbstractMaterial {
             }
         }
         const countText = '[' + totalCount + ']';
-        const listPaneView: ListPaneView = this.appContext.getView(ViewEnum.GroupListPaneView);
+        const listPaneView: ListPaneView = this.appContext.getView(WorkViewEnum.GroupListPaneView);
         listPaneView.updateCategoryMemberCount(categoryId, countText);
     }
 
@@ -254,7 +254,7 @@ export default class GroupListManager extends AbstractMaterial {
         const contactListBox: GroupRelationBox = this.appContext.getMaterial(GroupRelationBox);
         const relationList = contactListBox.removeGroupRelationList(groupId);
         if (relationList) {
-            const listPaneView: ListPaneView = this.appContext.getView(ViewEnum.GroupListPaneView);
+            const listPaneView: ListPaneView = this.appContext.getView(WorkViewEnum.GroupListPaneView);
             for (const data of relationList) {
                 listPaneView.removeCategoryMember(data.categoryId, groupId);
             }
@@ -277,7 +277,7 @@ export default class GroupListManager extends AbstractMaterial {
 
             const gray = false;
 
-            const listPaneView: ListPaneView = this.appContext.getView(ViewEnum.GroupListPaneView);
+            const listPaneView: ListPaneView = this.appContext.getView(WorkViewEnum.GroupListPaneView);
             listPaneView.addOrUpdateItem(categoryId, itemId, showName, avatar, gray);
         }
     }

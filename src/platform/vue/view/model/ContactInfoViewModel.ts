@@ -1,7 +1,7 @@
 import BaseUserInfoViewModel from '@/platform/vue/view/model/BaseUserInfoViewModel';
 import ContactRelation from '@/app/com/main/module/business/contact/bean/ContactRelation';
 
-class UserInfoViewModel extends BaseUserInfoViewModel {
+class ContactInfoViewModel extends BaseUserInfoViewModel {
 
     public relation: ContactRelation = new ContactRelation();
     public isContact: boolean = false;
@@ -17,4 +17,4 @@ class UserInfoViewModel extends BaseUserInfoViewModel {
     }
 }
 
-export default new UserInfoViewModel();
+export default new ContactInfoViewModel();

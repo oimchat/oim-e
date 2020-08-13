@@ -50,112 +50,81 @@
     background: rgba(186, 186, 186, 0.5);
 }
 
-
 .list-node-item {
-    height: 55px;
-    padding: 5px 12px 5px;
-    border-bottom: 1px solid #e7e7e7;
-    cursor: pointer;
-    position: relative;
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
-
-    .avatar-pane {
-        float: left;
-        position: relative;
-    }
-
-    .avatar {
-        margin-right: 10px;
-        position: relative
-    }
-
-    .avatar > img {
-        display: block;
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        -moz-border-radius: 50%;
-        -webkit-border-radius: 50%;
-    }
-
-    .avatar > .icon {
-        position: absolute;
-        top: -4px;
-        right: -6px;
-        color: #fff;
-        font-style: normal;
-        font-size: 12px;
-        text-align: center;
-    }
-
-
-    .center {
-        /*background-color: #81c784;*/
-        position: absolute;
-        top: 0;
-        right: 4px;
-        bottom: 0px;
-        left: 65px;
-
-        padding: 5px 0px 5px;
-    }
-
-    .center > .nickname {
-        color: #000000;
-        line-height: 20px;
-        font-weight: 400;
-        font-size: 13px;
-        width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        word-wrap: normal
-    }
-
-    .center .nickname-text {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        word-wrap: normal;
-    }
-
-    .extend {
-        float: right;
-        color: #6b6f7c;
-        font-size: 13px;
-        text-align: right;
-        height: 19px;
-        line-height: 1.5;
-        position: absolute;
-        right: 0
-    }
+    padding: 12px 18px 11px;
+    /*border-bottom: 1px solid #647481;*/
+    cursor: pointer;
+    position: relative
 }
 
+.list-node-item.top {
+    background-color: #2e3641
+}
 
 .list-node-item.active {
-    background: #d2d2d2;
+    background: #cbced0
 }
 
-.list-node-item:hover {
-    background: rgba(50, 50, 50, 0.3);
+.list-node-item.active .ext, .list-node-item.active .info .msg {
+    color: #181818
 }
 
-
-.list-node-item.active > .center .text .ext {
-    color: #909090
+.list-node-item .avatar {
+    float: left;
+    margin-right: 10px;
+    position: relative
 }
 
+.list-node-item .avatar .img {
+    display: block;
+    width: 40px;
+    height: 40px;
+    /*border-radius: 2px;*/
+    /*-moz-border-radius: 2px;*/
+    /*-webkit-border-radius: 2px*/
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
 
-.list-node-item > .center, .list-node-item > .center > .nickname-text {
+.list-node-item .avatar .icon {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    color: #fff;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center
+}
+
+.list-node-item .info {
+    overflow: hidden
+}
+
+.list-node-item .info .nickname {
+    font-weight: 400;
+    font-size: 13px;
+    color: #0a0a0a;
+    line-height: 20px
+}
+
+.list-node-item .info .nickname-text {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal
+}
+
+.list-node-item .info .nickname_count, .list-node-item .info .nickname-text {
     display: inline-block;
     *display: inline;
     *zoom: 1;
     vertical-align: top
 }
 
-.list-node-item > .center .text {
+.list-node-item .info .msg {
     color: #989898;
     font-size: 13px;
     width: 100%;
@@ -164,6 +133,35 @@
     white-space: nowrap;
     word-wrap: normal;
     height: 1.5em
+}
+
+.list-node-item .ext {
+    float: right;
+    color: #6b6f7c;
+    font-size: 13px;
+    text-align: right
+}
+
+.list-node-item .ext .attr {
+    height: 19px;
+    line-height: 1.5
+}
+
+.list-node-item .close-icon {
+    display: none;
+    font-size: 24px;
+    color: #ef4949;
+    position: absolute;
+    right: 20px;
+    top: 18px;
+}
+
+.list-node-item:hover .close-icon {
+    display: block;
+}
+
+.list-node-item:hover {
+    background: rgba(50, 50, 50, 0.3);
 }
 
 /***************/

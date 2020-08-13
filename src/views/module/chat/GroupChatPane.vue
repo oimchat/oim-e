@@ -1,6 +1,7 @@
 <template>
     <div class="box chat">
         <base-chat-pane :data="data"
+                        :items="model.messageInfo.list"
                         @on-read-scroll-top="onReadScrollTop"
                         @on-read-scroll="onReadScroll"
 
@@ -85,7 +86,6 @@
             const data = this.data;
             const model = this.model;
             this.data.info = model.info;
-            this.data.readMapper.items = model.messageInfo.list;
 
             const readViewEntity: ChatReadViewEntity = {
                 setScrollTop(size: number) {

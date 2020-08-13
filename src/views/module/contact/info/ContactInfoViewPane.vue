@@ -94,15 +94,15 @@
     import ContactRelationController from '@/app/com/main/module/business/contact/controller/ContactRelationController';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
-    import userInfoViewModel from '@/platform/vue/view/model/UserInfoViewModel';
+    import contactInfoViewModel from '@/platform/vue/view/model/ContactInfoViewModel';
     import CommonIcon from '@/platform/web/common/CommonIcon';
 
 
     @Component({
         components: {},
     })
-    export default class UserInfoPane extends Vue {
-        private model = userInfoViewModel;
+    export default class ContactInfoViewPane extends Vue {
+        private model = contactInfoViewModel;
         private noLogo = CommonIcon.noLogo;
 
         public setUserId(userId: string) {

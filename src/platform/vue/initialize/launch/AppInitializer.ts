@@ -1,5 +1,5 @@
 import PersonalViewImpl from '@/platform/vue/view/impl/PersonalViewImpl';
-import ViewEnum from '@/app/com/client/common/view/ViewEnum';
+import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 import ContactListPaneViewImpl from '@/platform/vue/view/impl/ContactListPaneViewImpl';
 import GroupListPaneViewImpl from '@/platform/vue/view/impl/GroupListPaneViewImpl';
 import UserChatViewImpl from '@/platform/vue/view/impl/UserChatViewImpl';
@@ -8,6 +8,8 @@ import GroupChatViewImpl from '@/platform/vue/view/impl/GroupChatViewImpl';
 import GroupMemberListViewImpl from '@/platform/vue/view/impl/GroupMemberListViewImpl';
 import Initializer from '@/app/base/initialize/Initializer';
 import AppContext from '@/app/base/context/AppContext';
+import ContactInfoViewImpl from '@/platform/vue/view/impl/ContactInfoViewImpl';
+import GroupInfoViewImpl from '@/platform/vue/view/impl/GroupInfoViewImpl';
 
 class AppInitializer implements Initializer {
 
@@ -25,13 +27,15 @@ class AppInitializer implements Initializer {
     }
 
     private initializeView(appContext: AppContext): void {
-        appContext.putView(ViewEnum.PersonalView, PersonalViewImpl);
-        appContext.putView(ViewEnum.ContactListPaneView, ContactListPaneViewImpl);
-        appContext.putView(ViewEnum.GroupListPaneView, GroupListPaneViewImpl);
-        appContext.putView(ViewEnum.MessageListView, MessageListViewImpl);
-        appContext.putView(ViewEnum.UserChatView, UserChatViewImpl);
-        appContext.putView(ViewEnum.GroupChatView, GroupChatViewImpl);
-        appContext.putView(ViewEnum.GroupMemberListView, GroupMemberListViewImpl);
+        appContext.putView(WorkViewEnum.PersonalView, PersonalViewImpl);
+        appContext.putView(WorkViewEnum.ContactListPaneView, ContactListPaneViewImpl);
+        appContext.putView(WorkViewEnum.GroupListPaneView, GroupListPaneViewImpl);
+        appContext.putView(WorkViewEnum.MessageListView, MessageListViewImpl);
+        appContext.putView(WorkViewEnum.UserChatView, UserChatViewImpl);
+        appContext.putView(WorkViewEnum.GroupChatView, GroupChatViewImpl);
+        appContext.putView(WorkViewEnum.GroupMemberListView, GroupMemberListViewImpl);
+        appContext.putView(WorkViewEnum.ContactInfoView, ContactInfoViewImpl);
+        appContext.putView(WorkViewEnum.GroupInfoView, GroupInfoViewImpl);
     }
 }
 

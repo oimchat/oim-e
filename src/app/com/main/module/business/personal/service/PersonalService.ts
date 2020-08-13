@@ -2,7 +2,7 @@ import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/main/module/business/user/bean/User';
 import PersonalManager from '@/app/com/main/module/business/personal/manager/PersonalManager';
 import Client from '@/app/base/message/client/Client';
-import ViewEnum from '@/app/com/client/common/view/ViewEnum';
+import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 import MainView from '@/app/com/client/common/view/MainView';
 
 export default class PersonalService extends AbstractMaterial {
@@ -19,7 +19,7 @@ export default class PersonalService extends AbstractMaterial {
     }
 
     public otherOnline(offline: boolean, client: Client) {
-        const mv: MainView = this.appContext.getView(ViewEnum.MainView);
+        const mv: MainView = this.appContext.getView(WorkViewEnum.MainView);
         mv.showOtherOnline(offline, client);
     }
 }

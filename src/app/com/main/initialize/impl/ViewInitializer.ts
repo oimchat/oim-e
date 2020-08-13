@@ -1,6 +1,6 @@
 import AbstractInitializer from '@/app/com/main/initialize/AbstractInitializer';
 import MessageListView from '@/app/com/client/module/message/view/MessageListView';
-import ViewEnum from '@/app/com/client/common/view/ViewEnum';
+import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 
 export default class ViewInitializer extends AbstractInitializer {
 
@@ -13,7 +13,7 @@ export default class ViewInitializer extends AbstractInitializer {
     }
 
     public initializeView(): void {
-        const messageListView: MessageListView = this.appContext.getView(ViewEnum.MessageListView);
+        const messageListView: MessageListView = this.appContext.getView(WorkViewEnum.MessageListView);
         messageListView.clear();
     }
 }
