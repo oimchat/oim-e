@@ -61,7 +61,7 @@
     import UserQuery from '@/app/com/main/module/business/user/data/UserQuery';
     import Page from '@/app/com/common/data/Page';
     import app from '@/app/App';
-    import UserController from '@/app/com/main/module/business/user/controller/UserController';
+    import UserInfoController from '@/app/com/main/module/business/user/controller/UserInfoController';
     import User from '@/app/com/main/module/business/user/bean/User';
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
@@ -130,7 +130,7 @@
 
             const query: UserQuery = this.query;
             const page: Page = this.page;
-            const uc: UserController = app.appContext.getMaterial(UserController);
+            const uc: UserInfoController = app.appContext.getMaterial(UserInfoController);
             uc.queryUserList(query, page, back);
         }
 

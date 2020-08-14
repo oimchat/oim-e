@@ -12,13 +12,13 @@ export default class UserAccess extends AbstractMaterial {
     }
 
 
-    public getUserById(userId: string, back: (success: boolean, user: User) => void): void {
+    public getUserById(userId: string, back: (success: boolean, message: string, user: User) => void): void {
         const userHandler: UserHandler = this.appContext.getMaterial(UserHandler);
         userHandler.getUserById(userId, back);
     }
 
 
-    public getUsersByIds(ids: string[], back: (success: boolean, users: User[], message: string) => void) {
+    public getUsersByIds(ids: string[], back: (success: boolean, message: string, users: User[]) => void) {
         const userHandler: UserHandler = this.appContext.getMaterial(UserHandler);
         userHandler.getRemoteUsersByIds(ids, back);
     }

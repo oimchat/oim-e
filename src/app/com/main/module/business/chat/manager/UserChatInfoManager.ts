@@ -11,7 +11,7 @@ export default class UserChatInfoManager extends AbstractMaterial {
         const own = this;
         const prompter: Prompter = this.appContext.getMaterial(Prompter);
         const userAccess: UserAccess = this.appContext.getMaterial(UserAccess);
-        userAccess.getUserById(userId, (success, user) => {
+        userAccess.getUserById(userId, (success, message: string, user) => {
             if (success) {
                 own.showUserChat(user);
             } else {

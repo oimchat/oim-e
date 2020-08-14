@@ -12,7 +12,7 @@ export default class ContactInfoViewController extends AbstractMaterial {
         const box: ContactRelationBox = this.appContext.getMaterial(ContactRelationBox);
         if (box.inMemberList(id)) {
             const userAccess: UserAccess = this.appContext.getMaterial(UserAccess);
-            userAccess.getUserById(id, (success: boolean, user: User) => {
+            userAccess.getUserById(id, (success: boolean, message: string, user: User) => {
                 if (success && user) {
                     view.setUser(user);
                     view.setVisible(true);

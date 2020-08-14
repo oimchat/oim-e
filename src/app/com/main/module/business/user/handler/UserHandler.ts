@@ -8,10 +8,10 @@ import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 
 export default class UserHandler extends AbstractMaterial {
 
-    public getUserById(userId: string, back: (success: boolean, user: User) => void): void {
+    public getUserById(userId: string, back: (success: boolean, message: string, user: User) => void): void {
         const user: User = this.getLocalUserById(userId);
         if (user) {
-            back(true, user);
+            back(true, '', user);
         } else {
             this.getRemoteUserById(userId, back);
         }
@@ -22,7 +22,7 @@ export default class UserHandler extends AbstractMaterial {
         return userBox.getUser(userId);
     }
 
-    public getRemoteUserById(userId: string, back: (success: boolean, user: User) => void): void {
+    public getRemoteUserById(userId: string, back: (success: boolean, message: string, user: User) => void): void {
         let user: User | any;
         if (userId) {
             const own = this;
@@ -37,23 +37,23 @@ export default class UserHandler extends AbstractMaterial {
                             mark = true;
                         }
                     }
-                    back(mark, user);
+                    back(mark, '', user);
                 },
                 timeOut(data: any): void {
-                    back(false, user);
+                    back(false, '请求超时！', user);
                 },
                 lost(data: any): void {
-                    back(false, user);
+                    back(false, '请求失败！', user);
                 },
             } as AbstractDataBackAction;
             const userSender: UserSender = this.appContext.getMaterial(UserSender);
             userSender.getUser(userId, dataBack);
         } else {
-            back(false, user);
+            back(false, '请求失败！', user);
         }
     }
 
-    public getRemoteUsersByIds(ids: string[], back: (success: boolean, users: User[], message: string) => void) {
+    public getRemoteUsersByIds(ids: string[], back: (success: boolean, message: string, users: User[]) => void) {
         const userSender: UserSender = this.appContext.getMaterial(UserSender);
         const userBack: DataBackAction = {
             back(data: any): void {
@@ -66,7 +66,7 @@ export default class UserHandler extends AbstractMaterial {
                         if (info.success && data.body) {
                             const items: User[] = data.body.items;
                             if (items) {
-                                for (const u of list) {
+                                for (const u of items) {
                                     UserInfoUtil.handleAvatar(u);
                                 }
                                 list = items;
@@ -76,13 +76,13 @@ export default class UserHandler extends AbstractMaterial {
                         }
                     }
                 }
-                back(mark, list, text);
+                back(mark, text, list);
             },
             lost(data: any): void {
-                back(false, [], '请求失败！');
+                back(false, '请求失败！', []);
             },
             timeOut(data: any): void {
-                back(false, [], '请求超时！');
+                back(false, '请求超时！', []);
             },
         } as DataBackAction;
         userSender.getUsers(ids, userBack, false);

@@ -11,7 +11,7 @@ export default class GroupChatViewController extends AbstractMaterial {
         const own = this;
         const prompter: Prompter = this.appContext.getMaterial(Prompter);
         const groupAccess: GroupAccess = this.appContext.getMaterial(GroupAccess);
-        groupAccess.getGroupById(groupId, (success, group) => {
+        groupAccess.getGroupById(groupId, (success, message: string, group) => {
             if (success) {
                 own.showGroupChatByInfo(group);
             } else {

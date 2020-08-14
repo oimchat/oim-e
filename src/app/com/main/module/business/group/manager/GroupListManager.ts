@@ -276,9 +276,11 @@ export default class GroupListManager extends AbstractMaterial {
             const avatar = GroupInfoUtil.getHeadImage(group);
 
             const gray = false;
+            const text = group.introduce;
 
             const listPaneView: ListPaneView = this.appContext.getView(WorkViewEnum.GroupListPaneView);
             listPaneView.addOrUpdateItem(categoryId, itemId, showName, avatar, gray);
+            listPaneView.updateItemText(categoryId, itemId, text, '');
         }
     }
 }

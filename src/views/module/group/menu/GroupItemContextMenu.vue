@@ -9,14 +9,14 @@
 
 <script lang="ts">
 import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-import UpdateGroupPane from '@/views/module/group/GroupUpdatePane.vue';
-import ChangeGroupOwnerPane from '@/views/module/group/GroupOwnerChangePane.vue';
+import UpdateGroupPane from '@/views/module/group/info/GroupUpdatePane.vue';
+import ChangeGroupOwnerPane from '@/views/module/group/operate/GroupOwnerChangePane.vue';
 
 import app from '@/app/App';
 import GroupMemberListOfPersonalBox from '@/app/com/main/module/business/group/box/GroupMemberListOfPersonalBox';
 import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
 
-import InviteJoinGroup from '@/views/main/group/InviteJoinGroupPane.vue';
+import InviteJoinGroup from '@/views/module/group/operate/GroupJoinInvitePane.vue';
 import GroupRelationController from '@/app/com/main/module/business/group/controller/GroupRelationController';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import Prompt from '@/platform/web/common/Prompt';

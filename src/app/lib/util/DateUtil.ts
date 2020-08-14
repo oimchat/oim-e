@@ -1,4 +1,20 @@
 export default class DateUtil {
+
+    public static getCurrentDate() {
+        const date: Date = new Date();
+        return DateUtil.format('yyyy-MM-dd', date);
+    }
+
+    public static getCurrentDateTime() {
+        const date: Date = new Date();
+        return DateUtil.format('yyyy-MM-dd hh:mm:ss', date);
+    }
+
+    public static getCurrentDateTimeMilliseconds() {
+        const date: Date = new Date();
+        return DateUtil.format('yyyy-MM-dd hh:mm:ss.S', date);
+    }
+
     public static format(format: string, date: Date) {
         /*
          * format="yyyy-MM-dd hh:mm:ss";

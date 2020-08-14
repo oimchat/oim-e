@@ -1,55 +1,59 @@
 <template>
-    <div>
-        <Card style="width: 100%;height: 100%;top: 20px">
-            <p slot="title">
-                <Icon type="ios-film-outline"></Icon>
-                查找群
-            </p>
-
-            <Card>
-                <p slot="title">
-
-                </p>
-                <Row slot="extra">
-                    <Input v-model="query.queryText" placeholder="请输入条件搜搜..." style="width: 200px"/>
-                    <span @click="handleSearch" style="margin: 0 10px;">
-                    <Button type="primary" icon="search">搜索</Button>
-                </span>
-                </Row>
-                <div class="find_wrap">
-                    <div v-for='item in list' class="find_item">
-                        <div class='avatar'>
-                            <Avatar :src="item.avatar" size="large" :title="item.name"></Avatar>
-                        </div>
-                        <div class="info">
-                            <h3 class="nickname">
-                                <span :title="item.name" class="nickname_text">{{item.name}}</span>
-                            </h3>
-                            <p class="msg" style='height: 25px'>
-                                <span class=""></span>
-                            </p>
-                            <p>
-                                <Button @click="handleJoinGroup(item.id)" type="info" size="small"
-                                        icon="ios-add-circle">申请加入
-                                </Button>
-                            </p>
+    <div class="only-full-pane">
+        <div class="only-card only-full-pane">
+            <div class="top">
+                <div class="title-wrap">
+                    <div class="title">查找群</div>
+                    <div></div>
+                </div>
+            </div>
+            <q-card>
+                <div class="query-bar ">
+                    <div class="row" style="float: right">
+                        <q-input v-model="query.queryText" placeholder="请输入条件搜搜..." style="width: 200px"/>
+                        <div style="margin-left:20px;margin-right:30px;padding-top: 10px">
+                            <q-btn @click="handleSearch" color="primary" label="Primary"/>
                         </div>
                     </div>
                 </div>
-            </Card>
-            <Card>
-                <Row>
-                    <Page :current.sync="page.number"
-                          :page-size="page.size"
-                          :total.sync="page.totalCount"
-                          @on-change="handlePage"
-                          @on-page-size-change='handlePageSize'
-                          show-elevator show-sizer>
-                    </Page>
-                </Row>
-            </Card>
-            <JoinGroup ref="joinGroupView"></JoinGroup>
-        </Card>
+            </q-card>
+            <div class="q-pa-md">
+                <div class="row justify-center q-gutter-sm">
+
+                    <template v-for='item in list'>
+                        <q-intersection
+                                once
+                                transition="scale"
+                                class="find-item"
+                        >
+                            <q-card class="q-ma-sm">
+                                <Avatar :src="item.avatar" size="large" :title="item.name"></Avatar>
+
+                                <q-card-section>
+                                    <div class="text-h6">{{item.name}}</div>
+                                    <div class="text-subtitle2">by John Doe</div>
+                                    <Button @click="handleJoinGroup(item.id)" type="info" size="small"
+                                            icon="ios-add-circle">申请加入
+                                    </Button>
+                                </q-card-section>
+                            </q-card>
+                        </q-intersection>
+                    </template>
+                </div>
+            </div>
+            <q-card>
+                <div class="page-center">
+                    <q-pagination
+                            v-model="page.number"
+                            :max="page.totalPage"
+                            :direction-links="true"
+                            @input="handlePage"
+                    >
+                    </q-pagination>
+                </div>
+            </q-card>
+        </div>
+        <!--        <JoinGroup ref="joinGroupView"></JoinGroup>-->
     </div>
 </template>
 
@@ -155,6 +159,20 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    .find-item {
+        height: 290px;
+        width: 290px;
+    }
 
+    .query-bar {
+        text-align: right;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal
+    }
+
+    .page-center {
+        text-align: center;
+    }
 </style>

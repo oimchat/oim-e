@@ -8,7 +8,7 @@ class ScreenShot {
     private basePath: string = path.join(__dirname, '/');
 
     public constructor() {
-
+        // no
     }
 
     public shotTemp(back: (file: File) => void): void {

@@ -20,6 +20,7 @@ import ServerInitializer from '@/app/initialize/ServerInitializer';
 import ComponentInitializer from '@/app/initialize/ComponentInitializer';
 import ListenerInitializer from '@/app/initialize/ListenerInitializer';
 import DefaultViewBuilder from '@/app/impl/default/DefaultViewBuilder';
+import LaunchOrder from '@/app/LaunchOrder';
 
 
 class App {
@@ -30,23 +31,30 @@ class App {
     public disconnection = false;
 
     constructor() {
-        // this.initializeApp();
+        this.initializeApp();
+        LaunchOrder.start(this, 'constructor');
     }
 
     public logout(): void {
+        LaunchOrder.start(this, 'logout');
         this.clearAuth();
         this.closeNet();
         this.buildAppContext();
-        this.buildDefaultView();
-
-        this.initialize();
+        this.initializeApp();
+        this.initializeLaunch();
     }
 
     public putInitializer(data: Initializer) {
         this.launchInitializerBox.put(data);
     }
 
-    public initialize(): void {
+    public initializeApp(): void {
+        this.buildDefaultView();
+    }
+
+    public initializeLaunch(): void {
+        LaunchOrder.start(this, 'initialize');
+
         this.initializeNetServer();
         this.buildModule();
         this.buildLaunch();
@@ -114,7 +122,7 @@ class App {
     }
 
     private buildDefaultView(): void {
-        new DefaultViewBuilder(this.appContext);
+        const builder = new DefaultViewBuilder(this.appContext);
     }
 
     private buildModule(): void {

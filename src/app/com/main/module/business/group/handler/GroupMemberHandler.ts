@@ -34,9 +34,9 @@ export default class GroupMemberHandler extends AbstractMaterial {
                 pg.number = (i + 1);
                 own.getGroupMemberUserPageList(groupId, pg, (
                     mark,
+                    text,
                     ms,
-                    us,
-                    text) => {
+                    us) => {
                     resolve({success: mark, members: ms, users: us, message: text});
                 });
             });
@@ -73,7 +73,7 @@ export default class GroupMemberHandler extends AbstractMaterial {
         });
     }
 
-    public getGroupMemberUserPageList(groupId: string, page: Page, back: (success: boolean, memberList: GroupMember[], userList: User[], message: string) => void) {
+    public getGroupMemberUserPageList(groupId: string, page: Page, back: (success: boolean, message: string, memberList: GroupMember[], userList: User[]) => void) {
         const own = this;
         const userAccess: UserAccess = this.appContext.getMaterial(UserAccess);
 
@@ -86,15 +86,15 @@ export default class GroupMemberHandler extends AbstractMaterial {
                         userIds.push(userId);
                     }
                 }
-                userAccess.getUsersByIds(userIds, (s, users, m) => {
+                userAccess.getUsersByIds(userIds, (s, m, users) => {
                     if (s) {
-                        back(s, members, users, m);
+                        back(s, m, members, users);
                     } else {
-                        back(mark, members, users, text);
+                        back(mark, text, members, users);
                     }
                 });
             } else {
-                back(mark, members, [], text);
+                back(mark, text, members, []);
             }
         });
     }

@@ -55,7 +55,7 @@ class RouteConfigBox {
                 {
                     path: 'find.group',
                     name: 'module.findGroup',
-                    component: () => import('@/views/find/FindGroup.vue'),
+                    component: () => import('@/views/module/group/find/GroupFind.vue'),
                 },
                 {
                     path: 'notice',

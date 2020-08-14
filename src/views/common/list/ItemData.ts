@@ -7,4 +7,5 @@ export default class ItemData {
     public gray: boolean = true;
     public red: boolean = false;
     public redCount: number = 0;
+    public data: any;
 }

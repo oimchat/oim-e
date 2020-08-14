@@ -10,7 +10,7 @@
             <el-icon type="el-icon-edit"></el-icon>
             <span>修改信息</span>
         </p>
-        <div style="width: 100%;height: 100% ;overflow-y: auto">
+        <div style="width: 100%;height: 300px ;overflow-y: auto">
             <el-form ref="userForm" :model="user" :rules="ruleValidate">
                 <el-form-item>
                     <div @click='handleOpenUpdateHead' class="avatar">

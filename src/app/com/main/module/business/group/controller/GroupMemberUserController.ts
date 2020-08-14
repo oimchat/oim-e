@@ -7,7 +7,7 @@ import GroupMemberService from '@/app/com/main/module/business/group/service/Gro
 
 export default class GroupMemberUserController extends AbstractMaterial {
 
-    public getGroupMemberUserPageList(groupId: string, page: Page, back: (success: boolean, memberList: GroupMember[], userList: User[], message: string) => void): void {
+    public getGroupMemberUserPageList(groupId: string, page: Page, back: (success: boolean, message: string, memberList: GroupMember[], userList: User[]) => void): void {
         const handler: GroupMemberHandler = this.appContext.getMaterial(GroupMemberHandler);
         handler.getGroupMemberUserPageList(groupId, page, back);
     }

@@ -18,6 +18,6 @@ class BaseChatViewModel {
     };
 
     public initialize() {
-
+        // no
     }
 }

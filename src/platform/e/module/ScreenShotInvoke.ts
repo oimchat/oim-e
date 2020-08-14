@@ -5,7 +5,7 @@ class ScreenShotInvoke {
     private basePath: string = path.join(__dirname, '/');
 
     public shot(back: (file: File) => void): void {
-        screenShot.shot(back).then(r => {
+        screenShot.shot(back).then((r) => {
             // no
         });
         // ipcRenderer.send('screenShot.shot');

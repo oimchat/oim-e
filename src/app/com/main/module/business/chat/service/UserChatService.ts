@@ -34,7 +34,7 @@ export default class UserChatService extends AbstractMaterial {
 
         const isShowUserContact = contactAccess.isContact(showUserId);
 
-        userAccess.getUserById(showUserId, (success: boolean, user: User) => {
+        userAccess.getUserById(showUserId, (success: boolean, message: string, user: User) => {
             if (!success || !user) {
 
                 user = new User();

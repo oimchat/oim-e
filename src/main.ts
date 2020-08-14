@@ -1,3 +1,7 @@
+import platformInitialize from '@/platform/initialize/PlatformInitialize';
+
+platformInitialize.initialize();
+
 import Vue from 'vue';
 import App from './App.vue';
 import routerManager from './router/RouterManager';
@@ -42,7 +46,7 @@ new Vue({
     render: (h) => h(App),
 }).$mount('#app');
 
-import platformInitialize from '@/platform/initialize/PlatformInitialize';
+
 import './quasar';
 
-platformInitialize.initialize();
+

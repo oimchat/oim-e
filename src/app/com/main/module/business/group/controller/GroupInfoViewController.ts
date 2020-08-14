@@ -12,7 +12,7 @@ export default class GroupInfoViewController extends AbstractMaterial {
         const box: GroupRelationBox = this.appContext.getMaterial(GroupRelationBox);
         if (box.inMemberList(id)) {
             const groupAccess: GroupAccess = this.appContext.getMaterial(GroupAccess);
-            groupAccess.getGroupById(id, (success: boolean, group: Group) => {
+            groupAccess.getGroupById(id, (success: boolean, message: string, group: Group) => {
                 if (success && group) {
                     view.setGroup(group);
                     view.setVisible(true);

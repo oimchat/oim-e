@@ -82,7 +82,7 @@
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
 
-    import GroupJoinSettingPane from '@/views/module/group/GroupJoinSettingPane.vue';
+    import GroupJoinSettingPane from '@/views/module/group/setting/GroupJoinSettingPane.vue';
     import app from '@/app/App';
     import User from '@/app/com/main/module/business/user/bean/User';
     import DataBackAction from '@/app/base/net/DataBackAction';
@@ -101,22 +101,8 @@
     export default class GroupInfoViewPane extends Vue {
         private model = groupInfoViewModel;
         private noLogo = CommonIcon.noLogo;
-        private showList: boolean = false;
         private showMore: boolean = false;
 
-        private getNickname(user: User): string {
-            const service: GroupMemberService = app.appContext.getMaterial(GroupMemberService);
-            const groupId = this.model.groupId;
-            let nickname = '';
-            if (user) {
-                nickname = service.getUserShowName(groupId, user);
-            }
-            return nickname;
-        }
-
-        private handleShowList() {
-            this.showList = !this.showList;
-        }
 
         private openSend() {
             const groupId = this.model.groupId;
@@ -156,14 +142,6 @@
             } as DataBackAction;
             const ccc: GroupRelationController = app.appContext.getMaterial(GroupRelationController);
             ccc.updateRemark(groupId, text, back);
-        }
-
-        private memberContextMenu(e: MouseEvent, user: User) {
-            const groupId = this.model.groupId;
-            const userId = user.id;
-            const menuName = 'groupMemberContextMenu';
-            const menu: any = this.$refs[menuName];
-            menu.show(e, groupId, userId);
         }
     }
 </script>

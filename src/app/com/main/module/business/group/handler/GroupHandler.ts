@@ -8,10 +8,10 @@ import GroupInfoSender from '@/app/com/main/module/business/group/sender/GroupIn
 
 export default class GroupHandler extends AbstractMaterial {
 
-    public getGroupById(groupId: string, back: (success: boolean, group: Group) => void): void {
+    public getGroupById(groupId: string, back: (success: boolean, message: string, group: Group) => void): void {
         const group: Group = this.getLocalGroupById(groupId);
         if (group) {
-            back(true, group);
+            back(true, '', group);
         } else {
             this.getRemoteGroupById(groupId, back);
         }
@@ -22,7 +22,7 @@ export default class GroupHandler extends AbstractMaterial {
         return groupBox.getGroup(groupId);
     }
 
-    public getRemoteGroupById(groupId: string, back: (success: boolean, group: Group) => void): void {
+    public getRemoteGroupById(groupId: string, back: (success: boolean, message: string, group: Group) => void): void {
         let group: Group | any;
         if (groupId) {
             const own = this;
@@ -37,19 +37,19 @@ export default class GroupHandler extends AbstractMaterial {
                             mark = true;
                         }
                     }
-                    back(mark, group);
+                    back(mark, '', group);
                 },
                 timeOut(data: any): void {
-                    back(false, group);
+                    back(false, '请求超时！', group);
                 },
                 lost(data: any): void {
-                    back(false, group);
+                    back(false, '请求失败！', group);
                 },
             } as AbstractDataBackAction;
             const groupSender: GroupInfoSender = this.appContext.getMaterial(GroupInfoSender);
             groupSender.getGroup(groupId, dataBack);
         } else {
-            back(false, group);
+            back(false, '请求失败！', group);
         }
     }
 }

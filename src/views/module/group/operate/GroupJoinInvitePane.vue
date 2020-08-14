@@ -4,13 +4,13 @@
             width="610"
             class="form-modal"
     >
-        <div class="chat_item slide-left">
+        <div class="icon-info-item slide-left">
             <div class="avatar">
                 <img class="img" :src="group.avatar" alt="">
             </div>
             <div class="info">
                 <h3 class="nickname" style="color: #212223;">
-                    <span class="nickname_text">{{group.name}}号码：{{group.number}}</span>
+                    <span class="nickname-text">{{group.name}}号码：{{group.number}}</span>
                 </h3>
                 <p class="msg" style="color: #9ab1c7;">
                     <span class="">{{group.introduce}}</span>
@@ -153,5 +153,100 @@
 </script>
 
 <style scoped>
+    .icon-info-item {
+        overflow: hidden;
+        padding: 12px 18px 11px;
+        /*border-bottom: 1px solid #647481;*/
+        cursor: pointer;
+        position: relative
+    }
 
+    .icon-info-item.top {
+        background-color: #2e3641
+    }
+
+    .icon-info-item.active {
+        background: #314050
+    }
+
+    .icon-info-item.active .ext, .icon-info-item.active .info .msg {
+        color: #fff
+    }
+
+    .icon-info-item .avatar {
+        float: left;
+        margin-right: 10px;
+        position: relative
+    }
+
+    .icon-info-item .avatar .img {
+        display: block;
+        width: 40px;
+        height: 40px;
+        /*border-radius: 2px;*/
+        /*-moz-border-radius: 2px;*/
+        /*-webkit-border-radius: 2px*/
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+    }
+
+    .icon-info-item .avatar .icon {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        color: #fff;
+        font-style: normal;
+        font-size: 12px;
+        text-align: center
+    }
+
+    .icon-info-item .info {
+        overflow: hidden
+    }
+
+    .icon-info-item .info .nickname {
+        font-weight: 400;
+        font-size: 13px;
+        color: #fff;
+        line-height: 20px
+    }
+
+    .icon-info-item .info .nickname-text {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal
+    }
+
+    .icon-info-item .info .nickname_count, .icon-info-item .info .nickname-text {
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+        vertical-align: top
+    }
+
+    .icon-info-item .info .msg {
+        color: #989898;
+        font-size: 13px;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal;
+        height: 1.5em
+    }
+
+    .icon-info-item .ext {
+        float: right;
+        color: #6b6f7c;
+        font-size: 13px;
+        text-align: right
+    }
+
+    .icon-info-item .ext .attr {
+        height: 19px;
+        line-height: 1.5
+    }
 </style>

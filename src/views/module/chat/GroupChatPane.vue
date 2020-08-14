@@ -45,7 +45,7 @@
     import BaseChatMapper from '@/views/module/chat/BaseChatMapper';
     import GroupMemberListPane from '@/views/module/group/member/GroupMemberListPane.vue';
 
-    import GroupJoinSettingPane from '@/views/module/group/GroupJoinSettingPane.vue';
+    import GroupJoinSettingPane from '@/views/module/group/setting/GroupJoinSettingPane.vue';
 
     import groupChatViewModel from '@/platform/vue/view/model/GroupChatViewModel';
 
@@ -216,7 +216,6 @@
             const data = this.data;
             const model = this.model;
             this.data.info = model.info;
-            this.data.readMapper.items = model.messageInfo.list;
         }
 
 

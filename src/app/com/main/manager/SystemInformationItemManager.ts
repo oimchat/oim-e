@@ -18,7 +18,7 @@ export default class SystemInformationItemManager extends AbstractMaterial {
         const systemInformItemEvent: SystemInformationItemEvent = this.appContext.getMaterial(SystemInformationItemEvent);
 
         const messageListView: MessageListView = this.appContext.getView(WorkViewEnum.MessageListView);
-        messageListView.addOrUpdateItem(this.type, key, name, avatar, gray, '',(k: string) => {
+        messageListView.addOrUpdateItem(this.type, key, name, avatar, gray, '', (k: string) => {
             systemInformItemEvent.onSelect(key);
         }, (k: string) => {
             systemInformItemEvent.onDelete(k);

@@ -23,8 +23,8 @@ Vue.use(Quasar, {
     config: {
         Notify: {},
     },
-    components: { /* not needed if importStrategy is not 'manual' */},
-    directives: { /* not needed if importStrategy is not 'manual' */},
+    components: {/* not needed if importStrategy is not 'manual' */},
+    directives: {/* not needed if importStrategy is not 'manual' */},
     plugins: {
         Dialog,
         Notify,

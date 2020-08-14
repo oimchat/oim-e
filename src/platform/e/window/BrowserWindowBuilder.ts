@@ -38,7 +38,7 @@ export default class BrowserWindowBuilder {
         // });
 
         win.on('closed', () => {
-
+            // no
         });
 
         win.on('maximize', () => {

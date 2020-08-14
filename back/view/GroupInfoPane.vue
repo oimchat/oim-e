@@ -75,7 +75,7 @@
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
 
-    import GroupJoinSettingPane from '@/views/module/group/GroupJoinSettingPane.vue';
+    import GroupJoinSettingPane from '../../src/views/module/group/setting/GroupJoinSettingPane.vue';
     import GroupMemberContextMenu from '../../src/views/module/group/member/menu/GroupMemberContextMenu.vue';
 
     import groupChatViewModel from '../../src/platform/vue/view/model/GroupChatViewModel';

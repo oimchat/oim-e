@@ -61,7 +61,7 @@
     import MessagePane from '@/views/common/chat/ReadPane.vue';
     import WritePane from '@/views/common/chat/WritePane.vue';
 
-    import GroupJoinSettingPane from '@/views/module/group/GroupJoinSettingPane.vue';
+    import GroupJoinSettingPane from '../../src/views/module/group/setting/GroupJoinSettingPane.vue';
     import GroupMemberContextMenu from '../../src/views/module/group/member/menu/GroupMemberContextMenu.vue';
 
     import groupChatViewModel from '../../src/platform/vue/view/model/GroupChatViewModel';

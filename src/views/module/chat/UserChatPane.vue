@@ -174,7 +174,6 @@
             const data = this.data;
             const model = this.model;
             this.data.info = model.info;
-            this.data.readMapper.items = model.messageInfo.list;
         }
     }
 </script>

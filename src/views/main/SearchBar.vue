@@ -37,7 +37,7 @@
                                     <a @click="handleShowUser(item.key)" href="javascript:void(0)">
                                         <i class="fa fa-address-card"></i>
                                     </a>
-                                    <span>&nbsp;</span>
+                                    <span style="margin-right: 5px">&nbsp;</span>
                                     <a @click="handleAddUser(item.key)" href="javascript:void(0)">
                                         <i class="fa fa-plus"></i>
                                     </a>
@@ -67,17 +67,40 @@
         </div>
         <AddUser ref="addUserView"></AddUser>
         <JoinGroup ref="joinGroupView"></JoinGroup>
+        <Modal v-model="groupInfoShow"
+               width="560"
+               footer-hide
+               class-name="vertical-center-modal"
+        >
+            <div :style="heightStyle">
+                <group-info-card-pane :data="groupInfoCardMapper">
+                </group-info-card-pane>
+            </div>
+        </Modal>
 
-        <GroupInfoCard ref="groupInfoCardView"></GroupInfoCard>
-        <UserInfoCard ref="userInfoCardView"></UserInfoCard>
+        <Modal v-model="userInfoShow"
+               width="560"
+               footer-hide
+               class-name="vertical-center-modal"
+        >
+            <div :style="heightStyle">
+                <user-info-card-pane :data="userInfoCardMapper">
+                </user-info-card-pane>
+            </div>
+        </Modal>
     </div>
 </template>
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
     import ItemPane from '@/views/common/list/ItemPane.vue';
-    import GroupInfoCard from '@/views/main/card/GroupInfoCard.vue';
-    import UserInfoCard from '@/views/main/card/UserInfoCard.vue';
+
+    import GroupInfoCardPane from '@/views/module/group/card/GroupInfoCardPane.vue';
+    import GroupInfoCardMapper from '@/views/module/group/card/GroupInfoCardMapper';
+
+    import UserInfoCardPane from '@/views/module/user/card/UserInfoCardPane.vue';
+    import UserInfoCardMapper from '@/views/module/user/card/UserInfoCardMapper';
+
 
     import JoinGroup from '@/views/find/JoinGroup.vue';
     import AddUser from '@/views/find/AddUser.vue';
@@ -91,20 +114,21 @@
     import DataBackAction from '@/app/base/net/DataBackAction';
     import UserQuery from '@/app/com/main/module/business/user/data/UserQuery';
     import Page from '@/app/com/common/data/Page';
-    import UserController from '@/app/com/main/module/business/user/controller/UserController';
+    import UserInfoController from '@/app/com/main/module/business/user/controller/UserInfoController';
     import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
     import GroupInfoUtil from '@/app/com/main/common/util/GroupInfoUtil';
     import GroupQuery from '@/app/com/main/module/business/group/data/GroupQuery';
     import GroupInfoController from '@/app/com/main/module/business/group/controller/GroupInfoController';
     import ItemBox from '../common/list/ItemBox';
 
+
     @Component({
         components: {
             ItemPane,
+            GroupInfoCardPane,
+            UserInfoCardPane,
             JoinGroup,
             AddUser,
-            UserInfoCard,
-            GroupInfoCard,
         },
     })
     export default class SearchBar extends Vue {
@@ -126,6 +150,12 @@
 
         private userMap: Map<string, User> = new Map<string, User>();
         private groupMap: Map<string, Group> = new Map<string, Group>();
+
+
+        private groupInfoCardMapper: GroupInfoCardMapper = new GroupInfoCardMapper();
+        private userInfoCardMapper: UserInfoCardMapper = new UserInfoCardMapper();
+        private userInfoShow: boolean = false;
+        private groupInfoShow: boolean = false;
 
         public onSearchChange(): void {
             const t = this.text;
@@ -192,7 +222,7 @@
 
             page.size = 10;
             query.queryText = this.text;
-            const uc: UserController = app.appContext.getMaterial(UserController);
+            const uc: UserInfoController = app.appContext.getMaterial(UserInfoController);
             uc.queryList(query, page, (success, message, users) => {
                 if (success) {
                     own.setFindUserList(users);
@@ -302,20 +332,24 @@
 
         private handleShowUser(userId: string) {
             const user = this.userMap.get(userId);
-            const userInfoCardName = 'userInfoCardView';
-            const userInfoCardView: any = this.$refs[userInfoCardName];
-            userInfoCardView.setUser(user);
-            // userInfoCardView.setUserId(userId);
-            userInfoCardView.setShow(true);
+            if (user) {
+                this.userInfoCardMapper.setUser(user);
+                this.userInfoShow = true;
+            }
         }
 
         private handleShowGroup(groupId: string) {
             const group = this.groupMap.get(groupId);
-            const groupInfoCardViewName = 'groupInfoCardView';
-            const groupInfoCardView: any = this.$refs[groupInfoCardViewName];
-            // groupInfoCardView.setGroupId(groupId);
-            groupInfoCardView.setGroup(group);
-            groupInfoCardView.setShow(true);
+            if (group) {
+                this.groupInfoCardMapper.setGroup(group);
+                this.groupInfoShow = true;
+            }
+        }
+
+        get heightStyle() {
+            const clientHeight = document.body.clientHeight;
+            const height = clientHeight - 100;
+            return {height: height + 'px'};
         }
 
         @Emit('on-user-selected')
@@ -496,6 +530,16 @@
             :hover {
                 color: #35a328;
             }
+        }
+    }
+
+    .vertical-center-modal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .ivu-modal {
+            top: 0;
         }
     }
 </style>

@@ -9,7 +9,7 @@ export default class GroupInfoAction extends AbstractMaterial {
     @MethodMapping(GroupInfoAction, GroupInfoAction.action, '1.2.0001')
     public update(data: any): void {
         if (data && data.body) {
-            const groupId: string = data.body.groupId;
+            const groupId: string = data.body.id;
             if (groupId) {
                 const groupService: GroupInfoService = this.appContext.getMaterial(GroupInfoService);
                 groupService.updateById(groupId);
@@ -20,7 +20,7 @@ export default class GroupInfoAction extends AbstractMaterial {
     @MethodMapping(GroupInfoAction, GroupInfoAction.action, '1.2.0002')
     public updateHead(data: any): void {
         if (data && data.body) {
-            const groupId: string = data.body.groupId;
+            const groupId: string = data.body.id;
             if (groupId) {
                 const groupService: GroupInfoService = this.appContext.getMaterial(GroupInfoService);
                 groupService.updateById(groupId);

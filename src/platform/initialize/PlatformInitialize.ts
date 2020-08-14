@@ -15,22 +15,25 @@ import WebPlatformComponentInitializer from '@/platform/web/initialize/launch/We
 import WebComponentInitializer from '@/common/web/initialize/launch/WebComponentInitializer';
 import WebPlatformFaceInitializer from '@/platform/web/initialize/launch/WebPlatformFaceInitializer';
 
+import LaunchOrder from '@/app/LaunchOrder';
+
 
 class PlatformInitialize {
 
-    private change: DataChange<number> = new class implements DataChange<number> {
-        public change(count: number): void {
+    private change: DataChange<number> = {
+        change(count: number): void {
             if (count > 0) {
                 systemTrayBlinkDetection.setBlink(true);
             } else {
                 systemTrayBlinkDetection.setBlink(false);
             }
-        }
-    };
+        },
+    } as DataChange<number>;
 
     public constructor() {
         this.initializeRouter();
-        this.initialize();
+        // this.initialize();
+        LaunchOrder.start(this, 'constructor');
     }
 
 
@@ -89,7 +92,7 @@ class PlatformInitialize {
     }
 
     private initializeApp() {
-        app.initialize();
+        app.initializeLaunch();
     }
 }
 

@@ -39,7 +39,7 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import GroupUpdateHeadPane from '@/views/module/group/GroupUpdateHeadPane.vue';
+    import GroupUpdateHeadPane from '@/views/module/group/info/GroupUpdateHeadPane.vue';
     import app from '@/app/App';
     import Group from '@/app/com/main/module/business/group/bean/Group';
     import DataBackAction from '@/app/base/net/DataBackAction';

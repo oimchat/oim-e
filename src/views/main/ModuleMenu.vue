@@ -27,7 +27,7 @@
         components: {},
     })
     export default class ModuleMenu extends Vue {
-        private menuTheme: string = 'dark';
+        private menuTheme: string = 'light';
 
         private findUser(): void {
             this.$router.push({path: '/module/find.user'});

@@ -11,7 +11,7 @@ export default class GroupAccess extends AbstractMaterial {
         groupListener.addChangeEvent(e);
     }
 
-    public getGroupById(groupId: string, back: (success: boolean, group: Group) => void): void {
+    public getGroupById(groupId: string, back: (success: boolean, message: string, group: Group) => void): void {
         const groupHandler: GroupHandler = this.appContext.getMaterial(GroupHandler);
         groupHandler.getGroupById(groupId, back);
     }

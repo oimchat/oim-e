@@ -14,7 +14,7 @@
     import PopupMenu from '@/views/common/menu/PopupMenu.vue';
     import PopupMenuData from '@/views/common/menu/PopupMenuData';
 
-    import AddGroup from '@/views/module/group/GroupAddPane.vue';
+    import AddGroup from '@/views/module/group/info/GroupAddPane.vue';
     import UpdatePassword from '@/views/module/personal/UpdatePasswordPane.vue';
     import UpdateData from '@/views/module/personal/UpdateDataPane.vue';
     import app from '@/app/App';

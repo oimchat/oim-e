@@ -86,25 +86,7 @@
 
                         </q-tab-panel>
                         <q-tab-panel :name="tabs.moduleTab.key">
-                            <div class="text-h4 q-mb-md">Movies</div>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque
-                                magnam
-                                odio
-                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda
-                                consectetur
-                                culpa fuga nulla ullam. In, libero.</p>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque
-                                magnam
-                                odio
-                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda
-                                consectetur
-                                culpa fuga nulla ullam. In, libero.</p>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque
-                                magnam
-                                odio
-                                iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda
-                                consectetur
-                                culpa fuga nulla ullam. In, libero.</p>
+                            <ModuleMenu></ModuleMenu>
                         </q-tab-panel>
                     </q-tab-panels>
                 </div>
@@ -127,11 +109,11 @@
                     <q-tab-panel :name="tabs.groupTab.key">
                         <GroupInfoPane ref="groupInfoPane" @on-to-send="openGroupChat"></GroupInfoPane>
                     </q-tab-panel>
+
                     <q-tab-panel :name="tabs.moduleTab.key">
-                        <div class="box chat">
-                            <router-view></router-view>
-                        </div>
+                        <router-view></router-view>
                     </q-tab-panel>
+
                 </q-tab-panels>
             </div>
         </div>
@@ -175,7 +157,7 @@
     import UserNodeContextMenu from '@/views/module/contact/menu/ContactNodeContextMenu.vue';
 
     import ContactInfoViewPane from '@/views/module/contact/info/ContactInfoViewPane.vue';
-    import UserInfoPane from './module/user/info/UserInfoCardPane.vue';
+    import UserInfoPane from './module/user/card/UserInfoCardPane.vue';
     import PersonalInfoPane from './main/pane/PersonalInfoPane.vue';
     import GroupInfoPane from './module/group/info/GroupInfoViewPane.vue';
 
@@ -204,6 +186,7 @@
     import GroupChatViewController from '@/app/com/main/module/business/chat/controller/GroupChatViewController';
     import GroupInfoViewController from '@/app/com/main/module/business/group/controller/GroupInfoViewController';
     import ContactInfoViewController from '@/app/com/main/module/business/contact/controller/ContactInfoViewController';
+    import LaunchOrder from '@/app/LaunchOrder';
 
 
     @Component({
@@ -239,6 +222,7 @@
 
         // 声明周期钩子
         public mounted() {
+            LaunchOrder.start(this, 'mounted');
             app.appContext.putViewObject(WorkViewEnum.MainView, this);
             mainViewData.initialize();
         }

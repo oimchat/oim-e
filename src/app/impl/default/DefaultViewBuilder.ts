@@ -11,6 +11,7 @@ import GroupMemberListViewDefaultImpl from '@/app/impl/default/view/GroupMemberL
 import MessageAllUnreadViewDefaultImpl from '@/app/impl/default/view/MessageAllUnreadViewDefaultImpl';
 import ContactInfoViewDefaultImpl from '@/app/impl/default/view/ContactInfoViewDefaultImpl';
 import GroupInfoViewDefaultImpl from '@/app/impl/default/view/GroupInfoViewDefaultImpl';
+import LaunchOrder from '@/app/LaunchOrder';
 
 export default class DefaultViewBuilder {
 
@@ -18,7 +19,8 @@ export default class DefaultViewBuilder {
         this.buildDefaultView();
     }
 
-    private buildDefaultView(): void {
+    public buildDefaultView(): void {
+        LaunchOrder.start(this, 'buildDefaultView');
         this.appContext.putView(WorkViewEnum.MainView, MainViewDefaultImpl);
         this.appContext.putView(WorkViewEnum.PersonalView, PersonalViewDefaultImpl);
         this.appContext.putView(WorkViewEnum.ContactListPaneView, ContactListPaneViewDefaultImpl);

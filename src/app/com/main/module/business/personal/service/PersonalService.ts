@@ -4,6 +4,7 @@ import PersonalManager from '@/app/com/main/module/business/personal/manager/Per
 import Client from '@/app/base/message/client/Client';
 import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 import MainView from '@/app/com/client/common/view/MainView';
+import LaunchOrder from '@/app/LaunchOrder';
 
 export default class PersonalService extends AbstractMaterial {
 
@@ -19,6 +20,7 @@ export default class PersonalService extends AbstractMaterial {
     }
 
     public otherOnline(offline: boolean, client: Client) {
+        LaunchOrder.start(this, 'otherOnline');
         const mv: MainView = this.appContext.getView(WorkViewEnum.MainView);
         mv.showOtherOnline(offline, client);
     }

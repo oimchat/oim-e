@@ -38,7 +38,7 @@ export default class GroupChatService extends AbstractMaterial {
 
         const isJoin = groupRelationAccess.isJoin(groupId);
 
-        groupAccess.getGroupById(groupId, (success, g) => {
+        groupAccess.getGroupById(groupId, (success, message: string, g) => {
             if (!success || !g) {
                 g = new Group();
                 g.id = groupId;
@@ -93,7 +93,7 @@ export default class GroupChatService extends AbstractMaterial {
             own.showChatMessage(isReceive, isChatUserOwn, group, chatUser, content);
         } else {
             const isShowUserContact = contactAccess.isContact(chatUserId);
-            userAccess.getUserById(chatUserId, (success: boolean, user: User) => {
+            userAccess.getUserById(chatUserId, (success: boolean, message: string, user: User) => {
                 if (!success || !user) {
                     user = new User();
                     user.id = chatUserId;

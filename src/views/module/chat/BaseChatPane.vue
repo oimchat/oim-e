@@ -47,77 +47,77 @@
 </template>
 
 <script lang="ts">
-    import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import ReadPane from '@/views/common/chat/ReadPane.vue';
-    import WritePane from '@/views/common/chat/WritePane.vue';
-    import BaseChatMapper from '@/views/module/chat/BaseChatMapper';
-    import Content from '@/app/com/common/chat/Content';
-    import ContentWrap from '@/common/vue/data/content/ContentWrap';
+import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
+import ReadPane from '@/views/common/chat/ReadPane.vue';
+import WritePane from '@/views/common/chat/WritePane.vue';
+import BaseChatMapper from '@/views/module/chat/BaseChatMapper';
+import Content from '@/app/com/common/chat/Content';
+import ContentWrap from '@/common/vue/data/content/ContentWrap';
 
-    @Component({
-        components: {
-            ReadPane,
-            WritePane,
-        },
+@Component({
+    components: {
+        ReadPane,
+        WritePane,
+    },
+})
+export default class BaseChatPane extends Vue {
+
+    @Prop({
+        type: Array,
+        required: false,
+        default: () => ([]),
     })
-    export default class BaseChatPane extends Vue {
-        private splitterModel = 190; // start at 150px
-        private avatar = 'assets/images/common/head/user/1.png';
-        @Prop({
-            type: BaseChatMapper,
-            required: false,
-            default: () => (new BaseChatMapper()),
-        })
-        private data!: BaseChatMapper;
+    public items!: ContentWrap [];
+    private splitterModel = 190; // start at 150px
+    private avatar = 'assets/images/common/head/user/1.png';
+    @Prop({
+        type: BaseChatMapper,
+        required: false,
+        default: () => (new BaseChatMapper()),
+    })
+    private data!: BaseChatMapper;
 
-        @Prop({
-            type: Array,
-            required: false,
-            default: () => ([]),
-        })
-        public items!: ContentWrap [];
-
-        public mounted() {
-            this.initialize();
-        }
-
-        private initialize() {
-            const own = this;
-            // todo
-        }
-
-
-        @Emit('on-read-scroll')
-        private onScroll(info: { event: Event, scrollHeight: number, scrollTop: number, scrollPosition: string }) {
-            // no
-        }
-
-        @Emit('on-read-scroll-top')
-        private onTop() {
-            // no
-        }
-
-
-        @Emit('on-write-send')
-        private onSend(content: Content) {
-            // no
-        }
-
-        @Emit('on-write-key-press')
-        private onKeyPress(evt: KeyboardEvent, e: Element) {
-            // no
-        }
-
-        @Emit('on-write-key-up')
-        private keyup(evt: KeyboardEvent, e: Element) {
-            // no
-        }
-
-        @Emit('on-write-file')
-        private onFile(data: any, file: File) {
-            // no
-        }
+    public mounted() {
+        this.initialize();
     }
+
+    private initialize() {
+        const own = this;
+        // todo
+    }
+
+
+    @Emit('on-read-scroll')
+    private onScroll(info: { event: Event, scrollHeight: number, scrollTop: number, scrollPosition: string }) {
+        // no
+    }
+
+    @Emit('on-read-scroll-top')
+    private onTop() {
+        // no
+    }
+
+
+    @Emit('on-write-send')
+    private onSend(content: Content) {
+        // no
+    }
+
+    @Emit('on-write-key-press')
+    private onKeyPress(evt: KeyboardEvent, e: Element) {
+        // no
+    }
+
+    @Emit('on-write-key-up')
+    private keyup(evt: KeyboardEvent, e: Element) {
+        // no
+    }
+
+    @Emit('on-write-file')
+    private onFile(data: any, file: File) {
+        // no
+    }
+}
 </script>
 
 <style lang="scss" scoped>
