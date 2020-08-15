@@ -1,9 +1,13 @@
 import Initializer from '@/app/base/initialize/Initializer';
 import AppContext from '@/app/base/context/AppContext';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 import WebPromptHandlerImpl from '@/platform/web/impl/WebPromptHandlerImpl';
 import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 import MessageAllUnreadViewImpl from '@/platform/web/view/impl/MessageAllUnreadViewImpl';
+import GroupInviteApplyListViewImpl from '@/platform/web/view/impl/GroupInviteApplyListViewImpl';
+import GroupInviteeApplyListViewImpl from '@/platform/web/view/impl/GroupInviteeApplyListViewImpl';
+import GroupJoinApplyListViewImpl from '@/platform/web/view/impl/GroupJoinApplyListViewImpl';
+import ContactAddApplyListViewImpl from '@/platform/web/view/impl/ContactAddApplyListViewImpl';
 
 export default class WebPlatformComponentInitializer implements Initializer {
 
@@ -23,6 +27,10 @@ export default class WebPlatformComponentInitializer implements Initializer {
     }
 
     public initializeView(appContext: AppContext) {
-        appContext.putView(WorkViewEnum.MessageAllUnreadView, MessageAllUnreadViewImpl);
+        appContext.putViewImpl(WorkViewEnum.MessageAllUnreadView, MessageAllUnreadViewImpl);
+        appContext.putViewImpl(WorkViewEnum.GroupInviteApplyListView, GroupInviteApplyListViewImpl);
+        appContext.putViewImpl(WorkViewEnum.GroupInviteeApplyListView, GroupInviteeApplyListViewImpl);
+        appContext.putViewImpl(WorkViewEnum.GroupJoinApplyListView, GroupJoinApplyListViewImpl);
+        appContext.putViewImpl(WorkViewEnum.ContactAddApplyListView, ContactAddApplyListViewImpl);
     }
 }

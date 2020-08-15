@@ -12,6 +12,10 @@ import MessageAllUnreadViewDefaultImpl from '@/app/impl/default/view/MessageAllU
 import ContactInfoViewDefaultImpl from '@/app/impl/default/view/ContactInfoViewDefaultImpl';
 import GroupInfoViewDefaultImpl from '@/app/impl/default/view/GroupInfoViewDefaultImpl';
 import LaunchOrder from '@/app/LaunchOrder';
+import GroupInviteApplyListViewDefaultImpl from '@/app/impl/default/view/GroupInviteApplyListViewDefaultImpl';
+import GroupInviteeApplyListViewDefaultImpl from '@/app/impl/default/view/GroupInviteeApplyListViewDefaultImpl';
+import GroupJoinApplyListViewDefaultImpl from '@/app/impl/default/view/GroupJoinApplyListViewDefaultImpl';
+import ContactAddApplyListViewDefaultImpl from '@/app/impl/default/view/ContactAddApplyListViewDefaultImpl';
 
 export default class DefaultViewBuilder {
 
@@ -21,16 +25,20 @@ export default class DefaultViewBuilder {
 
     public buildDefaultView(): void {
         LaunchOrder.start(this, 'buildDefaultView');
-        this.appContext.putView(WorkViewEnum.MainView, MainViewDefaultImpl);
-        this.appContext.putView(WorkViewEnum.PersonalView, PersonalViewDefaultImpl);
-        this.appContext.putView(WorkViewEnum.ContactListPaneView, ContactListPaneViewDefaultImpl);
-        this.appContext.putView(WorkViewEnum.GroupListPaneView, GroupListPaneViewDefaultImpl);
-        this.appContext.putView(WorkViewEnum.MessageListView, MessageListViewDefaultImpl);
-        this.appContext.putView(WorkViewEnum.UserChatView, UserChatViewDefaultImpl);
-        this.appContext.putView(WorkViewEnum.GroupChatView, GroupChatViewDefaultImpl);
-        this.appContext.putView(WorkViewEnum.ContactInfoView, ContactInfoViewDefaultImpl);
-        this.appContext.putView(WorkViewEnum.GroupInfoView, GroupInfoViewDefaultImpl);
-        this.appContext.putView(WorkViewEnum.GroupMemberListView, GroupMemberListViewDefaultImpl);
-        this.appContext.putView(WorkViewEnum.MessageAllUnreadView, MessageAllUnreadViewDefaultImpl);
+        this.appContext.putViewImpl(WorkViewEnum.MainView, MainViewDefaultImpl);
+        this.appContext.putViewImpl(WorkViewEnum.PersonalView, PersonalViewDefaultImpl);
+        this.appContext.putViewImpl(WorkViewEnum.ContactListPaneView, ContactListPaneViewDefaultImpl);
+        this.appContext.putViewImpl(WorkViewEnum.GroupListPaneView, GroupListPaneViewDefaultImpl);
+        this.appContext.putViewImpl(WorkViewEnum.MessageListView, MessageListViewDefaultImpl);
+        this.appContext.putViewImpl(WorkViewEnum.UserChatView, UserChatViewDefaultImpl);
+        this.appContext.putViewImpl(WorkViewEnum.GroupChatView, GroupChatViewDefaultImpl);
+        this.appContext.putViewImpl(WorkViewEnum.ContactInfoView, ContactInfoViewDefaultImpl);
+        this.appContext.putViewImpl(WorkViewEnum.GroupInfoView, GroupInfoViewDefaultImpl);
+        this.appContext.putViewImpl(WorkViewEnum.GroupMemberListView, GroupMemberListViewDefaultImpl);
+        this.appContext.putViewImpl(WorkViewEnum.MessageAllUnreadView, MessageAllUnreadViewDefaultImpl);
+        this.appContext.putViewImpl(WorkViewEnum.GroupInviteApplyListView, GroupInviteApplyListViewDefaultImpl);
+        this.appContext.putViewImpl(WorkViewEnum.GroupInviteeApplyListView, GroupInviteeApplyListViewDefaultImpl);
+        this.appContext.putViewImpl(WorkViewEnum.GroupJoinApplyListView, GroupJoinApplyListViewDefaultImpl);
+        this.appContext.putViewImpl(WorkViewEnum.ContactAddApplyListView, ContactAddApplyListViewDefaultImpl);
     }
 }

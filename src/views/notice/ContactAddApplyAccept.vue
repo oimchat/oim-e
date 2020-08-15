@@ -46,7 +46,7 @@
     @Component({
         components: {},
     })
-    export default class AcceptContactAddApply extends Vue {
+    export default class ContactAddApplyAccept extends Vue {
         private show: boolean = false;
         private applyId: string = '';
         private handle: ContactAddHandleData = new ContactAddHandleData();

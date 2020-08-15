@@ -2,7 +2,7 @@ import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import Group from '@/app/com/main/module/business/group/bean/Group';
 import GroupChatInfoService from '@/app/com/main/module/business/chat/service/GroupChatInfoService';
 import GroupChatItemService from '@/app/com/main/module/business/chat/service/GroupChatItemService';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 import GroupAccess from '@/app/com/main/module/business/group/access/GroupAccess';
 
 export default class GroupChatViewController extends AbstractMaterial {

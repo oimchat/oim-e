@@ -7,7 +7,7 @@ import UserChatData from '@/app/com/main/module/business/chat/data/UserChatData'
 import GroupChatDataSender from '@/app/com/main/module/business/chat/sender/GroupChatDataSender';
 import RecentChatGroupFunction from '@/app/com/main/module/business/chat/function/RecentChatGroupFunction';
 import GroupChatData from '@/app/com/main/module/business/chat/data/GroupChatData';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 
 export default class RecentChatService extends AbstractMaterial {
 

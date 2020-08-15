@@ -4,7 +4,7 @@ import InvokeAction from '@/app/base/net/InvokeAction';
 import PromptHandler from '@/app/com/client/define/prompt/PromptHandler';
 import NetServer from '@/app/base/net/NetServer';
 import DataBackAction from '@/app/base/net/DataBackAction';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 
 export default class NetModule extends AbstractMaterial {
 

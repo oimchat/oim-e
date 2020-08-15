@@ -10,7 +10,7 @@ import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
 import UserChatData from '@/app/com/main/module/business/chat/data/UserChatData';
 import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 
 
 export default class UserChatDataService extends AbstractMaterial {

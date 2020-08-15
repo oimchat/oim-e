@@ -2,7 +2,7 @@ import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/main/module/business/user/bean/User';
 import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 import UserChatView from '@/app/com/main/module/business/chat/view/UserChatView';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 import UserAccess from '@/app/com/main/module/business/user/access/UserAccess';
 
 export default class UserChatInfoManager extends AbstractMaterial {

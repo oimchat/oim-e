@@ -1,65 +1,65 @@
 <template>
     <div class="only-full-pane">
         <div class="only-card only-full-pane">
-            <div class="top">
+            <div class="top only-border-bottom" style="-webkit-app-region: drag">
                 <div class="title-wrap">
                     <div class="title">查找群</div>
                     <div></div>
                 </div>
             </div>
-            <q-card>
-                <div class="query-bar ">
-                    <div class="row" style="float: right">
-                        <q-input v-model="query.queryText" placeholder="请输入条件搜搜..." style="width: 200px"/>
-                        <div style="margin-left:20px;margin-right:30px;padding-top: 10px">
-                            <q-btn @click="handleSearch" color="primary" label="Primary"/>
+            <div class="content">
+                <q-card class="" style="height: 100%;" flat bordered>
+                    <q-card flat bordered>
+                        <q-item>
+                            <q-item-section>
+                                <div>
+                                    <div class="page-center">
+                                        <q-pagination
+                                                v-model="page.number"
+                                                :max="page.totalPage"
+                                                :direction-links="true"
+                                                size="12px"
+                                                @input="handlePage"
+                                        >
+                                        </q-pagination>
+                                    </div>
+                                </div>
+                            </q-item-section>
+                            <q-card-actions align="right">
+                                <Input v-model="query.queryText" placeholder="请输入条件搜搜..." style="width: 200px"/>
+                                <span style="margin-right: 20px"></span>
+                                <Button @click="handleSearch" type="primary" icon="search">搜索</Button>
+                            </q-card-actions>
+                        </q-item>
+                    </q-card>
+                    <div class="q-pa-md find-scrollbar-y">
+                        <div class="row justify-center q-gutter-sm ">
+                            <template v-for='item in list'>
+                                <q-card class="find-item">
+                                    <q-img :src="item.avatar" class="find-item-img">
+                                        <div class="absolute-bottom">
+                                            <div class="text-h6 name-text">{{item.name}}</div>
+                                            <div class="text-subtitle2 name-text">{{item.introduce}}</div>
+                                        </div>
+                                    </q-img>
+                                    <q-card-actions align="right">
+                                        <q-btn flat></q-btn>
+                                        <q-btn @click="handleJoinGroup(item.id)" flat>加入</q-btn>
+                                    </q-card-actions>
+                                </q-card>
+                            </template>
                         </div>
                     </div>
-                </div>
-            </q-card>
-            <div class="q-pa-md">
-                <div class="row justify-center q-gutter-sm">
-
-                    <template v-for='item in list'>
-                        <q-intersection
-                                once
-                                transition="scale"
-                                class="find-item"
-                        >
-                            <q-card class="q-ma-sm">
-                                <Avatar :src="item.avatar" size="large" :title="item.name"></Avatar>
-
-                                <q-card-section>
-                                    <div class="text-h6">{{item.name}}</div>
-                                    <div class="text-subtitle2">by John Doe</div>
-                                    <Button @click="handleJoinGroup(item.id)" type="info" size="small"
-                                            icon="ios-add-circle">申请加入
-                                    </Button>
-                                </q-card-section>
-                            </q-card>
-                        </q-intersection>
-                    </template>
-                </div>
+                </q-card>
             </div>
-            <q-card>
-                <div class="page-center">
-                    <q-pagination
-                            v-model="page.number"
-                            :max="page.totalPage"
-                            :direction-links="true"
-                            @input="handlePage"
-                    >
-                    </q-pagination>
-                </div>
-            </q-card>
         </div>
-        <!--        <JoinGroup ref="joinGroupView"></JoinGroup>-->
+        <JoinGroup ref="joinGroupView"></JoinGroup>
     </div>
 </template>
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import JoinGroup from '@/views/find/JoinGroup.vue';
+    import JoinGroup from '@/views/module/group/find/GroupJoin.vue';
     import GroupQuery from '@/app/com/main/module/business/group/data/GroupQuery';
     import Page from '@/app/com/common/data/Page';
     import app from '@/app/App';
@@ -86,6 +86,7 @@
 
         public mounted() {
             // do something
+            // this.page.size = 3;
         }
 
         private handlePage(value: number): void {
@@ -143,6 +144,7 @@
             if (page) {
                 const totalCount = page.totalCount;
                 this.page.totalCount = totalCount;
+                this.page.totalPage = page.totalPage;
             }
             for (const group of list) {
                 GroupInfoUtil.handleAvatar(group);
@@ -160,9 +162,36 @@
 </script>
 
 <style lang="scss" scoped>
+    .content {
+        padding: 15px;
+    }
+
+    .find-scrollbar-y {
+        overflow-y: auto;
+        position: absolute;
+        top: 65px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
     .find-item {
-        height: 290px;
-        width: 290px;
+        /*height: 190px;*/
+        /*width: 190px;*/
+
+    }
+
+    .find-item-img {
+        width: 190px;
+        height: 100px;
+    }
+
+    .name-text {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal
     }
 
     .query-bar {

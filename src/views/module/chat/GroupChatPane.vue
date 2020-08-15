@@ -26,10 +26,10 @@
             </div>
         </div>
         <Drawer class="only-shadow" title="更多" width="340" :mask="false" :closable="true" v-model="showMore">
-            <div v-if='isOwner'>
+            <div class="only-border-bottom" style="padding-bottom: 20px" v-if='isOwner'>
                 <GroupJoinSettingPane :groupId='model.viewData.key'></GroupJoinSettingPane>
             </div>
-            <div style="height: 100%;margin-top: 20px">
+            <div style=";margin-top: 20px">
                 <group-member-list-pane
                         :group-id="model.viewData.key"
                 >

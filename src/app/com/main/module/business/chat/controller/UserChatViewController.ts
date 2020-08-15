@@ -2,7 +2,7 @@ import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import User from '@/app/com/main/module/business/user/bean/User';
 import UserChatInfoService from '@/app/com/main/module/business/chat/service/UserChatInfoService';
 import UserChatItemService from '@/app/com/main/module/business/chat/service/UserChatItemService';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 import UserAccess from '@/app/com/main/module/business/user/access/UserAccess';
 
 export default class UserChatViewController extends AbstractMaterial {

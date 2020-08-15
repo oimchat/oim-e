@@ -1,5 +1,5 @@
 import AbstractInitializer from '@/app/com/main/initialize/AbstractInitializer';
-import SystemInformationService from '@/app/com/client/module/prompt/service/SystemInformationService';
+import SystemInformationService from '@/app/com/client/module/message/service/SystemInformationService';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import SystemInformType from '@/app/com/main/data/SystemInformType';
 import AbstractDataBackAction from '@/app/base/net/AbstractDataBackAction';
@@ -15,6 +15,8 @@ import ContactAddApply from '@/app/com/main/module/business/contact/bean/Contact
 import ContactSender from '@/app/com/main/module/business/contact/sender/ContactSender';
 import RecentChatService from '@/app/com/main/module/business/chat/service/RecentChatService';
 import UserChatUnreadService from '@/app/com/main/module/business/chat/service/UserChatUnreadService';
+import GroupInformationConverge from '@/app/com/main/module/business/group/converge/GroupInformationConverge';
+import ContactInformationConverge from '@/app/com/main/module/business/contact/converge/ContactInformationConverge';
 
 export default class InformationInitializer extends AbstractInitializer {
 
@@ -32,6 +34,8 @@ export default class InformationInitializer extends AbstractInitializer {
     }
 
     public loadSystemInformation() {
+        const contactInformationConverge: ContactInformationConverge = this.appContext.getMaterial(ContactInformationConverge);
+        const groupInformationConverge: GroupInformationConverge = this.appContext.getMaterial(GroupInformationConverge);
         const systemInformationService: SystemInformationService = this.appContext.getMaterial(SystemInformationService);
 
         const groupJoinBack: DataBackAction = {
@@ -39,7 +43,7 @@ export default class InformationInitializer extends AbstractInitializer {
                 if (data && data.body) {
                     const count = data.body.count;
                     if (count && count > 0) {
-                        systemInformationService.inform(SystemInformType.TYPE_APPLY_HANDLE, '加入群申请', count);
+                        groupInformationConverge.joinInformation(count);
                     }
                 }
             },
@@ -61,7 +65,7 @@ export default class InformationInitializer extends AbstractInitializer {
                 if (data && data.body) {
                     const count = data.body.count;
                     if (count && count > 0) {
-                        systemInformationService.inform(SystemInformType.TYPE_APPLY_HANDLE, '邀请入群申请', count);
+                        groupInformationConverge.inviteInformation(count);
                     }
                 }
             },
@@ -83,7 +87,7 @@ export default class InformationInitializer extends AbstractInitializer {
                 if (data && data.body) {
                     const count = data.body.count;
                     if (count && count > 0) {
-                        systemInformationService.inform(SystemInformType.TYPE_APPLY_HANDLE, '邀请加入群', count);
+                        groupInformationConverge.inviteeInformation(count);
                     }
                 }
             },
@@ -105,7 +109,7 @@ export default class InformationInitializer extends AbstractInitializer {
                 if (data && data.body) {
                     const count = data.body.count;
                     if (count && count > 0) {
-                        systemInformationService.inform(SystemInformType.TYPE_APPLY_HANDLE, '添加好友请求', count);
+                        contactInformationConverge.addApplyInformation(count);
                     }
                 }
             },

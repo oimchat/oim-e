@@ -26,23 +26,40 @@
                             </q-tab>
                         </template>
                     </q-tabs>
+
+                </div>
+                <div class="oim-sidebar-more">
+                    <div class="icon-warp">
+                        <i @click="handleSystemSetting" class="fas fa-cog">
+                        </i>
+                    </div>
+                    <div class="icon-warp">
+                        <i id="main-tab-menu" class="fas fa-bars">
+                        </i>
+                    </div>
                 </div>
             </div>
             <div class="oim-main-nav-pane">
                 <!--begin oim-main-personal-->
-                <div class="oim-main-personal">
-                    <div class="avatar">
-                        <img class="img" :src="personalViewModel.personalData.avatar" alt="">
+
+                <div  :class="'oim-main-personal-info'">
+                    <div class="ext">
+                        <p class="attr"><i id="main-down-menu" class="fas fa-bars option"></i></p>
                     </div>
+                    <div class="avatar">
+                        <img class="img" :src="personalViewModel.personalData.avatar" alt="avatar">
+                    </div>
+
                     <div class="info">
                         <h3 class="nickname">
-                            <span class="display-name">{{personalViewModel.personalData.name}}</span>
-                            <a id="main-down-menu" @click="onDownMenu($event,$root)" class="option" href="javascript:;">
-                                <i class="fas fa-bars"></i>
-                            </a>
+                            <span class="nickname-text">{{personalViewModel.personalData.name}}</span>
                         </h3>
+                        <p class="msg">
+                            <span class="">{{personalViewModel.personalData.text}}</span>
+                        </p>
                     </div>
                 </div>
+
                 <SearchBar @on-user-selected="searchOnUserSelected"
                            @on-group-selected="searchOnGroupSelected">
                 </SearchBar>
@@ -118,12 +135,14 @@
             </div>
         </div>
         <MainMenu></MainMenu>
-
+        <tab-menu></tab-menu>
         <UserItemContextMenu ref='userContextMenu'></UserItemContextMenu>
         <GroupContextMenu ref='groupContextMenu'></GroupContextMenu>
 
         <GroupNodeContextMenu ref='groupNodeContextMenu'></GroupNodeContextMenu>
         <UserNodeContextMenu ref='userNodeContextMenu'></UserNodeContextMenu>
+
+        <SettingPane :data="settingMapper" ref="settingPane"></SettingPane>
     </div>
 </template>
 
@@ -141,6 +160,7 @@
     import mainBaseTabs from '@/platform/web/view/data/MainBaseTabs';
 
     import MainMenu from '@/views/main/MainMenu.vue';
+    import TabMenu from '@/views/main/TabMenu.vue';
 
     import SideBar from './main/SideBar.vue';
     import SearchBar from './main/SearchBar.vue';
@@ -187,6 +207,7 @@
     import GroupInfoViewController from '@/app/com/main/module/business/group/controller/GroupInfoViewController';
     import ContactInfoViewController from '@/app/com/main/module/business/contact/controller/ContactInfoViewController';
     import LaunchOrder from '@/app/LaunchOrder';
+    import SettingMapper from '@/views/main/setting/SettingMapper';
 
 
     @Component({
@@ -194,6 +215,7 @@
             ContactListPane,
             SideBar,
             MainMenu,
+            TabMenu,
             SearchBar,
             MessageListPane,
             GroupListPane,
@@ -217,6 +239,7 @@
         private tabs = mainBaseTabs;
         private personalViewModel = personalViewModel;
         private appInfo = app;
+        private settingMapper: SettingMapper = new SettingMapper();
 
         private isReconnect = false;
 
@@ -240,24 +263,9 @@
             }
         }
 
-
-        private onDownMenu(e: MouseEvent, root: Vue): void {
-            this.openMenu(e, root, 'mainDownMenu');
-        }
-
         private logout(): void {
             this.$store.commit('logout');
             this.$router.push({path: '/login'});
-        }
-
-        private openMenu(e: MouseEvent, root: Vue, n?: string) {
-            e.stopPropagation();
-            e.preventDefault();
-            root.$emit('openOnlyContextMenu', {
-                name: n,
-                x: e.clientX,
-                y: e.clientY,
-            });
         }
 
         private searchOnUserSelected(data: ItemData) {
@@ -341,21 +349,7 @@
 
 
         private handleSystemSetting() {
-            const viewName = 'settingPane';
-            const view: any = this.$refs[viewName];
-            view.setShow(true);
-
-            // const text = Platform.getName(); // navigator.userAgent.toLowerCase();
-            // this.$Modal.confirm({
-            //     title: 'System',
-            //     content: text,
-            //     onOk: () => {
-            //         // no
-            //     },
-            //     onCancel: () => {
-            //         // no
-            //     },
-            // });
+            this.settingMapper.show = true;
         }
 
         private reconnect() {

@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!--        <ContextMenu :list="mainDownMenu.list" :underline="true" :arrow="true" :name="mainDownMenu.name"></ContextMenu>-->
         <popup-menu :data="menuData"></popup-menu>
         <AddGroup ref="addGroupView"></AddGroup>
         <UpdatePassword ref="updatePasswordView"></UpdatePassword>
@@ -56,24 +55,6 @@
                 onClick: (item: any, data: any) => {
                     this.handleAddGroup();
                 },
-            }, {
-                text: '修改资料',
-                icon: 'fas fa-user-edit',
-                onClick: (item: any, data: any) => {
-                    this.handleUpdateData();
-                },
-            }, {
-                text: '修改密码',
-                icon: 'fas fa-unlock-alt',
-                onClick: (item: any, data: any) => {
-                    this.handleUpdatePassword();
-                },
-            }, {
-                text: '退出',
-                icon: 'fas fa-power-off',
-                onClick: (item: any, data: any) => {
-                    this.logout();
-                },
             }],
         };
 
@@ -84,10 +65,6 @@
             this.menuData.list = this.mainDownMenu.list;
         }
 
-        private logout(): void {
-            this.$store.commit('logout');
-            this.$router.push({path: '/login'});
-        }
 
         private addContactCategory(): void {
             const back: DataBackAction = {
@@ -191,18 +168,6 @@
             const addGroupViewName = 'addGroupView';
             const addGroupView: any = this.$refs[addGroupViewName];
             addGroupView.setShow(true);
-        }
-
-        private handleUpdatePassword() {
-            const updatePasswordViewName = 'updatePasswordView';
-            const updatePasswordViewView: any = this.$refs[updatePasswordViewName];
-            updatePasswordViewView.setShow(true);
-        }
-
-        private handleUpdateData() {
-            const updateDataViewName = 'updateDataView';
-            const updateDataView: any = this.$refs[updateDataViewName];
-            updateDataView.setShow(true);
         }
     }
 </script>

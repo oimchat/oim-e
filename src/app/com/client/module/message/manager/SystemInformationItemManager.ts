@@ -7,22 +7,20 @@ export default class SystemInformationItemManager extends AbstractMaterial {
     private type = 'system_information';
 
     public show(key: string) {
-        this.addOrUpdate(key);
         this.selectItem(key);
     }
 
-    public addOrUpdate(key: string) {
+    public addOrUpdate(key: string,
+                       value: any,
+                       onSelect: (key: any, value: any) => void,
+                       onDelete: (key: string, value: any) => void) {
         const name = '信息';
         const avatar = 'assets/images/common/head/system/inform.png';
         const gray = false;
         const systemInformItemEvent: SystemInformationItemEvent = this.appContext.getMaterial(SystemInformationItemEvent);
 
         const messageListView: MessageListView = this.appContext.getView(WorkViewEnum.MessageListView);
-        messageListView.addOrUpdateItem(this.type, key, name, avatar, gray, '', (k: string) => {
-            systemInformItemEvent.onSelect(key);
-        }, (k: string) => {
-            systemInformItemEvent.onDelete(k);
-        });
+        messageListView.addOrUpdateItem(this.type, key, name, avatar, gray, value, onSelect, onDelete);
     }
 
     public selectItem(key: string) {

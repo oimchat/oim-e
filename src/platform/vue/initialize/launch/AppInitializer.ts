@@ -27,15 +27,15 @@ class AppInitializer implements Initializer {
     }
 
     private initializeView(appContext: AppContext): void {
-        appContext.putView(WorkViewEnum.PersonalView, PersonalViewImpl);
-        appContext.putView(WorkViewEnum.ContactListPaneView, ContactListPaneViewImpl);
-        appContext.putView(WorkViewEnum.GroupListPaneView, GroupListPaneViewImpl);
-        appContext.putView(WorkViewEnum.MessageListView, MessageListViewImpl);
-        appContext.putView(WorkViewEnum.UserChatView, UserChatViewImpl);
-        appContext.putView(WorkViewEnum.GroupChatView, GroupChatViewImpl);
-        appContext.putView(WorkViewEnum.GroupMemberListView, GroupMemberListViewImpl);
-        appContext.putView(WorkViewEnum.ContactInfoView, ContactInfoViewImpl);
-        appContext.putView(WorkViewEnum.GroupInfoView, GroupInfoViewImpl);
+        appContext.putViewImpl(WorkViewEnum.PersonalView, PersonalViewImpl);
+        appContext.putViewImpl(WorkViewEnum.ContactListPaneView, ContactListPaneViewImpl);
+        appContext.putViewImpl(WorkViewEnum.GroupListPaneView, GroupListPaneViewImpl);
+        appContext.putViewImpl(WorkViewEnum.MessageListView, MessageListViewImpl);
+        appContext.putViewImpl(WorkViewEnum.UserChatView, UserChatViewImpl);
+        appContext.putViewImpl(WorkViewEnum.GroupChatView, GroupChatViewImpl);
+        appContext.putViewImpl(WorkViewEnum.GroupMemberListView, GroupMemberListViewImpl);
+        appContext.putViewImpl(WorkViewEnum.ContactInfoView, ContactInfoViewImpl);
+        appContext.putViewImpl(WorkViewEnum.GroupInfoView, GroupInfoViewImpl);
     }
 }
 

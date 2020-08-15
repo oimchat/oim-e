@@ -3,89 +3,68 @@
         <Card>
             <p slot="title">
                 <Icon type="ios-film-outline"></Icon>
-                邀请申请列表
+                邀请列表
             </p>
             <span slot="extra" @click="handleLoadList">
                 <Button type="primary" icon="search">刷新</Button>
             </span>
-
-            <div class="apply-notice-message-page" style="overflow-y:auto;max-height:350px">
-                <div v-for='item in list' class="apply-notice-message-item">
-                    <div class="data">
-                        <div class="content">
-                            <div class='avatar'>
-                                <Avatar :src="item.inviterUser.avatar" size="large"
-                                        :title="item.inviterUser.nickname"></Avatar>
-                                <span style="margin-left: 10px" :title="item.inviterUser.account"
-                                      class="nickname_text">{{item.inviterUser.account}}</span>
-                            </div>
-                            <div class="info">
-                                <h3 class="nickname">
+            <Row>
+                <div class="apply-notice-message-page" style="overflow-y:auto;max-height:350px">
+                    <div v-for='item in list' class="apply-notice-message-item">
+                        <div class="data">
+                            <div class="content">
+                                <div class='avatar'>
+                                    <Avatar :src="item.inviterUser.avatar" size="large"
+                                            :title="item.inviterUser.nickname"></Avatar>
+                                    <span style="margin-left: 10px" :title="item.inviterUser.account"
+                                          class="nickname_text">{{item.inviterUser.account}}</span>
+                                </div>
+                                <div class="info">
+                                    <h3 class="nickname">
                                     <span :title="item.inviterUser.nickname"
                                           class="nickname_text">{{item.inviterUser.nickname}}</span>
-                                </h3>
-                                <p class="msg" style='height: 25px'>
-                                    <span class="">{{item.inviterUser.signature}}</span>
+                                    </h3>
+                                    <p class="msg" style='height: 25px'>
+                                        <span class="">{{item.inviterUser.signature}}</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="content">
+                                <p class="msg" style='height: 12px'>
+                                    <span class="">邀请</span>
+                                </p>
+                                <p class="msg" style='height: 12px'>
+                                    <span class="">您加入</span>
                                 </p>
                             </div>
-                        </div>
 
-                        <div class="content">
-                            <p class="msg" style='height: 12px'>
-                                <span class="">邀请</span>
-                            </p>
-                        </div>
-
-                        <div class="content">
-                            <div class='avatar'>
-                                <Avatar :src="item.inviteeUser.avatar" size="large"
-                                        :title="item.inviteeUser.nickname"></Avatar>
-                                <span style="margin-left: 10px" :title="item.inviteeUser.account"
-                                      class="nickname_text">{{item.inviteeUser.account}}</span>
+                            <div class="content">
+                                <div class='avatar'>
+                                    <Avatar :src="item.group.avatar" size="large" :title="item.group.nickname"></Avatar>
+                                    <span style="margin-left: 10px" :title="item.group.number"
+                                          class="nickname_text">{{item.group.number}}</span>
+                                </div>
+                                <div class="info">
+                                    <h3 class="nickname">
+                                        <span :title="item.group.name" class="nickname_text">{{item.group.name}}</span>
+                                    </h3>
+                                    <p class="msg" style='height: 25px'>
+                                        <span class="">{{item.group.introduce}}</span>
+                                    </p>
+                                </div>
                             </div>
-                            <div class="info">
-                                <h3 class="nickname">
-                                    <span :title="item.inviteeUser.nickname"
-                                          class="nickname_text">{{item.inviteeUser.nickname}}</span>
-                                </h3>
-                                <p class="msg" style='height: 25px'>
-                                    <span class="">{{item.inviteeUser.signature}}</span>
-                                </p>
-                            </div>
-                        </div>
 
-                        <div class="content">
-                            <p class="msg" style='height: 12px'>
-                                <span class="">加入</span>
-                            </p>
-                        </div>
-
-                        <div class="content">
-                            <div class='avatar'>
-                                <Avatar :src="item.group.avatar" size="large" :title="item.group.nickname"></Avatar>
-                                <span style="margin-left: 10px" :title="item.group.number"
-                                      class="nickname_text">{{item.group.number}}</span>
+                            <div class="handle-pane">
+                                <Row v-if="item.apply.inviteeHandleType==='0'">
+                                    <Button @click="reject(item.apply)" type="primary" icon="ios-add-circle">拒绝</Button>
+                                    <Button @click="accept(item.apply)" type="primary" icon="ios-add-circle">同意</Button>
+                                </Row>
                             </div>
-                            <div class="info">
-                                <h3 class="nickname">
-                                    <span :title="item.group.name" class="nickname_text">{{item.group.name}}</span>
-                                </h3>
-                                <p class="msg" style='height: 25px'>
-                                    <span class="">{{item.group.introduce}}</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="handle-pane">
-                            <Row v-if="item.apply.verifyHandleType==='0'">
-                                <Button @click="reject(item.apply)" type="primary" icon="ios-add-circle">拒绝</Button>
-                                <Button @click="accept(item.apply)" type="primary" icon="ios-add-circle">同意</Button>
-                            </Row>
                         </div>
                     </div>
                 </div>
-            </div>
-
+            </Row>
         </Card>
         <Card>
             <Row>
@@ -120,11 +99,16 @@
     import GroupInviteApply from '@/app/com/main/module/business/group/bean/GroupInviteApply';
     import GroupInviteVerifyHandleData from '@/app/com/main/module/business/group/data/GroupInviteVerifyHandleData';
     import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
+    import Group from '@/app/com/main/module/business/group/bean/Group';
+    import GroupInfoUtil from '@/app/com/main/common/util/GroupInfoUtil';
+    import GroupInviteeApplyQuery from '@/app/com/main/module/business/group/data/GroupInviteeApplyQuery';
+    import GroupInviteeHandleData from '@/app/com/main/module/business/group/data/GroupInviteeHandleData';
+    import GroupInviteeController from '@/app/com/main/module/business/group/controller/GroupInviteeController';
 
     @Component({
         components: {},
     })
-    export default class GroupInviteApplyNoticePane extends Vue {
+    export default class GroupInviteeApplyListPane extends Vue {
 
         private list: any[] = [];
         private page: Page = new Page();
@@ -159,10 +143,10 @@
         private loadList(): void {
             const own = this;
             const page: Page = this.page;
-            const query: GroupInviteApplyQuery = new GroupInviteApplyQuery();
-            query.verifyHandleType = GroupInviteApply.VERIFY_HANDLE_TYPE_UNTREATED;
-            const groupInviteController: GroupInviteController = app.appContext.getMaterial(GroupInviteController);
-            groupInviteController.queryInviteApplyDataReceiveList(query, page, (p, items) => {
+            const query: GroupInviteeApplyQuery = new GroupInviteeApplyQuery();
+            query.inviteeHandleType = GroupInviteApply.INVITEE_HANDLE_TYPE_UNTREATED;
+            const controller: GroupInviteeController = app.appContext.getMaterial(GroupInviteeController);
+            controller.queryInviteeDataList(query, page, (p, items) => {
                 own.setList(items, p);
             });
         }
@@ -180,17 +164,14 @@
                 if (!data.inviterUser) {
                     data.inviterUser = new User();
                 }
-                if (!data.inviteeUser) {
-                    data.inviteeUser = new User();
-                }
                 if (!data.apply) {
                     data.apply = new GroupInviteApply();
                 }
+                if (!data.group) {
+                    data.group = new Group();
+                }
                 UserInfoUtil.handleAvatar(data.inviterUser);
-                UserInfoUtil.handleAvatar(data.inviteeUser);
-
-                const groupId = data.apply.groupId;
-                data.group = groupBox.getGroup(groupId);
+                GroupInfoUtil.handleAvatar(data.group);
             }
             this.list = list;
         }
@@ -211,7 +192,7 @@
                         const info = data.info;
                         if (info) {
                             if (info.success) {
-                                apply.verifyHandleType = handleType;
+                                apply.inviteeHandleType = handleType;
                             }
                         }
                     }
@@ -224,11 +205,11 @@
                 },
             } as DataBackAction;
 
-            const handle: GroupInviteVerifyHandleData = new GroupInviteVerifyHandleData();
-            const groupInviteController: GroupInviteController = app.appContext.getMaterial(GroupInviteController);
-            handle.verifyHandleType = handleType;
+            const handle: GroupInviteeHandleData = new GroupInviteeHandleData();
+            const controller: GroupInviteeController = app.appContext.getMaterial(GroupInviteeController);
+            handle.inviteeHandleType = handleType;
             handle.applyIds.push(apply.id);
-            groupInviteController.inviteVerifyHandle(handle, back);
+            controller.inviteeHandle(handle, back);
         }
     }
 

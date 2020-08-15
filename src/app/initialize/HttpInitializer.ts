@@ -7,7 +7,7 @@ import InfoMessage from '@/app/base/message/InfoMessage';
 import httpClient from '@/app/lib/http/HttpClient';
 import Info from '@/app/base/message/Info';
 import auth from '@/app/common/auth/Auth';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 
 export default class HttpInitializer implements Initializer {
     public getOrder(): number {

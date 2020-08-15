@@ -11,53 +11,60 @@
 
             <Row>
                 <div class="apply-notice-message-page" style="overflow-y:auto;max-height:350px">
-                    <div v-for='item in list' class="apply-notice-message-item">
-                        <div class="data">
-                            <div class="content">
-                                <div class='avatar'>
-                                    <Avatar :src="item.user.avatar" size="large" :title="item.user.nickname"></Avatar>
-                                    <span style="margin-left: 10px" :title="item.user.account"
-                                          class="nickname_text">{{item.user.account}}</span>
-                                </div>
-                                <div class="info">
-                                    <h3 class="nickname">
+                    <template v-for="index in 60">
+
+
+                        <div v-for='item in list' class="apply-notice-message-item">
+                            <div class="data">
+                                <div class="content">
+                                    <div class='avatar'>
+                                        <Avatar :src="item.user.avatar" size="large"
+                                                :title="item.user.nickname"></Avatar>
+                                        <span style="margin-left: 10px" :title="item.user.account"
+                                              class="nickname_text">{{item.user.account}}</span>
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="nickname">
                                     <span :title="item.user.nickname"
                                           class="nickname_text">{{item.user.nickname}}</span>
-                                    </h3>
-                                    <p class="msg" style='height: 25px'>
-                                        <span class="">{{item.user.signature}}</span>
-                                    </p>
+                                        </h3>
+                                        <p class="msg" style='height: 25px'>
+                                            <span class="">{{item.user.signature}}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="handle-pane">
+                                    <Row v-if="item.apply.handleType==='0'">
+                                        <Button @click="reject(item.apply)" type="primary" icon="ios-add-circle">拒绝
+                                        </Button>
+                                        <Button @click="accept(item.apply)" type="primary" icon="ios-add-circle">同意
+                                        </Button>
+                                    </Row>
                                 </div>
                             </div>
-                            <div class="handle-pane">
-                                <Row v-if="item.apply.handleType==='0'">
-                                    <Button @click="reject(item.apply)" type="primary" icon="ios-add-circle">拒绝</Button>
-                                    <Button @click="accept(item.apply)" type="primary" icon="ios-add-circle">同意</Button>
+                            <div class="more">
+                                <Row v-for="(item, index) in item.answerList" :key="index">
+                                    <Row>
+                                        <Row>
+                                            <Col span="18">
+                                                <span>问题:</span>
+                                                <label>
+                                                    {{item.question}}
+                                                </label>
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col span="18">
+                                                <span>答案:</span>
+                                                <label>{{item.answer}}</label>
+                                            </Col>
+                                        </Row>
+                                    </Row>
+                                    <Divider/>
                                 </Row>
                             </div>
                         </div>
-                        <div class="more">
-                            <Row v-for="(item, index) in item.answerList" :key="index">
-                                <Row>
-                                    <Row>
-                                        <Col span="18">
-                                            <span>问题:</span>
-                                            <label>
-                                                {{item.question}}
-                                            </label>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col span="18">
-                                            <span>答案:</span>
-                                            <label>{{item.answer}}</label>
-                                        </Col>
-                                    </Row>
-                                </Row>
-                                <Divider/>
-                            </Row>
-                        </div>
-                    </div>
+                    </template>
                 </div>
             </Row>
         </Card>
@@ -72,13 +79,13 @@
                 </Page>
             </Row>
         </Card>
-        <AcceptContactAddApply ref="acceptContactAddApply"></AcceptContactAddApply>
+        <ContactAddApplyAccept ref="acceptContactAddApply"></ContactAddApplyAccept>
     </div>
 </template>
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import AcceptContactAddApply from '@/views/notice/ContactAddApplyAccept.vue';
+    import ContactAddApplyAccept from '@/views/notice/ContactAddApplyAccept.vue';
     import app from '@/app/App';
     import ContactController from '@/app/com/main/module/business/contact/controller/ContactController';
     import ContactAddApply from '@/app/com/main/module/business/contact/bean/ContactAddApply';
@@ -94,10 +101,10 @@
 
     @Component({
         components: {
-            AcceptContactAddApply,
+            ContactAddApplyAccept,
         },
     })
-    export default class ContactApplyNotice extends Vue {
+    export default class ContactAddApplyListPane extends Vue {
 
         private list: ContactAddApplyEntityCase[] = [];
         private page: Page = new Page();

@@ -1,29 +1,25 @@
 <template>
     <Modal
-            v-model="show"
+            v-model="data.show"
             width="660"
-            class="form-modal"
+            footer-hide
+            class-name="vertical-center-modal"
     >
         <p slot="header" style="color:#f60;text-align:center">
             <Icon type="ios-information-circle"></Icon>
             <span>设置</span>
         </p>
-        <div style="height: 400px">
+        <div v-if="data.show" :style="getHeightStyle">
             <div style="float: left;width: 120px; height: 100%;border-right-color: #6b6f7c">
-                <!--                <Anchor show-ink class="setting-anchor-pane">-->
-                <!--                    <AnchorLink href="#contactHarassSetting" title="好友添加验证"/>-->
-                <!--                    <AnchorLink href="#systemSetting" title="系统设置"/>-->
-                <!--                </Anchor>-->
                 <Radio-group v-model="tab">
                     <Row>
                         <Radio label="contactHarassSettingPane">好友添加验证</Radio>
                     </Row>
                 </Radio-group>
             </div>
-            <div id="setting-list-pane"
-                 style="overflow-y:auto;/** float: right; **/overflow: hidden;left: 150px; height: 100%">
+            <div id="setting-list-pane" style="overflow-y:auto;overflow: hidden;left: 150px; height: 100%">
                 <!--                                <component v-bind:is="tab"></component>-->
-                <div v-if="show">
+                <div v-if="data.show">
                     <ContactHarassSettingPane></ContactHarassSettingPane>
                 </div>
                 <!--                <div id="systemSetting">-->
@@ -34,15 +30,15 @@
                 <!--                </div>-->
             </div>
         </div>
-        <div slot="footer">
-        </div>
     </Modal>
 </template>
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
+    import SettingMapper from '@/views/main/setting/SettingMapper';
 
     import ContactHarassSettingPane from '@/views/module/contact/ContactHarassSettingPane.vue';
+
 
     @Component({
         components: {
@@ -50,43 +46,50 @@
         },
     })
     export default class SettingPane extends Vue {
-        private show: boolean = false;
+        @Prop({
+            type: SettingMapper,
+            required: false,
+            default: () => (new SettingMapper()),
+        })
+        private data!: SettingMapper;
         private tab = 'contactHarassSettingPane';
         private currentComponent = 'contactHarassSettingPane';
 
-        public setShow(show: boolean): void {
-            this.show = show;
-        }
-
-        private showTab(id: string) {
-            this.tab = id;
-            // const pane = document.getElementById('setting-list-pane');
-            // if (pane) {
-            //     const e = document.getElementById(id);
-            //     if (e) {
-            //         pane.scrollIntoView(e);
-            //     }
-            // }
-
+        get getHeightStyle() {
+            const clientHeight = document.body.clientHeight;
+            const height = clientHeight - 100;
+            return {
+                height: height + 'px',
+            };
         }
     }
 </script>
 
 <style lang="less">
 
-    .setting-anchor-pane {
-        height: 100%;
+    /*.setting-anchor-pane {*/
+    /*    height: 100%;*/
 
-        > div {
-            height: 100%;
-        }
+    /*    > div {*/
+    /*        height: 100%;*/
+    /*    }*/
 
-        .ivu-anchor-wrapper {
-            height: 100%;
+    /*    .ivu-anchor-wrapper {*/
+    /*        height: 100%;*/
 
-            .ivu-anchor {
-                height: 100%;
-            }
+    /*        .ivu-anchor {*/
+    /*            height: 100%;*/
+    /*        }*/
+    /*    }*/
+    /*}*/
+
+    .vertical-center-modal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .ivu-modal {
+            top: 0;
         }
     }
 </style>

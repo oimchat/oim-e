@@ -42,8 +42,12 @@ body, html {
 }
 
 .oim-sidebar-tab {
-    margin-top: 30px;
-    height: 100%;
+    //margin-top: 30px;
+    //height: 100%;
+
+    .q-tabs {
+        padding-top: 30px;
+    }
 
     .q-tab__icon {
         width: 30px;
@@ -61,6 +65,26 @@ body, html {
     }
 }
 
+.oim-sidebar-more {
+    font-size: 24px;
+    width: 50px;
+    text-align: center;
+    bottom: 0;
+    padding-bottom: 20px;
+    position: absolute;
+
+    .icon-warp {
+        margin-top: 10px;
+
+        i {
+            cursor: pointer;
+        }
+
+        i:hover {
+            color: #dedddd;
+        }
+    }
+}
 
 .oim-main-nav-pane {
     position: relative;
@@ -71,7 +95,102 @@ body, html {
     border-right: 1px solid #d9d9d9;
 }
 
+
+.oim-main-personal-info {
+    overflow: hidden;
+    padding: 20px 18px 18px;
+    /*border-bottom: 1px solid #647481;*/
+
+    position: relative
+}
+
+.oim-main-personal-info.active .ext, .oim-main-personal-info.active .info .msg {
+    color: #181818
+}
+
+.oim-main-personal-info .avatar {
+    float: left;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.oim-main-personal-info .avatar .img {
+    display: block;
+    width: 40px;
+    height: 40px;
+    /*border-radius: 2px;*/
+    /*-moz-border-radius: 2px;*/
+    /*-webkit-border-radius: 2px*/
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.oim-main-personal-info .avatar .icon {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    color: #fff;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center
+}
+
+.oim-main-personal-info .info {
+    overflow: hidden
+}
+
+.oim-main-personal-info .info .nickname {
+    font-weight: 400;
+    font-size: 13px;
+    color: #0a0a0a;
+    line-height: 20px
+}
+
+.oim-main-personal-info .info .nickname-text {
+    width: 100%;
+    font-size: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal
+}
+
+.oim-main-personal-info .info .nickname_count, .oim-main-personal-info .info .nickname-text {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: top
+}
+
+.oim-main-personal-info .info .msg {
+    color: #989898;
+    font-size: 13px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    height: 1.5em
+}
+
+.oim-main-personal-info .ext {
+    float: right;
+    color: #6b6f7c;
+    font-size: 13px;
+    text-align: right;
+}
+
+.oim-main-personal-info .ext .attr {
+    height: 19px;
+    line-height: 1.5;
+    font-size: 18px;
+}
+
+
 .oim-main-personal {
+
     padding: 18px;
     position: relative;
     display: block;
@@ -137,13 +256,14 @@ body, html {
     }
 
     .info .signature {
-        color: #6b6f7c;
-        width: 130px;
+        color: #989898;
+        font-size: 13px;
+        width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         word-wrap: normal;
-        line-height: 1
+        height: 1.5em;
     }
 }
 

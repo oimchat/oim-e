@@ -3,7 +3,7 @@ import GroupMemberService from '@/app/com/main/module/business/group/service/Gro
 import GroupMemberListService from '@/app/com/main/module/business/group/service/GroupMemberListService';
 import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
 import User from '@/app/com/main/module/business/user/bean/User';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 
 export default class GroupMemberListViewController extends AbstractMaterial {
 

@@ -7,7 +7,7 @@ import BaseUtil from '@/app/lib/util/BaseUtil';
 import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 import ContactRelationBox from '@/app/com/main/module/business/contact/box/ContactRelationBox';
 import UserChatItemEvent from '@/app/com/main/module/common/event/UserChatItemEvent';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 import UserAccess from '@/app/com/main/module/business/user/access/UserAccess';
 
 export default class UserChatItemManager extends AbstractMaterial {

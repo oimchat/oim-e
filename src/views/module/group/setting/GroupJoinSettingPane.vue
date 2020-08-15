@@ -91,6 +91,10 @@
             questions: [],
         };
 
+        public created() {
+            this.loadData();
+        }
+
         public mounted() {
             // do not
             // console.log('哈哈');
@@ -109,8 +113,6 @@
         }
 
         private loadData() {
-
-
             const own = this;
             const back: DataBackAction = {
                 back(d: any): void {

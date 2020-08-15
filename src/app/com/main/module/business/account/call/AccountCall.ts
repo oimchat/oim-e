@@ -11,7 +11,7 @@ import {Protocol, ServerType} from '@/app/common/config/constant/ServerConstant'
 import Info from '@/app/base/message/Info';
 import PromptType from '@/app/com/client/define/prompt/PromptType';
 import ServerAddressUtil from '@/app/com/main/common/util/ServerAddressUtil';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 
 export default class AccountCall extends AbstractMaterial {
 

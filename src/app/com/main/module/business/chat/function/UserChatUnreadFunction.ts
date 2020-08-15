@@ -3,7 +3,7 @@ import UserChatItemManager from '@/app/com/main/module/business/chat/manager/Use
 import UserChatInfoManager from '@/app/com/main/module/business/chat/manager/UserChatInfoManager';
 import UserMessageUnreadBox from '@/app/com/main/module/business/chat/box/unread/UserMessageUnreadBox';
 import AllMessageUnreadBox from '@/app/com/client/module/information/box/unread/AllMessageUnreadBox';
-import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadManager';
+import MessageAllUnreadManager from '@/app/com/client/module/information/manager/MessageAllUnreadManager';
 import UserChatUnread from '@/app/com/main/module/business/chat/bean/UserChatUnread';
 
 

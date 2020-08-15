@@ -11,6 +11,10 @@ enum WorkViewEnum {
     UserChatView,
     GroupChatView,
     GroupMemberListView,
+    GroupInviteApplyListView,
+    GroupInviteeApplyListView,
+    GroupJoinApplyListView,
+    ContactAddApplyListView,
 }
 
 export default WorkViewEnum;

@@ -1,6 +1,6 @@
 import DataBackAction from '@/app/base/net/DataBackAction';
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 
 export default class DefaultDataBackAction extends AbstractMaterial implements DataBackAction {
 

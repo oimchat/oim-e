@@ -8,7 +8,7 @@ export default class PromptManager extends AbstractMaterial {
     private map: Map<string, PromptData> = new Map<string, PromptData>();
 
     public playSound(type: number): void {
-        const soundHandler: SoundHandler = this.appContext.getObject(SoundHandlerEnum.SoundHandler);
+        const soundHandler: SoundHandler = this.appContext.getObjectByKey(SoundHandlerEnum.SoundHandler);
         if (soundHandler) {
             soundHandler.play(type);
         }

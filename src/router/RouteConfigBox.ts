@@ -50,7 +50,7 @@ class RouteConfigBox {
                 {
                     path: 'find.user',
                     name: 'module.findUser',
-                    component: () => import('@/views/find/FindUser.vue'),
+                    component: () => import('@/views/module/user/find/UserFind.vue'),
                 },
                 {
                     path: 'find.group',

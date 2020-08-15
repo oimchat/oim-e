@@ -102,8 +102,8 @@
     import UserInfoCardMapper from '@/views/module/user/card/UserInfoCardMapper';
 
 
-    import JoinGroup from '@/views/find/JoinGroup.vue';
-    import AddUser from '@/views/find/AddUser.vue';
+    import JoinGroup from '@/views/module/group/find/GroupJoin.vue';
+    import AddUser from '@/views/module/contact/apply/ContactAddApply.vue';
 
     import app from '@/app/App';
     import UserBox from '@/app/com/main/module/business/user/box/UserBox';

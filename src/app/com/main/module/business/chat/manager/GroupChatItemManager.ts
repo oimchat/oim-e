@@ -8,7 +8,7 @@ import GroupInfoUtil from '@/app/com/main/common/util/GroupInfoUtil';
 import GroupRelationBox from '@/app/com/main/module/business/group/box/GroupRelationBox';
 import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
 import GroupChatItemEvent from '@/app/com/main/module/common/event/GroupChatItemEvent';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 import UserAccess from '@/app/com/main/module/business/user/access/UserAccess';
 import GroupAccess from '@/app/com/main/module/business/group/access/GroupAccess';
 

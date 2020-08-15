@@ -12,7 +12,7 @@ import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 import GroupChatQuery from '@/app/com/main/module/business/chat/data/GroupChatQuery';
 import GroupChatData from '@/app/com/main/module/business/chat/data/GroupChatData';
 import GroupChatDataSender from '@/app/com/main/module/business/chat/sender/GroupChatDataSender';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 
 
 export default class GroupChatDataService extends AbstractMaterial {

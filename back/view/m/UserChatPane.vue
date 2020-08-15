@@ -235,7 +235,7 @@
                                 }
                             };
 
-                            const wuh: ImageItemFileConverter = app.appContext.getObject(ImageItemFileConverter.name);
+                            const wuh: ImageItemFileConverter = app.appContext.getObjectByKey(ImageItemFileConverter.name);
                             if (wuh) {
                                 wuh.handleItems(items, handleItemsBack);
                             } else {

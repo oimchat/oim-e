@@ -3,7 +3,7 @@ import User from '@/app/com/main/module/business/user/bean/User';
 import UserChatInfoManager from '@/app/com/main/module/business/chat/manager/UserChatInfoManager';
 import UserChatManager from '@/app/com/main/module/business/chat/manager/UserChatManager';
 import UserChatOpenManager from '@/app/com/main/module/business/chat/manager/UserChatOpenManager';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 import UserAccess from '@/app/com/main/module/business/user/access/UserAccess';
 
 

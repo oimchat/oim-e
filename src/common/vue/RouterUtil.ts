@@ -11,17 +11,23 @@ class RouterUtil {
     }
 
     public static toByName(name: string) {
-        const route = {name};
-        router.push(route).then((r) => {
-            // no
-        });
+        const routeName = (router.app && router.app.$route) ? router.app.$route.name : '';
+        if (routeName !== name) {
+            const route = {name};
+            router.push(route).then((r) => {
+                // no
+            });
+        }
     }
 
     public static toByPath(path: string) {
-        const route = {path};
-        router.push(route).then((r) => {
-            // no
-        });
+        const fullPath = (router.app && router.app.$route) ? router.app.$route.fullPath : '';
+        if (fullPath !== path) {
+            const route = {path};
+            router.push(route).then((r) => {
+                // no
+            });
+        }
     }
 }
 

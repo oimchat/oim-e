@@ -3,7 +3,7 @@
         <Card>
             <p slot="title">
                 <Icon type="ios-film-outline"></Icon>
-                邀请列表
+                申请列表
             </p>
             <span slot="extra" @click="handleLoadList">
                 <Button type="primary" icon="search">刷新</Button>
@@ -14,28 +14,24 @@
                         <div class="data">
                             <div class="content">
                                 <div class='avatar'>
-                                    <Avatar :src="item.inviterUser.avatar" size="large"
-                                            :title="item.inviterUser.nickname"></Avatar>
-                                    <span style="margin-left: 10px" :title="item.inviterUser.account"
-                                          class="nickname_text">{{item.inviterUser.account}}</span>
+                                    <Avatar :src="item.user.avatar" size="large" :title="item.user.nickname"></Avatar>
+                                    <span style="margin-left: 10px" :title="item.user.account"
+                                          class="nickname_text">{{item.user.account}}</span>
                                 </div>
                                 <div class="info">
                                     <h3 class="nickname">
-                                    <span :title="item.inviterUser.nickname"
-                                          class="nickname_text">{{item.inviterUser.nickname}}</span>
+                                    <span :title="item.user.nickname"
+                                          class="nickname_text">{{item.user.nickname}}</span>
                                     </h3>
                                     <p class="msg" style='height: 25px'>
-                                        <span class="">{{item.inviterUser.signature}}</span>
+                                        <span class="">{{item.user.signature}}</span>
                                     </p>
                                 </div>
                             </div>
 
                             <div class="content">
                                 <p class="msg" style='height: 12px'>
-                                    <span class="">邀请</span>
-                                </p>
-                                <p class="msg" style='height: 12px'>
-                                    <span class="">您加入</span>
+                                    <span class="">申请加入</span>
                                 </p>
                             </div>
 
@@ -56,11 +52,32 @@
                             </div>
 
                             <div class="handle-pane">
-                                <Row v-if="item.apply.inviteeHandleType==='0'">
+                                <Row v-if="item.apply.handleType==='0'">
                                     <Button @click="reject(item.apply)" type="primary" icon="ios-add-circle">拒绝</Button>
                                     <Button @click="accept(item.apply)" type="primary" icon="ios-add-circle">同意</Button>
                                 </Row>
                             </div>
+                        </div>
+                        <div class="more">
+                            <Row v-for="(item, index) in item.answerList" :key="index">
+                                <Row>
+                                    <Row>
+                                        <Col span="18">
+                                            <span>问题:</span>
+                                            <label>
+                                                {{item.question}}
+                                            </label>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col span="18">
+                                            <span>答案:</span>
+                                            <label>{{item.answer}}</label>
+                                        </Col>
+                                    </Row>
+                                </Row>
+                                <Divider/>
+                            </Row>
                         </div>
                     </div>
                 </div>
@@ -94,23 +111,14 @@
     import GroupJoinHandleData from '@/app/com/main/module/business/group/data/GroupJoinHandleData';
     import GroupJoinApplyEntityCase from '@/app/com/main/module/business/group/data/GroupJoinApplyEntityCase';
     import GroupJoinApplyQuery from '@/app/com/main/module/business/group/data/GroupJoinApplyQuery';
-    import GroupInviteController from '@/app/com/main/module/business/group/controller/GroupInviteController';
-    import GroupInviteApplyQuery from '@/app/com/main/module/business/group/data/GroupInviteApplyQuery';
-    import GroupInviteApply from '@/app/com/main/module/business/group/bean/GroupInviteApply';
-    import GroupInviteVerifyHandleData from '@/app/com/main/module/business/group/data/GroupInviteVerifyHandleData';
     import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
-    import Group from '@/app/com/main/module/business/group/bean/Group';
-    import GroupInfoUtil from '@/app/com/main/common/util/GroupInfoUtil';
-    import GroupInviteeApplyQuery from '@/app/com/main/module/business/group/data/GroupInviteeApplyQuery';
-    import GroupInviteeHandleData from '@/app/com/main/module/business/group/data/GroupInviteeHandleData';
-    import GroupInviteeController from '@/app/com/main/module/business/group/controller/GroupInviteeController';
 
     @Component({
         components: {},
     })
-    export default class GroupInviteeJoinNoticePane extends Vue {
+    export default class GroupJoinApplyListPane extends Vue {
 
-        private list: any[] = [];
+        private list: GroupJoinApplyEntityCase[] = [];
         private page: Page = new Page();
 
         public mounted() {
@@ -143,15 +151,15 @@
         private loadList(): void {
             const own = this;
             const page: Page = this.page;
-            const query: GroupInviteeApplyQuery = new GroupInviteeApplyQuery();
-            query.inviteeHandleType = GroupInviteApply.INVITEE_HANDLE_TYPE_UNTREATED;
-            const controller: GroupInviteeController = app.appContext.getMaterial(GroupInviteeController);
-            controller.queryInviteeDataList(query, page, (p, items) => {
+            const query: GroupJoinApplyQuery = new GroupJoinApplyQuery();
+            query.handleType = GroupJoinApply.HANDLE_TYPE_UNTREATED;
+            const groupJoinController: GroupJoinController = app.appContext.getMaterial(GroupJoinController);
+            groupJoinController.queryApplyDataReceiveList(query, page, (p, items) => {
                 own.setList(items, p);
             });
         }
 
-        private setList(list: any[], page: Page) {
+        private setList(list: GroupJoinApplyEntityCase[], page: Page) {
             if (!list) {
                 list = [];
             }
@@ -160,31 +168,34 @@
                 this.page.totalCount = totalCount;
             }
             const groupBox: GroupBox = app.appContext.getMaterial(GroupBox);
+
             for (const data of list) {
-                if (!data.inviterUser) {
-                    data.inviterUser = new User();
+                if (!data.user) {
+                    data.user = new User();
+                }
+                if (!data.user) {
+                    data.user = new User();
                 }
                 if (!data.apply) {
-                    data.apply = new GroupInviteApply();
+                    data.apply = new GroupJoinApply();
                 }
-                if (!data.group) {
-                    data.group = new Group();
-                }
-                UserInfoUtil.handleAvatar(data.inviterUser);
-                GroupInfoUtil.handleAvatar(data.group);
+                UserInfoUtil.handleAvatar(data.user);
+
+                const groupId = data.apply.groupId;
+                data.group = groupBox.getGroup(groupId);
             }
             this.list = list;
         }
 
-        private reject(apply: GroupInviteApply): void {
-            this.inviteHandle(GroupInviteApply.VERIFY_HANDLE_TYPE_REJECT, apply);
+        private reject(apply: GroupJoinApply): void {
+            this.joinHandle(GroupJoinApply.HANDLE_TYPE_REJECT, apply);
         }
 
-        private accept(apply: GroupInviteApply): void {
-            this.inviteHandle(GroupInviteApply.VERIFY_HANDLE_TYPE_ACCEPT, apply);
+        private accept(apply: GroupJoinApply): void {
+            this.joinHandle(GroupJoinApply.HANDLE_TYPE_ACCEPT, apply);
         }
 
-        private inviteHandle(handleType: string, apply: GroupInviteApply) {
+        private joinHandle(handleType: string, apply: GroupJoinApply) {
             const own = this;
             const back: DataBackAction = {
                 back(data: any): void {
@@ -192,7 +203,7 @@
                         const info = data.info;
                         if (info) {
                             if (info.success) {
-                                apply.inviteeHandleType = handleType;
+                                apply.handleType = handleType;
                             }
                         }
                     }
@@ -205,15 +216,13 @@
                 },
             } as DataBackAction;
 
-            const handle: GroupInviteeHandleData = new GroupInviteeHandleData();
-            const controller: GroupInviteeController = app.appContext.getMaterial(GroupInviteeController);
-            handle.inviteeHandleType = handleType;
+            const handle: GroupJoinHandleData = new GroupJoinHandleData();
+            const contactController: GroupJoinController = app.appContext.getMaterial(GroupJoinController);
+            handle.handleType = handleType;
             handle.applyIds.push(apply.id);
-            controller.inviteeHandle(handle, back);
+            contactController.joinHandle(handle, back);
         }
     }
-
-
 </script>
 
 <style lang="less">

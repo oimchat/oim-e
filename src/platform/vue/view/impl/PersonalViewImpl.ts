@@ -12,5 +12,6 @@ export default class PersonalViewImpl extends AbstractMaterial implements Person
         personalDataBox.personalData.key = key;
         personalDataBox.personalData.name = name;
         personalDataBox.personalData.avatar = avatar;
+        personalDataBox.personalData.text = user.signature;
     }
 }

@@ -1,7 +1,7 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
-import SystemInformationDataManager from '@/app/com/main/manager/SystemInformationDataManager';
-import SystemInformationItemManager from '@/app/com/main/manager/SystemInformationItemManager';
-import SystemInformationDataService from '@/app/com/client/module/prompt/service/SystemInformationDataService';
+import SystemInformationDataManager from '@/app/com/client/module/message/manager/SystemInformationDataManager';
+import SystemInformationItemManager from '@/app/com/client/module/message/manager/SystemInformationItemManager';
+import SystemInformationDataService from '@/app/com/client/module/message/service/SystemInformationDataService';
 
 export default class SystemInformationItemEvent extends AbstractMaterial {
 

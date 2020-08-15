@@ -1,36 +1,59 @@
 <template>
-    <Tabs value="name1" :animated="false">
-        <TabPane label="联系人验证" name="name1">
-            <ContactApplyNotice></ContactApplyNotice>
-        </TabPane>
-        <TabPane label="群申请加入验证" name="name2">
-            <GroupJoinApplyNotice></GroupJoinApplyNotice>
-        </TabPane>
-        <TabPane label="群邀请加入验证" name="name3">
-            <GroupInviteApplyNoticePane></GroupInviteApplyNoticePane>
-        </TabPane>
-        <TabPane label="被邀请加入群处理" name="name4">
-            <GroupInviteeJoinNoticePane></GroupInviteeJoinNoticePane>
-        </TabPane>
-    </Tabs>
+    <div>
+        <q-tabs
+                v-model="model.tab"
+                no-caps
+                class="bg-orange text-white shadow-2"
+        >
+            <q-tab :name="type.ContactAddApplyListView" label="联系人验证"/>
+            <q-tab :name="type.GroupJoinApplyListView" label="群申请加入验证"/>
+            <q-tab :name="type.GroupInviteApplyListView" label="群邀请加入验证"/>
+            <q-tab :name="type.GroupInviteeApplyListView" label="群被邀请加入处理"/>
+        </q-tabs>
+        <q-tab-panels
+                v-model="model.tab"
+                animated
+                transition-prev="jump-up"
+                transition-next="jump-up"
+        >
+            <q-tab-panel :name="type.ContactAddApplyListView">
+                <contact-add-apply-list-pane></contact-add-apply-list-pane>
+            </q-tab-panel>
+            <q-tab-panel :name="type.GroupJoinApplyListView">
+                <group-join-apply-list-pane></group-join-apply-list-pane>
+            </q-tab-panel>
+            <q-tab-panel :name="type.GroupInviteApplyListView">
+                <group-invite-apply-list-pane></group-invite-apply-list-pane>
+            </q-tab-panel>
+            <q-tab-panel :name="type.GroupInviteeApplyListView">
+                <group-invitee-apply-list-pane></group-invitee-apply-list-pane>
+            </q-tab-panel>
+        </q-tab-panels>
+    </div>
 </template>
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import ContactApplyNotice from '@/views/notice/ContactApplyNotice.vue';
-    import GroupJoinApplyNotice from '@/views/notice/GroupJoinApplyNotice.vue';
-    import GroupInviteApplyNoticePane from '@/views/notice/GroupInviteApplyNoticePane.vue';
-    import GroupInviteeJoinNoticePane from '@/views/notice/GroupInviteeJoinNoticePane.vue';
+    import applyHandleViewModel from '@/platform/web/view/model/ApplyHandleViewModel';
+    import ApplyHandleType from '@/platform/web/view/data/ApplyHandleType';
+
+    import ContactAddApplyListPane from '@/views/notice/ContactAddApplyListPane.vue';
+    import GroupJoinApplyListPane from '@/views/notice/GroupJoinApplyListPane.vue';
+    import GroupInviteApplyListPane from '@/views/notice/GroupInviteApplyListPane.vue';
+    import GroupInviteeApplyListPane from '@/views/notice/GroupInviteeApplyListPane.vue';
 
     @Component({
         components: {
-            ContactApplyNotice,
-            GroupJoinApplyNotice,
-            GroupInviteApplyNoticePane,
-            GroupInviteeJoinNoticePane,
+            ContactAddApplyListPane,
+            GroupJoinApplyListPane,
+            GroupInviteApplyListPane,
+            GroupInviteeApplyListPane,
         },
     })
     export default class ApplyHandleNotice extends Vue {
+
+        private model = applyHandleViewModel;
+        private type = ApplyHandleType;
 
         public mounted() {
             // do not
@@ -39,6 +62,15 @@
 </script>
 
 <style lang="less">
+    .q-tab-panels {
+        background: unset;
+        height: 100%;
+    }
+
+    .scroll {
+        overflow: hidden;
+    }
+
     .message-page {
         &-con {
             height: ~"calc(100vh - 176px)";

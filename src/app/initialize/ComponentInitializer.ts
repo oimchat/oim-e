@@ -1,7 +1,7 @@
 import Initializer from '@/app/base/initialize/Initializer';
 import AppContext from '@/app/base/context/AppContext';
 import DataChange from '@/app/base/event/DataChange';
-import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadManager';
+import MessageAllUnreadManager from '@/app/com/client/module/information/manager/MessageAllUnreadManager';
 import AllMessageUnreadBox from '@/app/com/client/module/information/box/unread/AllMessageUnreadBox';
 
 

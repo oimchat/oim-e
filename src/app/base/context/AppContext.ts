@@ -10,7 +10,7 @@ import DataPrompt from '@/app/base/DataPrompt';
 import ObjectFactory from '@/app/base/context/ObjectFactory';
 import {MaterialType} from '@/app/base/context/MaterialType';
 import NetModule from '@/app/com/common/module/NetModule';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 
 
 // type MaterialType<T extends AbstractMaterial> = new(appContext: AppContext) => T;
@@ -18,37 +18,47 @@ import Prompter from '@/app/com/main/component/Prompter';
 class AppContext {
 
     public objectFactory: ObjectFactory = new ObjectFactory(this);
+    private viewTypeMap: Map<any, any> = new Map<any, any>();
+    private viewObjectMap: Map<any, any> = new Map<any, any>();
 
     constructor() {
         this.initialize();
-    }
-
-    public getObjectByClass<T>(clazz: new (...args: any[]) => T): T {
-        return this.objectFactory.getSingleObjectByClass(clazz);
     }
 
     public getMaterial<T extends AbstractMaterial>(clazz: MaterialType<T>): T {
         return this.objectFactory.getSingleMaterial(clazz);
     }
 
-    public getObject<T>(key: any): T {
+    public getObjectByClass<T>(clazz: new (...args: any[]) => T): T {
+        return this.objectFactory.getSingleObjectByClass(clazz);
+    }
+
+    public getObjectByKey<T>(key: any): T {
         return this.objectFactory.getObjectByKey(key);
-    }
-
-    public getView<T>(key: any): T {
-        return this.objectFactory.getObjectByKey(key);
-    }
-
-    public putView(view: any, viewImpl: ViewType<AbstractMaterial>): void {
-        this.objectFactory.putInstanceClass(view, viewImpl);
-    }
-
-    public putViewObject(view: any, value: View): void {
-        this.putObject(view, value);
     }
 
     public putObject(key: any, value: any): void {
         this.objectFactory.putObject(key, value);
+    }
+
+
+    public putViewImpl(view: any, viewImpl: ViewType<AbstractMaterial>): void {
+        this.viewTypeMap.set(view, viewImpl);
+    }
+
+    public putViewObject(view: any, value: View): void {
+        this.viewObjectMap.set(view, value);
+    }
+
+    public getView<T>(key: any): T {
+        let view = this.viewObjectMap.get(key);
+        if (!view) {
+            const impl = this.viewTypeMap.get(key);
+            if (impl) {
+                view = this.getObjectByClass(impl);
+            }
+        }
+        return view;
     }
 
     public createDataBackAction(back: (data: any) => void): DataBackAction {

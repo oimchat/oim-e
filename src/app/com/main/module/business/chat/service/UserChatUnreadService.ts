@@ -8,7 +8,7 @@ import UserChatUnreadFunction from '@/app/com/main/module/business/chat/function
 import Content from '@/app/com/common/chat/Content';
 import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
 import User from '@/app/com/main/module/business/user/bean/User';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 
 export default class UserChatUnreadService extends AbstractMaterial {
 

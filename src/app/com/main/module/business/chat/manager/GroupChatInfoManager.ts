@@ -2,7 +2,7 @@ import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import Group from '@/app/com/main/module/business/group/bean/Group';
 import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 import GroupChatView from '@/app/com/main/module/business/chat/view/GroupChatView';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 import GroupAccess from '@/app/com/main/module/business/group/access/GroupAccess';
 
 

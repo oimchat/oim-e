@@ -15,7 +15,7 @@ import PersonalInitializer from '@/app/com/main/initialize/impl/PersonalInitiali
 import ActionInitializer from '@/app/initialize/ActionInitializer';
 import HttpInitializer from '@/app/initialize/HttpInitializer';
 import NetModule from '@/app/com/common/module/NetModule';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 import ServerInitializer from '@/app/initialize/ServerInitializer';
 import ComponentInitializer from '@/app/initialize/ComponentInitializer';
 import ListenerInitializer from '@/app/initialize/ListenerInitializer';

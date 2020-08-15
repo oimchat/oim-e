@@ -3,7 +3,7 @@ import Group from '@/app/com/main/module/business/group/bean/Group';
 import GroupChatInfoManager from '@/app/com/main/module/business/chat/manager/GroupChatInfoManager';
 import GroupChatManager from '@/app/com/main/module/business/chat/manager/GroupChatManager';
 import GroupChatOpenManager from '@/app/com/main/module/business/chat/manager/GroupChatOpenManager';
-import Prompter from '@/app/com/main/component/Prompter';
+import Prompter from '@/app/com/client/component/Prompter';
 import GroupAccess from '@/app/com/main/module/business/group/access/GroupAccess';
 
 

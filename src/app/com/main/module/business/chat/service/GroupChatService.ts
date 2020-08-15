@@ -10,7 +10,7 @@ import CoreContentUtil from '@/app/com/common/chat/util/CoreContentUtil';
 import PromptManager from '@/app/com/client/module/prompt/manager/PromptManager';
 import SoundType from '@/app/com/client/define/prompt/SoundType';
 import AllMessageUnreadBox from '@/app/com/client/module/information/box/unread/AllMessageUnreadBox';
-import MessageAllUnreadManager from '@/app/com/main/manager/MessageAllUnreadManager';
+import MessageAllUnreadManager from '@/app/com/client/module/information/manager/MessageAllUnreadManager';
 import Group from '@/app/com/main/module/business/group/bean/Group';
 import VoicePromptType from '@/app/com/main/module/setting/prompt/type/VoicePromptType';
 import VoicePromptGroupSetting from '@/app/com/main/module/setting/prompt/VoicePromptGroupSetting';
