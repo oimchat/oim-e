@@ -5,62 +5,59 @@
                 <Icon type="ios-film-outline"></Icon>
                 邀请列表
             </p>
-            <span slot="extra" @click="handleLoadList">
+            <div slot="extra" @click="handleLoadList">
                 <Button type="primary" icon="search">刷新</Button>
-            </span>
+            </div>
             <Row>
-                <div class="apply-notice-message-page" style="overflow-y:auto;max-height:350px">
-                    <div v-for='item in list' class="apply-notice-message-item">
-                        <div class="data">
-                            <div class="content">
-                                <div class='avatar'>
-                                    <Avatar :src="item.inviterUser.avatar" size="large"
-                                            :title="item.inviterUser.nickname"></Avatar>
-                                    <span style="margin-left: 10px" :title="item.inviterUser.account"
-                                          class="nickname_text">{{item.inviterUser.account}}</span>
-                                </div>
-                                <div class="info">
-                                    <h3 class="nickname">
-                                    <span :title="item.inviterUser.nickname"
-                                          class="nickname_text">{{item.inviterUser.nickname}}</span>
-                                    </h3>
-                                    <p class="msg" style='height: 25px'>
-                                        <span class="">{{item.inviterUser.signature}}</span>
-                                    </p>
-                                </div>
-                            </div>
+                <div style="overflow-y:auto;max-height:350px">
 
-                            <div class="content">
-                                <p class="msg" style='height: 12px'>
-                                    <span class="">邀请</span>
-                                </p>
-                                <p class="msg" style='height: 12px'>
-                                    <span class="">您加入</span>
-                                </p>
-                            </div>
+                    <div v-for='item in list' class="notice-message-item only-shadow">
+                        <div class="data-warp">
+                            <div class="data">
+                                <div class="content">
+                                    <div :class="'find-item-info'">
+                                        <div class="ext">
+                                        </div>
+                                        <div class="avatar">
+                                            <img class="img" :src="item.inviterUser.avatar" alt="avatar">
+                                        </div>
 
-                            <div class="content">
-                                <div class='avatar'>
-                                    <Avatar :src="item.group.avatar" size="large" :title="item.group.nickname"></Avatar>
-                                    <span style="margin-left: 10px" :title="item.group.number"
-                                          class="nickname_text">{{item.group.number}}</span>
-                                </div>
-                                <div class="info">
-                                    <h3 class="nickname">
-                                        <span :title="item.group.name" class="nickname_text">{{item.group.name}}</span>
-                                    </h3>
-                                    <p class="msg" style='height: 25px'>
-                                        <span class="">{{item.group.introduce}}</span>
-                                    </p>
-                                </div>
-                            </div>
+                                        <div class="info">
+                                            <h3 class="nickname">
+                                                <span class="nickname-text">{{item.inviterUser.nickname}}({{item.inviterUser.account}})</span>
+                                            </h3>
+                                            <p class="msg">
+                                                <span class="">{{item.inviterUser.signature}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <span style="color: #57b7ff">邀请您加入</span>
+                                    <div :class="'find-item-info'">
+                                        <div class="ext">
+                                        </div>
+                                        <div class="avatar">
+                                            <img class="img" :src="item.group.avatar" alt="avatar">
+                                        </div>
 
-                            <div class="handle-pane">
-                                <Row v-if="item.apply.inviteeHandleType==='0'">
-                                    <Button @click="reject(item.apply)" type="primary" icon="ios-add-circle">拒绝</Button>
-                                    <Button @click="accept(item.apply)" type="primary" icon="ios-add-circle">同意</Button>
-                                </Row>
+                                        <div class="info">
+                                            <h3 class="nickname">
+                                                <span class="nickname-text">{{item.group.name}}({{item.group.number}})</span>
+                                            </h3>
+                                            <p class="msg">
+                                                <span class="">{{item.group.introduce}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="action">
+                                <div v-if="item.apply.inviteeHandleType==='0'">
+                                    <p class="attr"><a @click="accept(item.apply)" href="javascript:;">同意</a></p>
+                                    <p class="attr"><a @click="reject(item.apply)" href="javascript:;">拒绝</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="more">
                         </div>
                     </div>
                 </div>
@@ -216,7 +213,7 @@
 
 </script>
 
-<style lang="less">
-
+<style lang="scss" scoped>
+    @import "../../styles/oim/notice";
 </style>
 

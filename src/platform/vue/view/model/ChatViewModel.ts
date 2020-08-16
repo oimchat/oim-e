@@ -6,6 +6,10 @@ import app from '@/app/App';
 import UploadResult from '@/app/com/main/module/support/file/data/UploadResult';
 import ImageValue from '@/app/com/common/chat/item/ImageValue';
 import ImageItemFileConverter from '@/app/define/file/ImageItemFileConverter';
+import User from '@/app/com/main/module/business/user/bean/User';
+import ContentWrap from '@/common/vue/data/content/ContentWrap';
+import ContentWrapType from '@/common/vue/data/content/ContentWrapType';
+import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
 
 export default class ChatViewModel extends ChatMessageModel {
 
@@ -24,8 +28,10 @@ export default class ChatViewModel extends ChatMessageModel {
         const key = this.info.key;
         if (c) {
             try {
-                const messageKey = new Date().getMilliseconds() + '';
+                const timestamp = new Date().getTime();
+                const messageKey = timestamp + '';
                 c.key = messageKey;
+                c.timestamp = timestamp;
                 // const map: Map<string, File> = (wuh) ? wuh.getFileMapByItems(items) : new Map<string, File>(); // ImagePathFile.getFileMapByItems(items);
                 const items = CoreContentUtil.getImageItemList(c);
                 const handleItemsBack = (map: Map<string, File>) => {
@@ -71,6 +77,20 @@ export default class ChatViewModel extends ChatMessageModel {
             }
         } else {
             back(false, key, c, '消息不能为空！');
+        }
+    }
+
+    public insertCurrent(key: string, showName: string, chatUser: User, content: Content, resend: (content: Content) => void): void {
+        const isReceive = false;
+        const isOwn = true;
+        const messageKey = content.key;
+        this.insertLast(isReceive, isOwn, key, showName, chatUser, content);
+        const wrap: ContentWrap | undefined = this.getContentWrap(key, messageKey);
+        if (wrap) {
+            if (wrap.type === ContentWrapType.message) {
+                const mc: MessageContentWrap = wrap.getData(MessageContentWrap);
+                mc.resend = resend;
+            }
         }
     }
 }

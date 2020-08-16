@@ -38,7 +38,7 @@ export default class ImageToFileUtil {
         const name = '1.png';
         const type = blob.type;
 
-        const lastModified: number = (date) ? date.getMilliseconds() : 0;
+        const lastModified: number = (date) ? date.getTime() : 0;
         const fp = {
             type,
             lastModified,

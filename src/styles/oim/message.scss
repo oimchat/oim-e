@@ -1,0 +1,162 @@
+.message-time {
+    text-align: center;
+    margin: 10px auto;
+    max-width: 50%
+}
+
+.message-time .content {
+    display: inline-block;
+    font-size: 12px;
+    padding: 1px 8px;
+    //color: #b2b2b2;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+
+    background: #c6c6c6;
+    color: #fff;
+}
+
+
+.message {
+    margin-bottom: 16px;
+    float: left;
+    width: 100%;
+    padding: 6px 15px;
+}
+
+.message .avatar {
+    width: 40px;
+    height: 40px;
+    float: left;
+    cursor: pointer;
+    /*border-radius: 2px;*/
+    /*-moz-border-radius: 2px;*/
+    /*-webkit-border-radius: 2px;*/
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%
+}
+
+.message .nickname {
+    font-weight: 400;
+    padding-left: 10px;
+    font-size: 12px;
+    height: 22px;
+    line-height: 24px;
+    color: #4f4f4f;
+    width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal
+}
+
+.message .content {
+    overflow: hidden
+}
+
+.message.right {
+    float: right;
+    text-align: right;
+    clear: right
+}
+
+.message.right .avatar {
+    float: right
+}
+
+.message.right .content {
+    overflow: hidden
+}
+
+.message.first {
+    margin-top: 10px
+}
+
+
+.bubble {
+    max-width: 500px;
+    min-height: 1em;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    text-align: left;
+    font-size: 14px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    margin: 0 10px;
+    color: #000000;
+}
+
+.bubble.bubble_default {
+    background-color: rgba(125, 194, 255, 0.5);
+}
+
+.bubble:after, .bubble:before {
+    position: absolute;
+    top: 14px;
+    border: 6px solid transparent;
+    content: " "
+}
+
+.bubble.left:after, .bubble.left:before {
+    right: 100%
+}
+
+.bubble.left:after {
+    border-right-color: rgba(125, 194, 255, 0.5);
+    border-right-width: 4px
+}
+
+.bubble.right:after, .bubble.right:before {
+    left: 100%
+}
+
+.bubble.right:after {
+    border-left-color: #fff
+}
+
+.bubble.bubble_primary {
+    background-color: #b2e281;
+}
+
+.bubble.bubble_primary.left:after {
+    border-right-color: #b2e281;
+    border-right-width: 4px
+}
+
+.bubble.bubble_primary.right.arrow_primary:before, .bubble.bubble_primary.right:after {
+    border-left-color: #b2e281;
+    border-left-width: 4px;
+}
+
+.bubble_cont {
+    word-wrap: break-word;
+    word-break: break-all;
+    min-height: 25px
+}
+
+.bubble_cont .plain {
+    padding: 9px 9px
+}
+
+.bubble_cont .action-icon {
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    margin-top: -11px;
+    margin-right: 9px;
+}
+
+.bubble_cont .icon-fail {
+    cursor: pointer;
+    font-size: 24px;
+    color: #ff4016;
+}
+
+.bubble_cont .icon-loading {
+    font-size: 24px;
+    color: #18d27d;
+}

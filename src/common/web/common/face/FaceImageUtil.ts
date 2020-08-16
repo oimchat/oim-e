@@ -4,7 +4,11 @@ export default class FaceImageUtil {
 
     public static createFaceImageHtml(face: FaceItem): string {
         const value = face.categoryId + ',' + face.key;
-        const html = '<img src="' + face.path + '" title="' + face.text + '" value="' + value + '" name="face"  alt="' + face.text + '"/>';
+        const html = '<img src="' + face.path +
+            '" title="' + face.text +
+            '" value="' + value +
+            '" path="' + face.path +
+            '" name="face"  alt="' + face.text + '"/>';
         return html;
     }
 }

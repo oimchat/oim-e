@@ -1,0 +1,150 @@
+.notice-message-item {
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    margin: 10px;
+    padding: 0 10px 0 10px;
+    background-color: #f5f4f4;
+    border-radius: 5px;
+
+    .data-warp {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal;
+    }
+
+    .data {
+        max-width: calc(100% - 50px);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .content {
+        width: 100%;
+        float: left;
+        padding-right: 15px;
+    }
+
+    .action {
+        position: absolute;
+        right: 20px;
+        top: 0;
+        float: right;
+        //text-align: center;
+    }
+
+    .action .attr {
+        cursor: pointer;
+        margin-top: 10px;
+        color: #1c4eec;
+        height: 19px;
+        line-height: 1.5;
+        font-size: 14px;
+    }
+
+    .more {
+        .item {
+            padding: 10px;
+        }
+    }
+}
+
+.notice-message-item:hover {
+    background-color: #dcdcdc;
+}
+
+.find-item-info {
+    overflow: hidden;
+    padding: 20px 0 18px;
+    /*border-bottom: 1px solid #647481;*/
+
+    position: relative
+}
+
+.find-item-info.active .ext, .find-item-info.active .info .msg {
+    color: #181818
+}
+
+.find-item-info .avatar {
+    float: left;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.find-item-info .avatar .img {
+    display: block;
+    width: 40px;
+    height: 40px;
+    /*border-radius: 2px;*/
+    /*-moz-border-radius: 2px;*/
+    /*-webkit-border-radius: 2px*/
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.find-item-info .avatar .icon {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    color: #fff;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center
+}
+
+.find-item-info .info {
+    overflow: hidden
+}
+
+.find-item-info .info .nickname {
+    font-weight: 400;
+    font-size: 13px;
+    color: #0a0a0a;
+    line-height: 20px
+}
+
+.find-item-info .info .nickname-text {
+    width: 100%;
+    font-size: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal
+}
+
+.find-item-info .info .nickname_count, .find-item-info .info .nickname-text {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: top
+}
+
+.find-item-info .info .msg {
+    color: #989898;
+    font-size: 13px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    height: 1.5em
+}
+
+.find-item-info .ext {
+    float: right;
+    color: #6b6f7c;
+    font-size: 13px;
+    text-align: right;
+}
+
+.find-item-info .ext .attr {
+    height: 19px;
+    line-height: 1.5;
+    font-size: 18px;
+}

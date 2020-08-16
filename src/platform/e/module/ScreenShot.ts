@@ -68,7 +68,7 @@ class ScreenShot {
                 const blob = new Blob([fileInfo.buffer], {
                     type: fileInfo.type,
                 });
-                const lastModified: number = (fileInfo.lastModified) ? fileInfo.lastModified.getMilliseconds() : 0;
+                const lastModified: number = (fileInfo.lastModified) ? fileInfo.lastModified.getTime() : 0;
                 const fp = {
                     type: fileInfo.type,
                     lastModified,

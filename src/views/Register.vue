@@ -153,7 +153,7 @@
                         return;
                     }
                     const client: AccountCall = app.appContext.getMaterial(AccountCall);
-                    client.isExistAccount(this.user.account, (exist: boolean) => {
+                    client.isExistAccount(value, (exist: boolean) => {
                         if (exist) {
                             resolve('账号已存在！');
                         } else {
@@ -166,7 +166,7 @@
                 return new Promise((resolve, reject) => {
                     if (!BaseUtil.isEmpty(value)) {
                         const client: AccountCall = app.appContext.getMaterial(AccountCall);
-                        client.isExistEmail(this.user.email, (exist: boolean) => {
+                        client.isExistEmail(value, (exist: boolean) => {
                             if (exist) {
                                 resolve('邮箱已注册！');
                             } else {
@@ -186,7 +186,7 @@
                             return;
                         }
                         const client: AccountCall = app.appContext.getMaterial(AccountCall);
-                        client.isExistMobile(this.user.mobile, (exist: boolean) => {
+                        client.isExistMobile(value, (exist: boolean) => {
                             if (exist) {
                                 resolve('手机已注册！');
                             } else {

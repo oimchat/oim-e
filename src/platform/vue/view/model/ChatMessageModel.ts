@@ -283,6 +283,15 @@ export default class ChatMessageModel {
         return messageKey;
     }
 
+    public getContentWrap(key: string, messageKey: string): ContentWrap {
+        let wrap: any;
+        const map = this.getMap(key);
+        if (map) {
+            wrap = map.get(messageKey);
+        }
+        return wrap;
+    }
+
     private handleKeyChange(key: string) {
         this.onKeyChange(key);
     }

@@ -24,7 +24,7 @@ export default class SystemInformationService extends AbstractMaterial {
         if (!systemInformationItemManager.hasItem(type)) {
             systemInformationItemManager.addOrUpdate(type, value, onSelect, onDelete);
         }
-        const timestamp = new Date().getMilliseconds();
+        const timestamp = new Date().getTime();
         systemInformationItemManager.updateItemText(type, text, showTime, timestamp);
 
         for (let j = 0; j < count; j++) {

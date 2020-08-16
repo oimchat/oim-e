@@ -116,7 +116,7 @@ export default class ContentUtil {
         return text;
     }
 
-    public static createChatSectionItem(type: string, value: string) {
+    public static createChatSectionItem(type: string, value: any) {
 
         const SEVER_URL = '';
         const FILE_SERVER_HTTP_URL = '';
@@ -190,12 +190,16 @@ export default class ContentUtil {
                 const faceData: any = BaseUtil.jsonToObject(value);
                 categoryId = faceData.categoryId;
                 key = faceData.key;
-            } else {
+            } else if (value instanceof String) {
                 const faceArray = value.split(',');
                 if (faceArray.length > 1) {
                     categoryId = faceArray[0];
                     key = faceArray[1];
                 }
+            } else {
+                const faceData: any = value;
+                categoryId = faceData.categoryId;
+                key = faceData.key;
             }
             let faceImage = 'unknown.png';
             if (!BaseUtil.isEmpty(categoryId) && !BaseUtil.isEmpty(key)) {
@@ -312,8 +316,6 @@ export default class ContentUtil {
                 // text += '		</div>';
                 // text += '	</div>';
                 // text += '</div>'
-
-
 
 
                 // text += '	<div class="message-attach">';

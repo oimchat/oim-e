@@ -151,8 +151,6 @@
     import '../styles/oim/main.scss';
     import '../styles/oim/common.css';
     import '../styles/oim/component.scss';
-    import '../styles/oim/chat.css';
-
 
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
 

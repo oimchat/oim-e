@@ -41,38 +41,15 @@ export default class WebContentAnalysisUtil {
                     const name = e.name;
                     const value = e.getAttribute('value'); // .value;
                     const title = e.getAttribute('title');
+                    const path = e.getAttribute('path');
                     if ('face' === (name)) {
-                        if (value) {
-                            let isNetFace = false;
-                            if (url) {
-                                const u = url.toString().toLowerCase();
-                                isNetFace = ((u.startsWith('http://') || u.startsWith('https://')));
-                            }
-
-                            const array = value.split(',');
-                            if (array.length > 1) {
-                                const iv: FaceValue = new FaceValue();
-                                iv.categoryId = array[0];
-                                iv.key = array[1];
-                                iv.path = (isNetFace) ? url : '';
-                                iv.text = title;
-
-                                const item: Item = new Item();
-                                item.type = Item.TYPE_FACE;
-                                item.value = iv;
-
-                                section.items.push(item);
-                            }
+                        const item: Item = WebContentAnalysisUtil.getFaceItem(e);
+                        if (item) {
+                            section.items.push(item);
                         }
                     } else {
-                        if (url) {
-                            const iv: ImageValue = new ImageValue();
-                            iv.url = (url) ? url : '';
-
-                            const item: Item = new Item();
-                            item.type = Item.TYPE_IMAGE;
-                            item.value = iv;
-
+                        const item: Item = WebContentAnalysisUtil.getImageItem(e);
+                        if (item) {
                             section.items.push(item);
                         }
                     }
@@ -120,37 +97,13 @@ export default class WebContentAnalysisUtil {
                     const title = n.getAttribute('title');
 
                     if ('face' === (name)) {
-                        if (value) {
-                            let isNetFace = false;
-                            if (url) {
-                                const u = url.toString().toLowerCase();
-                                isNetFace = ((u.startsWith('http://') || u.startsWith('https://')));
-                            }
-
-                            const array = value.split(',');
-                            if (array.length > 1) {
-                                const iv: FaceValue = new FaceValue();
-                                iv.categoryId = array[0];
-                                iv.key = array[1];
-                                iv.path = (isNetFace) ? url : '';
-                                iv.text = title;
-
-                                const item: Item = new Item();
-                                item.type = Item.TYPE_FACE;
-                                item.value = iv;
-
-                                section.items.push(item);
-                            }
+                        const item: Item = WebContentAnalysisUtil.getFaceItem(e);
+                        if (item) {
+                            section.items.push(item);
                         }
                     } else {
-                        if (url) {
-                            const iv: ImageValue = new ImageValue();
-                            iv.url = (url) ? url : '';
-
-                            const item: Item = new Item();
-                            item.type = Item.TYPE_IMAGE;
-                            item.value = iv;
-
+                        const item: Item = WebContentAnalysisUtil.getImageItem(e);
+                        if (item) {
                             section.items.push(item);
                         }
                     }
@@ -158,5 +111,60 @@ export default class WebContentAnalysisUtil {
             }
         }
         return section;
+    }
+
+    private static getFaceItem(e: any): Item {
+        let item: any;
+
+        if (e) {
+            const name = e.name;
+            const value = e.getAttribute('value'); // .value;
+            const title = e.getAttribute('title');
+            const path = e.getAttribute('path');
+
+            if (value) {
+                let isNetFace = false;
+                if (path) {
+                    const u = path.toString().toLowerCase();
+                    isNetFace = ((u.startsWith('http://') || u.startsWith('https://')));
+                }
+
+                const array = value.split(',');
+                if (array.length > 1) {
+                    const iv: FaceValue = new FaceValue();
+                    iv.categoryId = array[0];
+                    iv.key = array[1];
+                    iv.path = (isNetFace) ? path : '';
+                    iv.text = title;
+
+                    item = new Item();
+                    item.type = Item.TYPE_FACE;
+                    item.value = iv;
+                }
+            }
+        }
+        return item;
+    }
+
+    private static getImageItem(e: any): Item {
+        let item: any;
+
+        if (e) {
+            const url = e.src;
+            const name = e.name;
+            const value = e.getAttribute('value'); // .value;
+            const title = e.getAttribute('title');
+            const path = e.getAttribute('path');
+
+            if (url) {
+                const iv: ImageValue = new ImageValue();
+                iv.url = (url) ? url : '';
+
+                item = new Item();
+                item.type = Item.TYPE_IMAGE;
+                item.value = iv;
+            }
+        }
+        return item;
     }
 }

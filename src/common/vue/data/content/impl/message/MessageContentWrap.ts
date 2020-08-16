@@ -1,9 +1,11 @@
 import Content from '@/app/com/common/chat/Content';
 import UserBase from '@/app/com/main/module/business/user/bean/UserBase';
 import ContentWrap from '@/common/vue/data/content/ContentWrap';
+import ContentWrapType from '@/common/vue/data/content/ContentWrapType';
 
 export default class MessageContentWrap extends ContentWrap {
 
+    public type: number = ContentWrapType.message;
     public id: string = '';
     public key: string = '';
     public isOwn: boolean = false;
@@ -18,6 +20,9 @@ export default class MessageContentWrap extends ContentWrap {
     public timeVisible: boolean = true;
     public timeText: string = '';
     public content: Content = new Content();
+    public resend: (content: Content) => void = ((content: Content) => {
+        // no
+    });
 
     public getTimestamp(): number {
         const content: Content = this.content;

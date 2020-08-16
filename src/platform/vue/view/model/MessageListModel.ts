@@ -23,7 +23,7 @@ class MessageListModel {
             this.map.set(id, item);
             this.list.push(item);
         }
-        const lastTimestamp = new Date().getMilliseconds();
+        const lastTimestamp = new Date().getTime();
         item.lastTimestamp = lastTimestamp;
 
         item.key = key;

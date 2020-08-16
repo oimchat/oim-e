@@ -9,75 +9,75 @@
                 <Button type="primary" icon="search">刷新</Button>
             </span>
             <Row>
-                <div class="apply-notice-message-page" style="overflow-y:auto;max-height:350px">
-                    <div v-for='item in list' class="apply-notice-message-item">
-                        <div class="data">
-                            <div class="content">
-                                <div class='avatar'>
-                                    <Avatar :src="item.user.avatar" size="large" :title="item.user.nickname"></Avatar>
-                                    <span style="margin-left: 10px" :title="item.user.account"
-                                          class="nickname_text">{{item.user.account}}</span>
-                                </div>
-                                <div class="info">
-                                    <h3 class="nickname">
-                                    <span :title="item.user.nickname"
-                                          class="nickname_text">{{item.user.nickname}}</span>
-                                    </h3>
-                                    <p class="msg" style='height: 25px'>
-                                        <span class="">{{item.user.signature}}</span>
-                                    </p>
+                <div style="overflow-y:auto;max-height:350px">
+                    <div v-for='item in list' class="notice-message-item only-shadow">
+                        <div class="data-warp">
+                            <div class="data">
+                                <div class="content">
+                                    <div :class="'find-item-info'">
+                                        <div class="ext">
+                                        </div>
+                                        <div class="avatar">
+                                            <img class="img" :src="item.user.avatar" alt="avatar">
+                                        </div>
+
+                                        <div class="info">
+                                            <h3 class="nickname">
+                                                <span class="nickname-text">{{item.user.nickname}}({{item.user.account}})</span>
+                                            </h3>
+                                            <p class="msg">
+                                                <span class="">{{item.user.signature}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <span style="color: #57b7ff">申请加入</span>
+                                    <div :class="'find-item-info'">
+                                        <div class="ext">
+                                        </div>
+                                        <div class="avatar">
+                                            <img class="img" :src="item.group.avatar" alt="avatar">
+                                        </div>
+
+                                        <div class="info">
+                                            <h3 class="nickname">
+                                                <span class="nickname-text">{{item.group.name}}({{item.group.number}})</span>
+                                            </h3>
+                                            <p class="msg">
+                                                <span class="">{{item.group.introduce}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="content">
-                                <p class="msg" style='height: 12px'>
-                                    <span class="">申请加入</span>
-                                </p>
-                            </div>
-
-                            <div class="content">
-                                <div class='avatar'>
-                                    <Avatar :src="item.group.avatar" size="large" :title="item.group.nickname"></Avatar>
-                                    <span style="margin-left: 10px" :title="item.group.number"
-                                          class="nickname_text">{{item.group.number}}</span>
+                            <div class="action">
+                                <div v-if="item.apply.handleType==='0'">
+                                    <p class="attr"><a @click="accept(item.apply)" href="javascript:;">同意</a></p>
+                                    <p class="attr"><a @click="reject(item.apply)" href="javascript:;">拒绝</a></p>
                                 </div>
-                                <div class="info">
-                                    <h3 class="nickname">
-                                        <span :title="item.group.name" class="nickname_text">{{item.group.name}}</span>
-                                    </h3>
-                                    <p class="msg" style='height: 25px'>
-                                        <span class="">{{item.group.introduce}}</span>
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="handle-pane">
-                                <Row v-if="item.apply.handleType==='0'">
-                                    <Button @click="reject(item.apply)" type="primary" icon="ios-add-circle">拒绝</Button>
-                                    <Button @click="accept(item.apply)" type="primary" icon="ios-add-circle">同意</Button>
-                                </Row>
                             </div>
                         </div>
                         <div class="more">
-                            <Row v-for="(item, index) in item.answerList" :key="index">
-                                <Row>
-                                    <Row>
-                                        <Col span="18">
+                            <div>
+                                {{item.apply.message}}
+                            </div>
+                            <div v-for="(item, index) in item.answers" :key="index">
+                                <div class="item">
+                                    <div>
+                                        <div>
                                             <span>问题:</span>
                                             <label>
                                                 {{item.question}}
                                             </label>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col span="18">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div>
                                             <span>答案:</span>
                                             <label>{{item.answer}}</label>
-                                        </Col>
-                                    </Row>
-                                </Row>
-                                <Divider/>
-                            </Row>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -225,7 +225,7 @@
     }
 </script>
 
-<style lang="less">
-
+<style lang="scss" scoped>
+    @import "../../styles/oim/notice";
 </style>
 

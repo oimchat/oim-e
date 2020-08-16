@@ -29,4 +29,9 @@ export default class LoginSaveInfo {
      * 记住密码
      */
     public savePassword: boolean = false;
+
+    /**
+     * 最近登录时间
+     */
+    public lastTimestamp: number = 0;
 }

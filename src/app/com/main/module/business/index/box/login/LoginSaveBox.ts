@@ -22,6 +22,7 @@ export default class LoginSaveBox extends AbstractMaterial {
         let o: any;
         const array: LoginSaveInfo[] = this.getList();
         if (array.length > 0) {
+            this.sort(array);
             o = array[0];
         }
         return o;
@@ -49,6 +50,7 @@ export default class LoginSaveBox extends AbstractMaterial {
             const account: string = data.account;
             const password: string = data.password;
             data.password = savePassword ? SecurityUtil.en(password) : '';
+            data.lastTimestamp = new Date().getTime();
             map.set(account, data);
 
             this.cache.put(this.loginSaveListKey, map);
@@ -91,5 +93,15 @@ export default class LoginSaveBox extends AbstractMaterial {
             }
         }
         return map;
+    }
+
+    private sort(list: LoginSaveInfo[]) {
+        if (list) {
+            list.sort((a: LoginSaveInfo, b: LoginSaveInfo) => {
+                const timestamp1: number = (a.lastTimestamp) ? a.lastTimestamp : 0;
+                const timestamp2: number = (b.lastTimestamp) ? b.lastTimestamp : 0;
+                return timestamp2 - timestamp1;
+            });
+        }
     }
 }

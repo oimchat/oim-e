@@ -14,10 +14,12 @@
                     <Radio-group v-model="ownerUserId">
                         <div class="members compatible">
                             <div class="members_inner">
-                                <div v-for='item in users' class="member">
-                                    <Radio :label="item.id">&nbsp;</Radio>
-                                    <Avatar :src="item.avatar" size="large"/>
-                                    <p class="nickname" style="text-align: center;">{{getNickname(item)}}</p>
+                                <div v-for='(item,index) in users' class="member">
+                                    <Radio :label="item.id">
+                                        <Avatar :src="item.avatar" size="large"/>
+                                        <p class="nickname" style="text-align: center;">{{getNickname(item)}}</p>
+                                    </Radio>
+
                                 </div>
                             </div>
                         </div>
@@ -45,14 +47,15 @@
     import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
     import GroupMemberSender from '@/app/com/main/module/business/group/sender/GroupMemberSender';
     import GroupBusinessController from '@/app/com/main/module/business/group/controller/GroupBusinessController';
-    import GroupMemberListViewController from '@/app/com/main/module/business/group/controller/GroupMemberListViewController';
+    import GroupMemberListViewController
+        from '@/app/com/main/module/business/group/controller/GroupMemberListViewController';
     import GroupMemberUserController from '@/app/com/main/module/business/group/controller/GroupMemberUserController';
 
 
     @Component({
         components: {},
     })
-    export default class ChangeGroupOwnerPane extends Vue {
+    export default class GroupOwnerChangePane extends Vue {
         private show: boolean = false;
         private groupId: string = '';
         private users: User[] = [];
@@ -170,5 +173,80 @@
 </script>
 
 <style scoped>
+    .members_wrp {
+        top: 50px;
+        margin-top: 1px;
+        box-shadow: 1px 1px 1px #e0e0e0;
+        -moz-box-shadow: 1px 1px 1px #e0e0e0;
+        -webkit-box-shadow: 1px 1px 1px #e0e0e0;
+        width: 100%
+    }
+
+    .members {
+        padding: 10px 4px 8px 17px;
+        background-color: #eee;
+        border-bottom: 1px solid #dedede
+    }
+
+    .members_inner {
+        margin-right: -4px;
+        max-height: 300px;
+        overflow-y: auto;
+        overflow-x: hidden
+    }
+
+    .members_inner:after {
+        content: "";
+        display: block;
+        clear: both
+    }
+
+    .member {
+        float: left;
+        position: relative;
+        height: 85px;
+        margin-right: 7px;
+        margin-left: 7px;
+        padding-top: 10px
+    }
+
+    .member.opt {
+        cursor: pointer;
+        margin-right: 15px
+    }
+
+    .member .avatar {
+        display: block;
+        cursor: pointer;
+        width: 55px;
+        height: 55px;
+        background-color: #ccc
+    }
+
+    .member .nickname {
+        color: #888;
+        width: 72px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal;
+        font-size: 12px;
+        margin-left: -8px;
+        vertical-align: middle
+    }
+
+    .member .nickname .emoji {
+        vertical-align: -4px
+    }
+
+    .member .opt {
+        position: absolute;
+        font-size: 0;
+        cursor: pointer;
+        width: 18px;
+        height: 10px;
+        top: 2px;
+        right: 0
+    }
 
 </style>
