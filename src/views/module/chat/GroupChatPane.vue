@@ -8,7 +8,7 @@
                         @on-write-key-press="onKeyPress"
                         @on-write-send="send"
         >
-            <template slot="top-extend">
+            <template slot="topExtend">
                 <div style="float: right">
                     <i @click="showMore = true"
                        class="fas fa-arrow-alt-circle-down top-icon">

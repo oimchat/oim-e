@@ -4,7 +4,7 @@
         <div class="top">
             <div :class="'top-title-warp'">
                 <div class="top-extend">
-                    <slot name="top-extend"></slot>
+                    <slot name="topExtend"></slot>
                 </div>
                 <div class="avatar">
                     <img :class="'img'" :src="data.info.avatar?data.info.avatar:avatar" alt="头像">
@@ -39,6 +39,7 @@
                                @on-send="onSend"
                                @on-key-press='onKeyPress'
                                @on-file="onFile">
+                        <slot name="writeTool"></slot>
                     </WritePane>
                 </template>
             </q-splitter>

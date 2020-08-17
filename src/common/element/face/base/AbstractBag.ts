@@ -1,8 +1,8 @@
-import BaseBag from '@/app/com/main/module/support/face/base/BaseBag';
+import FaceBag from '@/app/com/main/module/support/face/base/FaceBag';
 import FaceCategory from '@/app/com/main/module/support/face/data/FaceCategory';
 import FaceItem from '@/app/com/main/module/support/face/data/FaceItem';
 
-export default abstract class AbstractBag implements BaseBag {
+export default abstract class AbstractBag implements FaceBag {
 
     private faceCategory: FaceCategory = new FaceCategory();
 

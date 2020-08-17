@@ -1,7 +1,7 @@
 .only-popup {
     position: absolute;
     background-color: #fff;
-    z-index: 999;
+    z-index: 1999;
     top: 0;
     left: 0;
     outline: none

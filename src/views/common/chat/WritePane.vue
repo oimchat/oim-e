@@ -397,6 +397,7 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         word-wrap: normal;
+        vertical-align: middle;
 
         i {
             color: #979797;

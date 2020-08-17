@@ -12,11 +12,24 @@
                     <div class="bubble_cont ">
                         <i class="arrow"></i>
                         <div class="plain" @click="contentClick($event)">
-                            <div v-html="getContent" style="padding: 0px">
+                            <div style="padding: 0">
+                                <template v-if="hasSections" v-for="section of data.content.sections">
+                                    <div style="padding: 0">
+                                        <template v-if="hasItems(section)" v-for="item of section.items">
+                                            <template v-if="item.type==='text'">
+                                                {{item.value}}
+                                            </template>
+                                            <template v-else>
+                                                <message-content-item :data="item">
+                                                </message-content-item>
+                                            </template>
+                                        </template>
+                                    </div>
+                                </template>
                             </div>
-                            <!--                                    <img class="ico_loading ng-hide" src="" alt="">-->
+                            <!--<img class="ico_loading ng-hide" src="" alt="">-->
                             <div v-if="data.isOwn && data.status===2" class="action-icon">
-                                <i @click="resend" class="icon-fail fas fa-exclamation-circle fa-spin"
+                                <i @click="resend" class="icon-fail fas fa-exclamation-circle"
                                    title="重新发送">
                                 </i>
                             </div>
@@ -39,9 +52,16 @@
     import app from '@/app/App';
     import ContentUtil from '@/impl/util/ContentUtil';
     import FileDownload from '@/app/com/main/component/FileDownload';
+    import Section from '@/app/com/common/chat/Section';
+
+    import MessageContentItem from '@/views/common/chat/read/MessageContentItem.vue';
+    import Item from '@/app/com/common/chat/Item';
+
 
     @Component({
-        components: {},
+        components: {
+            MessageContentItem,
+        },
     })
     export default class ContentPane extends Vue {
         @Prop({
@@ -77,6 +97,17 @@
             if (typeof data.resend === 'function') {
                 this.data.resend(this.data.content);
             }
+        }
+
+        private hasItems(section: Section) {
+            let has = (section && section.items);
+            return has;
+        }
+
+        get hasSections() {
+            const data = this.data;
+            let has = (data && data.content && data.content.sections);
+            return has;
         }
 
         get getContent() {

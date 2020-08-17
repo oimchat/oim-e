@@ -13,7 +13,6 @@ export default class UserChatAction extends AbstractMaterial {
             const sendUserId: string = data.body.sendUserId;
             const receiveUserId: string = data.body.receiveUserId;
             const content: Content = data.body.content;
-            BaseContentItemUtil.handle(content);
             const ucs: UserChatService = this.appContext.getMaterial(UserChatService);
             ucs.chat(true, sendUserId, receiveUserId, content);
         }

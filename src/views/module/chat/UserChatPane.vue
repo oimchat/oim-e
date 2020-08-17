@@ -7,6 +7,16 @@
                     @on-write-key-press="onKeyPress"
                     @on-write-send="send"
     >
+        <template slot="writeTool">
+            <button class="tool-icon-warp" href="javascript:void(0)">
+                <i class="fas fa-cut"></i>
+            </button>
+            <div style="float: right">
+                <button class="tool-icon-warp" href="javascript:void(0)">
+                    <i class="fas fa-cut"></i>
+                </button>
+            </div>
+        </template>
     </base-chat-pane>
 </template>
 

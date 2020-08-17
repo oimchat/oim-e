@@ -16,7 +16,6 @@ export default class GroupChatAction extends AbstractMaterial {
             const groupId: string = data.body.groupId;
             const content: Content = data.body.content;
             const user: User = data.body.user;
-            BaseContentItemUtil.handle(content);
             UserInfoUtil.handleAvatar(user);
             const ucs: GroupChatService = this.appContext.getMaterial(GroupChatService);
             ucs.chat(true, userId, user, groupId, content);

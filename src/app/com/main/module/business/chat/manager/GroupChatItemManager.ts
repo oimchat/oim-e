@@ -11,9 +11,25 @@ import GroupChatItemEvent from '@/app/com/main/module/common/event/GroupChatItem
 import Prompter from '@/app/com/client/component/Prompter';
 import UserAccess from '@/app/com/main/module/business/user/access/UserAccess';
 import GroupAccess from '@/app/com/main/module/business/group/access/GroupAccess';
+import GroupMessageUnreadBox from '@/app/com/main/module/business/chat/box/unread/GroupMessageUnreadBox';
+import DataChange from '@/app/base/event/DataChange';
+import AppContext from '@/app/base/context/AppContext';
 
 export default class GroupChatItemManager extends AbstractMaterial {
     private type = 'group_chat';
+
+    public constructor(protected appContext: AppContext) {
+        super(appContext);
+        const own = this;
+        const c = {
+            change(data: { key: string; unreadCount: number }): void {
+                const red = data.unreadCount > 0;
+                own.setItemRed(data.key, red, data.unreadCount);
+            },
+        } as DataChange<{ key: string, unreadCount: number }>;
+        const groupMessageUnreadBox: GroupMessageUnreadBox = this.appContext.getMaterial(GroupMessageUnreadBox);
+        groupMessageUnreadBox.addChangeEvent(c);
+    }
 
     public showGroupChatItemById(groupId: string) {
         this.addOrUpdateChatItemById(groupId);

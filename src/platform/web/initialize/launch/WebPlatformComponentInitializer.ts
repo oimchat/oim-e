@@ -8,6 +8,7 @@ import GroupInviteApplyListViewImpl from '@/platform/web/view/impl/GroupInviteAp
 import GroupInviteeApplyListViewImpl from '@/platform/web/view/impl/GroupInviteeApplyListViewImpl';
 import GroupJoinApplyListViewImpl from '@/platform/web/view/impl/GroupJoinApplyListViewImpl';
 import ContactAddApplyListViewImpl from '@/platform/web/view/impl/ContactAddApplyListViewImpl';
+import WebPlatformFileIconInitializer from '@/platform/web/initialize/launch/more/WebPlatformFileIconInitializer';
 
 export default class WebPlatformComponentInitializer implements Initializer {
 
@@ -24,6 +25,7 @@ export default class WebPlatformComponentInitializer implements Initializer {
         const prompter: Prompter = appContext.getMaterial(Prompter);
         prompter.setPromptHandler(new WebPromptHandlerImpl());
         this.initializeView(appContext);
+        this.initializeFileIcon(appContext);
     }
 
     public initializeView(appContext: AppContext) {
@@ -32,5 +34,10 @@ export default class WebPlatformComponentInitializer implements Initializer {
         appContext.putViewImpl(WorkViewEnum.GroupInviteeApplyListView, GroupInviteeApplyListViewImpl);
         appContext.putViewImpl(WorkViewEnum.GroupJoinApplyListView, GroupJoinApplyListViewImpl);
         appContext.putViewImpl(WorkViewEnum.ContactAddApplyListView, ContactAddApplyListViewImpl);
+    }
+
+    public initializeFileIcon(appContext: AppContext) {
+        const fileIconInitializer: WebPlatformFileIconInitializer = new WebPlatformFileIconInitializer();
+        fileIconInitializer.initialize(appContext);
     }
 }

@@ -156,7 +156,8 @@ export default class ChatMessageModel {
     }
 
     public insert(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content): void {
-        BaseContentItemUtil.handle(content);
+
+        content = BaseContentItemUtil.handleConvert(content);
 
         const messageTimeSettingStore: MessageTimeSettingStore = app.appContext.getMaterial(MessageTimeSettingStore);
         const mergeMillisecond = messageTimeSettingStore.messageTimeSetting.mergeMillisecond;

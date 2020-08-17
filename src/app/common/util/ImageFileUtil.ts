@@ -1,16 +1,9 @@
+import FileTypeUtil from '@/app/common/util/FileTypeUtil';
+
 export default class ImageFileUtil {
-    public static imageFiles: string[] = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'JPG', 'JPEG', 'PNG', 'GIF', 'BMP'];
 
     public static isImageByName(name: string): boolean {
-        let isImage = false;
-        if (typeof name === 'string' && name) {
-            const fileName = name.toLowerCase();
-            for (const e of ImageFileUtil.imageFiles) {
-                if (fileName.endsWith('.' + e)) {
-                    isImage = true;
-                }
-            }
-        }
+        let isImage = FileTypeUtil.isImageByName(name);
         return isImage;
     }
 

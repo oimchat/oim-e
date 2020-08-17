@@ -139,7 +139,20 @@
 }
 
 .bubble_cont .plain {
-    padding: 9px 9px
+    padding: 9px 9px;
+    user-select: text;
+    /* Mozilla-specific values */
+    -moz-user-select: text;
+    /* WebKit-specific values */
+    -webkit-user-select: text;
+    /* Microsoft-specific values */
+    -ms-user-select: text;
+}
+
+/*选中的是蓝色背景，白色的字体的段落*/
+.plain::selection {
+    color: white;
+    background-color: blue;
 }
 
 .bubble_cont .action-icon {

@@ -1,7 +1,7 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import AppContext from '@/app/base/context/AppContext';
 import FaceItem from '@/app/com/main/module/support/face/data/FaceItem';
-import BaseBag from '@/app/com/main/module/support/face/base/BaseBag';
+import FaceBag from '@/app/com/main/module/support/face/base/FaceBag';
 import FaceCategory from '@/app/com/main/module/support/face/data/FaceCategory';
 
 export default class FaceBox extends AbstractMaterial {
@@ -15,7 +15,7 @@ export default class FaceBox extends AbstractMaterial {
     }
 
 
-    public addBag(bag: BaseBag): void {
+    public addBag(bag: FaceBag): void {
         if (bag) {
             const faceCategory: FaceCategory = bag.getFaceCategory();
             if (faceCategory) {

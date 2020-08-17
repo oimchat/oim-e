@@ -1,6 +1,8 @@
 export default class Item {
 
     public static TYPE_TEXT: string = 'text';
+    public static TYPE_CODE: string = 'code';
+    public static TYPE_HTML: string = 'html';
 
     public static TYPE_FILE: string = 'file';
     public static TYPE_IMAGE: string = 'image';
