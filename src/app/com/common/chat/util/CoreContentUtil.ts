@@ -77,4 +77,24 @@ export default class CoreContentUtil {
         }
         return imageList;
     }
+
+    public static getItemList(content: Content, type: string): Item[] {
+        const imageList: Item[] = [];
+        if (null != content) {
+            const sections = content.sections;
+            if (null != sections) {
+                for (const s of sections) {
+                    const items = s.items;
+                    if (items) {
+                        for (const i of items) {
+                            if (type === i.type) {
+                                imageList.push(i);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return imageList;
+    }
 }

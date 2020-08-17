@@ -16,6 +16,10 @@ import ChatReadViewEntityDefaultImpl from '@/platform/vue/view/entity/impl/ChatR
 import ChatReadViewEntity from '@/platform/vue/view/entity/ChatReadViewEntity';
 import ChatWriteViewEntity from '@/platform/vue/view/entity/ChatWriteViewEntity';
 import ChatWriteViewEntityDefaultImpl from '@/platform/vue/view/entity/impl/ChatWriteViewEntityDefaultImpl';
+import Item from '@/app/com/common/chat/Item';
+import FaceValue from '@/app/com/common/chat/item/FaceValue';
+import BaseUtil from '@/app/lib/util/BaseUtil';
+import FaceBox from '@/app/com/main/module/support/face/box/FaceBox';
 
 
 export default class ChatMessageModel {
@@ -42,7 +46,7 @@ export default class ChatMessageModel {
     });
 
     private listMap: Map<string, ContentWrap[]> = new Map<string, ContentWrap[]>();
-    private keyMap: Map<string, Map<string, ContentWrap>> = new Map<string, Map<string, ContentWrap>>();
+    private keyMap: Map<string, Map<string, MessageContentWrap>> = new Map<string, Map<string, MessageContentWrap>>();
     private dataMap: Map<string, ChatCacheData> = new Map<string, ChatCacheData>();
 
     public clear(): void {
@@ -158,6 +162,7 @@ export default class ChatMessageModel {
     public insert(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content): void {
 
         content = BaseContentItemUtil.handleConvert(content);
+        this.handleFaceItems(content);
 
         const messageTimeSettingStore: MessageTimeSettingStore = app.appContext.getMaterial(MessageTimeSettingStore);
         const mergeMillisecond = messageTimeSettingStore.messageTimeSetting.mergeMillisecond;
@@ -166,11 +171,9 @@ export default class ChatMessageModel {
         const messageKey = content.key;
         const map = this.getOrCreateMap(key);
         const list = this.getOrCreateList(key);
-        const wrap: ContentWrap | undefined = map.get(messageKey);
 
-        let data: MessageContentWrap;
-        if (wrap) {
-            data = wrap.getData(MessageContentWrap);
+        let data = map.get(messageKey);
+        if (data) {
             if (isOwn) {
                 const status: number = (isReceive) ? MessageStatusType.succeed : MessageStatusType.sending;
                 data.status = status;
@@ -317,10 +320,10 @@ export default class ChatMessageModel {
         return list;
     }
 
-    private getOrCreateMap(key: string): Map<string, ContentWrap> {
+    private getOrCreateMap(key: string): Map<string, MessageContentWrap> {
         let map = this.keyMap.get(key);
         if (!map) {
-            map = new Map<string, ContentWrap>();
+            map = new Map<string, MessageContentWrap>();
             this.keyMap.set(key, map);
         }
         return map;
@@ -380,6 +383,25 @@ export default class ChatMessageModel {
             time = DateUtil.format(format, date);
         }
         return time;
+    }
+
+    private handleFaceItems(content: Content) {
+        const items = CoreContentUtil.getItemList(content, Item.TYPE_FACE);
+        if (items) {
+            const faceBox: FaceBox = app.appContext.getMaterial(FaceBox);
+            for (const item of items) {
+                const value = item.value;
+                if (value instanceof FaceValue) {
+                    const faceValue = value as FaceValue;
+                    if (BaseUtil.isEmpty(faceValue.path)) {
+                        const face = faceBox.getFace(faceValue.categoryId, faceValue.key);
+                        if (face) {
+                            value.path = face.path;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

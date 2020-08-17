@@ -1,10 +1,12 @@
 <template>
-    <img :src="data.path" name="face" :value="value" :path="data.path">
+    <a rel="image_group" href="javascript:void(0);">
+        <img chat="chat_image" :data-source="data.url" :src="data.url">
+    </a>
 </template>
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import FaceValue from '@/app/com/common/chat/item/FaceValue';
+    import ImageValue from '@/app/com/common/chat/item/ImageValue';
 
     @Component({
         components: {},
@@ -15,12 +17,7 @@
             required: false,
             default: () => ({}),
         })
-        private data!: any;
-
-        get value(): string {
-            const v = this.data.categoryId + ',' + this.data.key;
-            return v;
-        }
+        private data!: any | ImageValue;
     }
 </script>
 

@@ -63,6 +63,22 @@ class BaseUtil {
         return value;
     }
 
+    public static isJson(text: string): boolean {
+        if (typeof text === 'string') {
+            try {
+                const o = JSON.parse(text);
+                if (text.indexOf('{') > -1 || text.indexOf('[') > -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (e) {
+                return false;
+            }
+        }
+        return false;
+    }
+
     /******************************************************************************
      * json和对象相关方法end                                                       *
      ******************************************************************************/

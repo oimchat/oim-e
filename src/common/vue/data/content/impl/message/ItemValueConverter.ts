@@ -43,7 +43,7 @@ class ItemValueConverter {
     public convertToRateValue(type: string, v: any): any {
         let value: any;
         const clazz = this.rateMap.get(type);
-        v = BaseContentItemUtil.convertItemValue(v);
+        v = BaseContentItemUtil.convertItemValue(type, v);
         if (clazz) {
             value = ObjectUtil.convert(clazz, v);
         } else {
@@ -55,7 +55,7 @@ class ItemValueConverter {
     public convertToBaseValue(type: string, v: any): any {
         let value: any;
         const clazz = this.baseMap.get(type);
-        v = BaseContentItemUtil.convertItemValue(v);
+        v = BaseContentItemUtil.convertItemValue(type, v);
         if (clazz) {
             value = ObjectUtil.convert(clazz, v);
         } else {

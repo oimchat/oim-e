@@ -4,6 +4,8 @@ import Item from '@/app/com/common/chat/Item';
 import FaceValue from '@/app/com/common/chat/item/FaceValue';
 
 import ImageValue from '@/app/com/common/chat/item/ImageValue';
+import BaseUtil from '@/app/lib/util/BaseUtil';
+import ObjectUtil from '@/app/common/util/ObjectUtil';
 
 export default class WebContentAnalysisUtil {
 
@@ -157,7 +159,14 @@ export default class WebContentAnalysisUtil {
             const path = e.getAttribute('path');
 
             if (url) {
+                let valueData: any;
+                if (BaseUtil.isJson(value)) {
+                    valueData = BaseUtil.jsonToObject(value);
+                }
                 const iv: ImageValue = new ImageValue();
+                if (valueData) {
+                    ObjectUtil.copyByTargetKey(iv, valueData);
+                }
                 iv.url = (url) ? url : '';
 
                 item = new Item();

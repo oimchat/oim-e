@@ -75,6 +75,12 @@
     import WebContentAnalysisUtil from '@/common/web/util/WebContentAnalysisUtil';
     import WriteMapper from '@/views/common/chat/WriteMapper';
     import Content from '@/app/com/common/chat/Content';
+    import WebFileSupportUtil from '@/common/web/util/WebFileSupportUtil';
+    import BaseUtil from '@/app/lib/util/BaseUtil';
+    import Section from '@/app/com/common/chat/Section';
+    import Item from '@/app/com/common/chat/Item';
+    import FileValue from '@/app/com/common/chat/item/FileValue';
+    import FileTypeUtil from '@/app/common/util/FileTypeUtil';
 
     @Component({
         components: {
@@ -234,7 +240,7 @@
 
 
         private handleSuccess(data: any, file: File, fileList: File[]) {
-            this.onFile(data, file);
+            this.handleFileSend(data, file);
             if (fileList) {
                 const index = fileList.indexOf(file);
                 if (index > -1) {
@@ -263,7 +269,8 @@
                 const size = imageData.size;
                 const url = imageData.url;
 
-                const html = '<img style="max-width: 60%" src="' + url + '"/>';
+                const value = BaseUtil.objectToJson(imageData);
+                const html = '<img style="max-width: 60%" src="' + url + '" value="' + value + '" />';
                 this.insertHtmlAtCursor(html);
             }
         }
@@ -271,7 +278,7 @@
 
         private beforeImageUpload(file: File) {
             const maxSiz = (1024 * 1024 * 2);
-            const isImage = ImageFileUtil.isImageByFile(file);
+            const isImage = WebFileSupportUtil.isSupportImageByFile(file);
             let checkMaxSize = false;
             if (!isImage) {
                 this.handleImageFormatError(file);
@@ -320,6 +327,45 @@
             });
         }
 
+        private handleFileSend(data: any, file: File) {
+            const own = this;
+            if (data && data.body) {
+
+                const fileData = data.body;
+                const id = fileData.id;
+                const name = fileData.name;
+                const size = fileData.size;
+                const url = fileData.url;
+
+
+                const content: Content = new Content();
+                const section: Section = new Section();
+                content.sections.push(section);
+
+
+                const item: Item = new Item();
+                item.type = Item.TYPE_FILE;
+
+                const iv: FileValue = new FileValue();
+                iv.id = id;
+                iv.name = name;
+                iv.size = size;
+                iv.url = url;
+
+                item.value = iv;
+                section.items.push(item);
+
+                const isVideo = FileTypeUtil.isVideoByName(name);
+                const isAudio = FileTypeUtil.isAudioByName(name);
+                if (isVideo) {
+                    item.type = Item.TYPE_VIDEO;
+                } else if (isAudio) {
+                    item.type = Item.TYPE_AUDIO;
+                }
+                own.onFile(content);
+            }
+        }
+
         @Emit('on-send')
         private onSend(content: Content) {
             // no
@@ -335,8 +381,8 @@
             // no
         }
 
-        @Emit('on-file')
-        private onFile(data: any, file: File) {
+        @Emit('on-file-content')
+        private onFile(content: Content) {
             // no
         }
     }

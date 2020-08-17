@@ -3,6 +3,8 @@ import Item from '@/app/com/common/chat/Item';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import Section from '@/app/com/common/chat/Section';
 import ObjectUtil from '@/app/common/util/ObjectUtil';
+import valuesMap from '@/app/com/common/chat/item/index';
+import FaceValue from '@/app/com/common/chat/item/FaceValue';
 
 export default class BaseContentItemUtil {
 
@@ -24,7 +26,7 @@ export default class BaseContentItemUtil {
                             if (Item.TYPE_TEXT === oldItem.type) {
                                 newItem.value = oldItem.value;
                             } else {
-                                newItem.value = BaseContentItemUtil.convertItemValue(oldItem.value);
+                                newItem.value = BaseContentItemUtil.convertItemValue(oldItem.type, oldItem.value);
                             }
                             newItem.type = oldItem.type;
                             newItems.push(newItem);
@@ -39,12 +41,29 @@ export default class BaseContentItemUtil {
         return value;
     }
 
-    public static convertItemValue(data: any): any {
-        let value: any;
-        if (data instanceof String) {
-            value = BaseUtil.jsonToObject(data.toString());
+    public static convertItemValue(type: string, data: any): any {
+        let map = valuesMap;
+        let temp: any;
+        if (typeof data === 'string') {
+            temp = BaseUtil.jsonToObject(data.toString());
         } else {
-            value = data;
+            temp = data;
+        }
+        let value: any;
+
+        if (temp) {
+            const length = type.length;
+            const key = type.substring(0, 1).toUpperCase() + type.substring(1, length);
+            const clazz = map.get(key + 'Value');
+            if (clazz) {
+                value = ObjectUtil.convert(clazz, temp);
+            } else {
+                value = temp;
+            }
+        }
+
+        if (value instanceof FaceValue) {
+            const v = ';';
         }
         return value;
     }

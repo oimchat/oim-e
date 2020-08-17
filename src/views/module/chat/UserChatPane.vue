@@ -6,6 +6,7 @@
 
                     @on-write-key-press="onKeyPress"
                     @on-write-send="send"
+                    @on-write-file-content="onFileContent"
     >
         <template slot="writeTool">
             <button class="tool-icon-warp" href="javascript:void(0)">
@@ -130,39 +131,14 @@
             }
         }
 
-        private onSendFile(result: any, file: File) {
+        private onFileContent(content: Content) {
             const model = this.model;
             const data = this.data;
-            if (result && result.body) {
-
-                const content: Content = new Content();
-                const section: Section = new Section();
-                content.sections.push(section);
-
-
-                const item: Item = new Item();
-                item.type = Item.TYPE_FILE;
-
-
-                const body = result.body;
-                const id = body.id;
-                const name = body.name;
-                const size = body.size;
-                const url = body.url;
-                const iv: FileValue = new FileValue();
-                iv.id = id;
-                iv.name = name;
-                iv.size = size;
-                iv.url = url;
-
-                item.value = iv;
-                section.items.push(item);
-                model.send(content, (success, message) => {
-                    if (!success) {
-                        app.prompt(message, '警告', PromptType.warn);
-                    }
-                });
-            }
+            model.send(content, (success, message) => {
+                if (!success) {
+                    app.prompt(message, '警告', PromptType.warn);
+                }
+            });
         }
 
         private handleScroll(info: { event: Event, scrollHeight: number, scrollTop: number, scrollPosition: string }) {

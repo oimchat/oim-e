@@ -11,8 +11,8 @@ export default class WebFileSupportUtil {
     ];
 
     public static images: string[] = [
-        'bmp', 'jpg', 'png', 'tif',
-        'gif', 'webp',];
+        'bmp', 'jpg', 'jpeg', 'png', 'tif',
+        'gif', 'webp'];
 
     public static has(name: string, names: string[]) {
         let is = false;
@@ -40,6 +40,15 @@ export default class WebFileSupportUtil {
 
     public static isSupportImageByName(name: string): boolean {
         let is = FileTypeUtil.has(name, WebFileSupportUtil.images);
+        return is;
+    }
+
+    public static isSupportImageByFile(file: File): boolean {
+        let is = false;
+        if (file) {
+            const name = file.name;
+            is = WebFileSupportUtil.isSupportImageByName(name);
+        }
         return is;
     }
 }

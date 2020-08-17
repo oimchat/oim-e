@@ -19,11 +19,11 @@ export default class FileTypeUtil {
     ];
 
     public static images: string[] = [
-        'bmp', 'jpg', 'png', 'tif',
+        'bmp', 'jpg', 'jpeg', 'png', 'tif',
         'gif', 'pcx', 'tga', 'exif',
         'fpx', 'svg', 'psd', 'cdr',
         'pcd', 'dxf', 'ufo', 'eps',
-        'ai', 'raw', 'wmf', 'webp',];
+        'ai', 'raw', 'wmf', 'webp'];
 
     public static has(name: string, names: string[]) {
         let is = false;

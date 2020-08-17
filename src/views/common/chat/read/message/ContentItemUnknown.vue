@@ -24,11 +24,11 @@
         get value(): string {
             const data = this.data;
             let v = '';
-            if (data instanceof Object) {
+            if (typeof data === 'object') {
                 v = BaseUtil.objectToJson(data);
             }
-            if (data instanceof String) {
-                v = data.toString();
+            if (typeof data === 'string') {
+                v = data;
             }
             return v;
         }

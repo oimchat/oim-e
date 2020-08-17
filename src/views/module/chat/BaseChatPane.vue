@@ -38,7 +38,7 @@
                     <WritePane :data="data.writeMapper"
                                @on-send="onSend"
                                @on-key-press='onKeyPress'
-                               @on-file="onFile">
+                               @on-file-content="onFile">
                         <slot name="writeTool"></slot>
                     </WritePane>
                 </template>
@@ -48,77 +48,77 @@
 </template>
 
 <script lang="ts">
-import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-import ReadPane from '@/views/common/chat/ReadPane.vue';
-import WritePane from '@/views/common/chat/WritePane.vue';
-import BaseChatMapper from '@/views/module/chat/BaseChatMapper';
-import Content from '@/app/com/common/chat/Content';
-import ContentWrap from '@/common/vue/data/content/ContentWrap';
+    import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
+    import ReadPane from '@/views/common/chat/ReadPane.vue';
+    import WritePane from '@/views/common/chat/WritePane.vue';
+    import BaseChatMapper from '@/views/module/chat/BaseChatMapper';
+    import Content from '@/app/com/common/chat/Content';
+    import ContentWrap from '@/common/vue/data/content/ContentWrap';
 
-@Component({
-    components: {
-        ReadPane,
-        WritePane,
-    },
-})
-export default class BaseChatPane extends Vue {
-
-    @Prop({
-        type: Array,
-        required: false,
-        default: () => ([]),
+    @Component({
+        components: {
+            ReadPane,
+            WritePane,
+        },
     })
-    public items!: ContentWrap [];
-    private splitterModel = 190; // start at 150px
-    private avatar = 'assets/images/common/head/user/1.png';
-    @Prop({
-        type: BaseChatMapper,
-        required: false,
-        default: () => (new BaseChatMapper()),
-    })
-    private data!: BaseChatMapper;
+    export default class BaseChatPane extends Vue {
 
-    public mounted() {
-        this.initialize();
+        @Prop({
+            type: Array,
+            required: false,
+            default: () => ([]),
+        })
+        public items!: ContentWrap [];
+        private splitterModel = 190; // start at 150px
+        private avatar = 'assets/images/common/head/user/1.png';
+        @Prop({
+            type: BaseChatMapper,
+            required: false,
+            default: () => (new BaseChatMapper()),
+        })
+        private data!: BaseChatMapper;
+
+        public mounted() {
+            this.initialize();
+        }
+
+        private initialize() {
+            const own = this;
+            // todo
+        }
+
+
+        @Emit('on-read-scroll')
+        private onScroll(info: { event: Event, scrollHeight: number, scrollTop: number, scrollPosition: string }) {
+            // no
+        }
+
+        @Emit('on-read-scroll-top')
+        private onTop() {
+            // no
+        }
+
+
+        @Emit('on-write-send')
+        private onSend(content: Content) {
+            // no
+        }
+
+        @Emit('on-write-key-press')
+        private onKeyPress(evt: KeyboardEvent, e: Element) {
+            // no
+        }
+
+        @Emit('on-write-key-up')
+        private keyup(evt: KeyboardEvent, e: Element) {
+            // no
+        }
+
+        @Emit('on-write-file-content')
+        private onFile(content: Content) {
+            // no
+        }
     }
-
-    private initialize() {
-        const own = this;
-        // todo
-    }
-
-
-    @Emit('on-read-scroll')
-    private onScroll(info: { event: Event, scrollHeight: number, scrollTop: number, scrollPosition: string }) {
-        // no
-    }
-
-    @Emit('on-read-scroll-top')
-    private onTop() {
-        // no
-    }
-
-
-    @Emit('on-write-send')
-    private onSend(content: Content) {
-        // no
-    }
-
-    @Emit('on-write-key-press')
-    private onKeyPress(evt: KeyboardEvent, e: Element) {
-        // no
-    }
-
-    @Emit('on-write-key-up')
-    private keyup(evt: KeyboardEvent, e: Element) {
-        // no
-    }
-
-    @Emit('on-write-file')
-    private onFile(data: any, file: File) {
-        // no
-    }
-}
 </script>
 
 <style lang="scss" scoped>
