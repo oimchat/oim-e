@@ -96,7 +96,7 @@ export default class SystemTray {
                 label: '退出',
                 click() {
                     BrowserWindow.getAllWindows().forEach((win) => {
-                       // win.removeAllListeners();
+                        // win.removeAllListeners();
                     });
                     // app.quit()
                     app.exit(0);

@@ -1,11 +1,10 @@
 import {app, protocol, BrowserWindow} from 'electron';
-import MainHandle from '@/platform/e/MainHandle';
+import BrowserWindowConstructorOptions = Electron.BrowserWindowConstructorOptions;
+import BrowserWindowWarp from '@/platform/e/window/BrowserWindowWarp';
 
 export default class BrowserWindowBuilder {
 
-    public static createWindow(): BrowserWindow {
-
-
+    public static createOptionWindow(options?: BrowserWindowConstructorOptions): BrowserWindow {
         // Create the browser window.
         // win = new BrowserWindow({
         //     width: 800, height: 600,
@@ -16,7 +15,19 @@ export default class BrowserWindowBuilder {
         //     },
         // });
 
-        const win: BrowserWindow = new BrowserWindow({
+        const win: BrowserWindow = new BrowserWindow(options);
+        // win.on('ready-to-show', () => {
+        //     if (win) {
+        //         win.show(); // 初始化后再显示
+        //     }
+        // });
+        const browserWindowWarp: BrowserWindowWarp = new BrowserWindowWarp();
+        browserWindowWarp.initializeEvent(win);
+        return win;
+    }
+
+    public static createDefaultWindow(): BrowserWindow {
+        const options = {
             width: 1000,
             height: 600,
             minWidth: 500,
@@ -27,42 +38,9 @@ export default class BrowserWindowBuilder {
             webPreferences: {
                 nodeIntegration: true,
                 webSecurity: false,
+                enableRemoteModule: true,
             },
-        });
-
-
-        // win.on('ready-to-show', () => {
-        //     if (win) {
-        //         win.show(); // 初始化后再显示
-        //     }
-        // });
-
-        win.on('closed', () => {
-            // no
-        });
-
-        win.on('maximize', () => {
-            if (win) {
-                win.webContents.send('windowMaximize');
-            }
-        });
-        win.on('unmaximize', () => {
-            if (win) {
-                win.webContents.send('windowUnmaximize');
-            }
-        });
-
-        win.on('minimize', () => {
-            if (win) {
-                win.webContents.send('windowMinimize');
-            }
-        });
-
-        win.on('restore', () => {
-            if (win) {
-                win.webContents.send('windowRestore');
-            }
-        });
-        return win;
+        };
+        return BrowserWindowBuilder.createOptionWindow(options);
     }
 }

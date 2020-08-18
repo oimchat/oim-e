@@ -29,6 +29,7 @@ class ScreenShot {
             const screenWindow = execFile(url);
             // console.log(screenWindow)
             screenWindow.on('exit', (code: any) => {
+                // no
             });
         };
         openWindow();

@@ -14,28 +14,19 @@ export default class MainHandle {
             // } else {
             //     this.frame.maximize();
             // }
-            // own.frame.maximize();
-            own.frame.setFullScreen(true);
+            this.frame.maximize();
         });
 
         ipcMain.on('windowRestore', () => {
-            own.frame.setFullScreen(false);
-            // own.frame.unmaximize();
-            // if (this.frame.isMaximized()) {
-            //
-            // } else if (own.frame.isMinimized()) {
-            //     own.frame.restore();
-            // }
-            //
-            // if (!own.frame.isFullScreen()) {
-            //     own.frame.setFullScreen(true)
-            // } else {
-            //     own.frame.setFullScreen(false)
-            // }
+            if (this.frame.isMaximized) {
+                this.frame.unmaximize();
+            } else if (this.frame.isMinimized) {
+                this.frame.restore();
+            }
         });
         // 只是隐藏任务栏
         ipcMain.on('windowClose', () => {
-            own.frame.hide();
+            this.frame.hide();
         });
     }
 
@@ -51,9 +42,9 @@ export default class MainHandle {
 
     private restore() {
         const currentWindow = remote.getCurrentWindow();
-        if (currentWindow.isMaximized()) {
+        if (currentWindow.isMaximized) {
             currentWindow.unmaximize();
-        } else if (currentWindow.isMinimized()) {
+        } else if (currentWindow.isMinimized) {
             currentWindow.restore();
         }
     }

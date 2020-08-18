@@ -23,7 +23,9 @@ class WindowDecorated {
     }
 
     public openURL(url: string) {
-        shell.openExternal(url);
+        shell.openExternal(url).then((r) => {
+            // no
+        });
     }
 
     public flashFrame() {
@@ -56,56 +58,81 @@ class WindowDecorated {
 
     public max() {
         const currentWindow = remote.getCurrentWindow();
-        currentWindow.maximize();
+        if (currentWindow) {
+            // currentWindow.setFullScreen(true);
+            currentWindow.maximize();
+        }
     }
 
     public min() {
         const currentWindow = remote.getCurrentWindow();
-        currentWindow.minimize();
+        if (currentWindow) {
+            currentWindow.minimize();
+        }
     }
 
     public restore() {
         const currentWindow = remote.getCurrentWindow();
-        if (currentWindow.isMaximized) {
+        if (currentWindow) {
+            // currentWindow.setFullScreen(false);
             currentWindow.unmaximize();
-        } else if (currentWindow.isMinimized) {
-            currentWindow.restore();
         }
+        // if (currentWindow.isMaximized()) {
+        //     currentWindow.unmaximize();
+        // } else if (currentWindow.isMinimized()) {
+        //     currentWindow.restore();
+        // }
     }
 
     public close() {
         const currentWindow = remote.getCurrentWindow();
-        currentWindow.close();
+        if (currentWindow) {
+            currentWindow.close();
+        }
     }
 
     public bringFront(isOnTop: boolean) {
         const currentWindow = remote.getCurrentWindow();
-        currentWindow.setAlwaysOnTop(isOnTop);
+        if (currentWindow) {
+            currentWindow.setAlwaysOnTop(isOnTop);
+        }
     }
 
     public focus() {
         const currentWindow = remote.getCurrentWindow();
-        currentWindow.focus();
+        if (currentWindow) {
+            currentWindow.focus();
+        }
     }
 
     public isFocused() {
         const currentWindow = remote.getCurrentWindow();
-        return currentWindow.isFocused();
+        if (currentWindow) {
+            return currentWindow.isFocused();
+        } else {
+            return false;
+        }
     }
 
     public showInactive() {
         const currentWindow = remote.getCurrentWindow();
-        currentWindow.showInactive();
+        if (currentWindow) {
+            currentWindow.showInactive();
+        }
     }
 
     public hide() {
         const currentWindow = remote.getCurrentWindow();
-        currentWindow.hide();
+        if (currentWindow) {
+            currentWindow.hide();
+        }
     }
 
     public show() {
         const currentWindow = remote.getCurrentWindow();
-        currentWindow.show();
+        if (currentWindow) {
+            currentWindow.show();
+        }
     }
 }
 
