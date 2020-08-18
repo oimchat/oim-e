@@ -4,10 +4,9 @@ const requireComponent = require.context(
     false, // 不遍历子文件夹
     /\.vue$/, // 正则匹配 以 .vue结尾的文件
 );
-requireComponent.keys().forEach(fileName => {
-    const prefix = 'ContentItem';
+requireComponent.keys().forEach((fileName) => {
     const component = requireComponent(fileName);
-    let name = fileName.replace(/^\.\/(.*)\.\w+$/, '$1');
+    const name = fileName.replace(/^\.\/(.*)\.\w+$/, '$1');
     const v = component.default;
     componentData[name] = v;
 });

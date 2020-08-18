@@ -81,6 +81,9 @@
     import Item from '@/app/com/common/chat/Item';
     import FileValue from '@/app/com/common/chat/item/FileValue';
     import FileTypeUtil from '@/app/common/util/FileTypeUtil';
+    import ContentUploadFileService from '@/app/com/main/module/support/file/service/ContentUploadFileService';
+    import FileNameUtil from '@/app/common/util/FileNameUtil';
+    import ImageValue from '@/app/com/common/chat/item/ImageValue';
 
     @Component({
         components: {
@@ -141,6 +144,8 @@
                         },
                         (file: File) => {
                             own.uploadImage(file);
+                        }, (file: File) => {
+                            own.uploadFile(file);
                         });
                 });
                 this.data.setElement(inputAreaElement);
@@ -263,13 +268,23 @@
 
             if (data && data.body) {
 
+                const type = file.type;
+
                 const imageData = data.body;
                 const id = imageData.id;
                 const name = imageData.name;
                 const size = imageData.size;
                 const url = imageData.url;
 
-                const value = BaseUtil.objectToJson(imageData);
+                const iv: ImageValue = new ImageValue();
+                iv.id = id;
+                iv.name = name;
+                iv.url = url;
+                iv.size = size;
+                iv.type = type;
+                iv.extension = FileNameUtil.getSuffixName(name);
+
+                const value = BaseUtil.objectToJson(iv);
                 const html = '<img style="max-width: 60%" src="' + url + '" value="' + value + '" />';
                 this.insertHtmlAtCursor(html);
             }
@@ -315,14 +330,40 @@
                 if (success) {
                     const ur = rm.get(key);
                     if (ur && ur.result && ur.result.body) {
+                        const type = file.type;
+
                         const data = ur.result.body;
                         const id = data.id;
                         const name = data.name;
                         const size = data.size;
                         const url = data.url;
-                        const html = '<img style="max-width: 60%" src="' + url + '"/>';
+
+                        const iv: ImageValue = new ImageValue();
+                        iv.id = id;
+                        iv.name = name;
+                        iv.url = url;
+                        iv.size = size;
+                        iv.type = type;
+                        iv.extension = FileNameUtil.getSuffixName(name);
+
+                        const value = BaseUtil.objectToJson(iv);
+                        const html = '<img style="max-width: 60%" src="' + url + '" value="' + value + '" />';
                         own.insertHtmlAtCursor(html);
                     }
+                }
+            });
+        }
+
+        private uploadFile(file: File): void {
+            const own = this;
+            const key = '1.png';
+            const map: Map<string, File> = new Map<string, File>();
+            map.set(key, file);
+            const uploadFileService: ContentUploadFileService = app.appContext.getMaterial(ContentUploadFileService);
+            uploadFileService.uploadFile(file, (success, uploadResult, message) => {
+                if (uploadResult && uploadResult.result && uploadResult.result.body) {
+                    const data = uploadResult.result;
+                    own.handleFileSend(data, file);
                 }
             });
         }
@@ -330,6 +371,8 @@
         private handleFileSend(data: any, file: File) {
             const own = this;
             if (data && data.body) {
+
+                const type = file.type;
 
                 const fileData = data.body;
                 const id = fileData.id;
@@ -351,6 +394,8 @@
                 iv.name = name;
                 iv.size = size;
                 iv.url = url;
+                iv.type = type;
+                iv.extension = FileNameUtil.getSuffixName(name);
 
                 item.value = iv;
                 section.items.push(item);

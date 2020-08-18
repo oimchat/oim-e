@@ -59,23 +59,15 @@ export default class CoreContentUtil {
     }
 
     public static getImageItemList(content: Content): Item[] {
-        const imageList: Item[] = [];
-        if (null != content) {
-            const sections = content.sections;
-            if (null != sections) {
-                for (const s of sections) {
-                    const items = s.items;
-                    if (items) {
-                        for (const i of items) {
-                            if (Item.TYPE_IMAGE === i.type) {
-                                imageList.push(i);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return imageList;
+        return CoreContentUtil.getItemList(content, Item.TYPE_IMAGE);
+    }
+
+    public static getFileItemList(content: Content): Item[] {
+        return CoreContentUtil.getItemList(content, Item.TYPE_FILE);
+    }
+
+    public static getFaceItemList(content: Content): Item[] {
+        return CoreContentUtil.getItemList(content, Item.TYPE_FACE);
     }
 
     public static getItemList(content: Content, type: string): Item[] {

@@ -6,7 +6,8 @@ export default class PasteHandlerUtil {
     public static handle(
         e: Event,
         htmlBack: (html: string) => void,
-        imageBack: (file: File) => void): void {
+        imageBack: (file: File) => void,
+        fileBack: (file: File) => void): void {
         if (e instanceof ClipboardEvent) {
             const ce: ClipboardEvent = e as ClipboardEvent;
             // Prevent the default pasting event and stop bubbling

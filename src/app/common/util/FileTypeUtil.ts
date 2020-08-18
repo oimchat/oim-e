@@ -40,17 +40,17 @@ export default class FileTypeUtil {
     }
 
     public static isVideoByName(name: string): boolean {
-        let is = FileTypeUtil.has(name, FileTypeUtil.videos);
+        const is = FileTypeUtil.has(name, FileTypeUtil.videos);
         return is;
     }
 
     public static isAudioByName(name: string): boolean {
-        let is = FileTypeUtil.has(name, FileTypeUtil.audios);
+        const is = FileTypeUtil.has(name, FileTypeUtil.audios);
         return is;
     }
 
     public static isImageByName(name: string): boolean {
-        let is = FileTypeUtil.has(name, FileTypeUtil.images);
+        const is = FileTypeUtil.has(name, FileTypeUtil.images);
         return is;
     }
 }

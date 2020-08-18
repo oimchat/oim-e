@@ -55,17 +55,23 @@ export default class WebImagePathFile {
         return map;
     }
 
+
     public static handleFileImageItems(items: Item[], back: (map: Map<string, File>) => void): void {
         const emptyMap: Map<string, File> = new Map<string, File>();
 
         if (items && items.length > 0) {
             const urls: string[] = [];
             for (const item of items) {
-                const iv: ImageValue = BaseUtil.jsonToObject(item.value);
-                if (iv) {
-                    const url = iv.url;
-                    if (url && url.startsWith('file')) {
-                        urls.push(url);
+                if (item.type === Item.TYPE_IMAGE) {
+                    const value = item.value;
+                    const iv: ImageValue = (value instanceof String) ? BaseUtil.jsonToObject(value.toString()) : value;
+                    if (iv) {
+                        const url = iv.url;
+                        if (url) {
+                            if (url.startsWith('file') || ImageToFileUtil.isBase64(url)) {
+                                urls.push(url);
+                            }
+                        }
                     }
                 }
             }

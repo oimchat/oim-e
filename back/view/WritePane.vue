@@ -122,6 +122,8 @@
                         },
                         (file: File) => {
                             own.uploadImage(file);
+                        }, (file: File) => {
+                            own.uploadImage(file);
                         });
                 });
                 // inputAreaElement.addEventListener('',(e:KeyboardEvent)=>{})

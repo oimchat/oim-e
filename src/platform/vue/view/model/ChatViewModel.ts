@@ -10,6 +10,7 @@ import User from '@/app/com/main/module/business/user/bean/User';
 import ContentWrap from '@/common/vue/data/content/ContentWrap';
 import ContentWrapType from '@/common/vue/data/content/ContentWrapType';
 import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
+import FileNameUtil from '@/app/common/util/FileNameUtil';
 
 export default class ChatViewModel extends ChatMessageModel {
 
@@ -45,6 +46,11 @@ export default class ChatViewModel extends ChatMessageModel {
                                         const urlKey = iv.url;
                                         const ur = rm.get(urlKey);
                                         if (ur && ur.result && ur.result.body) {
+                                            let type = '';
+                                            if (ur.file) {
+                                                type = ur.file.type;
+                                            }
+
                                             const data = ur.result.body;
                                             const id = data.id;
                                             const name = data.name;
@@ -54,7 +60,8 @@ export default class ChatViewModel extends ChatMessageModel {
                                             iv.name = name;
                                             iv.size = size;
                                             iv.url = url;
-
+                                            iv.type = type;
+                                            iv.extension = FileNameUtil.getSuffixName(name);
                                             item.value = iv;
                                         }
                                     }
