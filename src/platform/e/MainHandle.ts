@@ -18,9 +18,9 @@ export default class MainHandle {
         });
 
         ipcMain.on('windowRestore', () => {
-            if (this.frame.isMaximized) {
+            if (this.frame.isMaximized()) {
                 this.frame.unmaximize();
-            } else if (this.frame.isMinimized) {
+            } else if (this.frame.isMinimized()) {
                 this.frame.restore();
             }
         });
@@ -42,9 +42,9 @@ export default class MainHandle {
 
     private restore() {
         const currentWindow = remote.getCurrentWindow();
-        if (currentWindow.isMaximized) {
+        if (currentWindow.isMaximized()) {
             currentWindow.unmaximize();
-        } else if (currentWindow.isMinimized) {
+        } else if (currentWindow.isMinimized()) {
             currentWindow.restore();
         }
     }

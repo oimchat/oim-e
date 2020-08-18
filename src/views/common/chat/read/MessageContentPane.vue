@@ -47,81 +47,81 @@
 </template>
 
 <script lang="ts">
-    import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
-    import app from '@/app/App';
-    import ContentUtil from '@/impl/util/ContentUtil';
-    import FileDownload from '@/app/com/main/component/FileDownload';
-    import Section from '@/app/com/common/chat/Section';
+import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
+import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
+import app from '@/app/App';
+import ContentUtil from '@/impl/util/ContentUtil';
+import FileDownload from '@/app/com/main/component/FileDownload';
+import Section from '@/app/com/common/chat/Section';
 
-    import MessageContentItem from '@/views/common/chat/read/MessageContentItem.vue';
-    import Item from '@/app/com/common/chat/Item';
+import MessageContentItem from '@/views/common/chat/read/MessageContentItem.vue';
+import Item from '@/app/com/common/chat/Item';
 
 
-    @Component({
-        components: {
-            MessageContentItem,
-        },
+@Component({
+    components: {
+        MessageContentItem,
+    },
+})
+export default class ContentPane extends Vue {
+    @Prop({
+        type: MessageContentWrap,
+        required: false,
+        default: () => (new MessageContentWrap()),
     })
-    export default class ContentPane extends Vue {
-        @Prop({
-            type: MessageContentWrap,
-            required: false,
-            default: () => (new MessageContentWrap()),
-        })
-        private data!: MessageContentWrap;
+    private data!: MessageContentWrap;
 
-        private download(url: string) {
-            const fileDownload: FileDownload = app.appContext.getMaterial(FileDownload);
-            fileDownload.download(url);
-        }
+    private download(url: string) {
+        const fileDownload: FileDownload = app.appContext.getMaterial(FileDownload);
+        fileDownload.download(url);
+    }
 
-        private contentClick(e: Event) {
-            const n = e.target;
-            if (n instanceof Element) {
+    private contentClick(e: Event) {
+        const n = e.target;
+        if (n instanceof Element) {
 
-                const node = (n as Element);
-                // 获取触发事件对象的属性
-                const nodeName = node.nodeName.toLocaleLowerCase();
-                if ('button' === nodeName) {
-                    const url = node.getAttribute('file-url');
-                    if (url) {
-                        this.download(url);
-                    }
+            const node = (n as Element);
+            // 获取触发事件对象的属性
+            const nodeName = node.nodeName.toLocaleLowerCase();
+            if ('button' === nodeName) {
+                const url = node.getAttribute('file-url');
+                if (url) {
+                    this.download(url);
                 }
             }
         }
+    }
 
-        private resend() {
-            const data = this.data;
-            if (typeof data.resend === 'function') {
-                this.data.resend(this.data.content);
-            }
-        }
-
-        private hasItems(section: Section) {
-            let has = (section && section.items);
-            return has;
-        }
-
-        get hasSections() {
-            const data = this.data;
-            let has = (data && data.content && data.content.sections);
-            return has;
-        }
-
-        get getContent() {
-            let tag = '';
-            if (this.data && this.data.content) {
-                tag = ContentUtil.createChatContent(this.data.content);
-            }
-            return tag;
-        }
-
-        private getText(value: string) {
-            return 'text';
+    private resend() {
+        const data = this.data;
+        if (typeof data.resend === 'function') {
+            this.data.resend(this.data.content);
         }
     }
+
+    private hasItems(section: Section) {
+        const has = (section && section.items);
+        return has;
+    }
+
+    get hasSections() {
+        const data = this.data;
+        const has = (data && data.content && data.content.sections);
+        return has;
+    }
+
+    get getContent() {
+        let tag = '';
+        if (this.data && this.data.content) {
+            tag = ContentUtil.createChatContent(this.data.content);
+        }
+        return tag;
+    }
+
+    private getText(value: string) {
+        return 'text';
+    }
+}
 </script>
 <style>
     .bubble_cont img {

@@ -5,10 +5,10 @@ class RouteConfigBox {
 
     public constructor() {
         this.routers = [
-            // {
-            //     path: '/',
-            //     redirect: '/login',
-            // },
+            {
+                path: '/',
+                redirect: '/login',
+            },
             {
                 path: '/login',
                 name: 'login',

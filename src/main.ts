@@ -23,6 +23,7 @@ import i18n from './platform/locale';
 import 'viewerjs/dist/viewer.css';
 // @ts-ignore
 import Viewer from 'v-viewer';
+import './quasar';
 
 Vue.use(Viewer);
 Viewer.setDefaults({
@@ -47,6 +48,6 @@ new Vue({
 }).$mount('#app');
 
 
-import './quasar';
+
 
 

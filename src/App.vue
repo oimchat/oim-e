@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div class="app-root">
         <WindowDecorated></WindowDecorated>
         <router-view/>
     </div>
@@ -20,7 +20,7 @@
     }
 </script>
 <style lang="scss">
-    #app {
+    .app-root {
         width: 100%;
         height: 100%;
         border-radius: 4px;

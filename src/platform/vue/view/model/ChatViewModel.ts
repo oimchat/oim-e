@@ -11,6 +11,8 @@ import ContentWrap from '@/common/vue/data/content/ContentWrap';
 import ContentWrapType from '@/common/vue/data/content/ContentWrapType';
 import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
 import FileNameUtil from '@/app/common/util/FileNameUtil';
+import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
+import MessageStatusType from '@/common/vue/data/content/impl/message/MessageStatusType';
 
 export default class ChatViewModel extends ChatMessageModel {
 
@@ -99,6 +101,29 @@ export default class ChatViewModel extends ChatMessageModel {
                 mc.resend = resend;
             }
         }
+    }
+
+    public send(content1: Content, back: (success: boolean, message: string) => void) {
+        if (content1) {
+            const own = this;
+            this.handleSend(content1, (success, key, content2, message) => {
+                if (success) {
+                    const pb: PersonalBox = app.appContext.getMaterial(PersonalBox);
+                    own.insertCurrent(key, '', pb.getUser(), content2, (content3) => {
+                        own.updateStatus(key, content3.key, MessageStatusType.sending);
+                        own.doSend(key, content3);
+                    });
+                    own.doSend(key, content2);
+                }
+                back(success, message);
+            });
+        } else {
+            back(false, '消息不能为空！');
+        }
+    }
+
+    protected doSend(key: string, content: Content) {
+        // no
     }
 }
 

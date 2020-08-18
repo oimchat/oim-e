@@ -9,7 +9,7 @@ import FaceValue from '@/app/com/common/chat/item/FaceValue';
 export default class BaseContentItemUtil {
 
     public static handleConvert(content: Content): Content {
-        let value: Content = new Content();
+        const value: Content = new Content();
         if (null != content) {
             ObjectUtil.copyByTargetKey(value, content);
             value.sections = [];
@@ -42,7 +42,7 @@ export default class BaseContentItemUtil {
     }
 
     public static convertItemValue(type: string, data: any): any {
-        let map = valuesMap;
+        const map = valuesMap;
         let temp: any;
         if (typeof data === 'string') {
             temp = BaseUtil.jsonToObject(data.toString());

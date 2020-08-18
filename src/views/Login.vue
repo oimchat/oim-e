@@ -53,7 +53,7 @@
                         <div class="login-action-button-container login-bottom">
                             <div class="login-action-button-wrap">
                                 <div class="login-action-button-background"></div>
-                                <button @click="login()" class="login-action-button">登 录</button>
+                                <button @click="login()" type="button" class="login-action-button">登 录</button>
                             </div>
                         </div>
                     </div>

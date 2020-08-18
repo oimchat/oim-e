@@ -3,7 +3,7 @@ import FileTypeUtil from '@/app/common/util/FileTypeUtil';
 export default class ImageFileUtil {
 
     public static isImageByName(name: string): boolean {
-        let isImage = FileTypeUtil.isImageByName(name);
+        const isImage = FileTypeUtil.isImageByName(name);
         return isImage;
     }
 

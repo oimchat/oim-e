@@ -17,39 +17,39 @@
 </template>
 
 <script lang="ts">
-    import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import FileValue from '@/app/com/common/chat/item/FileValue';
-    import App from '@/app/App';
-    import FileIconBox from '@/app/com/main/module/support/file/box/FileIconBox';
-    import FileNameUtil from '@/app/common/util/FileNameUtil';
-    import ByteSizeUtil from '@/app/common/util/ByteSizeUtil';
+import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
+import FileValue from '@/app/com/common/chat/item/FileValue';
+import App from '@/app/App';
+import FileIconBox from '@/app/com/main/module/support/file/box/FileIconBox';
+import FileNameUtil from '@/app/common/util/FileNameUtil';
+import ByteSizeUtil from '@/app/common/util/ByteSizeUtil';
 
-    @Component({
-        components: {},
+@Component({
+    components: {},
+})
+export default class ContentItemFile extends Vue {
+    @Prop({
+        type: Object,
+        required: false,
+        default: () => ({}),
     })
-    export default class ContentItemFile extends Vue {
-        @Prop({
-            type: Object,
-            required: false,
-            default: () => ({}),
-        })
-        private data!: any | FileValue;
+    private data!: any | FileValue;
 
-        get src(): string {
-            const data = this.data;
-            const fileName = data.name;
-            const extension = FileNameUtil.getSuffixName(fileName);
-            const fileIconBox: FileIconBox = App.appContext.getMaterial(FileIconBox);
-            let src = fileIconBox.getIcon(extension);
-            return src;
-        }
-
-        get sizeText(): string {
-            const data = this.data;
-            const size = data.size;
-            return ByteSizeUtil.getSizeText(size);
-        }
+    get src(): string {
+        const data = this.data;
+        const fileName = data.name;
+        const extension = FileNameUtil.getSuffixName(fileName);
+        const fileIconBox: FileIconBox = App.appContext.getMaterial(FileIconBox);
+        const src = fileIconBox.getIcon(extension);
+        return src;
     }
+
+    get sizeText(): string {
+        const data = this.data;
+        const size = data.size;
+        return ByteSizeUtil.getSizeText(size);
+    }
+}
 </script>
 
 <style scoped>

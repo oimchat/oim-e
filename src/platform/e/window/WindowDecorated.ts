@@ -66,9 +66,9 @@ class WindowDecorated {
 
     public restore() {
         const currentWindow = remote.getCurrentWindow();
-        if (currentWindow.isMaximized) {
+        if (currentWindow.isMaximized()) {
             currentWindow.unmaximize();
-        } else if (currentWindow.isMinimized) {
+        } else if (currentWindow.isMinimized()) {
             currentWindow.restore();
         }
     }

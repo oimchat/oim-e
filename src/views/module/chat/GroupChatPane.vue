@@ -27,7 +27,7 @@
             </div>
         </div>
         <Drawer class="only-shadow" title="更多" width="340" :mask="false" :closable="true" v-model="showMore">
-            <div class="only-border-bottom" style="padding-bottom: 20px" v-if='isOwner'>
+            <div v-show='isOwner' class="only-border-bottom" style="padding-bottom: 20px">
                 <GroupJoinSettingPane :groupId='model.viewData.key'></GroupJoinSettingPane>
             </div>
             <div style=";margin-top: 20px">
@@ -206,7 +206,6 @@
         }
 
 
-        @Watch('model.cacheData.key')
         private keyChange(): void {
             // no
             this.showMore = false;

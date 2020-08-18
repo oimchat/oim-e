@@ -9,7 +9,6 @@ import GroupChatDataController from '@/app/com/main/module/business/chat/control
 import DataBackAction from '@/app/base/net/DataBackAction';
 import MessageStatusType from '@/common/vue/data/content/impl/message/MessageStatusType';
 import GroupChatController from '@/app/com/main/module/business/chat/controller/GroupChatController';
-import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
 
 class GroupChatViewModel extends ChatViewModel {
 
@@ -64,26 +63,7 @@ class GroupChatViewModel extends ChatViewModel {
         }
     }
 
-    public send(c: Content, back: (success: boolean, message: string) => void) {
-        if (c) {
-            const own = this;
-            this.handleSend(c, (success, key, content, message) => {
-                if (success) {
-                    const pb: PersonalBox = app.appContext.getMaterial(PersonalBox);
-                    own.insertCurrent(key, '', pb.getUser(), content, (content) => {
-                        own.updateStatus(key, content.key, MessageStatusType.sending);
-                        own.doSend(key, content);
-                    });
-                    own.doSend(key, content);
-                }
-                back(success, message);
-            });
-        } else {
-            back(false, '消息不能为空！');
-        }
-    }
-
-    private doSend(key: string, content: Content) {
+    protected doSend(key: string, content: Content) {
         const own = this;
         const sendBack: DataBackAction = {
             lost(data: any): void {

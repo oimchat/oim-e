@@ -47,8 +47,6 @@
     import GroupBox from '@/app/com/main/module/business/group/box/GroupBox';
     import GroupMemberSender from '@/app/com/main/module/business/group/sender/GroupMemberSender';
     import GroupBusinessController from '@/app/com/main/module/business/group/controller/GroupBusinessController';
-    import GroupMemberListViewController
-        from '@/app/com/main/module/business/group/controller/GroupMemberListViewController';
     import GroupMemberUserController from '@/app/com/main/module/business/group/controller/GroupMemberUserController';
 
 
