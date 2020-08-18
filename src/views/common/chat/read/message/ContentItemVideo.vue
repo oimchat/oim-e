@@ -1,21 +1,22 @@
 <template>
     <div class="video">
-        <img height="120" width="160" class="msg-img " src="" style="height: 960px; width: 540px;">
-        <i class="oim_chat_paly "></i>
-        <i class="arrow "></i>
-        <p class="loading ng-hide">
-            <img src="" alt="">
-        </p>
+        <div style="width:320px;">
+            <video width="320" controls>
+                <source :src="data.url">
+                不支持播放的格式，请下载文件播放';
+            </video>
+        </div>
+        <br>
+        <label>文件： + {{data.name}} + |{{sizeText}}</label>
+        <br>
+        <a :file-url="data.url" target="_blank" :href="data.url" :download="data.name">点击下载</a>
     </div>
 </template>
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import FileValue from '@/app/com/common/chat/item/FileValue';
-    import App from '@/app/App';
-    import FileIconBox from '@/app/com/main/module/support/file/box/FileIconBox';
-    import FileNameUtil from '@/app/common/util/FileNameUtil';
     import ByteSizeUtil from '@/app/common/util/ByteSizeUtil';
+    import VideoValue from '@/app/com/common/chat/item/VideoValue';
 
     @Component({
         components: {},
@@ -26,16 +27,8 @@
             required: false,
             default: () => ({}),
         })
-        private data!: any | FileValue;
+        private data!: any | VideoValue;
 
-        get src(): string {
-            const data = this.data;
-            const fileName = data.name;
-            const extension = FileNameUtil.getSuffixName(fileName);
-            const fileIconBox: FileIconBox = App.appContext.getMaterial(FileIconBox);
-            let src = fileIconBox.getIcon(extension);
-            return src;
-        }
 
         get sizeText(): string {
             const data = this.data;
@@ -48,7 +41,6 @@
 <style scoped>
     .video {
         position: relative;
-        cursor: pointer
     }
 
     .video img {

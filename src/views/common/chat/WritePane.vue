@@ -11,7 +11,7 @@
                                 multiple
                                 :disabled="uploadInfo.fileDisabled"
                                 :show-file-list="true"
-                                :on-success="handleSuccess"
+                                :on-success="handleFileSuccess"
                                 :action="uploadInfo.fileAction">
                             <i class="fas fa-folder-plus"></i>
                         </el-upload>
@@ -244,7 +244,10 @@
         }
 
 
-        private handleSuccess(data: any, file: File, fileList: File[]) {
+        private handleFileSuccess(data: any, file: any, fileList: File[]) {
+            if (file.raw) {
+                file = file.raw;
+            }
             this.handleFileSend(data, file);
             if (fileList) {
                 const index = fileList.indexOf(file);
@@ -256,7 +259,7 @@
             }
         }
 
-        private handleImageSuccess(data: any, file: File, fileList: File[]) {
+        private handleImageSuccess(data: any, file: any, fileList: File[]) {
             if (fileList) {
                 const index = fileList.indexOf(file);
                 if (index > -1) {
@@ -268,13 +271,20 @@
 
             if (data && data.body) {
 
-                const type = file.type;
+                let type = '';
+                if (file.raw) {
+                    type = file.raw.type;
+                } else {
+                    type = file.type;
+                }
+
 
                 const imageData = data.body;
                 const id = imageData.id;
                 const name = imageData.name;
                 const size = imageData.size;
                 const url = imageData.url;
+                const path = imageData.path;
 
                 const iv: ImageValue = new ImageValue();
                 iv.id = id;
@@ -285,7 +295,7 @@
                 iv.extension = FileNameUtil.getSuffixName(name);
 
                 const value = BaseUtil.objectToJson(iv);
-                const html = '<img style="max-width: 60%" src="' + url + '" value="' + value + '" />';
+                const html = '<img style="max-width: 60%" src="' + url + '" value=\'' + value + '\' />';
                 this.insertHtmlAtCursor(html);
             }
         }
@@ -347,7 +357,7 @@
                         iv.extension = FileNameUtil.getSuffixName(name);
 
                         const value = BaseUtil.objectToJson(iv);
-                        const html = '<img style="max-width: 60%" src="' + url + '" value="' + value + '" />';
+                        const html = '<img style="max-width: 60%" src="' + url + '" value=\'' + value + '\' />';
                         own.insertHtmlAtCursor(html);
                     }
                 }
@@ -379,6 +389,7 @@
                 const name = fileData.name;
                 const size = fileData.size;
                 const url = fileData.url;
+                const path = fileData.path;
 
 
                 const content: Content = new Content();
@@ -400,12 +411,18 @@
                 item.value = iv;
                 section.items.push(item);
 
-                const isVideo = FileTypeUtil.isVideoByName(name);
-                const isAudio = FileTypeUtil.isAudioByName(name);
+                const isVideo = WebFileSupportUtil.isSupportVideoByName(name);
+                const isAudio = WebFileSupportUtil.isSupportAudioByName(name);
+                const isImage = WebFileSupportUtil.isSupportImageByName(name);
                 if (isVideo) {
+                    iv.url = path;
                     item.type = Item.TYPE_VIDEO;
                 } else if (isAudio) {
+                    iv.url = path;
                     item.type = Item.TYPE_AUDIO;
+                } else if (isImage) {
+                    iv.url = path;
+                    item.type = Item.TYPE_IMAGE;
                 }
                 own.onFile(content);
             }

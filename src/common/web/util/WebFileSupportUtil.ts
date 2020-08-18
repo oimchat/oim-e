@@ -29,17 +29,17 @@ export default class WebFileSupportUtil {
     }
 
     public static isSupportVideoByName(name: string): boolean {
-        let is = FileTypeUtil.has(name, WebFileSupportUtil.videos);
+        const is = FileTypeUtil.has(name, WebFileSupportUtil.videos);
         return is;
     }
 
     public static isSupportAudioByName(name: string): boolean {
-        let is = FileTypeUtil.has(name, WebFileSupportUtil.audios);
+        const is = FileTypeUtil.has(name, WebFileSupportUtil.audios);
         return is;
     }
 
     public static isSupportImageByName(name: string): boolean {
-        let is = FileTypeUtil.has(name, WebFileSupportUtil.images);
+        const is = FileTypeUtil.has(name, WebFileSupportUtil.images);
         return is;
     }
 

@@ -20,6 +20,7 @@ import Item from '@/app/com/common/chat/Item';
 import FaceValue from '@/app/com/common/chat/item/FaceValue';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import FaceBox from '@/app/com/main/module/support/face/box/FaceBox';
+import ContentItemHandleService from '@/common/web/content/service/ContentItemHandleService';
 
 
 export default class ChatMessageModel {
@@ -162,7 +163,7 @@ export default class ChatMessageModel {
     public insert(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content): void {
 
         content = BaseContentItemUtil.handleConvert(content);
-        this.handleFaceItems(content);
+        this.handleContent(content);
 
         const messageTimeSettingStore: MessageTimeSettingStore = app.appContext.getMaterial(MessageTimeSettingStore);
         const mergeMillisecond = messageTimeSettingStore.messageTimeSetting.mergeMillisecond;
@@ -385,22 +386,10 @@ export default class ChatMessageModel {
         return time;
     }
 
-    private handleFaceItems(content: Content) {
-        const items = CoreContentUtil.getItemList(content, Item.TYPE_FACE);
-        if (items) {
-            const faceBox: FaceBox = app.appContext.getMaterial(FaceBox);
-            for (const item of items) {
-                const value = item.value;
-                if (value instanceof FaceValue) {
-                    const faceValue = value as FaceValue;
-                    if (BaseUtil.isEmpty(faceValue.path)) {
-                        const face = faceBox.getFace(faceValue.categoryId, faceValue.key);
-                        if (face) {
-                            value.path = face.path;
-                        }
-                    }
-                }
-            }
+    private handleContent(content: Content) {
+        const service: ContentItemHandleService = app.appContext.getMaterial(ContentItemHandleService);
+        if (service) {
+            service.handleContent(content);
         }
     }
 }

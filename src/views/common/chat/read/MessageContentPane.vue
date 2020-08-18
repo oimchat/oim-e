@@ -17,7 +17,7 @@
                                     <div style="padding: 0">
                                         <template v-if="hasItems(section)" v-for="item of section.items">
                                             <template v-if="item.type==='text'">
-                                                {{item.value}}
+                                                <label v-html="item.value"></label>
                                             </template>
                                             <template v-else>
                                                 <message-content-item :data="item">
@@ -116,6 +116,10 @@
                 tag = ContentUtil.createChatContent(this.data.content);
             }
             return tag;
+        }
+
+        private getText(value: string) {
+            return 'text';
         }
     }
 </script>
