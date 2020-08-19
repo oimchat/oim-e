@@ -9,14 +9,7 @@
                     @on-write-file-content="onFileContent"
     >
         <template slot="writeTool">
-            <button class="tool-icon-warp" href="javascript:void(0)">
-                <i class="fas fa-cut"></i>
-            </button>
-            <div style="float: right">
-                <button class="tool-icon-warp" href="javascript:void(0)">
-                    <i class="fas fa-cut"></i>
-                </button>
-            </div>
+
         </template>
     </base-chat-pane>
 </template>
