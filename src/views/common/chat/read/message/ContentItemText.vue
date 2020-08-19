@@ -1,5 +1,5 @@
 <template>
-    <label>{{data}}</label>
+    <label v-html="data"></label>
 </template>
 
 <script lang="ts">

@@ -12,17 +12,15 @@
                     <div class="bubble_cont ">
                         <i class="arrow"></i>
                         <div class="plain" @click="contentClick($event)">
-                            <div style="padding: 0">
-                                <template v-if="hasSections" v-for="section of data.content.sections">
-                                    <div style="padding: 0">
+                            <div ref="contentPane" style="padding: 0">
+                                <template v-if="hasSections" v-for="(section,index) of data.content.sections">
+                                    <template v-if="!hasItems(section)&&index>0">
+                                        <br>
+                                    </template>
+                                    <div>
                                         <template v-if="hasItems(section)" v-for="item of section.items">
-                                            <template v-if="item.type==='text'">
-                                                <label v-html="item.value"></label>
-                                            </template>
-                                            <template v-else>
-                                                <message-content-item :data="item">
-                                                </message-content-item>
-                                            </template>
+                                            <message-content-item :data="item">
+                                            </message-content-item>
                                         </template>
                                     </div>
                                 </template>
@@ -47,81 +45,80 @@
 </template>
 
 <script lang="ts">
-import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
-import app from '@/app/App';
-import ContentUtil from '@/impl/util/ContentUtil';
-import FileDownload from '@/app/com/main/component/FileDownload';
-import Section from '@/app/com/common/chat/Section';
-
-import MessageContentItem from '@/views/common/chat/read/MessageContentItem.vue';
-import Item from '@/app/com/common/chat/Item';
+    import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
+    import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
+    import app from '@/app/App';
+    import FileDownload from '@/app/com/main/component/FileDownload';
+    import Section from '@/app/com/common/chat/Section';
+    import MessageContentItem from '@/views/common/chat/read/MessageContentItem.vue';
+    import DocumentUtil from '@/common/web/util/DocumentUtil';
 
 
-@Component({
-    components: {
-        MessageContentItem,
-    },
-})
-export default class ContentPane extends Vue {
-    @Prop({
-        type: MessageContentWrap,
-        required: false,
-        default: () => (new MessageContentWrap()),
+    @Component({
+        components: {
+            MessageContentItem,
+        },
     })
-    private data!: MessageContentWrap;
+    export default class ContentPane extends Vue {
+        @Prop({
+            type: MessageContentWrap,
+            required: false,
+            default: () => (new MessageContentWrap()),
+        })
+        private data!: MessageContentWrap;
 
-    private download(url: string) {
-        const fileDownload: FileDownload = app.appContext.getMaterial(FileDownload);
-        fileDownload.download(url);
-    }
+        private download(url: string) {
+            const fileDownload: FileDownload = app.appContext.getMaterial(FileDownload);
+            fileDownload.download(url);
+        }
 
-    private contentClick(e: Event) {
-        const n = e.target;
-        if (n instanceof Element) {
+        private contentClick(e: Event) {
+            const n = e.target;
+            if (n instanceof Element) {
 
-            const node = (n as Element);
-            // 获取触发事件对象的属性
-            const nodeName = node.nodeName.toLocaleLowerCase();
-            if ('button' === nodeName) {
-                const url = node.getAttribute('file-url');
-                if (url) {
-                    this.download(url);
+                const node = (n as Element);
+                // 获取触发事件对象的属性
+                const nodeName = node.nodeName.toLocaleLowerCase();
+                if ('button' === nodeName) {
+                    const url = node.getAttribute('file-url');
+                    if (url) {
+                        this.download(url);
+                    }
                 }
             }
         }
-    }
 
-    private resend() {
-        const data = this.data;
-        if (typeof data.resend === 'function') {
-            this.data.resend(this.data.content);
+        private resend() {
+            const data = this.data;
+            if (typeof data.resend === 'function') {
+                this.data.resend(this.data.content);
+            }
+        }
+
+        private hasItems(section: Section) {
+            const has = (section && section.items && section.items.length > 0);
+            return has;
+        }
+
+        get hasSections() {
+            const data = this.data;
+            const has = (data && data.content && data.content.sections && data.content.sections.length > 0);
+            return has;
+        }
+
+
+        public appendElement(html: string) {
+            const contentPaneName = 'contentPane';
+            const contentPane = this.$refs[contentPaneName];
+            if (contentPane) {
+                DocumentUtil.appendElement(contentPane as Element, html);
+            }
+        }
+
+        private getText(value: string) {
+            return 'text';
         }
     }
-
-    private hasItems(section: Section) {
-        const has = (section && section.items);
-        return has;
-    }
-
-    get hasSections() {
-        const data = this.data;
-        const has = (data && data.content && data.content.sections);
-        return has;
-    }
-
-    get getContent() {
-        let tag = '';
-        if (this.data && this.data.content) {
-            tag = ContentUtil.createChatContent(this.data.content);
-        }
-        return tag;
-    }
-
-    private getText(value: string) {
-        return 'text';
-    }
-}
 </script>
 <style>
     .bubble_cont img {

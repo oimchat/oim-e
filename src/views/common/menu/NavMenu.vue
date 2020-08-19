@@ -1,6 +1,6 @@
 <template>
     <div ref="menuContainer" class="menu-container" :style="axisComputed" v-show="isShow">
-        <el-scrollbar wrap-class="scrollbar-wrapper" style="margin-bottom: 2px">
+        <el-scrollbar wrap-class="scrollbar-wrapper" >
             <el-menu
                     :default-active="data.activeMenu"
                     :collapse="data.collapse"
@@ -133,9 +133,14 @@
         }
     }
 </script>
+<style scoped>
+
+</style>
 
 <style lang="scss">
-
+    .scrollbar-wrapper {
+        margin-bottom: 0 !important;
+    }
 
     .menu-container {
         overflow-y: auto;

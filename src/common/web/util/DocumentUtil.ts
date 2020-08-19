@@ -43,6 +43,17 @@ export default class DocumentUtil {
         }
     }
 
+    public static appendElement(e: Element, html: string) {
+        if (e && html) {
+            const element = document.createElement('p');
+            element.innerHTML = html;
+            for (const n of element.childNodes) {
+                e.appendChild(n);
+            }
+            // e.append(html);
+        }
+    }
+
     public static getCursorLocation(e: Element) {
         if (e !== document.activeElement) { // 如果dom没有获取到焦点，追加
             if (e instanceof HTMLElement) {
