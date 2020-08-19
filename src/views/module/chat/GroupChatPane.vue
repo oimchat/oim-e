@@ -27,8 +27,8 @@
             </div>
         </div>
         <Drawer class="only-shadow" title="更多" width="340" :mask="false" :closable="true" v-model="showMore">
-            <div v-show='isOwner' class="only-border-bottom" style="padding-bottom: 20px">
-                <GroupJoinSettingPane :groupId='model.viewData.key'></GroupJoinSettingPane>
+            <div v-show='groupJoinSettingMapper.isOwner' class="only-border-bottom" style="padding-bottom: 20px">
+                <GroupJoinSettingPane :data="groupJoinSettingMapper"></GroupJoinSettingPane>
             </div>
             <div style=";margin-top: 20px">
                 <group-member-list-pane
@@ -67,6 +67,7 @@
     import ChatReadViewEntityDefaultImpl from '@/platform/vue/view/entity/impl/ChatReadViewEntityDefaultImpl';
     import ChatWriteViewEntity from '@/platform/vue/view/entity/ChatWriteViewEntity';
     import ChatWriteViewEntityDefaultImpl from '@/platform/vue/view/entity/impl/ChatWriteViewEntityDefaultImpl';
+    import GroupJoinSettingMapper from '@/views/module/group/setting/GroupJoinSettingMapper';
 
     @Component({
         components: {
@@ -79,7 +80,7 @@
         private data: BaseChatMapper = new BaseChatMapper();
         private model = groupChatViewModel;
         private showMore: boolean = false;
-        private isOwner: boolean = false;
+        private groupJoinSettingMapper: GroupJoinSettingMapper = new GroupJoinSettingMapper();
 
         public mounted() {
             this.initialize();
@@ -111,14 +112,14 @@
             model.setWriteViewEntity(writeViewEntity);
             model.setOnKeyChange((key: string) => {
                 // no
-                own.keyChange();
+                own.keyChange(key);
             });
         }
 
         private initialize() {
             const own = this;
             // todo
-            this.keyChange();
+            this.keyChange(own.model.viewData.key);
         }
 
         private onReadScroll(info: { event: Event, scrollHeight: number, scrollTop: number, scrollPosition: string }) {
@@ -206,14 +207,10 @@
         }
 
 
-        private keyChange(): void {
+        private keyChange(groupId: string): void {
             // no
-            this.showMore = false;
-
-            const groupId = this.model.viewData.key;
-            const personalGroupMemberListBox: GroupMemberListOfPersonalBox = app.appContext.getMaterial(GroupMemberListOfPersonalBox);
-            const position = personalGroupMemberListBox.getPosition(groupId);
-            this.isOwner = (GroupMember.POSITION_OWNER === position);
+            // this.showMore = false;
+            this.groupJoinSettingMapper.setGroupId(groupId);
         }
     }
 </script>

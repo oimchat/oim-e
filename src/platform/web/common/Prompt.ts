@@ -111,7 +111,7 @@ export default class Prompt {
             color = 'teal';
             icon = 'tag_faces';
         }
-        if ('warn' === type) {
+        if ('warn' === type || 'warning' === type) {
             title = title || '警告';
             color = 'warning';
             icon = 'fas fa-exclamation-circle';

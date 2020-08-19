@@ -218,13 +218,16 @@
         /*transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94)*/
     }
 
+    .expression {
+        z-index: 10;
+    }
 
     .expression:after, .expression:before {
         content: "";
         position: absolute;
         left: 16px;
         top: 100%;
-        margin-left: -7px
+        margin-left: -7px;
     }
 
     .expression:after {

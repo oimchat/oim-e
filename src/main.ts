@@ -24,6 +24,7 @@ import 'viewerjs/dist/viewer.css';
 // @ts-ignore
 import Viewer from 'v-viewer';
 import './quasar';
+import './plugins/codemirror';
 
 Vue.use(Viewer);
 Viewer.setDefaults({

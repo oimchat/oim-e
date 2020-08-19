@@ -28,6 +28,9 @@
                             <i class="fas fa-image"></i>
                         </el-upload>
                     </button>
+                    <button @click="openCode" class="tool-icon-warp">
+                        <i class="fas fa-code"></i>
+                    </button>
                     <button @click="shot" class="tool-icon-warp" href="javascript:void(0)">
                         <i class="fas fa-cut"></i>
                     </button>
@@ -52,6 +55,41 @@
             </div>
         </div>
         <FacePane ref="facePane" :data="faceModel" @on-selected="onFaceSelected"></FacePane>
+
+        <Modal
+                v-model="showCode"
+                width="560"
+                class="form-modal"
+        >
+            <p slot="header" style="text-align:center">
+                <Icon type="ios-film-outline"></Icon>
+                <span>发送代码</span>
+            </p>
+            <div style="width: 100%;height: 100%">
+                <Card>
+                    <div>
+                        <Form :label-width="80">
+                            <Form-item label="语言" prop="name">
+                                <Select v-model="codeLanguage" filterable>
+                                    <template v-for="name of codeNames">
+                                        <Option :value="name">{{name}}</Option>
+                                    </template>
+                                </Select>
+                            </Form-item>
+                            <Form-item label="代码" prop="introduce">
+                                <Input v-model="codeContent" type="textarea" :autosize="{minRows: 5,maxRows: 10}"
+                                       placeholder="请输入..."></Input>
+                            </Form-item>
+                        </Form>
+                    </div>
+                </Card>
+            </div>
+            <div slot="footer">
+                <Button type="primary" @click="sendCode">
+                    确定
+                </Button>
+            </div>
+        </Modal>
     </div>
 </template>
 
@@ -84,6 +122,8 @@
     import ContentUploadFileService from '@/app/com/main/module/support/file/service/ContentUploadFileService';
     import FileNameUtil from '@/app/common/util/FileNameUtil';
     import ImageValue from '@/app/com/common/chat/item/ImageValue';
+    import CodeValue from '@/app/com/common/chat/item/CodeValue';
+    import CodeMirrorBox from '@/common/web/common/code/CodeMirrorBox';
 
     @Component({
         components: {
@@ -107,8 +147,13 @@
         private data!: WriteMapper;
 
         private faceModel: FaceModel = new FaceModel();
+        private showCode = false;
+        private codeLanguage: string = '';
+        private codeContent: string = '';
+        private codeNames: string[] = [];
 
         public mounted() {
+            this.initializeCodes();
             this.initialize();
         }
 
@@ -128,6 +173,11 @@
             const inputAreaPaneName = 'inputArea';
             const inputArea = this.$refs[inputAreaPaneName];
             return (inputArea as Element).innerHTML;
+        }
+
+        private initializeCodes() {
+            const box: CodeMirrorBox = app.appContext.getMaterial(CodeMirrorBox);
+            this.codeNames = box.names;
         }
 
         private initialize() {
@@ -424,6 +474,36 @@
                     iv.url = path;
                     item.type = Item.TYPE_IMAGE;
                 }
+                own.onFile(content);
+            }
+        }
+
+        private openCode() {
+            this.showCode = !this.showCode;
+        }
+
+        private sendCode() {
+            const own = this;
+            this.showCode = false;
+            const codeContent = this.codeContent;
+            const codeLanguage = this.codeLanguage;
+            if (BaseUtil.isNotEmpty(codeContent)) {
+                this.codeContent = '';
+
+                const cv: CodeValue = new CodeValue();
+                cv.content = codeContent;
+                cv.language = codeLanguage;
+
+                const item: Item = new Item();
+                item.type = Item.TYPE_CODE;
+                item.value = cv;
+
+                const section: Section = new Section();
+                section.items.push(item);
+
+                const content: Content = new Content();
+                content.sections.push(section);
+
                 own.onFile(content);
             }
         }
