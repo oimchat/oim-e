@@ -12,7 +12,7 @@
                     mode="vertical"
             >
                 <template v-for="(item,index) in data.items">
-                    <nav-menu-item :data="item" :index="index+''"/>
+                    <NavMenuRoot :data="item" :index="index+''"/>
                 </template>
             </el-menu>
         </el-scrollbar>
@@ -21,12 +21,12 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import NavMenuItem from '@/views/common/menu/NavMenuItem.vue';
+    import NavMenuRoot from '@/views/common/menu/NavMenuRoot.vue';
     import NavMenuData from '@/views/common/menu/NavMenuData';
 
     @Component({
         components: {
-            NavMenuItem,
+            NavMenuRoot,
         },
     })
     export default class NavMenu extends Vue {

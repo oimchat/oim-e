@@ -5,7 +5,7 @@
                           @click="onClick"
             >
                 <i :class="data.icon"></i>
-                <span slot="title">{{data.text}}</span>
+                {{data.text}}
             </el-menu-item>
         </template>
         <template v-else>
@@ -22,40 +22,22 @@
                 </template>
             </el-submenu>
         </template>
-        <!--        <template v-if="!hasNodes">-->
-        <!--            <el-menu-item-->
-        <!--                    :index="index"-->
-        <!--                    @click="onClick">-->
-        <!--                <i :class="data.icon + ' svg-external-icon svg-icon'"></i>-->
-        <!--                {{data.text}}-->
-        <!--            </el-menu-item>-->
-        <!--        </template>-->
-        <!--        <el-submenu v-else :index="index" popper-append-to-body>-->
-        <!--            <template slot="title">-->
-        <!--                <i :class="data.icon + ' svg-external-icon svg-icon'"></i>-->
-        <!--                <span slot='title'>{{data.text}}</span>-->
-        <!--            </template>-->
-        <!--            <template v-if="hasNodes" v-for="(node,index) in data.children">-->
-        <!--                <nav-menu-item-->
-        <!--                        :index="getChildrenIndex(index)"-->
-        <!--                        :data="node"-->
-        <!--                />-->
-        <!--            </template>-->
-        <!--        </el-submenu>-->
     </div>
 </template>
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
 
-
+    import NavMenuItem from '@/views/common/menu/NavMenuItem.vue';
     import NavMenuItemData from './NavMenuItemData';
 
 
     @Component({
-        components: {},
+        components: {
+            NavMenuItem,
+        },
     })
-    export default class NavMenuItem extends Vue {
+    export default class NavMenuRoot extends Vue {
         @Prop({
             type: NavMenuItemData,
             required: true,
