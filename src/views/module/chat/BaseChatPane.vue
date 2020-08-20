@@ -38,6 +38,7 @@
                     <WritePane :data="data.writeMapper"
                                @on-send="onSend"
                                @on-key-press='onKeyPress'
+                               @on-key-up="onKeyUp"
                                @on-file-content="onFile">
                         <slot name="writeTool"></slot>
                     </WritePane>
@@ -110,7 +111,7 @@
         }
 
         @Emit('on-write-key-up')
-        private keyup(evt: KeyboardEvent, e: Element) {
+        private onKeyUp(evt: KeyboardEvent, e: Element) {
             // no
         }
 

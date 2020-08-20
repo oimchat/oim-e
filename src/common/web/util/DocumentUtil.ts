@@ -54,18 +54,37 @@ export default class DocumentUtil {
         }
     }
 
-    public static getCursorLocation(e: Element) {
-        if (e !== document.activeElement) { // 如果dom没有获取到焦点，追加
-            if (e instanceof HTMLElement) {
-                (e as HTMLElement).focus();
-            }
-        }
+    public static getCursorLocation(e: Element): { x: number, y: number, text: string } {
+        const data: { x: number, y: number, text: string } = {x: 0, y: 0, text: ''};
         const selection = window.getSelection();
         const createRange = document.createRange();
         const rangeCount = (selection) ? selection.rangeCount : 0;
         if (selection && rangeCount > 0 && selection.getRangeAt) {
-            // const range = selection.getRangeAt(0);
-            // range.startOffset;
+            const range = selection.getRangeAt(0).cloneRange();
+            if (range.getClientRects) {
+                range.collapse(true);
+                let rect: any;
+                const rects = range.getClientRects();
+                if (rects && rects.length > 0) {
+                    rect = rects[0];
+                }
+                // 光标在行首时，rect为undefined
+                if (rect) {
+                    data.x = rect.left;
+                    data.y = rect.top;
+                }
+            }
+            // if (range.endContainer) {
+            //     if (range.endContainer.nodeValue) {
+            //         data.text = range.endContainer.nodeValue;
+            //     }
+            // }
+            if (range.startContainer) {
+                if (range.startContainer.nodeValue) {
+                    data.text = range.startContainer.nodeValue;
+                }
+            }
         }
+        return data;
     }
 }

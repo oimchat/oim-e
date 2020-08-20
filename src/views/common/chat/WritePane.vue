@@ -232,7 +232,7 @@
         private onKeyup(e: KeyboardEvent) {
             const inputAreaPaneName = 'inputArea';
             const inputArea = this.$refs[inputAreaPaneName];
-            this.keyup(e, inputArea as Element);
+            this.doOnKeyup(e, inputArea as Element);
         }
 
         private showFacePane(e: Event) {
@@ -519,7 +519,7 @@
         }
 
         @Emit('on-key-up')
-        private keyup(evt: KeyboardEvent, e: Element) {
+        private doOnKeyup(evt: KeyboardEvent, e: Element) {
             // no
         }
 
