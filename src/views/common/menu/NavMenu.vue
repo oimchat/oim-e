@@ -1,6 +1,6 @@
 <template>
     <div ref="menuContainer" class="menu-container" :style="axisComputed" v-show="isShow">
-        <el-scrollbar wrap-class="scrollbar-wrapper" >
+        <el-scrollbar wrap-class="scrollbar-wrapper">
             <el-menu
                     :default-active="data.activeMenu"
                     :collapse="data.collapse"
@@ -67,7 +67,7 @@
                     own.axis = axis;
                 }
             });
-            document.addEventListener('click', () => {
+            document.addEventListener('click', (e: Event) => {
                 own.isShow = false;
             }, true);
         }

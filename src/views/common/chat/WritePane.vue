@@ -42,6 +42,7 @@
                     <pre ref='inputArea'
                          @keypress="onKeypress"
                          @keyup="onKeyup"
+                         @input="onInput"
                          class="edit-area input-area"
                          contenteditable="true"/>
                     <span class="caret_pos_helper"></span>
@@ -234,6 +235,13 @@
             const inputArea = this.$refs[inputAreaPaneName];
             this.doOnKeyup(e, inputArea as Element);
         }
+
+        private onInput(e: InputEvent) {
+            const inputAreaPaneName = 'inputArea';
+            const inputArea = this.$refs[inputAreaPaneName];
+            this.doOnInput(e, inputArea as Element);
+        }
+
 
         private showFacePane(e: Event) {
             if (e instanceof MouseEvent) {
@@ -520,6 +528,11 @@
 
         @Emit('on-key-up')
         private doOnKeyup(evt: KeyboardEvent, e: Element) {
+            // no
+        }
+
+        @Emit('on-input')
+        private doOnInput(evt: InputEvent, e: Element) {
             // no
         }
 

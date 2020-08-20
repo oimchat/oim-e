@@ -6,6 +6,8 @@
                         @on-read-scroll="onReadScroll"
 
                         @on-write-key-press="onKeyPress"
+                        @on-write-key-up="onKeyUp"
+                        @on-write-input="onInput"
                         @on-write-send="send"
                         @on-write-file-content="onFileContent"
         >
@@ -14,6 +16,13 @@
                     <i @click="showMore = true"
                        class="fas fa-arrow-alt-circle-down top-icon">
                     </i>
+                </div>
+            </template>
+            <template slot="writeTool">
+                <div style="float: right">
+                    <button @click="addAt" class="tool-icon-warp" href="javascript:void(0)">
+                        <i class="fas fa-at"></i>
+                    </button>
                 </div>
             </template>
         </base-chat-pane>
@@ -37,6 +46,7 @@
                 </group-member-list-pane>
             </div>
         </Drawer>
+        <at-list-pane :data="atListMapper"></at-list-pane>
     </div>
 </template>
 
@@ -52,28 +62,26 @@
 
     import app from '@/app/App';
     import CoreContentUtil from '@/app/com/common/chat/util/CoreContentUtil';
-    import GroupMember from '@/app/com/main/module/business/group/bean/GroupMember';
     import User from '@/app/com/main/module/business/user/bean/User';
-    import Section from '@/app/com/common/chat/Section';
     import Content from '@/app/com/common/chat/Content';
-    import Item from '@/app/com/common/chat/Item';
-    import FileValue from '@/app/com/common/chat/item/FileValue';
-    import GroupMemberListOfPersonalBox from '@/app/com/main/module/business/group/box/GroupMemberListOfPersonalBox';
     import GroupMemberService from '@/app/com/main/module/business/group/service/GroupMemberService';
     import PromptType from '@/app/com/client/define/prompt/PromptType';
     import ContentWrap from '@/common/vue/data/content/ContentWrap';
-    import GroupMemberListEntity from '@/views/module/group/member/GroupMemberListEntity';
     import ChatReadViewEntity from '@/platform/vue/view/entity/ChatReadViewEntity';
     import ChatReadViewEntityDefaultImpl from '@/platform/vue/view/entity/impl/ChatReadViewEntityDefaultImpl';
     import ChatWriteViewEntity from '@/platform/vue/view/entity/ChatWriteViewEntity';
     import ChatWriteViewEntityDefaultImpl from '@/platform/vue/view/entity/impl/ChatWriteViewEntityDefaultImpl';
     import GroupJoinSettingMapper from '@/views/module/group/setting/GroupJoinSettingMapper';
+    import DocumentUtil from '@/common/web/util/DocumentUtil';
+    import AtListMapper from '@/views/component/at/AtListMapper';
+    import AtListPane from '@/views/component/at/AtListPane.vue';
 
     @Component({
         components: {
             BaseChatPane,
             GroupMemberListPane,
             GroupJoinSettingPane,
+            AtListPane,
         },
     })
     export default class GroupChatPane extends Vue {
@@ -81,6 +89,7 @@
         private model = groupChatViewModel;
         private showMore: boolean = false;
         private groupJoinSettingMapper: GroupJoinSettingMapper = new GroupJoinSettingMapper();
+        private atListMapper: AtListMapper = new AtListMapper();
 
         public mounted() {
             this.initialize();
@@ -135,6 +144,20 @@
             const model = this.model;
             const data = this.data;
             model.viewData.data.html = data.writeMapper.getInnerHTML();
+        }
+
+        private addAt() {
+            const html = '<a contenteditable="false" href="javascript:void(0)">@烙灵</a>';
+            this.data.writeMapper.insertHtmlAtCursor(html);
+        }
+
+        private onInput(evt: InputEvent, e: Element) {
+            // no
+            this.atListMapper.handleInput(evt, e);
+        }
+
+        private onKeyUp(evt: KeyboardEvent, e: Element) {
+            // no
         }
 
         private send(content: Content) {

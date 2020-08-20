@@ -39,6 +39,7 @@
                                @on-send="onSend"
                                @on-key-press='onKeyPress'
                                @on-key-up="onKeyUp"
+                               @on-input="onInput"
                                @on-file-content="onFile">
                         <slot name="writeTool"></slot>
                     </WritePane>
@@ -112,6 +113,11 @@
 
         @Emit('on-write-key-up')
         private onKeyUp(evt: KeyboardEvent, e: Element) {
+            // no
+        }
+
+        @Emit('on-write-input')
+        private onInput(evt: InputEvent, e: Element) {
             // no
         }
 
