@@ -16,6 +16,11 @@ export default class CodeMirrorBox extends AbstractMaterial {
         return (data) ? data.mode : '';
     }
 
+    public getMime(key: string): string {
+        const data = this.map.get(key);
+        return (data) ? data.mime : '';
+    }
+
     public initialize() {
         const modeInfos: any[] = [
             {name: 'APL', mime: 'text/apl', mode: 'apl', ext: ['dyalog', 'apl']},

@@ -125,6 +125,7 @@
     import ImageValue from '@/app/com/common/chat/item/ImageValue';
     import CodeValue from '@/app/com/common/chat/item/CodeValue';
     import CodeMirrorBox from '@/common/web/common/code/CodeMirrorBox';
+    import MacScreenShot from '@/platform/e/module/mac/MacScreenShot';
 
     @Component({
         components: {
@@ -133,6 +134,7 @@
     })
     export default class WritePane extends Vue {
 
+        private macShot: MacScreenShot = new MacScreenShot();
         private uploadInfo = {
             fileAction: '',
             fileDisabled: false,
@@ -257,9 +259,11 @@
             //     title: 'Path',
             //     desc: path,
             // });
-            screenShot.shot((file: File) => {
-                own.uploadImage(file);
-            });
+
+            this.macShot.handleScreenShots();
+            // screenShot.shot((file: File) => {
+            //     own.uploadImage(file);
+            // });
         }
 
         private onFaceSelected(face: FaceItem) {

@@ -22,7 +22,7 @@
         get option() {
             const data = this.data;
             const box: CodeMirrorBox = app.appContext.getMaterial(CodeMirrorBox);
-            const name = box.getMode(data.language);
+            const name = box.getMime(data.language);
             const mode = (name) ? name : 'text/javascript';
             return {
                 tabSize: 4,
