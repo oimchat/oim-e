@@ -96,7 +96,7 @@
     })
     export default class GroupChatPane extends Vue {
         private chatData = groupChatViewModel.info;
-        private messageInfo = groupChatViewModel.messageInfo;
+        private messageInfo = groupChatViewModel.messageData;
         private cacheData = groupChatViewModel.viewData;
 
         private groupMemberData: {

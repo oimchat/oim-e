@@ -54,8 +54,8 @@ export default class DocumentUtil {
         }
     }
 
-    public static getCursorLocation(e: Element): { x: number, y: number, text: string } {
-        const data: { x: number, y: number, text: string } = {x: 0, y: 0, text: ''};
+    public static getCursorLocation(e: Element): { x: number, y: number, text: string, node: Node | any } {
+        const data: { x: number, y: number, text: string, node: Node | any } = {x: 0, y: 0, text: '', node: null};
         const selection = window.getSelection();
         const createRange = document.createRange();
         const rangeCount = (selection) ? selection.rangeCount : 0;
@@ -83,6 +83,7 @@ export default class DocumentUtil {
                 if (range.startContainer.nodeValue) {
                     data.text = range.startContainer.nodeValue;
                 }
+                data.node = range.startContainer;
             }
         }
         return data;

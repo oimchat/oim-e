@@ -219,7 +219,7 @@
     }
 
     .expression {
-        z-index: 10;
+        z-index: 20;
     }
 
     .expression:after, .expression:before {

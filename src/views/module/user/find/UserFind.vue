@@ -49,7 +49,8 @@
                                     </div>
                                 </div>
                                 <div class="find-action">
-                                    <Button @click="handleAddUser(item.id)" type="info" size="small" icon="ios-add-circle">
+                                    <Button @click="handleAddUser(item.id)" type="info" size="small"
+                                            icon="ios-add-circle">
                                         添加
                                     </Button>
                                 </div>
@@ -172,6 +173,10 @@
 
 <style lang="scss" scoped>
 
+    .content {
+        padding: 15px;
+    }
+
     .find-scrollbar-y {
         overflow-y: auto;
         position: absolute;
@@ -193,7 +198,7 @@
     }
 
     .find-item {
-        width: 200px;
+        width: 190px;
         /*height: 125px;*/
         float: left;
         position: relative;

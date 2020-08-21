@@ -60,7 +60,7 @@ export default class WriteMapper {
         }
     }
 
-    public getCursorLocation(): { x: number, y: number } {
+    public getCursorLocation(): { x: number, y: number, text: string, node: Node | any } {
         return DocumentUtil.getCursorLocation(this.element);
     }
 

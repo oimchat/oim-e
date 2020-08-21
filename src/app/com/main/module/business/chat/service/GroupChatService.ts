@@ -89,7 +89,7 @@ export default class GroupChatService extends AbstractMaterial {
 
         chatUser = (isChatUserOwn) ? ownUser : chatUser;
 
-        if (chatUser) {
+        if (chatUser && chatUser.id) {
             own.showChatMessage(isReceive, isChatUserOwn, group, chatUser, content);
         } else {
             const isShowUserContact = contactAccess.isContact(chatUserId);

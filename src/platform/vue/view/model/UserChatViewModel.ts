@@ -37,21 +37,22 @@ class UserChatViewModel extends ChatViewModel {
     public loadHistory() {
         let messageKey = '';
         const userId = this.info.key;
-        if (this.messageInfo.list && this.messageInfo.list.length > 0) {
+        if (this.messageData.list && this.messageData.list.length > 0) {
             messageKey = this.geFirstMessageKey(userId);
             // 历史记录时记录当前聊天界面的id
             this.viewData.data.lastMessageKey = messageKey;
 
-            const length = this.messageInfo.list.length;
+            const length = this.messageData.list.length;
             if (length < 500) {
                 const userChatController: UserChatDataController = app.appContext.getMaterial(UserChatDataController);
                 userChatController.loadHistory(userId, messageKey, 20);
             } else {
-                this.messageInfo.prompt = '更多内容请看历史记录。';
-                if (!this.messageInfo.showPrompt) {
-                    this.messageInfo.showPrompt = true;
+                this.messageData.promptKey = messageKey;
+                this.messageData.promptText = '更多内容请看历史记录。';
+                if (!this.messageData.promptShow) {
+                    this.messageData.promptShow = true;
                     setTimeout(() => {
-                        this.messageInfo.showPrompt = false;
+                        this.messageData.promptShow = false;
                     }, 3000);
                 }
             }

@@ -28,7 +28,7 @@
                     unit="px"
             >
                 <template v-slot:before>
-                    <MessagePane :items="model.messageInfo.list"></MessagePane>
+                    <MessagePane :items="model.messageData.list"></MessagePane>
                 </template>
                 <template v-slot:after>
                     <WritePane ref="writePane" @on-send="send" @on-key-press='onKeyPress'
@@ -71,7 +71,7 @@
         private splitterModel = 190; // start at 150px
         private model = userChatViewModel;
         private chatData = userChatViewModel.info;
-        private messageInfo = userChatViewModel.messageInfo;
+        private messageInfo = userChatViewModel.messageData;
         private cacheData = userChatViewModel.viewData;
         private selectionStart: number = 0;
 

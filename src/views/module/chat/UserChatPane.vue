@@ -1,17 +1,26 @@
 <template>
-    <base-chat-pane :data="data"
-                    :items="model.messageInfo.list"
-                    @on-read-scroll-top="onReadScrollTop"
-                    @on-read-scroll="onReadScroll"
+    <div class="box chat">
+        <base-chat-pane :data="data"
+                        :items="model.messageData.list"
+                        @on-read-scroll-top="onReadScrollTop"
+                        @on-read-scroll="onReadScroll"
 
-                    @on-write-key-press="onKeyPress"
-                    @on-write-send="send"
-                    @on-write-file-content="onFileContent"
-    >
-        <template slot="writeTool">
+                        @on-write-key-press="onKeyPress"
+                        @on-write-send="send"
+                        @on-write-file-content="onFileContent"
+        >
+            <template slot="writeTool">
 
-        </template>
-    </base-chat-pane>
+            </template>
+        </base-chat-pane>
+        <div v-if='model.messageData.promptShow' tabindex="-1">
+            <div class="prompt-message" @click="toMessageKeyView(model.messageData.promptKey)">
+                <div class="prompt-message-inner">
+                    {{model.messageData.promptText}}
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script lang="ts">
@@ -148,6 +157,12 @@
             userChatViewModel.loadHistory();
         }
 
+        private toMessageKeyView(messageKey: string) {
+            if (messageKey) {
+                this.data.readMapper.updateScrollIntoView(messageKey);
+            }
+        }
+
         @Watch('model.chatData.key')
         private list(nv: ContentWrap[], ov: ContentWrap[]) {
             const data = this.data;
@@ -158,5 +173,13 @@
 </script>
 
 <style lang="scss" scoped>
-
+    .prompt-message {
+        background-color: #d7d7d7;
+        z-index: 1024;
+        cursor: pointer;
+        position: relative;
+        top: 0;
+        right: 0;
+        left: 0;
+    }
 </style>

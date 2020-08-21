@@ -13,7 +13,7 @@ export default class GroupMemberBox extends AbstractMaterial {
         const groupId = groupMember.groupId;
         const userId = groupMember.userId;
 
-        const groupMemberMap = this.getGroupMemberMapByGroupId(groupId);
+        const groupMemberMap = this.getOrCreateGroupMemberMapByGroupId(groupId);
         const m = groupMemberMap.get(userId);
         if (m) {
             ObjectUtil.copyByTargetKey(m, groupMember);
@@ -22,16 +22,6 @@ export default class GroupMemberBox extends AbstractMaterial {
         }
     }
 
-    public getGroupMemberMapByGroupId(groupId: string): Map<string, GroupMember> {
-        let map = this.groupMemberListMap.get(groupId);
-        if (!map) {
-            map = new Map<string, GroupMember>();
-            this.groupMemberListMap.set(groupId, map);
-        }
-        return map;
-    }
-
-
     public getGroupMember(groupId: string, userId: string): GroupMember {
         let groupMember: any;
         const map = this.groupMemberListMap.get(groupId);
@@ -39,6 +29,11 @@ export default class GroupMemberBox extends AbstractMaterial {
             groupMember = map.get(userId);
         }
         return groupMember;
+    }
+
+    public getGroupMemberMapByGroupId(groupId: string): Map<string, GroupMember> {
+        let map: any = this.groupMemberListMap.get(groupId);
+        return map;
     }
 
     public putGroupMemberList(list: GroupMember[]): void {
@@ -134,5 +129,14 @@ export default class GroupMemberBox extends AbstractMaterial {
         if (m) {
             m.position = position;
         }
+    }
+
+    private getOrCreateGroupMemberMapByGroupId(groupId: string): Map<string, GroupMember> {
+        let map = this.groupMemberListMap.get(groupId);
+        if (!map) {
+            map = new Map<string, GroupMember>();
+            this.groupMemberListMap.set(groupId, map);
+        }
+        return map;
     }
 }

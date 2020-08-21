@@ -1,7 +1,7 @@
 <template>
     <div class="box chat">
         <base-chat-pane :data="data"
-                        :items="model.messageInfo.list"
+                        :items="model.messageData.list"
                         @on-read-scroll-top="onReadScrollTop"
                         @on-read-scroll="onReadScroll"
 
@@ -28,10 +28,17 @@
         </base-chat-pane>
 
         <!--end HD-->
-        <div v-if='model.messageInfo.showPrompt' class="popup members-warp slide-down" tabindex="-1" style="">
-            <div class="members compatible">
-                <div class="members-inner">
-                    {{model.messageInfo.prompt}}
+        <div v-if='model.messageData.promptShow&&!model.atInfo.show' tabindex="-1">
+            <div class="prompt-message" @click="toMessageKeyView(model.messageData.promptKey)">
+                <div class="prompt-message-inner">
+                    {{model.messageData.promptText}}
+                </div>
+            </div>
+        </div>
+        <div v-if='model.atInfo.show' tabindex="-1">
+            <div class="prompt-message" @click="toMessageKeyView(model.atInfo.messageKey)">
+                <div class="prompt-message-inner">
+                    {{model.atInfo.chatUserName}}@我：{{model.atInfo.chatText}}
                 </div>
             </div>
         </div>
@@ -123,6 +130,21 @@
                 // no
                 own.keyChange(key);
             });
+
+            this.atListMapper.onAt = (userId, name, node) => {
+                if (node && userId && name) {
+                    this.addAt(userId, name);
+                    const nodeValue = node.nodeValue;
+                    if (nodeValue) {
+                        const at = '@';
+                        const length = nodeValue.length;
+                        const lastIndex = nodeValue.lastIndexOf(at);
+                        if (lastIndex > -1 && lastIndex < length) {
+                            node.nodeValue = nodeValue.substring(0, lastIndex);
+                        }
+                    }
+                }
+            };
         }
 
         private initialize() {
@@ -146,8 +168,8 @@
             model.viewData.data.html = data.writeMapper.getInnerHTML();
         }
 
-        private addAt() {
-            const html = '<a contenteditable="false" href="javascript:void(0)">@烙灵</a>';
+        private addAt(userId: string, name: string) {
+            const html = '<a name="at" value="' + userId + '" contenteditable="false" href="javascript:void(0)">@' + name + '</a>';
             this.data.writeMapper.insertHtmlAtCursor(html);
         }
 
@@ -211,6 +233,13 @@
             groupChatViewModel.loadHistory();
         }
 
+        private toMessageKeyView(messageKey: string) {
+            this.model.atInfo.show = false;
+            if (messageKey) {
+                this.data.readMapper.updateScrollIntoView(messageKey);
+            }
+        }
+
         @Watch('model.chatData.key')
         private list(nv: ContentWrap[], ov: ContentWrap[]) {
             const data = this.data;
@@ -234,6 +263,7 @@
             // no
             // this.showMore = false;
             this.groupJoinSettingMapper.setGroupId(groupId);
+            this.atListMapper.setGroupId(groupId);
         }
     }
 </script>
@@ -245,80 +275,13 @@
         margin-right: 5px;
     }
 
-    .members-warp {
-        top: 50px;
-        margin-top: 1px;
-        box-shadow: 1px 1px 1px #e0e0e0;
-        -moz-box-shadow: 1px 1px 1px #e0e0e0;
-        -webkit-box-shadow: 1px 1px 1px #e0e0e0;
-        width: 100%
-    }
-
-    .members {
-        padding: 10px 4px 8px 17px;
-        background-color: #eee;
-        border-bottom: 1px solid #dedede
-    }
-
-    .members-inner {
-        margin-right: -4px;
-        max-height: 300px;
-        overflow-y: auto;
-        overflow-x: hidden
-    }
-
-    .members-inner:after {
-        content: "";
-        display: block;
-        clear: both
-    }
-
-    .member {
-        float: left;
+    .prompt-message {
+        background-color: #d7d7d7;
+        z-index: 1024;
+        cursor: pointer;
         position: relative;
-        height: 85px;
-        margin-right: 7px;
-        margin-left: 7px;
-        padding-top: 10px
-    }
-
-    .member.opt {
-        cursor: pointer;
-        margin-right: 15px
-    }
-
-    .member .avatar {
-        display: block;
-        cursor: pointer;
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        background-color: #ccc
-    }
-
-    .member .nickname {
-        color: #888;
-        width: 72px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        word-wrap: normal;
-        font-size: 12px;
-        margin-left: -8px;
-        vertical-align: middle
-    }
-
-    .member .nickname .emoji {
-        vertical-align: -4px
-    }
-
-    .member .opt {
-        position: absolute;
-        font-size: 0;
-        cursor: pointer;
-        width: 18px;
-        height: 10px;
-        top: 2px;
-        right: 0
+        top: 0;
+        right: 0;
+        left: 0;
     }
 </style>

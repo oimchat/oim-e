@@ -37,12 +37,12 @@
         <!--begin BD-->
         <div ref="messageListPane" @scroll="handleScroll" class="scroll-wrapper box_bd chat_bd scrollbar-dynamic"
              style="position: absolute;">
-            <MessagePane :items="model.messageInfo.list"></MessagePane>
+            <MessagePane :items="model.messageData.list"></MessagePane>
         </div>
-        <div v-if='model.messageInfo.showPrompt' class="popup members_wrp slide-down" tabindex="-1" style="">
+        <div v-if='model.messageData.showPrompt' class="popup members_wrp slide-down" tabindex="-1" style="">
             <div class="members compatible">
                 <div class="members_inner">
-                    {{model.messageInfo.prompt}}
+                    {{model.messageData.prompt}}
                 </div>
             </div>
         </div>
@@ -82,7 +82,7 @@
 
         private model = userChatViewModel;
         private chatData = userChatViewModel.info;
-        private messageInfo = userChatViewModel.messageInfo;
+        private messageInfo = userChatViewModel.messageData;
         private cacheData = userChatViewModel.viewData;
         private selectionStart: number = 0;
 

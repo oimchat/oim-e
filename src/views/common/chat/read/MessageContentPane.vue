@@ -1,7 +1,6 @@
 <template>
-    <div :id="data.content.key">
-
-        <div :class="data.isOwn?'message right':'message left'">
+    <div>
+        <div :id="data.content.key" :class="data.isOwn?'message right':'message left'">
             <div v-if="data.timeVisible" class="message-time">
                 <div class="content">{{data.timeText}}</div>
             </div>

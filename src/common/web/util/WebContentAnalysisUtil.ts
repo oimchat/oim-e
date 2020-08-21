@@ -6,6 +6,7 @@ import FaceValue from '@/app/com/common/chat/item/FaceValue';
 import ImageValue from '@/app/com/common/chat/item/ImageValue';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import ObjectUtil from '@/app/common/util/ObjectUtil';
+import AtValue from '@/app/com/common/chat/item/AtValue';
 
 export default class WebContentAnalysisUtil {
 
@@ -51,6 +52,16 @@ export default class WebContentAnalysisUtil {
                         }
                     } else {
                         const item: Item = WebContentAnalysisUtil.getImageItem(e);
+                        if (item) {
+                            section.items.push(item);
+                        }
+                    }
+                }
+
+                if (nodeName === 'a') {
+                    const name = e.name;
+                    if ('at' === (name)) {
+                        const item: Item = WebContentAnalysisUtil.getAtItem(e);
                         if (item) {
                             section.items.push(item);
                         }
@@ -105,6 +116,17 @@ export default class WebContentAnalysisUtil {
                         }
                     } else {
                         const item: Item = WebContentAnalysisUtil.getImageItem(e);
+                        if (item) {
+                            section.items.push(item);
+                        }
+                    }
+                }
+
+                if (nodeName === 'a') {
+                    const n = (e as any);
+                    const name = n.name;
+                    if ('at' === (name)) {
+                        const item: Item = WebContentAnalysisUtil.getAtItem(e);
                         if (item) {
                             section.items.push(item);
                         }
@@ -171,6 +193,28 @@ export default class WebContentAnalysisUtil {
 
                 item = new Item();
                 item.type = Item.TYPE_IMAGE;
+                item.value = iv;
+            }
+        }
+        return item;
+    }
+
+    private static getAtItem(e: any): Item {
+        let item: any;
+
+        if (e) {
+            const url = e.src;
+            const name = e.name;
+            const value = e.getAttribute('value');
+
+            if (value) {
+                const text = e.text;
+                const iv: AtValue = new AtValue();
+                iv.userId = value;
+                iv.text = text;
+
+                item = new Item();
+                item.type = Item.TYPE_AT;
                 item.value = iv;
             }
         }

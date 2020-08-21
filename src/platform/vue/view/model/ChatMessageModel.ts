@@ -21,21 +21,24 @@ import FaceValue from '@/app/com/common/chat/item/FaceValue';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import FaceBox from '@/app/com/main/module/support/face/box/FaceBox';
 import ContentItemHandleService from '@/common/web/content/service/ContentItemHandleService';
+import MessageData from '@/platform/vue/view/model/chat/MessageData';
 
 
 export default class ChatMessageModel {
 
-
-    public messageInfo = {
-        showPrompt: false,
-        prompt: '',
-        lastTimestamp: 0,
-        nameVisible: false,
-        list: [] as ContentWrap[],
-    };
+    public messageData: MessageData = new MessageData();
+    // public messageData:MessageData = {
+    //     showPrompt: false,
+    //     prompt: '',
+    //     promptMessageKey: '',
+    //     lastTimestamp: 0,
+    //     nameVisible: false,
+    //     list: [] as ContentWrap[],
+    // };
 
     public viewData = {
         key: '',
+        nameVisible: false,
         data: new ChatCacheData(),
     };
 
@@ -49,12 +52,13 @@ export default class ChatMessageModel {
     private listMap: Map<string, ContentWrap[]> = new Map<string, ContentWrap[]>();
     private keyMap: Map<string, Map<string, MessageContentWrap>> = new Map<string, Map<string, MessageContentWrap>>();
     private dataMap: Map<string, ChatCacheData> = new Map<string, ChatCacheData>();
+    private messageMap: Map<string, MessageData> = new Map<string, MessageData>();
 
     public clear(): void {
         this.listMap.clear();
         this.keyMap.clear();
         this.dataMap.clear();
-        this.messageInfo.list = [] as ContentWrap[];
+        this.messageData.list = [] as ContentWrap[];
         this.viewData.data = new ChatCacheData();
         this.nodeClear();
     }
@@ -67,15 +71,18 @@ export default class ChatMessageModel {
         const own = this;
         const list = this.getOrCreateList(key);
         const data = this.getOrCreateCacheData(key);
-        this.handleKeyChange(key);
-        this.messageInfo.list = list;
+        const messageData = this.getOrCreateMessageData(key);
+
+        this.messageData = messageData;
+        this.messageData.list = list;
 
         this.viewData.key = key;
         this.viewData.data = data;
+        this.handleKeyChange(key);
+
         data.scrollTopCount = 0;
         const top = data.scrollTop;
         const html = data.html;
-
         const setting: MessageSwitchSetting = app.appContext.getMaterial(MessageSwitchSetting);
         const switchType = setting.getSwitchType();
         setTimeout(() => {
@@ -150,11 +157,12 @@ export default class ChatMessageModel {
             if (text && text.length > 100) {
                 text = text.substring(0, 99) + '...';
             }
-            this.messageInfo.prompt = showName + ':' + text;
-            if (!this.messageInfo.showPrompt) {
-                this.messageInfo.showPrompt = true;
+            this.messageData.promptKey = content.key;
+            this.messageData.promptText = showName + ':' + text;
+            if (!this.messageData.promptShow) {
+                this.messageData.promptShow = true;
                 setTimeout(() => {
-                    this.messageInfo.showPrompt = false;
+                    this.messageData.promptShow = false;
                 }, 6000);
             }
         }
@@ -180,7 +188,7 @@ export default class ChatMessageModel {
                 data.status = status;
             }
         } else {
-            const lastTimestamp = this.messageInfo.lastTimestamp;
+            const lastTimestamp = this.messageData.lastTimestamp;
             const timestamp = content.timestamp;
 
             const isBefore = (lastTimestamp > timestamp);
@@ -196,10 +204,10 @@ export default class ChatMessageModel {
             data.user = chatUser;
             data.isOwn = isOwn;
             data.timeVisible = (intervalMillisecond > mergeMillisecond);
-            data.nameVisible = this.messageInfo.nameVisible;
+            data.nameVisible = this.viewData.nameVisible;
             data.timeText = this.getTimeText(timestamp);
 
-            this.messageInfo.lastTimestamp = timestamp;
+            this.messageData.lastTimestamp = timestamp;
 
             if (isOwn) {
                 const status: number = (isReceive) ? MessageStatusType.succeed : MessageStatusType.sending;
@@ -335,6 +343,15 @@ export default class ChatMessageModel {
         if (!data) {
             data = new ChatCacheData();
             this.dataMap.set(key, data);
+        }
+        return data;
+    }
+
+    private getOrCreateMessageData(key: string): MessageData {
+        let data = this.messageMap.get(key);
+        if (!data) {
+            data = new MessageData();
+            this.messageMap.set(key, data);
         }
         return data;
     }
