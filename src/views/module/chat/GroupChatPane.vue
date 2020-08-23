@@ -20,9 +20,7 @@
             </template>
             <template slot="writeTool">
                 <div style="float: right">
-                    <button @click="addAt" class="tool-icon-warp" href="javascript:void(0)">
-                        <i class="fas fa-at"></i>
-                    </button>
+
                 </div>
             </template>
         </base-chat-pane>

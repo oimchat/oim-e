@@ -66,7 +66,7 @@
     import FileSeverApi from '@/app/com/main/module/support/file/constant/FileSeverApi';
     import ContentUploadImageService from '@/app/com/main/module/support/file/service/ContentUploadImageService';
     import UploadResult from '@/app/com/main/module/support/file/data/UploadResult';
-    import screenShot from '@/platform/e/module/ScreenShotInvoke';
+    import screenShot from '@/platform/e/os/ScreenShotInvoke';
     import BaseUtil from '@/app/lib/util/BaseUtil';
     import TextJudgeUtil from '@/app/lib/util/TextJudgeUtil';
     import TextValueJudgeUtil from '@/common/web/util/TextValueJudgeUtil';

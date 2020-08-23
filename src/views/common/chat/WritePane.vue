@@ -8,6 +8,7 @@
                     </button>
                     <button class="tool-icon-warp" title="文件">
                         <el-upload
+                                ref="fileUploadView"
                                 multiple
                                 :disabled="uploadInfo.fileDisabled"
                                 :show-file-list="true"
@@ -47,6 +48,7 @@
                          contenteditable="true"/>
                     <span class="caret_pos_helper"></span>
                 </div>
+                <UploadListPane :data="uploadListMapper"></UploadListPane>
             </div>
             <div class="footer">
                 <div class="action">
@@ -104,9 +106,7 @@
     import FileSeverApi from '@/app/com/main/module/support/file/constant/FileSeverApi';
     import ContentUploadImageService from '@/app/com/main/module/support/file/service/ContentUploadImageService';
     import UploadResult from '@/app/com/main/module/support/file/data/UploadResult';
-    import screenShot from '@/platform/e/module/ScreenShotInvoke';
     import PasteHandlerUtil from '@/common/web/util/PasteHandlerUtil';
-    import ImageFileUtil from '@/app/common/util/ImageFileUtil';
     import FileCheckUtil from '@/app/common/util/FileCheckUtil';
     import FaceItem from '@/app/com/main/module/support/face/data/FaceItem';
     import FaceImageUtil from '@/common/web/common/face/FaceImageUtil';
@@ -119,17 +119,21 @@
     import Section from '@/app/com/common/chat/Section';
     import Item from '@/app/com/common/chat/Item';
     import FileValue from '@/app/com/common/chat/item/FileValue';
-    import FileTypeUtil from '@/app/common/util/FileTypeUtil';
     import ContentUploadFileService from '@/app/com/main/module/support/file/service/ContentUploadFileService';
     import FileNameUtil from '@/app/common/util/FileNameUtil';
     import ImageValue from '@/app/com/common/chat/item/ImageValue';
     import CodeValue from '@/app/com/common/chat/item/CodeValue';
     import CodeMirrorBox from '@/common/web/common/code/CodeMirrorBox';
-    import MacScreenShot from '@/platform/e/module/mac/MacScreenShot';
+    import MacScreenShot from '@/platform/e/os/mac/MacScreenShot';
+    import ImageToFileUtil from '@/common/web/util/ImageToFileUtil';
+    import UploadListPane from '@/views/common/upload/UploadListPane.vue';
+    import UploadListMapper from '@/views/common/upload/UploadListMapper';
+    import DragHandlerUtil from '@/common/web/util/DragHandlerUtil';
 
     @Component({
         components: {
             FacePane,
+            UploadListPane,
         },
     })
     export default class WritePane extends Vue {
@@ -154,6 +158,7 @@
         private codeLanguage: string = '';
         private codeContent: string = '';
         private codeNames: string[] = [];
+        private uploadListMapper: UploadListMapper = new UploadListMapper();
 
         public mounted() {
             this.initializeCodes();
@@ -196,10 +201,34 @@
                             own.insertHtmlAtCursor(html);
                         },
                         (file: File) => {
-                            own.uploadImage(file);
-                        }, (file: File) => {
-                            own.uploadFile(file);
+                            own.insertImage(file);
+                        }, (files: File[]) => {
+                            own.uploadFiles(files);
                         });
+                });
+
+                inputAreaElement.addEventListener('drop', (e: Event) => {
+                    DragHandlerUtil.handle(e,
+                        (html: string) => {
+                            own.insertHtmlAtCursor(html);
+                        },
+                        (file: File) => {
+                            own.insertImage(file);
+                        }, (files: File[]) => {
+                            own.uploadFiles(files);
+                        });
+                }, false);
+                inputAreaElement.addEventListener('dragleave', function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                });
+                inputAreaElement.addEventListener('dragenter', function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                });
+                inputAreaElement.addEventListener('dragover', function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
                 });
                 this.data.setElement(inputAreaElement);
                 // inputAreaElement.addEventListener('',(e:KeyboardEvent)=>{})
@@ -392,6 +421,14 @@
             });
         }
 
+        private insertImage(file: File): void {
+            const own = this;
+            ImageToFileUtil.imageFile2Base64(file, (base64) => {
+                const html = '<img style="max-width: 60%" src="' + base64 + '"  />';
+                own.insertHtmlAtCursor(html);
+            });
+        }
+
         private uploadImage(file: File): void {
             const own = this;
             const key = '1.png';
@@ -424,6 +461,19 @@
                     }
                 }
             });
+        }
+
+
+        private uploadFiles(files: File[]): void {
+            if (files) {
+                const own = this;
+                const uploadListMapper = this.uploadListMapper;
+                for (const file of files) {
+                    uploadListMapper.upload(file, (data, file) => {
+                        own.handleFileSend(data, file);
+                    });
+                }
+            }
         }
 
         private uploadFile(file: File): void {

@@ -8,29 +8,23 @@
                 <p class="title ">{{data.name}}</p>
                 <div class="opr">
                     <span class="">{{sizeText}}</span>
-                    <span class="sep">|</span>
-                    <label @click="onDownload"
-                           :download="data.name"
-                           :file-url="data.url" class="download"
-                    >下载</label>
                 </div>
             </div>
         </div>
-        <div v-if="downloadData.isDownload">
-            <process-bar :progress="downloadData.progress"></process-bar>
+        <div>
+            <process-bar :progress="data.progress"></process-bar>
         </div>
     </div>
 </template>
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import FileValue from '@/app/com/common/chat/item/FileValue';
     import ProcessBar from '@/views/common/progress/ProcessBar.vue';
     import App from '@/app/App';
     import FileIconBox from '@/app/com/main/module/support/file/box/FileIconBox';
     import FileNameUtil from '@/app/common/util/FileNameUtil';
     import ByteSizeUtil from '@/app/common/util/ByteSizeUtil';
-    import DownloadToolUtil from '@/app/lib/download/DownloadToolUtil';
+    import UploadValue from '@/views/common/chat/read/data/UploadValue';
 
     @Component({
         components: {
@@ -43,11 +37,7 @@
             required: false,
             default: () => ({}),
         })
-        private data!: any | FileValue;
-        private downloadData = {
-            isDownload: false,
-            progress: 0.6,
-        };
+        private data!: any | UploadValue;
 
         get src(): string {
             const data = this.data;
@@ -62,19 +52,6 @@
             const data = this.data;
             const size = data.size;
             return ByteSizeUtil.getSizeText(size);
-        }
-
-        private onDownload() {
-            // :href="data.url" target="_blank" href="javascript:void(0)"
-            const data = this.data;
-            const url = data.url;
-            const fileName = data.name;
-            const downloadData = this.downloadData;
-            const size = data.size;
-            DownloadToolUtil.tool.download(url, fileName, (e) => {
-                downloadData.isDownload = true;
-                downloadData.progress = ByteSizeUtil.getPercentageIntegerRate(size, e.total);
-            });
         }
     }
 </script>

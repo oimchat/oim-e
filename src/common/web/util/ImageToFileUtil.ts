@@ -1,8 +1,21 @@
-import Item from '@/app/com/common/chat/Item';
-import ImageValue from '@/app/com/common/chat/item/ImageValue';
-import BaseUtil from '@/app/lib/util/BaseUtil';
-
 export default class ImageToFileUtil {
+
+
+    public static imageFile2Base64(file: File, back: (base64: string) => void): void {
+        if (file) {
+            if (file.type.match(/^image\//i)) {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function () {
+                    //获取到base64格式图片
+                    if (typeof back === 'function' && typeof reader.result === 'string') {
+                        back(reader.result);
+                    }
+                    // console.log(reader.result);
+                };
+            }
+        }
+    }
 
     public static isBase64(url: string) {
         let is = false;

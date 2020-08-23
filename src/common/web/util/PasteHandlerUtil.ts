@@ -7,7 +7,7 @@ export default class PasteHandlerUtil {
         e: Event,
         htmlBack: (html: string) => void,
         imageBack: (file: File) => void,
-        fileBack: (file: File) => void): void {
+        fileBack: (files: File[]) => void): void {
         if (e instanceof ClipboardEvent) {
             const ce: ClipboardEvent = e as ClipboardEvent;
             // Prevent the default pasting event and stop bubbling
@@ -37,17 +37,29 @@ export default class PasteHandlerUtil {
                                 }
                             } else {
                                 // 文件上传
+                                if (typeof fileBack === 'function') {
+                                    const files: File[] = [];
+                                    files.push(file);
+                                    fileBack(files);
+                                }
                             }
                         }
                         return;
                     }
-                }
-                for (let i = 0; i < length; i++) {
-                    const item = items[i];
-                    if (item.kind === 'file') {
-                        const file = item.getAsFile();
-                        if (file) {
-                            // todo
+                } else {
+                    if (typeof fileBack === 'function') {
+                        const files: File[] = [];
+                        for (let i = 0; i < length; i++) {
+                            const item = items[i];
+                            if (item.kind === 'file') {
+                                const file = item.getAsFile();
+                                if (file) {
+                                    files.push(file);
+                                }
+                            }
+                        }
+                        if (files.length > 0) {
+                            fileBack(files);
                         }
                     }
                 }

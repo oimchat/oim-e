@@ -21,6 +21,7 @@ import ComponentInitializer from '@/app/initialize/ComponentInitializer';
 import ListenerInitializer from '@/app/initialize/ListenerInitializer';
 import DefaultViewBuilder from '@/app/impl/default/DefaultViewBuilder';
 import LaunchOrder from '@/app/LaunchOrder';
+import AppLoader from '@/app/AppLoader';
 
 
 class App {
@@ -28,6 +29,7 @@ class App {
     public appContext: AppContext = new AppContext();
     public launchInitializerBox: InitializerBox = new InitializerBox();
     public promptHandler: PromptHandler = new DefaultPromptHandlerImpl();
+    public actionLoader: AppLoader = new AppLoader();
     public disconnection = false;
 
     constructor() {
@@ -50,6 +52,7 @@ class App {
 
     public initializeApp(): void {
         this.buildDefaultView();
+        // this.actionLoader.load();
     }
 
     public initializeLaunch(): void {

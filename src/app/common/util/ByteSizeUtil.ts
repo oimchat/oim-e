@@ -46,4 +46,26 @@ export default class ByteSizeUtil {
         }
         return text;
     }
+
+
+    public static toPercentageIntegerRate(percentage: number): number {
+        const rate = percentage.toFixed(0);
+        const value = parseInt(rate);
+        return value;
+    }
+
+    public static getPercentageIntegerRate(total: number, part: number): number {
+        const percentage = ByteSizeUtil.getPercentageDecimalsRate(total, part);
+        const value = ByteSizeUtil.toPercentageIntegerRate(percentage);
+        return value;
+    }
+
+    public static getPercentageDecimalsRate(total: number, part: number): number {
+        return ByteSizeUtil.getLessDecimalsRate(total, part) * 100;
+    }
+
+    public static getLessDecimalsRate(total: number, part: number): number {
+        const percentage = (part > 0 && total > 0) ? (part / total) : 1;
+        return percentage;
+    }
 }

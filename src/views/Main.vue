@@ -8,7 +8,7 @@
             </button>
         </div>
         <div class="main-inner">
-            <div class="oim-sidebar">
+            <div class="oim-sidebar window-drag">
                 <div class="oim-sidebar-tab">
                     <q-tabs
                             v-model="data.tab"

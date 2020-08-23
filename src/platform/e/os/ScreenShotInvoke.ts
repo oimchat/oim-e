@@ -1,4 +1,4 @@
-import screenShot from '@/platform/e/module/ScreenShot';
+import screenShot from '@/platform/e/os/ScreenShot';
 import path from 'path';
 
 class ScreenShotInvoke {

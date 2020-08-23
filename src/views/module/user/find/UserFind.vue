@@ -198,7 +198,7 @@
     }
 
     .find-item {
-        width: 190px;
+        width: 180px;
         /*height: 125px;*/
         float: left;
         position: relative;
