@@ -1,5 +1,6 @@
 // tslint:disable-next-line:no-var-requires
-const request = require('request');
+// @ts-ignore
+// import request from 'request';
 import fs from 'fs';
 
 export default class NodeFileDownload {
@@ -9,6 +10,7 @@ export default class NodeFileDownload {
                         onEnd: () => void,
                         onProgress: (total: number, loaded: number) => void,
                         onSpeed?: (size: number, millisecond: number) => void) {
+        const request = require('request');
         // Save variable to know progress
         let loaded = 0;
         let total = 0;
@@ -16,14 +18,21 @@ export default class NodeFileDownload {
 
         let lastTime = 0;
 
-        const req = request({
-            method: 'GET',
-            uri: url,
-        });
+        // const req = request({
+        //     method: 'GET',
+        //     uri: url,
+        // });
 
         const out = fs.createWriteStream(targetPath);
+        const req = request(url);
         req.pipe(out);
+        req.on('close', () => {
+            // console.log('end');
+        });
 
+        // const req = request(url);
+        // req.pipe(out);
+        // // .pipe(out);
         req.on('response', (data: { headers: { [x: string]: string; }; }) => {
             // Change the total bytes value to get progress later.
             // tslint:disable-next-line:radix

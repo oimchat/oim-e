@@ -1,47 +1,32 @@
 import FileDownload from '@/app/define/file/FileDownload';
 import FileDownloadingInfo from '@/app/com/client/module/file/FileDownloadingInfo';
+import RenderDialogHandler from '@/platform/e/render/RenderDialogHandler';
+import NodeFileDownload from '@/platform/e/util/NodeFileDownload';
+import ByteSizeUtil from '@/app/common/util/ByteSizeUtil';
 
-export default class WebFileDownloadImpl extends FileDownload {
+export default class ElectronFileDownloadImpl extends FileDownload {
+
+    private renderDialogHandler: RenderDialogHandler = new RenderDialogHandler();
+    private nodeFileDownload: NodeFileDownload = new NodeFileDownload();
 
     public download(url: string, fileName: string, size: number, fileDownloadingInfo: FileDownloadingInfo, onProgress?: (total: number, loaded: number) => void, onSpeed?: (size: number, millisecond: number) => void): void {
-        const agent = (navigator.userAgent) ? navigator.userAgent : '';
-        const lower = agent.toLowerCase();
-        const isChrome = lower.indexOf('chrome') > -1;
-        const isSafari = lower.indexOf('safari') > -1;
+        const own = this;
+        // OpenFolderUtil.openFolder();
+        // ElectronFolderOpenUtil.open();
+        const path = this.renderDialogHandler.save(fileName);
+        if (path) {
+            own.nodeFileDownload.downloadFile(url, path,
+                () => {
 
+                },
+                (total: number, loaded: number) => {
+                    fileDownloadingInfo.show = true;
+                    fileDownloadingInfo.percentage = ByteSizeUtil.getPercentageIntegerRate(total, loaded);
+                },
+                (size: number, millisecond: number) => {
 
-        // iOS devices do not support downloading. We have to inform user about this.
-        if (/(iP)/g.test(navigator.userAgent)) {
-            alert('Your device does not support files downloading. Please try again in desktop browser.');
-            return;
-        } else
-
-            // If in Chrome or Safari - download via virtual link click
-        if (isChrome || isSafari) {
-            // Creating new link node.
-            const link = document.createElement('a');
-            link.href = url;
-
-            if (link.download !== undefined) {
-                // Set HTML5 download attribute. This will prevent file from opening if supported.
-                link.download = fileName;
-            }
-
-            // Dispatching click event.
-            if (document.createEvent) {
-                const e = document.createEvent('MouseEvents');
-                e.initEvent('click', true, true);
-                link.dispatchEvent(e);
-                return;
-            }
-        } else {
-            // Force file download (whether supported by server).
-            if (url.indexOf('?') === -1) {
-                url += '?download';
-            }
-
-            window.open(url, '_self');
+                });
+            console.log(path);
         }
-        return;
     }
 }

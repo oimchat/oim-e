@@ -7,6 +7,8 @@ import {
 } from 'vue-cli-plugin-electron-builder/lib';
 import SystemTray from './platform/e/SystemTray';
 import MainHandle from './platform/e/MainHandle';
+import './platform/e/window/ElectronDialogHandler';
+import ElectronDialogHandler from './platform/e/window/ElectronDialogHandler';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -116,6 +118,7 @@ function createWindow() {
 
     tray.setMainWindow(win);
     mainHandle = new MainHandle(win);
+    new ElectronDialogHandler();
 }
 
 // Quit when all windows are closed.

@@ -9,6 +9,7 @@ import {MacScreenshotExtend} from '@/platform/e/os/mac/screenshot/MacScreenshotE
 import DefineExtendStore from '@/app/define/extend/DefineExtendStore';
 import FileDownloadDefineData from '@/app/com/client/module/file/FileDownloadDefineData';
 import WebFileDownloadImpl from '@/platform/web/impl/WebFileDownloadImpl';
+import ElectronFileDownloadImpl from '@/platform/e/impl/ElectronFileDownloadImpl';
 
 export default class CurrentPlatformInitializer implements Initializer {
 
@@ -35,7 +36,8 @@ export default class CurrentPlatformInitializer implements Initializer {
         }
 
         const fileDownloadDefineData: FileDownloadDefineData = app.appContext.getMaterial(FileDownloadDefineData);
-        const fileDownload: WebFileDownloadImpl = appContext.getMaterial(WebFileDownloadImpl);
+        const fileDownload: ElectronFileDownloadImpl = appContext.getMaterial(ElectronFileDownloadImpl);
+        // const fileDownload: WebFileDownloadImpl = appContext.getMaterial(WebFileDownloadImpl);
         const defineExtendStore: DefineExtendStore = appContext.getMaterial(DefineExtendStore);
         defineExtendStore.put(fileDownloadDefineData.getKey(), fileDownload);
     }
