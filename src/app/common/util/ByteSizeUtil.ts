@@ -66,6 +66,18 @@ export default class ByteSizeUtil {
 
     public static getLessDecimalsRate(total: number, part: number): number {
         const percentage = (part > 0 && total > 0) ? (part / total) : 1;
-        return percentage;
+        const rate = percentage.toFixed(0);
+        const value = new Number(rate).valueOf();
+        return value;
+    }
+
+    public static getSpeedTextBySecond(size: number, millisecond: number): string {
+        let speed = '0MB/S';
+        if (size && millisecond) {
+            const rate = millisecond / 1000;
+            const loaded = size / rate;
+            speed = ByteSizeUtil.getSizeText(loaded) + '/S';
+        }
+        return speed;
     }
 }

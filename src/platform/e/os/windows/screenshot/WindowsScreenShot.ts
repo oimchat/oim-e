@@ -2,7 +2,7 @@ import path from 'path';
 
 const {execFile} = require('child_process');
 
-class ScreenShot {
+class WindowsScreenShot {
 
     private isDevelopment: boolean = process.env.NODE_ENV !== 'production';
     private basePath: string = path.join(__dirname, '/');
@@ -84,4 +84,4 @@ class ScreenShot {
     }
 }
 
-export default new ScreenShot();
+export default new WindowsScreenShot();

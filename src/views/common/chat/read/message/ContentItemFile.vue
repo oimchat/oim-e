@@ -16,8 +16,8 @@
                 </div>
             </div>
         </div>
-        <div v-if="downloadData.isDownload">
-            <process-bar :progress="downloadData.progress"></process-bar>
+        <div v-if="fileDownloadingInfo.show">
+            <process-bar :progress="fileDownloadingInfo.percentage"></process-bar>
         </div>
     </div>
 </template>
@@ -30,7 +30,8 @@
     import FileIconBox from '@/app/com/main/module/support/file/box/FileIconBox';
     import FileNameUtil from '@/app/common/util/FileNameUtil';
     import ByteSizeUtil from '@/app/common/util/ByteSizeUtil';
-    import DownloadToolUtil from '@/app/lib/download/DownloadToolUtil';
+    import FileDownloadDefineData from '@/app/com/client/module/file/FileDownloadDefineData';
+    import FileDownloadingInfo from '@/app/com/client/module/file/FileDownloadingInfo';
 
     @Component({
         components: {
@@ -44,10 +45,7 @@
             default: () => ({}),
         })
         private data!: any | FileValue;
-        private downloadData = {
-            isDownload: false,
-            progress: 0.6,
-        };
+        private fileDownloadingInfo: FileDownloadingInfo = new FileDownloadingInfo();
 
         get src(): string {
             const data = this.data;
@@ -69,12 +67,16 @@
             const data = this.data;
             const url = data.url;
             const fileName = data.name;
-            const downloadData = this.downloadData;
             const size = data.size;
-            DownloadToolUtil.tool.download(url, fileName, (e) => {
-                downloadData.isDownload = true;
-                downloadData.progress = ByteSizeUtil.getPercentageIntegerRate(size, e.total);
-            });
+            const fileDownloadingInfo = this.fileDownloadingInfo;
+
+            const fd: FileDownloadDefineData = App.appContext.getMaterial(FileDownloadDefineData);
+            fd.download(url, fileName, size, fileDownloadingInfo);
+            // fd.download(url, fileName, size);
+            // DownloadToolUtil.tool.download(url, fileName, (e) => {
+            //     downloadData.isDownload = true;
+            //     downloadData.progress = ByteSizeUtil.getPercentageIntegerRate(size, e.total);
+            // });
         }
     }
 </script>

@@ -1,7 +1,7 @@
-import screenShot from '@/platform/e/os/ScreenShot';
+import screenShot from '@/platform/e/os/windows/screenshot/WindowsScreenShot';
 import path from 'path';
 
-class ScreenShotInvoke {
+class WindowsScreenShotInvoke {
     private basePath: string = path.join(__dirname, '/');
 
     public shot(back: (file: File) => void): void {
@@ -16,4 +16,4 @@ class ScreenShotInvoke {
     }
 }
 
-export default new ScreenShotInvoke();
+export default new WindowsScreenShotInvoke();

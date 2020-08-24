@@ -32,7 +32,10 @@
                     <button @click="openCode" class="tool-icon-warp">
                         <i class="fas fa-code"></i>
                     </button>
-                    <button @click="shot" class="tool-icon-warp" href="javascript:void(0)">
+                    <button v-if="writeExtendFunction.screenshot.has"
+                            @click="writeExtendInvoke(writeExtendFunction.screenshot)"
+                            class="tool-icon-warp"
+                            href="javascript:void(0)">
                         <i class="fas fa-cut"></i>
                     </button>
                     <slot></slot>
@@ -124,11 +127,12 @@
     import ImageValue from '@/app/com/common/chat/item/ImageValue';
     import CodeValue from '@/app/com/common/chat/item/CodeValue';
     import CodeMirrorBox from '@/common/web/common/code/CodeMirrorBox';
-    import MacScreenShot from '@/platform/e/os/mac/MacScreenShot';
     import ImageToFileUtil from '@/common/web/util/ImageToFileUtil';
     import UploadListPane from '@/views/common/upload/UploadListPane.vue';
     import UploadListMapper from '@/views/common/upload/UploadListMapper';
     import DragHandlerUtil from '@/common/web/util/DragHandlerUtil';
+    import WriteExtendData from '@/views/common/chat/extend/WriteExtendData';
+    import WriteExtendFunction from '@/views/common/chat/extend/WriteExtendFunction';
 
     @Component({
         components: {
@@ -137,8 +141,6 @@
         },
     })
     export default class WritePane extends Vue {
-
-        private macShot: MacScreenShot = new MacScreenShot();
         private uploadInfo = {
             fileAction: '',
             fileDisabled: false,
@@ -159,6 +161,7 @@
         private codeContent: string = '';
         private codeNames: string[] = [];
         private uploadListMapper: UploadListMapper = new UploadListMapper();
+        private writeExtendFunction: WriteExtendFunction = new WriteExtendFunction();
 
         public mounted() {
             this.initializeCodes();
@@ -218,15 +221,15 @@
                             own.uploadFiles(files);
                         });
                 }, false);
-                inputAreaElement.addEventListener('dragleave', function (e) {
+                inputAreaElement.addEventListener('dragleave', function(e) {
                     e.stopPropagation();
                     e.preventDefault();
                 });
-                inputAreaElement.addEventListener('dragenter', function (e) {
+                inputAreaElement.addEventListener('dragenter', function(e) {
                     e.stopPropagation();
                     e.preventDefault();
                 });
-                inputAreaElement.addEventListener('dragover', function (e) {
+                inputAreaElement.addEventListener('dragover', function(e) {
                     e.stopPropagation();
                     e.preventDefault();
                 });
@@ -289,10 +292,16 @@
             //     desc: path,
             // });
 
-            this.macShot.handleScreenShots();
             // screenShot.shot((file: File) => {
             //     own.uploadImage(file);
             // });
+        }
+
+        private writeExtendInvoke(extend: WriteExtendData) {
+            if (extend) {
+                const data = this.data;
+                extend.invoke(data);
+            }
         }
 
         private onFaceSelected(face: FaceItem) {

@@ -11,11 +11,11 @@ export default class DownloadTool {
         const xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
-        //设置请求头，请求头的设置必须在xhr打开之后，并且在send之前
+        // 设置请求头，请求头的设置必须在xhr打开之后，并且在send之前
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
         if (typeof onProgress === 'function') {
-            xhr.onprogress = function (event) {
+            xhr.onprogress = (event) => {
                 if (typeof onProgress === 'function') {
                     onProgress(event);
                 }
@@ -88,7 +88,7 @@ export default class DownloadTool {
     }
 
     /**
-     *下载
+     * 下载
      * @param url 目标文件地址
      * @param fileName 想要保存的文件名称
      * @param onProgress

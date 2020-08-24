@@ -16,6 +16,7 @@ import WebComponentInitializer from '@/common/web/initialize/launch/WebComponent
 import WebPlatformFaceInitializer from '@/platform/web/initialize/launch/WebPlatformFaceInitializer';
 
 import LaunchOrder from '@/app/LaunchOrder';
+import CurrentPlatformInitializer from '@/platform/initialize/launch/CurrentPlatformInitializer';
 
 
 class PlatformInitialize {
@@ -84,6 +85,7 @@ class PlatformInitialize {
         app.putInitializer(new WebPlatformFaceInitializer());
 
         app.putInitializer(new CurrentComponentInitializer());
+        app.putInitializer(new CurrentPlatformInitializer());
     }
 
     private initializeUnread() {

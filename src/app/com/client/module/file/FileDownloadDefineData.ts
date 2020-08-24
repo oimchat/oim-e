@@ -1,0 +1,21 @@
+import DefineData from '@/app/define/extend/DefineData';
+import FileDownload from '@/app/define/file/FileDownload';
+import FileDownloadingInfo from '@/app/com/client/module/file/FileDownloadingInfo';
+
+export default class FileDownloadDefineData extends DefineData {
+
+    public download(url: string,
+                    fileName: string,
+                    size: number,
+                    fileDownloadingInfo: FileDownloadingInfo,
+                    onProgress?: (total: number, loaded: number) => void,
+                    onSpeed?: (size: number, millisecond: number) => void): void {
+        if (this.has) {
+            const o = this.get();
+            if (o instanceof FileDownload) {
+                const fd = o as FileDownload;
+                fd.download(url, fileName, size, fileDownloadingInfo, onProgress, onSpeed);
+            }
+        }
+    }
+}
