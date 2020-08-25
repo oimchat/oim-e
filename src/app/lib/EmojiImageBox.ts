@@ -21,6 +21,11 @@ class EmojiImageBox {
     }>();
 
     private mappingMap: Map<string, string> = new Map<string, string>();
+    private list: {
+        code: string,
+        key: string,
+        picture: string,
+    }[] = [];
 
     constructor() {
         this.init();
@@ -30,6 +35,7 @@ class EmojiImageBox {
         if (data && data.key && data.picture) {
             this.keyMap.set(data.key, data);
             this.codeMap.set(data.code, data);
+            this.list.push(data);
         }
     }
 
@@ -39,14 +45,7 @@ class EmojiImageBox {
         key: string,
         picture: string,
     }> {
-        const map = this.codeMap;
-        const list: Array<{ code: string, key: string, picture: string }> = [];
-        if (map) {
-            const allList = map.values();
-            for (const ud of allList) {
-                list.push(ud);
-            }
-        }
+        const list = this.list;
         return list;
     }
 
