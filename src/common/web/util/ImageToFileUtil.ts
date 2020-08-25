@@ -6,8 +6,8 @@ export default class ImageToFileUtil {
             if (file.type.match(/^image\//i)) {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
-                reader.onload = function () {
-                    //获取到base64格式图片
+                reader.onload = function() {
+                    // 获取到base64格式图片
                     if (typeof back === 'function' && typeof reader.result === 'string') {
                         back(reader.result);
                     }

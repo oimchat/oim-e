@@ -1,9 +1,12 @@
 <template>
     <div class="process-wrapper">
         <div class="process-child" :style="percentage">
-            <label class="content">{{progress+'%'}}</label>
+            <p class="content">
+                <label>{{progress+'%'}}</label>
+            </p>
             <p class="process-animate"></p>
         </div>
+        <label class="content" style="color: #0a0a0a;font-size: 10px">{{speedText}}</label>
     </div>
 </template>
 
@@ -14,7 +17,6 @@
         components: {},
     })
     export default class ProcessBar extends Vue {
-        addGray: boolean = false;
         /**
          * 进度条百分比
          */
@@ -23,17 +25,24 @@
             required: false,
             default: () => (0),
         })
-        progress!: number;
+        private progress!: number;
+
+        @Prop({
+            type: String,
+            required: false,
+            default: () => (''),
+        })
+        private speedText!: string;
+
+        private mounted() {
+            this.$nextTick(() => {
+                //
+            });
+        }
 
         get percentage() {
             const w = this.progress + '%';
             return {width: w};
-        }
-
-        mounted() {
-            this.$nextTick(() => {
-                //
-            });
         }
     }
 </script>

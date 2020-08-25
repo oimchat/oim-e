@@ -32,7 +32,7 @@ export default class GroupMemberBox extends AbstractMaterial {
     }
 
     public getGroupMemberMapByGroupId(groupId: string): Map<string, GroupMember> {
-        let map: any = this.groupMemberListMap.get(groupId);
+        const map: any = this.groupMemberListMap.get(groupId);
         return map;
     }
 

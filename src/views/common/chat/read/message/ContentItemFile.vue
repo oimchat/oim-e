@@ -17,7 +17,9 @@
             </div>
         </div>
         <div v-if="fileDownloadingInfo.show">
-            <process-bar :progress="fileDownloadingInfo.percentage"></process-bar>
+            <process-bar :progress="fileDownloadingInfo.percentage"
+                         :speed-text="fileDownloadingInfo.speedText"
+            ></process-bar>
         </div>
     </div>
 </template>

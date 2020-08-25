@@ -37,12 +37,12 @@ export default class OpenFolderUtil {
             }
             // console.log(files);
             // 移除事件监听器
-            inputElement.removeEventListener('change', function () {
+            inputElement.removeEventListener('change', function() {
                 // no
             });
 
             // 从DOM中移除input
-            //document.body.removeChild(inputElement);
+            // document.body.removeChild(inputElement);
         });
         // 模拟点击
         inputElement.click();

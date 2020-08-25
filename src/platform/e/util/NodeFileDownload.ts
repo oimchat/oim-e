@@ -8,6 +8,7 @@ export default class NodeFileDownload {
     public downloadFile(url: string,
                         targetPath: string,
                         onEnd: () => void,
+                        onError: () => void,
                         onProgress: (total: number, loaded: number) => void,
                         onSpeed?: (size: number, millisecond: number) => void) {
         const request = require('request');
@@ -17,6 +18,7 @@ export default class NodeFileDownload {
 
 
         let lastTime = 0;
+        let speedSize = 0;
 
         // const req = request({
         //     method: 'GET',
@@ -28,6 +30,12 @@ export default class NodeFileDownload {
         req.pipe(out);
         req.on('close', () => {
             // console.log('end');
+        });
+
+        req.on('error', () => {
+            if (typeof onError === 'function' && onError) {
+                onError();
+            }
         });
 
         // const req = request(url);
@@ -45,19 +53,23 @@ export default class NodeFileDownload {
         req.on('data', (chunk: string | any[]) => {
             // Update the received bytes
             loaded += chunk.length;
-            const size = chunk.length;
+            speedSize += chunk.length;
+            // const size = chunk.length;
             const time = new Date().getTime();
             if (lastTime === 0) {
                 lastTime = time;
             } else {
                 const v = time - lastTime;
-                lastTime = time;
-                if (hasSpeed && onSpeed) {
-                    onSpeed(size, v);
+                if (v >= 1000) {
+                    lastTime = time;
+                    if (hasSpeed && onSpeed) {
+                        onSpeed(speedSize, v);
+                    }
+                    if (hasProgress && onProgress) {
+                        onProgress(total, loaded);
+                    }
+                    speedSize = 0;
                 }
-            }
-            if (hasProgress && onProgress) {
-                onProgress(total, loaded);
             }
         });
 

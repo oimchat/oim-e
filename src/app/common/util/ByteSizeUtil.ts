@@ -67,6 +67,7 @@ export default class ByteSizeUtil {
     public static getLessDecimalsRate(total: number, part: number): number {
         const percentage = (part > 0 && total > 0) ? (part / total) : 1;
         const rate = percentage.toFixed(2);
+        console.log(percentage + '-' + rate);
         const value = Number(rate).valueOf();
         return value;
     }

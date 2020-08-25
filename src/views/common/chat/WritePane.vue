@@ -221,15 +221,15 @@
                             own.uploadFiles(files);
                         });
                 }, false);
-                inputAreaElement.addEventListener('dragleave', function(e) {
+                inputAreaElement.addEventListener('dragleave', (e) => {
                     e.stopPropagation();
                     e.preventDefault();
                 });
-                inputAreaElement.addEventListener('dragenter', function(e) {
+                inputAreaElement.addEventListener('dragenter', (e) => {
                     e.stopPropagation();
                     e.preventDefault();
                 });
-                inputAreaElement.addEventListener('dragover', function(e) {
+                inputAreaElement.addEventListener('dragover', (e) => {
                     e.stopPropagation();
                     e.preventDefault();
                 });
