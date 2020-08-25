@@ -38,23 +38,23 @@ export default class CurrentComponentInitializer implements Initializer {
         const loginSaveBox: LoginSaveBox = app.appContext.getMaterial(LoginSaveBox);
         loginSaveBox.loginSaveSupport = true;
 
-        const userVoicePromptSetting: VoicePromptUserSetting = app.appContext.getMaterial(VoicePromptUserSetting);
-        const groupVoicePromptSetting: VoicePromptGroupSetting = app.appContext.getMaterial(VoicePromptGroupSetting);
-
-        userVoicePromptSetting.setDefaultType(VoicePromptType.always);
-        groupVoicePromptSetting.setDefaultType(VoicePromptType.always);
-
-        const messageAppendUserSetting: MessageAppendUserSetting = app.appContext.getMaterial(MessageAppendUserSetting);
-        const messageAppendGroupSetting: MessageAppendGroupSetting = app.appContext.getMaterial(MessageAppendGroupSetting);
-
-        messageAppendUserSetting.setDefaultType(MessageAppendType.bottom);
-        messageAppendGroupSetting.setDefaultType(MessageAppendType.bottom);
-
-        const messageSwitchSetting: MessageSwitchSetting = app.appContext.getMaterial(MessageSwitchSetting);
-        messageSwitchSetting.setSwitchType(MessageAppendType.bottom);
-
-        const messageTimeSettingStore: MessageTimeSettingStore = app.appContext.getMaterial(MessageTimeSettingStore);
-        messageTimeSettingStore.messageTimeSetting.mergeMillisecond = -1;
+        // const userVoicePromptSetting: VoicePromptUserSetting = app.appContext.getMaterial(VoicePromptUserSetting);
+        // const groupVoicePromptSetting: VoicePromptGroupSetting = app.appContext.getMaterial(VoicePromptGroupSetting);
+        //
+        // userVoicePromptSetting.setDefaultType(VoicePromptType.always);
+        // groupVoicePromptSetting.setDefaultType(VoicePromptType.always);
+        //
+        // const messageAppendUserSetting: MessageAppendUserSetting = app.appContext.getMaterial(MessageAppendUserSetting);
+        // const messageAppendGroupSetting: MessageAppendGroupSetting = app.appContext.getMaterial(MessageAppendGroupSetting);
+        //
+        // messageAppendUserSetting.setDefaultType(MessageAppendType.bottom);
+        // messageAppendGroupSetting.setDefaultType(MessageAppendType.bottom);
+        //
+        // const messageSwitchSetting: MessageSwitchSetting = app.appContext.getMaterial(MessageSwitchSetting);
+        // messageSwitchSetting.setSwitchType(MessageAppendType.bottom);
+        //
+        // const messageTimeSettingStore: MessageTimeSettingStore = app.appContext.getMaterial(MessageTimeSettingStore);
+        // messageTimeSettingStore.messageTimeSetting.mergeMillisecond = -1;
 
         const loginController: LoginController = app.appContext.getMaterial(LoginController);
         loginController.onReconnect = () => {

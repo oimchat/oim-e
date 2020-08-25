@@ -2,8 +2,8 @@ class EnvConfig {
 
     private dev: string = 'http://127.0.0.1:10000';
     private test: string = 'http://127.0.0.1:10000';
-    // private pro: string = 'http://119.3.30.190:10000';
-    private pro: string = 'http://im.kudouyun.cn:10000';
+    private pro: string = 'http://119.3.30.190:10000';
+    // private pro: string = 'http://im.kudouyun.cn:10000';
 
     public getBaseUrl(): string {
         let url = this.pro;

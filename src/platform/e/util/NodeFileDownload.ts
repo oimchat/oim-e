@@ -65,11 +65,11 @@ export default class NodeFileDownload {
                     if (hasSpeed && onSpeed) {
                         onSpeed(speedSize, v);
                     }
-                    if (hasProgress && onProgress) {
-                        onProgress(total, loaded);
-                    }
                     speedSize = 0;
                 }
+            }
+            if (hasProgress && onProgress) {
+                onProgress(total, loaded);
             }
         });
 

@@ -19,6 +19,8 @@ export default class ElectronFileDownloadImpl extends FileDownload {
             own.nodeFileDownload.downloadFile(url, path,
                 () => {
                     // no
+                    fileDownloadingInfo.downloading = false;
+                    fileDownloadingInfo.percentage = 100;
                 },
                 () => {
                     fileDownloadingInfo.show = false;
@@ -27,6 +29,7 @@ export default class ElectronFileDownloadImpl extends FileDownload {
                 },
                 (total: number, loaded: number) => {
                     fileDownloadingInfo.show = true;
+                    fileDownloadingInfo.downloading = true;
                     fileDownloadingInfo.percentage = ByteSizeUtil.getPercentageIntegerRate(total, loaded);
                 },
                 (speedSize: number, millisecond: number) => {

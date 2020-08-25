@@ -9,7 +9,8 @@
                 <div class="opr">
                     <span class="">{{sizeText}}</span>
                     <span class="sep">|</span>
-                    <label @click="onDownload"
+                    <label v-if="!fileDownloadingInfo.downloading"
+                           @click="onDownload"
                            :download="data.name"
                            :file-url="data.url" class="download"
                     >下载</label>
