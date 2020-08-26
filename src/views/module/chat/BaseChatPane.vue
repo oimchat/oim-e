@@ -127,6 +127,11 @@
         }
     }
 </script>
+<style lang="scss">
+    .q-splitter__separator {
+        z-index: 0;
+    }
+</style>
 
 <style lang="scss" scoped>
     .top {

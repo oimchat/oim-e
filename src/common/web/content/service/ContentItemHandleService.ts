@@ -8,7 +8,7 @@ import Item from '@/app/com/common/chat/Item';
 import FaceImageUtil from '@/common/web/common/face/FaceImageUtil';
 import TextJudgeUtil from '@/app/lib/util/TextJudgeUtil';
 import WebStringHandleUtil from '@/common/web/util/WebStringHandleUtil';
-import EmojiUtil from '@/app/common/util/EmojiUtil';
+import EmojiUtil from '@/app/lib/emoji/EmojiUtil';
 
 export default class ContentItemHandleService extends AbstractMaterial {
 

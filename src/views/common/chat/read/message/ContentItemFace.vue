@@ -1,5 +1,5 @@
 <template>
-    <img :src="data.path" name="face" :value="value" :path="data.path">
+    <img :src="data.path" name="face" :value="value" :title="data.text" :path="data.path">
 </template>
 
 <script lang="ts">
@@ -15,7 +15,7 @@
             required: false,
             default: () => ({}),
         })
-        private data!: any;
+        private data!: any | FaceValue;
 
         get value(): string {
             const v = this.data.categoryId + ',' + this.data.key;

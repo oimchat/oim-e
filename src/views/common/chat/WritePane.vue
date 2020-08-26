@@ -477,8 +477,8 @@
             if (files) {
                 const own = this;
                 const uploadListMapper = this.uploadListMapper;
-                for (const file of files) {
-                    uploadListMapper.upload(file, (data, file) => {
+                for (const f of files) {
+                    uploadListMapper.upload(f, (data, file) => {
                         own.handleFileSend(data, file);
                     });
                 }

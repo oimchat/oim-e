@@ -55,8 +55,8 @@ class EmojiImageBox {
         return data;
     }
 
-    public getByKey(code: string): { code: string, key: string, picture: string } {
-        const data: any = this.codeMap.get(code);
+    public getByKey(key: string): { code: string, key: string, picture: string } {
+        const data: any = this.keyMap.get(key);
         return data;
     }
 

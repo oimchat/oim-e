@@ -17,9 +17,11 @@
                     <template v-for="item of items">
                         <div :class="tab===item.id?'tab-pane active':'tab-pane'">
                             <div class="face">
-                                <a v-for="face of item.faces" :title="face.text" @click="onFace(face)">
-                                    <img :src="face.path" :title="face.text" alt="face"/>
-                                </a>
+                                <template v-for="face of item.faces">
+                                    <a v-if="face.visible" :title="face.text" @click="onFace(face)">
+                                        <img :src="face.path" :title="face.text" alt="face"/>
+                                    </a>
+                                </template>
                             </div>
                         </div>
                     </template>
@@ -31,7 +33,7 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import EmojiBox from '@/app/lib/EmojiBox';
+    import EmojiBox from '@/app/lib/emoji/EmojiBox';
     import app from '@/app/App';
     import FaceBox from '@/app/com/main/module/support/face/box/FaceBox';
     import FaceValue from '@/app/com/common/chat/item/FaceValue';
@@ -191,7 +193,7 @@
         display: none;
         overflow: hidden;
         margin: 15px 10px;
-        padding-right: 20px;
+        /*padding-right: 20px;*/
     }
 
     .tab-pane.active {
@@ -212,6 +214,13 @@
         border-bottom: 1px solid #f0f0f0;
         border-right: 1px solid #f0f0f0;
         cursor: pointer;
+        text-align: center;
+        padding-top: 2px;
+    }
+
+    .face img {
+        width: 24px;
+        height: 24px;
     }
 
     .slide-top {

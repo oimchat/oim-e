@@ -36,7 +36,7 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import EmojiBox from '@/app/lib/EmojiBox';
+    import EmojiBox from '../../src/app/lib/emoji/EmojiBox';
     import app from '@/app/App';
     import FaceBox from '@/app/com/main/module/support/face/box/FaceBox';
     import FaceValue from '@/app/com/common/chat/item/FaceValue';
