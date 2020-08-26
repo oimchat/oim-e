@@ -1,6 +1,7 @@
 import emojiImageBox from '@/app/lib/EmojiImageBox';
 import AbstractEmojiBag from '@/common/element/face/bag/AbstractEmojiBag';
 import EmojiUtil from '@/app/lib/emoji/EmojiUtil';
+import webEmojiImageBox from '@/platform/web/common/face/WebEmojiImageBox';
 
 export default class WebEmojiBag extends AbstractEmojiBag {
 
@@ -12,11 +13,18 @@ export default class WebEmojiBag extends AbstractEmojiBag {
         return path;
     }
 
-    public getBasePath(categoryId: string): string {
+    public getBasePath(): string {
         return 'assets/images/common/face/emoji/72x72/';
     }
 
-    public getExtension(categoryId: string, key: string): string {
+    public getExtension(key: string): string {
         return '';
+    }
+
+    public has(key: string): boolean {
+        const code = EmojiUtil.getUnicode(key, '-');
+        const picture = code + '.png';
+        const has = webEmojiImageBox.has(picture);
+        return has;
     }
 }

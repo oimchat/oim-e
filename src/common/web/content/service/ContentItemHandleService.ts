@@ -29,6 +29,8 @@ export default class ContentItemHandleService extends AbstractMaterial {
                         const face = faceBox.getFace(faceValue.categoryId, faceValue.key);
                         if (face) {
                             value.path = face.path;
+                            value.width = face.width;
+                            value.height = face.height;
                         }
                     }
                 }

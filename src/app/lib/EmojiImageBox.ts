@@ -21,11 +21,11 @@ class EmojiImageBox {
     }>();
 
     private mappingMap: Map<string, string> = new Map<string, string>();
-    private list: {
+    private list: Array<{
         code: string,
         key: string,
         picture: string,
-    }[] = [];
+    }> = [];
 
     constructor() {
         this.init();

@@ -1,12 +1,12 @@
 import FileDownload from '@/app/define/file/FileDownload';
-import FileDownloadingInfo from '@/app/com/client/module/file/FileDownloadingInfo';
+import FileProgressInfo from '@/app/com/client/module/file/FileProgressInfo';
 
 export default class WebFileDownloadImpl extends FileDownload {
 
     public download(url: string,
                     fileName: string,
                     size: number,
-                    fileDownloadingInfo: FileDownloadingInfo,
+                    fileDownloadingInfo: FileProgressInfo,
                     onProgress?: (total: number, loaded: number) => void,
                     onSpeed?: (size: number, millisecond: number) => void): void {
         const agent = (navigator.userAgent) ? navigator.userAgent : '';

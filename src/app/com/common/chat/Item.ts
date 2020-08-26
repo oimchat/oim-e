@@ -16,4 +16,9 @@ export default class Item {
 
     public type: string = Item.TYPE_TEXT;
     public value: any = '';
+    public data: any;
+
+    public constructor() {
+        Object.defineProperty(Item, 'data', {enumerable: false});
+    }
 }

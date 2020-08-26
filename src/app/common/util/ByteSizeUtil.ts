@@ -61,13 +61,14 @@ export default class ByteSizeUtil {
     }
 
     public static getPercentageDecimalsRate(total: number, part: number): number {
-        return ByteSizeUtil.getLessDecimalsRate(total, part) * 100;
+        const percentage = ByteSizeUtil.getLessDecimalsRate(total, part);
+        const rate = percentage * 100;
+        return rate;
     }
 
     public static getLessDecimalsRate(total: number, part: number): number {
         const percentage = (part > 0 && total > 0) ? (part / total) : 1;
         const rate = percentage.toFixed(2);
-        console.log(percentage + '-' + rate);
         const value = Number(rate).valueOf();
         return value;
     }

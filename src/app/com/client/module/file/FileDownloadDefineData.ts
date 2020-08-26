@@ -1,13 +1,13 @@
 import DefineData from '@/app/define/extend/DefineData';
 import FileDownload from '@/app/define/file/FileDownload';
-import FileDownloadingInfo from '@/app/com/client/module/file/FileDownloadingInfo';
+import FileProgressInfo from '@/app/com/client/module/file/FileProgressInfo';
 
 export default class FileDownloadDefineData extends DefineData {
 
     public download(url: string,
                     fileName: string,
                     size: number,
-                    fileDownloadingInfo: FileDownloadingInfo,
+                    fileDownloadingInfo: FileProgressInfo,
                     onProgress?: (total: number, loaded: number) => void,
                     onSpeed?: (size: number, millisecond: number) => void): void {
         if (this.has) {

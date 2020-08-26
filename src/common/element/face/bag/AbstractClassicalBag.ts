@@ -12,13 +12,18 @@ export default abstract class AbstractClassicalBag extends AbstractBag {
             if (array && array.length > 1) {
                 const categoryId = array[0];
                 const key = array[1];
-                const text = (array.length > 2) ? array[2] : '';
-                const faceValue: FaceItem = new FaceItem();
-                faceValue.categoryId = categoryId;
-                faceValue.key = key;
-                faceValue.text = text;
-                faceValue.visible = visible;
-                faceCategory.faces.push(faceValue);
+
+                if (this.has(key)) {
+                    const text = (array.length > 2) ? array[2] : '';
+                    const faceValue: FaceItem = new FaceItem();
+                    faceValue.categoryId = categoryId;
+                    faceValue.key = key;
+                    faceValue.text = text;
+                    faceValue.width = 24;
+                    faceValue.height = 24;
+                    faceValue.visible = visible;
+                    faceCategory.faces.push(faceValue);
+                }
             }
         }
     }
