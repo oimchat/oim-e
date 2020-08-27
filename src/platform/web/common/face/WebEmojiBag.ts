@@ -25,6 +25,9 @@ export default class WebEmojiBag extends AbstractEmojiBag {
         const code = EmojiUtil.getUnicode(key, '-');
         const picture = code + '.png';
         const has = webEmojiImageBox.has(picture);
+        if (!has) {
+            console.log(picture + '/' + key);
+        }
         return has;
     }
 }
