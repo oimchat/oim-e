@@ -63,18 +63,18 @@ export default class UserInfoUtil {
     }
 
     public static getHeadImage(user: UserBase): string {
-        let image = UserInfoUtil.USER_HEAD_IMAGES + '1.png';
+        let image = UserInfoUtil.USER_HEAD_IMAGES + '1.jpg';
         if (user) {
             const head = user.head;
             const avatar = user.avatar;
 
             if (BaseUtil.isEmpty(avatar)) {
-                image = UserInfoUtil.USER_HEAD_IMAGES + head + '.png';
+                image = UserInfoUtil.USER_HEAD_IMAGES + head + '.jpg';
             } else {
                 image = avatar;
             }
             if (BaseUtil.isEmpty(image)) {
-                image = UserInfoUtil.USER_HEAD_IMAGES + '1.png';
+                image = UserInfoUtil.USER_HEAD_IMAGES + '1.jpg';
             }
         }
         return image;
@@ -86,12 +86,12 @@ export default class UserInfoUtil {
             const avatar = user.avatar;
             if (BaseUtil.isEmpty(avatar)) {
                 head = (head) ? head : '1';
-                user.avatar = UserInfoUtil.USER_HEAD_IMAGES + head + '.png';
+                user.avatar = UserInfoUtil.USER_HEAD_IMAGES + head + '.jpg';
             }
         }
     }
 
     public static getDefaultAvatar() {
-        return UserInfoUtil.USER_HEAD_IMAGES + '1.png';
+        return UserInfoUtil.USER_HEAD_IMAGES + '1.jpg';
     }
 }
