@@ -26,7 +26,7 @@ export default class WebEmojiBag extends AbstractEmojiBag {
         const picture = code + '.png';
         const has = webEmojiImageBox.has(picture);
         if (!has) {
-            console.log(picture + '/' + key);
+            // console.log(picture + '/' + key);
         }
         return has;
     }

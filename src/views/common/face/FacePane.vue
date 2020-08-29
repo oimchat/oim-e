@@ -15,7 +15,7 @@
             <div class="tab-pane-warp">
                 <div class="tab-pane-warp-content">
                     <template v-for="item of items">
-                        <div :class="tab===item.id?'tab-pane active':'tab-pane'">
+                        <div v-if="item.visible" :class="tab===item.id?'tab-pane active':'tab-pane'">
                             <div class="face">
                                 <template v-for="face of item.faces">
                                     <a v-if="face.visible" :title="face.text" @click="onFace(face)"
@@ -72,7 +72,9 @@
             const items = this.items;
             const tabs: Array<{ name: string, key: string }> = [];
             for (const v of items) {
-                tabs.push({name: v.name, key: v.id});
+                if (v.visible) {
+                    tabs.push({name: v.name, key: v.id});
+                }
             }
             this.tabs = tabs;
             if (tabs.length > 0 && this.tab === '') {

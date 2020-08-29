@@ -56,6 +56,7 @@
     import BaseChatMapper from '@/views/module/chat/BaseChatMapper';
     import Content from '@/app/com/common/chat/Content';
     import ContentWrap from '@/common/vue/data/content/ContentWrap';
+    import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 
     @Component({
         components: {
@@ -72,7 +73,7 @@
         })
         public items!: ContentWrap [];
         private splitterModel = 190; // start at 150px
-        private avatar = 'assets/images/common/head/user/1.png';
+        private avatar = UserInfoUtil.USER_DEFAULT_AVATAR;
         @Prop({
             type: BaseChatMapper,
             required: false,

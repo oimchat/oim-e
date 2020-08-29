@@ -3,7 +3,9 @@ import UserBase from '@/app/com/main/module/business/user/bean/UserBase';
 
 export default class UserInfoUtil {
 
-    public static USER_HEAD_IMAGES: string = 'assets/images/common/head/user/';
+    public static USER_HEAD_PATH: string = 'assets/images/common/head/user/';
+    public static USER_HEAD_EXTENSION: string = 'jpg';
+    public static USER_DEFAULT_AVATAR: string = UserInfoUtil.getDefaultAvatar();
 
     public static PUBLIC_STATIC_STATUS_ONLINE: string = '1';
     public static PUBLIC_STATIC_STATUS_CALL_ME: string = '2';
@@ -63,18 +65,18 @@ export default class UserInfoUtil {
     }
 
     public static getHeadImage(user: UserBase): string {
-        let image = UserInfoUtil.USER_HEAD_IMAGES + '1.jpg';
+        let image = UserInfoUtil.getDefaultAvatar();
         if (user) {
             const head = user.head;
             const avatar = user.avatar;
 
             if (BaseUtil.isEmpty(avatar)) {
-                image = UserInfoUtil.USER_HEAD_IMAGES + head + '.jpg';
+                image = UserInfoUtil.USER_HEAD_PATH + head + '.' + UserInfoUtil.USER_HEAD_EXTENSION;
             } else {
                 image = avatar;
             }
             if (BaseUtil.isEmpty(image)) {
-                image = UserInfoUtil.USER_HEAD_IMAGES + '1.jpg';
+                image = UserInfoUtil.getDefaultAvatar();
             }
         }
         return image;
@@ -86,12 +88,12 @@ export default class UserInfoUtil {
             const avatar = user.avatar;
             if (BaseUtil.isEmpty(avatar)) {
                 head = (head) ? head : '1';
-                user.avatar = UserInfoUtil.USER_HEAD_IMAGES + head + '.jpg';
+                user.avatar = UserInfoUtil.USER_HEAD_PATH + head + '.' + UserInfoUtil.USER_HEAD_EXTENSION;
             }
         }
     }
 
     public static getDefaultAvatar() {
-        return UserInfoUtil.USER_HEAD_IMAGES + '1.jpg';
+        return UserInfoUtil.USER_HEAD_PATH + '1.' + UserInfoUtil.USER_HEAD_EXTENSION;
     }
 }

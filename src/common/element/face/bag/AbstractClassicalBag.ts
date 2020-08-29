@@ -29,7 +29,8 @@ export default abstract class AbstractClassicalBag extends AbstractBag {
     }
 
     public initialize(faceCategory: FaceCategory): void {
-        faceCategory.name = '经典表情';
+        this.getFaceCategory().visible = false;
+        faceCategory.name = '默认表情';
         faceCategory.id = 'classical';
 
         this.put('classical,0,惊讶', true);
