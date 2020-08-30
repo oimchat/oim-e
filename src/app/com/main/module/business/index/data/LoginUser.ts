@@ -3,7 +3,7 @@ export default class LoginUser {
     /**
      * 头像
      */
-    public avatar: string = 'assets/logo/logo_128.png';
+    public avatar: string = 'assets/general/common/logo/logo_128.png';
 
     /**
      * 帐号

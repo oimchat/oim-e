@@ -14,7 +14,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import elementUI from 'element-ui';
 // import 'iview/dist/styles/iview.css'; // 使用 CSS
 
-import './platform/e/styles/top.css';
+import './platform/electron/styles/top.css';
 import './styles/compatible.less';
 import './styles/drag.scss';
 // @ts-ignore

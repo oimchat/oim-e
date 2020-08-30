@@ -3,13 +3,13 @@ import app from '@/app/App';
 import AppContext from '@/app/base/context/AppContext';
 import WriteExtendStore from '@/views/common/chat/extend/WriteExtendStore';
 import Platform from '@/app/common/util/Platform';
-import {WindowsScreenshotExtend} from '@/platform/e/os/windows/screenshot/WindowsScreenshotExtend';
+import {WindowsScreenshotExtend} from '@/platform/electron/os/windows/screenshot/WindowsScreenshotExtend';
 import WriteExtendType from '@/views/common/chat/extend/WriteExtendType';
-import {MacScreenshotExtend} from '@/platform/e/os/mac/screenshot/MacScreenshotExtend';
+import {MacScreenshotExtend} from '@/platform/electron/os/mac/screenshot/MacScreenshotExtend';
 import DefineExtendStore from '@/app/define/extend/DefineExtendStore';
 import FileDownloadDefineData from '@/app/com/client/module/file/FileDownloadDefineData';
 import WebFileDownloadImpl from '@/platform/web/impl/WebFileDownloadImpl';
-import ElectronFileDownloadImpl from '@/platform/e/impl/ElectronFileDownloadImpl';
+import ElectronFileDownloadImpl from '@/platform/electron/impl/ElectronFileDownloadImpl';
 
 export default class CurrentPlatformInitializer implements Initializer {
 

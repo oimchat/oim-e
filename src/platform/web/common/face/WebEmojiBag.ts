@@ -14,7 +14,7 @@ export default class WebEmojiBag extends AbstractEmojiBag {
     }
 
     public getBasePath(): string {
-        return 'assets/images/common/face/emoji/72x72/';
+        return 'assets/general/common/images/common/face/emoji/72x72/';
     }
 
     public getExtension(key: string): string {

@@ -2,7 +2,7 @@ import ImageValue from '@/app/com/common/chat/item/ImageValue';
 import BaseUtil from '@/app/lib/util/BaseUtil';
 import Content from '@/app/com/common/chat/Content';
 import CoreContentUtil from '@/app/com/common/chat/util/CoreContentUtil';
-import NodeFileUtil from '@/platform/e/util/NodeFileUtil';
+import NodeFileUtil from '@/platform/electron/util/NodeFileUtil';
 import WebImagePathUtil from '@/common/web/util/WebImagePathUtil';
 import Item from '@/app/com/common/chat/Item';
 import ImageToFileUtil from '@/common/web/util/ImageToFileUtil';

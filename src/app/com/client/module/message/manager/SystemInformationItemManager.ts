@@ -15,7 +15,7 @@ export default class SystemInformationItemManager extends AbstractMaterial {
                        onSelect: (key: any, value: any) => void,
                        onDelete: (key: string, value: any) => void) {
         const name = '信息';
-        const avatar = 'assets/images/common/head/system/inform.png';
+        const avatar = 'assets/general/common/images/common/head/system/inform.png';
         const gray = false;
         const systemInformItemEvent: SystemInformationItemEvent = this.appContext.getMaterial(SystemInformationItemEvent);
 

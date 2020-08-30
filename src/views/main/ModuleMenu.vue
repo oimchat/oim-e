@@ -4,7 +4,7 @@
             <Submenu name="1">
                 <template slot="title">
                     <Icon type="ios-people"/>
-                    联系人
+                    查找
                 </template>
                 <MenuItem to="/module/find.user" name="module_find.user">添加联系人</MenuItem>
                 <MenuItem to="/module/find.group" name="module_find.group">加入群</MenuItem>

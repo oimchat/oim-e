@@ -35,5 +35,4 @@ export default class AppLoader {
         });
         // console.log(own.map);
     }
-
 }

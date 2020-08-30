@@ -11,7 +11,7 @@ import ObjectUtil from '@/app/common/util/ObjectUtil';
 
 class LoginViewModel {
 
-    public head: string = 'assets/logo/logo_128.png';
+    public head: string = 'assets/general/common/logo/logo_128.png';
     public data: LoginUser = new LoginUser();
     public hasLogin: boolean = false;
     public isLoginSaveSupport: boolean = false;

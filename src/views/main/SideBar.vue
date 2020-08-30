@@ -9,9 +9,8 @@
         </div>
         <div class="sidebar-tab-more" id="tab-more">
             <a id="bottom_menu" @click="onMenuClick" href="javascript:void(0);">
-                <img src="../../images/main/tab/button_menu.png" alt=""/>
+<!--                <img src="" alt=""/>-->
             </a>
-
         </div>
     </div>
 </template>

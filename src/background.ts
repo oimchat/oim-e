@@ -5,10 +5,10 @@ import {
     createProtocol,
     installVueDevtools,
 } from 'vue-cli-plugin-electron-builder/lib';
-import SystemTray from './platform/e/SystemTray';
-import MainHandle from './platform/e/MainHandle';
-import './platform/e/window/ElectronDialogHandler';
-import ElectronDialogHandler from './platform/e/window/ElectronDialogHandler';
+import SystemTray from './platform/electron/SystemTray';
+import MainHandle from './platform/electron/MainHandle';
+import './platform/electron/window/ElectronDialogHandler';
+import ElectronDialogHandler from './platform/electron/window/ElectronDialogHandler';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 

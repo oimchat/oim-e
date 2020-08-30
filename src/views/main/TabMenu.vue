@@ -41,7 +41,7 @@
                     this.handleUpdatePassword();
                 },
             }, {
-                text: '退出',
+                text: '注销',
                 icon: 'fas fa-power-off',
                 onClick: (item: any, data: any) => {
                     this.logout();

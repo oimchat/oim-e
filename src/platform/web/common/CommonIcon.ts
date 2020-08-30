@@ -1,5 +1,5 @@
 export default class CommonIcon {
 
-    public static noLogo: string = 'assets/logo/no/no.png';
-    public static noUser: string = 'assets/images/common/no/no-user.png';
+    public static noLogo: string = 'assets/general/common/logo/no/no.png';
+    public static noUser: string = 'assets/general/common/images/common/no/no-user.png';
 }

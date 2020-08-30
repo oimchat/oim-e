@@ -19,7 +19,7 @@ export default class WebPlatformFileIconInitializer {
         const video = 'video@2x.png';
         const word = 'word@2x.png';
         const zip = 'zip@2x.png';
-        const path = 'assets/images/common/file/';
+        const path = 'assets/general/common/images/common/file/';
         const fileIconBox: FileIconBox = appContext.getMaterial(FileIconBox);
 
         fileIconBox.iconPath = path + unknown;

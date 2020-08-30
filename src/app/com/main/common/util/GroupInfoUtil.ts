@@ -3,7 +3,7 @@ import BaseUtil from '@/app/lib/util/BaseUtil';
 
 export default class GroupInfoUtil {
 
-    public static GROUP_HEAD_IMAGES: string = 'assets/images/common/head/group/';
+    public static GROUP_HEAD_IMAGES: string = 'assets/general/common/images/common/head/group/';
 
     public static getShowName(group: Group): string {
         let showName = '';

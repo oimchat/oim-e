@@ -3,7 +3,7 @@ import UserBase from '@/app/com/main/module/business/user/bean/UserBase';
 
 export default class UserInfoUtil {
 
-    public static USER_HEAD_PATH: string = 'assets/images/common/head/user/';
+    public static USER_HEAD_PATH: string = 'assets/general/common/images/common/head/user/';
     public static USER_HEAD_EXTENSION: string = 'jpg';
     public static USER_DEFAULT_AVATAR: string = UserInfoUtil.getDefaultAvatar();
 

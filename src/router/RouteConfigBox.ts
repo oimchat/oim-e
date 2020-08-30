@@ -12,22 +12,22 @@ class RouteConfigBox {
             {
                 path: '/login',
                 name: 'login',
-                component: () => import('../views/Login.vue'),
+                component: () => import('@/views/Login.vue'),
             },
             {
                 path: '/register',
                 name: 'register',
-                component: () => import('../views/Register.vue'),
+                component: () => import('@/views/Register.vue'),
             },
             {
                 path: '/reset.password',
                 name: 'resetPassword',
-                component: () => import('../views/ResetPassword.vue'),
+                component: () => import('@/views/ResetPassword.vue'),
             },
             {
                 path: '/main',
                 name: 'main',
-                component: () => import('../views/Main.vue'),
+                component: () => import('@/views/Main.vue'),
             },
         ];
         this.initialize();
@@ -45,7 +45,7 @@ class RouteConfigBox {
         const routeConfig: RouteConfig = {
             path: '/module',
             name: 'module',
-            component: () => import('../views/Main.vue'),
+            component: () => import('@/views/Main.vue'),
             children: [
                 {
                     path: 'find.user',

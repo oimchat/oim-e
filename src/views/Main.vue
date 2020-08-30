@@ -147,7 +147,7 @@
 </template>
 
 <script lang="ts">
-    import '../styles/layout.css';
+    import '../styles/oim/layout.css';
     import '../styles/oim/main.scss';
     import '../styles/oim/common.css';
     import '../styles/oim/component.scss';

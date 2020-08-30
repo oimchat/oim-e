@@ -11,13 +11,13 @@ class AppInfo {
         logo128: string,
         logo512: string,
     } = {
-        logo16: 'assets/logo/logo_16.png',
-        logo24: 'assets/logo/logo_24.png',
-        logo32: 'assets/logo/logo_32.png',
-        logo48: 'assets/logo/logo_48.png',
-        logo64: 'assets/logo/logo_64.png',
-        logo128: 'assets/logo/logo_128.png',
-        logo512: 'assets/logo/logo_512.png',
+        logo16: 'assets/general/common/logo/logo_16.png',
+        logo24: 'assets/general/common/logo/logo_24.png',
+        logo32: 'assets/general/common/logo/logo_32.png',
+        logo48: 'assets/general/common/logo/logo_48.png',
+        logo64: 'assets/general/common/logo/logo_64.png',
+        logo128: 'assets/general/common/logo/logo_128.png',
+        logo512: 'assets/general/common/logo/logo_512.png',
     };
 
     public name: string = 'OIM-Web';

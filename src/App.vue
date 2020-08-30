@@ -9,7 +9,7 @@
     import './styles/oim/app.scss';
     import Vue from 'vue';
     import Component from 'vue-class-component';
-    import WindowDecorated from '@/platform/e/view/WindowDecorated.vue';
+    import WindowDecorated from '@/platform/electron/view/WindowDecorated.vue';
 
     @Component({
         components: {
