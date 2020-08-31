@@ -9,9 +9,9 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import ContextMenu from '@/views/common/menu/ContextMenu.vue';
-    import PopupMenu from '@/views/common/menu/PopupMenu.vue';
-    import PopupMenuData from '@/views/common/menu/PopupMenuData';
+    import ContextMenu from '@/views/component/menu/ContextMenu.vue';
+    import PopupMenu from '@/views/component/menu/PopupMenu.vue';
+    import PopupMenuData from '@/views/component/menu/PopupMenuData';
 
     import AddGroup from '@/views/module/group/info/GroupAddPane.vue';
     import UpdatePassword from '@/views/module/personal/UpdatePasswordPane.vue';

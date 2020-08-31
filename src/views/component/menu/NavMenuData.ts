@@ -1,4 +1,4 @@
-import NavMenuItemData from '@/views/common/menu/NavMenuItemData';
+import NavMenuItemData from '@/views/component/menu/NavMenuItemData';
 
 class NavMenuData {
 

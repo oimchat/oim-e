@@ -49,7 +49,7 @@ import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageCo
 import app from '@/app/App';
 import FileDownload from '@/app/com/main/component/FileDownload';
 import Section from '@/app/com/common/chat/Section';
-import MessageContentItem from '@/views/common/chat/read/MessageContentItem.vue';
+import MessageContentItem from '@/views/common/message/MessageContentItem.vue';
 import DocumentUtil from '@/common/web/util/DocumentUtil';
 
 
@@ -126,5 +126,5 @@ export default class ContentPane extends Vue {
     }
 </style>
 <style lang="scss" scoped>
-    @import "../../../../styles/oim/message";
+    @import "../../../styles/oim/message";
 </style>

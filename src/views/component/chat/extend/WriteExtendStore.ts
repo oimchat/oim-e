@@ -1,4 +1,4 @@
-import WriteExtend from '@/views/common/chat/extend/WriteExtend';
+import WriteExtend from '@/views/component/chat/extend/WriteExtend';
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 
 export default class WriteExtendStore extends AbstractMaterial {

@@ -1,5 +1,5 @@
-import WriteExtend from '@/views/common/chat/extend/WriteExtend';
-import WriteMapper from '@/views/common/chat/WriteMapper';
+import WriteExtend from '@/views/component/chat/extend/WriteExtend';
+import WriteMapper from '@/views/component/chat/WriteMapper';
 import MacScreenShot from '@/platform/electron/os/mac/screenshot/MacScreenShot';
 
 

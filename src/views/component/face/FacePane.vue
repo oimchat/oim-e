@@ -39,7 +39,7 @@
     import FaceBox from '@/app/com/main/module/support/face/box/FaceBox';
     import FaceCategory from '@/app/com/main/module/support/face/data/FaceCategory';
     import FaceItem from '@/app/com/main/module/support/face/data/FaceItem';
-    import FaceModel from '@/views/common/face/FaceModel';
+    import FaceModel from '@/views/component/face/FaceModel';
 
     @Component({
         components: {},

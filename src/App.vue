@@ -5,7 +5,7 @@
     </div>
 </template>
 <script lang="ts">
-    import './styles/oim/layout.css';
+    // import './styles/oim/layout.css';
     import './styles/oim/app.scss';
     import Vue from 'vue';
     import Component from 'vue-class-component';

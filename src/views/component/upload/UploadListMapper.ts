@@ -1,4 +1,4 @@
-import UploadItemData from '@/views/common/upload/UploadItemData';
+import UploadItemData from '@/views/component/upload/UploadItemData';
 import ContentUploadFileService from '@/app/com/main/module/support/file/service/ContentUploadFileService';
 import app from '@/app/App';
 import ByteSizeUtil from '@/app/common/util/ByteSizeUtil';

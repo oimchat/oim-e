@@ -21,10 +21,10 @@ import GroupRelationController from '@/app/com/main/module/business/group/contro
 import DataBackAction from '@/app/base/net/DataBackAction';
 import Prompt from '@/platform/web/common/Prompt';
 import GroupBusinessController from '@/app/com/main/module/business/group/controller/GroupBusinessController';
-import PopupMenuData from '@/views/common/menu/PopupMenuData';
-import NavMenu from '@/views/common/menu/NavMenu.vue';
-import NavMenuData from '@/views/common/menu/NavMenuData';
-import NavMenuItemData from '@/views/common/menu/NavMenuItemData';
+import PopupMenuData from '@/views/component/menu/PopupMenuData';
+import NavMenu from '@/views/component/menu/NavMenu.vue';
+import NavMenuData from '@/views/component/menu/NavMenuData';
+import NavMenuItemData from '@/views/component/menu/NavMenuItemData';
 import GroupCategoryBox from '@/app/com/main/module/business/group/box/GroupCategoryBox';
 
 @Component({

@@ -1,5 +1,5 @@
-import WriteMapper from '@/views/common/chat/WriteMapper';
-import ReadMapper from '@/views/common/chat/ReadMapper';
+import WriteMapper from '@/views/component/chat/WriteMapper';
+import ReadMapper from '@/views/component/chat/ReadMapper';
 
 export default class BaseChatMapper {
     public info: { name: string, text: string, avatar: string } = {name: '', text: '', avatar: ''};

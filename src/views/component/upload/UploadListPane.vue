@@ -10,7 +10,7 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import UploadListMapper from '@/views/common/upload/UploadListMapper';
+    import UploadListMapper from '@/views/component/upload/UploadListMapper';
     import ProcessBar from '@/views/common/progress/ProcessBar.vue';
 
     @Component({

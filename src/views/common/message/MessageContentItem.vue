@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-import contentItem from '@/views/common/chat/read/message/index';
+import contentItem from '@/views/common/message/content';
 import Item from '@/app/com/common/chat/Item';
 
 @Component({

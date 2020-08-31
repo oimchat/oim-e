@@ -28,7 +28,7 @@
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
 
-    import NavMenuItem from '@/views/common/menu/NavMenuItem.vue';
+    import NavMenuItem from '@/views/component/menu/NavMenuItem.vue';
     import NavMenuItemData from './NavMenuItemData';
 
 

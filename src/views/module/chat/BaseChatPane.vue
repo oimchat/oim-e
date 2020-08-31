@@ -51,8 +51,8 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import ReadPane from '@/views/common/chat/ReadPane.vue';
-    import WritePane from '@/views/common/chat/WritePane.vue';
+    import ReadPane from '@/views/component/chat/ReadPane.vue';
+    import WritePane from '@/views/component/chat/WritePane.vue';
     import BaseChatMapper from '@/views/module/chat/BaseChatMapper';
     import Content from '@/app/com/common/chat/Content';
     import ContentWrap from '@/common/vue/data/content/ContentWrap';

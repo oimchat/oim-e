@@ -18,10 +18,10 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import MessageContentPane from '@/views/common/chat/read/MessageContentPane.vue';
-    import PromptContentPane from '@/views/common/chat/read/PromptContentPane.vue';
+    import MessageContentPane from '@/views/common/message/MessageContentPane.vue';
+    import PromptContentPane from '@/views/common/message/PromptContentPane.vue';
     import ContentWrapType from '@/common/vue/data/content/ContentWrapType';
-    import ReadMapper from '@/views/common/chat/ReadMapper';
+    import ReadMapper from '@/views/component/chat/ReadMapper';
     import ContentWrap from '@/common/vue/data/content/ContentWrap';
 
     @Component({

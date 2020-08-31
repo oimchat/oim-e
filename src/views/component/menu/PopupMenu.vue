@@ -30,7 +30,7 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import PopupMenuData from '@/views/common/menu/PopupMenuData';
+    import PopupMenuData from '@/views/component/menu/PopupMenuData';
 
     @Component({
         components: {},

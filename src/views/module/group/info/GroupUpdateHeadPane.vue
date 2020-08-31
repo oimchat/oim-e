@@ -19,7 +19,7 @@
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
 
-    import CropperPane from '@/views/common/cropper/CropperPane.vue';
+    import CropperPane from '@/views/component/cropper/CropperPane.vue';
 
     import app from '@/app/App';
     import GroupBusinessController from '@/app/com/main/module/business/group/controller/GroupBusinessController';

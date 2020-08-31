@@ -101,7 +101,7 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import FacePane from '@/views/common/face/FacePane.vue';
+    import FacePane from '@/views/component/face/FacePane.vue';
     import DocumentUtil from '@/common/web/util/DocumentUtil';
     import app from '@/app/App';
     import {ServerType, Protocol} from '@/app/common/config/constant/ServerConstant';
@@ -113,9 +113,9 @@
     import FileCheckUtil from '@/app/common/util/FileCheckUtil';
     import FaceItem from '@/app/com/main/module/support/face/data/FaceItem';
     import FaceImageUtil from '@/common/web/common/face/FaceImageUtil';
-    import FaceModel from '@/views/common/face/FaceModel';
+    import FaceModel from '@/views/component/face/FaceModel';
     import WebContentAnalysisUtil from '@/common/web/util/WebContentAnalysisUtil';
-    import WriteMapper from '@/views/common/chat/WriteMapper';
+    import WriteMapper from '@/views/component/chat/WriteMapper';
     import Content from '@/app/com/common/chat/Content';
     import WebFileSupportUtil from '@/common/web/util/WebFileSupportUtil';
     import BaseUtil from '@/app/lib/util/BaseUtil';
@@ -128,11 +128,11 @@
     import CodeValue from '@/app/com/common/chat/item/CodeValue';
     import CodeMirrorBox from '@/common/web/common/code/CodeMirrorBox';
     import ImageToFileUtil from '@/common/web/util/ImageToFileUtil';
-    import UploadListPane from '@/views/common/upload/UploadListPane.vue';
-    import UploadListMapper from '@/views/common/upload/UploadListMapper';
+    import UploadListPane from '@/views/component/upload/UploadListPane.vue';
+    import UploadListMapper from '@/views/component/upload/UploadListMapper';
     import DragHandlerUtil from '@/common/web/util/DragHandlerUtil';
-    import WriteExtendData from '@/views/common/chat/extend/WriteExtendData';
-    import WriteExtendFunction from '@/views/common/chat/extend/WriteExtendFunction';
+    import WriteExtendData from '@/views/component/chat/extend/WriteExtendData';
+    import WriteExtendFunction from '@/views/component/chat/extend/WriteExtendFunction';
 
     @Component({
         components: {

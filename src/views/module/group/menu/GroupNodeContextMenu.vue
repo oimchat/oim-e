@@ -7,9 +7,9 @@
 <script lang="ts">
 import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
 
-import NavMenu from '@/views/common/menu/NavMenu.vue';
-import NavMenuData from '@/views/common/menu/NavMenuData';
-import NavMenuItemData from '@/views/common/menu/NavMenuItemData';
+import NavMenu from '@/views/component/menu/NavMenu.vue';
+import NavMenuData from '@/views/component/menu/NavMenuData';
+import NavMenuItemData from '@/views/component/menu/NavMenuItemData';
 
 import app from '@/app/App';
 import GroupRelationBox from '@/app/com/main/module/business/group/box/GroupRelationBox';

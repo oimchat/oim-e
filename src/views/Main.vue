@@ -147,7 +147,7 @@
 </template>
 
 <script lang="ts">
-    import '../styles/oim/layout.css';
+    import '../styles/layout.css';
     import '../styles/oim/main.scss';
     import '../styles/oim/common.css';
     import '../styles/oim/component.scss';
@@ -187,7 +187,7 @@
     import SettingPane from '@/views/main/setting/SettingPane.vue';
 
 
-    import ContextMenu from '@/views/common/menu/ContextMenu.vue';
+    import ContextMenu from '@/views/component/menu/ContextMenu.vue';
 
     import app from '@/app/App';
     import personalViewModel from '@/platform/vue/view/model/PersonalViewModel';

@@ -1,7 +1,7 @@
 import App from '@/app/App';
-import WriteExtendStore from '@/views/common/chat/extend/WriteExtendStore';
-import WriteMapper from '@/views/common/chat/WriteMapper';
-import WriteExtend from '@/views/common/chat/extend/WriteExtend';
+import WriteExtendStore from '@/views/component/chat/extend/WriteExtendStore';
+import WriteMapper from '@/views/component/chat/WriteMapper';
+import WriteExtend from '@/views/component/chat/extend/WriteExtend';
 
 export default class WriteExtendData {
 

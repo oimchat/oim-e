@@ -2,7 +2,7 @@
     <div class="attach">
         <div class="attach_bd">
             <div class="cover">
-                <img :src="src" alt="icon">
+                <img :src="icon" alt="icon">
             </div>
             <div class="cont">
                 <p class="title ">{{data.name}}</p>
@@ -24,7 +24,7 @@
     import FileIconBox from '@/app/com/main/module/support/file/box/FileIconBox';
     import FileNameUtil from '@/app/common/util/FileNameUtil';
     import ByteSizeUtil from '@/app/common/util/ByteSizeUtil';
-    import UploadValue from '@/views/common/chat/read/data/UploadValue';
+    import UploadValue from '@/views/common/message/data/UploadValue';
 
     @Component({
         components: {
@@ -39,7 +39,7 @@
         })
         private data!: any | UploadValue;
 
-        get src(): string {
+        get icon(): string {
             const data = this.data;
             const fileName = data.name;
             const extension = FileNameUtil.getSuffixName(fileName);
