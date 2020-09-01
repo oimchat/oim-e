@@ -1,7 +1,7 @@
 import emojiImageBox from '@/app/lib/EmojiImageBox';
 import AbstractEmojiBag from '@/common/element/face/bag/AbstractEmojiBag';
 import EmojiUtil from '@/app/lib/emoji/EmojiUtil';
-import webEmojiImageBox from '@/platform/web/common/face/WebEmojiImageBox';
+import webEmojiImageBox from '@/platform/common/web/face/WebEmojiImageBox';
 
 export default class WebEmojiBag extends AbstractEmojiBag {
 

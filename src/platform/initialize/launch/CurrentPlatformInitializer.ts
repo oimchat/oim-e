@@ -8,7 +8,7 @@ import WriteExtendType from '@/views/component/chat/extend/WriteExtendType';
 import {MacScreenshotExtend} from '@/platform/electron/os/mac/screenshot/MacScreenshotExtend';
 import DefineExtendStore from '@/app/define/extend/DefineExtendStore';
 import FileDownloadDefineData from '@/app/com/client/module/file/FileDownloadDefineData';
-import WebFileDownloadImpl from '@/platform/web/impl/WebFileDownloadImpl';
+import WebFileDownloadImpl from '@/platform/common/web/impl/WebFileDownloadImpl';
 import ElectronFileDownloadImpl from '@/platform/electron/impl/ElectronFileDownloadImpl';
 
 export default class CurrentPlatformInitializer implements Initializer {

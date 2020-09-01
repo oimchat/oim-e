@@ -1,8 +1,8 @@
 import Initializer from '@/app/base/initialize/Initializer';
 import AppContext from '@/app/base/context/AppContext';
 import FaceBox from '@/app/com/main/module/support/face/box/FaceBox';
-import WebClassicalBag from '@/platform/web/common/face/WebClassicalBag';
-import WebEmojiBag from '@/platform/web/common/face/WebEmojiBag';
+import WebClassicalBag from '@/platform/common/web/face/WebClassicalBag';
+import WebEmojiBag from '@/platform/common/web/face/WebEmojiBag';
 
 export default class WebPlatformFaceInitializer implements Initializer {
 

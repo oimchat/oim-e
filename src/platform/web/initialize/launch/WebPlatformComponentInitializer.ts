@@ -8,7 +8,7 @@ import GroupInviteApplyListViewImpl from '@/platform/web/view/impl/GroupInviteAp
 import GroupInviteeApplyListViewImpl from '@/platform/web/view/impl/GroupInviteeApplyListViewImpl';
 import GroupJoinApplyListViewImpl from '@/platform/web/view/impl/GroupJoinApplyListViewImpl';
 import ContactAddApplyListViewImpl from '@/platform/web/view/impl/ContactAddApplyListViewImpl';
-import WebPlatformFileIconInitializer from '@/platform/web/initialize/launch/more/WebPlatformFileIconInitializer';
+import WebPlatformFileIconInitializer from '@/platform/common/web/initialize/launch/more/WebPlatformFileIconInitializer';
 
 export default class WebPlatformComponentInitializer implements Initializer {
 

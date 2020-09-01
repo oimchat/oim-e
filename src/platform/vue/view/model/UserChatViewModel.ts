@@ -74,4 +74,6 @@ class UserChatViewModel extends ChatViewModel {
     }
 }
 
-export default new UserChatViewModel();
+const userChatViewModel: UserChatViewModel = new UserChatViewModel();
+export default userChatViewModel;
+

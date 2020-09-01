@@ -7,10 +7,7 @@ import GroupInfoUtil from '@/app/com/main/common/util/GroupInfoUtil';
 import GroupChatView from '@/app/com/main/module/business/chat/view/GroupChatView';
 import User from '@/app/com/main/module/business/user/bean/User';
 import GroupMemberService from '@/app/com/main/module/business/group/service/GroupMemberService';
-import messageAreaViewModel from '@/platform/web/view/model/MessageAreaViewModel';
-import MessageAreaViewType from '@/platform/web/view/model/MessageAreaViewType';
-import mainViewData from '@/platform/web/view/data/MainViewData';
-import mainBaseTabs from '@/platform/web/view/data/MainBaseTabs';
+
 
 export default class GroupChatViewImpl extends AbstractMaterial implements GroupChatView {
 
@@ -59,19 +56,12 @@ export default class GroupChatViewImpl extends AbstractMaterial implements Group
         return showing;
     }
 
-    public isVisible(): boolean {
-        const showPane = messageAreaViewModel.tab === MessageAreaViewType.GroupChat;
-        const showMassage = mainViewData.tab === mainBaseTabs.messageTab.key;
-        return showPane && showMassage;
+    public setVisible(visible: boolean): void {
+        // no
     }
 
-    public setVisible(visible: boolean): void {
-        if (visible) {
-            mainViewData.tab = mainBaseTabs.messageTab.key;
-            messageAreaViewModel.tab = MessageAreaViewType.GroupChat;
-        } else {
-            mainViewData.tab = mainBaseTabs.messageTab.key;
-            messageAreaViewModel.tab = MessageAreaViewType.No;
-        }
+    public isVisible(): boolean {
+        // no
+        return false;
     }
 }

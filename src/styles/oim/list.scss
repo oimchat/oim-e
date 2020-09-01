@@ -1,0 +1,295 @@
+.gray {
+    -webkit-filter: grayscale(100%); /*兼容google、opera*/
+    -moz-filter: grayscale(100%); /*FF下不生效*/
+    -ms-filter: grayscale(100%); /*IE下不生效*/
+    -o-filter: grayscale(100%); /*opera下不生效*/
+
+    filter: grayscale(100%); /*无效*/
+    filter: gray; /*兼容IE7-IE9，IE10不支持*/
+}
+
+
+/*******************************/
+
+.red-dot-middle {
+    height: 22px;
+    width: 22px;
+    padding: 3px;
+    /*margin:10px auto;*/
+    background-color: #dc3535;
+    border-radius: 50%/50%;
+}
+
+
+/**************列表 begin******************/
+.list-root-pane {
+    height: 100%
+}
+
+.list-node-pane > .title {
+    /*position: relative;*/
+    height: 32px;
+    line-height: 35px;
+    padding: 0 15px 0 15px;
+    color: #333;
+    cursor: pointer;
+    /*background-color: #f2f2f2;*/
+    font-size: 16px;
+    font-weight: 400;
+
+}
+
+.list-node-pane > .title > i {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.list-node-pane > .title:hover {
+    background: rgba(186, 186, 186, 0.5);
+}
+
+.list-node-item {
+    overflow: hidden;
+    padding: 12px 18px 11px;
+    /*border-bottom: 1px solid #647481;*/
+    cursor: pointer;
+    position: relative
+}
+
+.list-node-item.top {
+    background-color: #2e3641
+}
+
+.list-node-item.active {
+    background: #cbced0
+}
+
+.list-node-item.active .ext, .list-node-item.active .info .msg {
+    color: #181818
+}
+
+.list-node-item .avatar {
+    float: left;
+    margin-right: 10px;
+    position: relative
+}
+
+.list-node-item .avatar .img {
+    display: block;
+    width: 40px;
+    height: 40px;
+    /*border-radius: 2px;*/
+    /*-moz-border-radius: 2px;*/
+    /*-webkit-border-radius: 2px*/
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.list-node-item .avatar .icon {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    color: #fff;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center
+}
+
+.list-node-item .info {
+    overflow: hidden
+}
+
+.list-node-item .info .nickname {
+    font-weight: 400;
+    font-size: 13px;
+    color: #0a0a0a;
+    line-height: 20px
+}
+
+.list-node-item .info .nickname-text {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal
+}
+
+.list-node-item .info .nickname_count, .list-node-item .info .nickname-text {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: top
+}
+
+.list-node-item .info .msg {
+    color: #989898;
+    font-size: 13px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    height: 1.5em
+}
+
+.list-node-item .ext {
+    float: right;
+    color: #6b6f7c;
+    font-size: 13px;
+    text-align: right
+}
+
+.list-node-item .ext .attr {
+    height: 19px;
+    line-height: 1.5
+}
+
+.list-node-item .close-icon {
+    display: none;
+    font-size: 24px;
+    color: #ef4949;
+    position: absolute;
+    right: 20px;
+    top: 18px;
+}
+
+.list-node-item:hover .close-icon {
+    display: block;
+}
+
+.list-node-item:hover {
+    background: rgba(50, 50, 50, 0.3);
+}
+
+/***************/
+
+.icon-list {
+    height: 100%
+}
+
+.icon-list .ico-loading {
+    text-align: center;
+    margin: 30px auto;
+    font-size: 14px;
+    color: #6b6f7c
+}
+
+.icon-list .ico-loading img {
+    vertical-align: -3px;
+    margin-right: 5px
+}
+
+.icon-list-item {
+    overflow: hidden;
+    padding: 12px 18px 11px;
+    /*border-bottom: 1px solid #647481;*/
+    cursor: pointer;
+    position: relative
+}
+
+.icon-list-item.top {
+    background-color: #2e3641
+}
+
+.icon-list-item.active {
+    background: #cbced0
+}
+
+.icon-list-item.active .ext, .icon-list-item.active .info .msg {
+    color: #181818
+}
+
+.icon-list-item .avatar {
+    float: left;
+    margin-right: 10px;
+    position: relative
+}
+
+.icon-list-item .avatar .img {
+    display: block;
+    width: 40px;
+    height: 40px;
+    /*border-radius: 2px;*/
+    /*-moz-border-radius: 2px;*/
+    /*-webkit-border-radius: 2px*/
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.icon-list-item .avatar .icon {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    color: #fff;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center
+}
+
+.icon-list-item .info {
+    overflow: hidden
+}
+
+.icon-list-item .info .nickname {
+    font-weight: 400;
+    font-size: 13px;
+    color: #0a0a0a;
+    line-height: 20px
+}
+
+.icon-list-item .info .nickname-text {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal
+}
+
+.icon-list-item .info .nickname_count, .icon-list-item .info .nickname-text {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: top
+}
+
+.icon-list-item .info .msg {
+    color: #989898;
+    font-size: 13px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    height: 1.5em
+}
+
+.icon-list-item .ext {
+    float: right;
+    color: #6b6f7c;
+    font-size: 13px;
+    text-align: right
+}
+
+.icon-list-item .ext .attr {
+    height: 19px;
+    line-height: 1.5
+}
+
+.icon-list-item .close-icon {
+    display: none;
+    font-size: 24px;
+    color: #ef4949;
+    position: absolute;
+    right: 20px;
+    top: 18px;
+}
+
+.icon-list-item:hover .close-icon {
+    display: block;
+}
+
+.icon-list-item:hover {
+    background: rgba(50, 50, 50, 0.3);
+}

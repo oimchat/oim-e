@@ -95,7 +95,7 @@
     import DataBackAction from '@/app/base/net/DataBackAction';
     import Prompt from '@/platform/web/common/Prompt';
     import contactInfoViewModel from '@/platform/vue/view/model/ContactInfoViewModel';
-    import CommonIcon from '@/platform/web/common/CommonIcon';
+    import CommonIcon from '@/platform/common/web/CommonIcon';
 
 
     @Component({

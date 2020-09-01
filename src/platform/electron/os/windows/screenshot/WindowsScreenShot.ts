@@ -1,6 +1,5 @@
 import path from 'path';
-
-const {execFile} = require('child_process');
+import {execFile} from 'child_process';
 
 class WindowsScreenShot {
 

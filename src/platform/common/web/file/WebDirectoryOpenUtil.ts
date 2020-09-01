@@ -28,9 +28,9 @@ export default class WebDirectoryOpenUtil {
             const files = inputElement.files;
             if (files && files.length > 1) {
                 const file = files[0];
-                const path = file.path;
+                // const path = file.path;
                 const name = file.name;
-                console.log(path);
+                // console.log(path);
 
                 // alert('当前仅支持选择一个文件');
             } else {

@@ -30,7 +30,7 @@
     import GroupChatPane from '@/views/module/chat/GroupChatPane.vue';
     import messageAreaViewType from '@/platform/web/view/model/MessageAreaViewType';
     import messageAreaViewModel from '@/platform/web/view/model/MessageAreaViewModel';
-    import CommonIcon from '@/platform/web/common/CommonIcon';
+    import CommonIcon from '@/platform/common/web/CommonIcon';
 
     @Component({
         components: {

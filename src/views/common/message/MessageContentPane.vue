@@ -126,5 +126,5 @@ export default class ContentPane extends Vue {
     }
 </style>
 <style lang="scss" scoped>
-    @import "../../../styles/oim/message";
+    @import "message";
 </style>

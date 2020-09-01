@@ -89,7 +89,7 @@
     import Prompt from '@/platform/web/common/Prompt';
     import GroupRelationController from '@/app/com/main/module/business/group/controller/GroupRelationController';
     import GroupMemberService from '@/app/com/main/module/business/group/service/GroupMemberService';
-    import CommonIcon from '@/platform/web/common/CommonIcon';
+    import CommonIcon from '@/platform/common/web/CommonIcon';
 
     import groupInfoViewModel from '@/platform/vue/view/model/GroupInfoViewModel';
 

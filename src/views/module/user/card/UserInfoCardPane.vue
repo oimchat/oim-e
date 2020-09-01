@@ -55,7 +55,7 @@
 
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import CommonIcon from '@/platform/web/common/CommonIcon';
+    import CommonIcon from '@/platform/common/web/CommonIcon';
     import UserInfoCardMapper from '@/views/module/user/card/UserInfoCardMapper';
 
     @Component({
