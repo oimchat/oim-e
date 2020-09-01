@@ -29,6 +29,11 @@ class RouterUtil {
             });
         }
     }
+
+    public static isPath(path: string) {
+        const fullPath = (router.app && router.app.$route) ? router.app.$route.fullPath : '';
+        return fullPath === path;
+    }
 }
 
 export default RouterUtil;
