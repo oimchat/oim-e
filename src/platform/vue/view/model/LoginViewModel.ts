@@ -23,9 +23,9 @@ class LoginViewModel {
 
     public initialize() {
         const isFirst: boolean = auth.isFirst;
-        const isLogin: boolean = auth.isLogin();
+        const isAuth: boolean = auth.isAuth();
         this.initializeData();
-        if (isLogin) {
+        if (isAuth) {
             this.handleReLogin();
         } else if (isFirst) {
             this.handleAutoLogin();

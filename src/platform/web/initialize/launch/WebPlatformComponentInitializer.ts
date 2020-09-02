@@ -8,7 +8,12 @@ import GroupInviteApplyListViewImpl from '@/platform/web/view/impl/GroupInviteAp
 import GroupInviteeApplyListViewImpl from '@/platform/web/view/impl/GroupInviteeApplyListViewImpl';
 import GroupJoinApplyListViewImpl from '@/platform/web/view/impl/GroupJoinApplyListViewImpl';
 import ContactAddApplyListViewImpl from '@/platform/web/view/impl/ContactAddApplyListViewImpl';
-import WebPlatformFileIconInitializer from '@/platform/common/web/initialize/launch/more/WebPlatformFileIconInitializer';
+import WebPlatformFileIconInitializer
+    from '@/platform/common/web/initialize/launch/more/WebPlatformFileIconInitializer';
+import WebGroupInfoViewImpl from '@/platform/web/view/impl/WebGroupInfoViewImpl';
+import WebContactInfoViewImpl from '@/platform/web/view/impl/WebContactInfoViewImpl';
+import WebGroupChatViewImpl from '@/platform/web/view/impl/WebGroupChatViewImpl';
+import WebUserChatViewImpl from '@/platform/web/view/impl/WebUserChatViewImpl';
 
 export default class WebPlatformComponentInitializer implements Initializer {
 
@@ -29,6 +34,11 @@ export default class WebPlatformComponentInitializer implements Initializer {
     }
 
     public initializeView(appContext: AppContext) {
+        appContext.putViewImpl(WorkViewEnum.UserChatView, WebUserChatViewImpl);
+        appContext.putViewImpl(WorkViewEnum.GroupChatView, WebGroupChatViewImpl);
+        appContext.putViewImpl(WorkViewEnum.ContactInfoView, WebContactInfoViewImpl);
+        appContext.putViewImpl(WorkViewEnum.GroupInfoView, WebGroupInfoViewImpl);
+
         appContext.putViewImpl(WorkViewEnum.MessageAllUnreadView, MessageAllUnreadViewImpl);
         appContext.putViewImpl(WorkViewEnum.GroupInviteApplyListView, GroupInviteApplyListViewImpl);
         appContext.putViewImpl(WorkViewEnum.GroupInviteeApplyListView, GroupInviteeApplyListViewImpl);

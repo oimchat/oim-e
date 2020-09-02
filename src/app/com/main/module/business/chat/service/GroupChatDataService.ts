@@ -13,6 +13,8 @@ import GroupChatQuery from '@/app/com/main/module/business/chat/data/GroupChatQu
 import GroupChatData from '@/app/com/main/module/business/chat/data/GroupChatData';
 import GroupChatDataSender from '@/app/com/main/module/business/chat/sender/GroupChatDataSender';
 import Prompter from '@/app/com/client/component/Prompter';
+import ContentCommonHandler from '@/app/com/main/module/business/chat/handler/ContentCommonHandler';
+import app from '@/app/App';
 
 
 export default class GroupChatDataService extends AbstractMaterial {
@@ -46,6 +48,7 @@ export default class GroupChatDataService extends AbstractMaterial {
 
     private doBack(page: Page, items: GroupChatData[], back: (page: Page, contents: MessageContentWrap[]) => void): void {
         if (items) {
+            const contentCommonHandler: ContentCommonHandler = app.appContext.getMaterial(ContentCommonHandler);
             const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
             const groupBox: GroupBox = this.appContext.getMaterial(GroupBox);
             const ownUserId = pb.getUserId();
@@ -88,7 +91,7 @@ export default class GroupChatDataService extends AbstractMaterial {
                 contentData.timeVisible = true;
                 contentData.nameVisible = true;
                 contentData.status = 1;
-
+                contentData.timeText = contentCommonHandler.getTimeText(content.timestamp);
 
                 list.push(contentData);
             }

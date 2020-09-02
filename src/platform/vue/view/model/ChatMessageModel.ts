@@ -22,6 +22,8 @@ import BaseUtil from '@/app/lib/util/BaseUtil';
 import FaceBox from '@/app/com/main/module/support/face/box/FaceBox';
 import ContentItemHandleService from '@/common/web/content/service/ContentItemHandleService';
 import MessageData from '@/platform/vue/view/model/chat/MessageData';
+import ContentCommonHandler from '@/app/com/main/module/business/chat/handler/ContentCommonHandler';
+import ContentWrapUtil from '@/common/vue/data/content/util/ContentWrapUtil';
 
 
 export default class ChatMessageModel {
@@ -170,7 +172,6 @@ export default class ChatMessageModel {
 
     public insert(isReceive: boolean, isOwn: boolean, key: string, showName: string, chatUser: User, content: Content): void {
 
-        content = BaseContentItemUtil.handleConvert(content);
         this.handleContent(content);
 
         const messageTimeSettingStore: MessageTimeSettingStore = app.appContext.getMaterial(MessageTimeSettingStore);
@@ -379,28 +380,12 @@ export default class ChatMessageModel {
     }
 
     private sort(list: ContentWrap[]) {
-        if (list) {
-            list.sort((a: ContentWrap, b: ContentWrap) => {
-                const timestamp1: number = a.getTimestamp();
-                const timestamp2: number = b.getTimestamp();
-                return timestamp1 - timestamp2;
-            });
-        }
+        ContentWrapUtil.sort(list);
     }
 
     private getTimeText(timestamp: number) {
-        let time = '';
-        if (timestamp) {
-
-            const messageTimeSettingStore: MessageTimeSettingStore = app.appContext.getMaterial(MessageTimeSettingStore);
-            const date = (timestamp) ? new Date(timestamp) : new Date();
-
-            const dateTimestamp = new Date().getTime();
-            const durationMillisecond = (dateTimestamp - timestamp);
-            const format = messageTimeSettingStore.getPastTimeFormatValue(durationMillisecond);
-            time = DateUtil.format(format, date);
-        }
-        return time;
+        const contentCommonHandler: ContentCommonHandler = app.appContext.getMaterial(ContentCommonHandler);
+        return contentCommonHandler.getTimeText(timestamp);
     }
 
     private handleContent(content: Content) {

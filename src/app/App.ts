@@ -110,7 +110,6 @@ class App {
     }
 
     private clearAuth() {
-        auth.setLogin(false);
         auth.clear();
     }
 

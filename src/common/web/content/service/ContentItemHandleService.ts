@@ -9,10 +9,19 @@ import FaceImageUtil from '@/common/web/common/face/FaceImageUtil';
 import TextJudgeUtil from '@/app/lib/util/TextJudgeUtil';
 import WebStringHandleUtil from '@/common/web/util/WebStringHandleUtil';
 import EmojiUtil from '@/app/lib/emoji/EmojiUtil';
+import BaseContentItemUtil from '@/app/com/common/chat/util/BaseContentItemUtil';
 
 export default class ContentItemHandleService extends AbstractMaterial {
 
-    public handleContent(content: Content) {
+    public convertContent(content: Content): Content {
+        content = BaseContentItemUtil.convert(content);
+        this.handleFaceItems(content);
+        this.handleTextItems(content);
+        return content;
+    }
+
+    public handleContent(content: Content): void {
+        BaseContentItemUtil.handle(content);
         this.handleFaceItems(content);
         this.handleTextItems(content);
     }
@@ -25,14 +34,14 @@ export default class ContentItemHandleService extends AbstractMaterial {
                 const value = item.value;
                 if (value instanceof FaceValue) {
                     const faceValue = value as FaceValue;
-                    if (BaseUtil.isEmpty(faceValue.path)) {
-                        const face = faceBox.getFace(faceValue.categoryId, faceValue.key);
-                        if (face) {
-                            value.path = face.path;
-                            value.width = face.width;
-                            value.height = face.height;
-                        }
+                    const face = faceBox.getFace(faceValue.categoryId, faceValue.key);
+                    if (face) {
+                        value.path = face.path;
+                        value.width = face.width;
+                        value.height = face.height;
                     }
+                    // if (BaseUtil.isEmpty(faceValue.path)) {
+                    // }
                 }
             }
         }

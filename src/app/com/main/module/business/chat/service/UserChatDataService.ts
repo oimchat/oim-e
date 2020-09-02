@@ -11,6 +11,8 @@ import UserChatData from '@/app/com/main/module/business/chat/data/UserChatData'
 import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 import MessageContentWrap from '@/common/vue/data/content/impl/message/MessageContentWrap';
 import Prompter from '@/app/com/client/component/Prompter';
+import ContentCommonHandler from '@/app/com/main/module/business/chat/handler/ContentCommonHandler';
+import app from '@/app/App';
 
 
 export default class UserChatDataService extends AbstractMaterial {
@@ -45,6 +47,7 @@ export default class UserChatDataService extends AbstractMaterial {
 
     private doBack(page: Page, items: UserChatData[], back: (page: Page, contents: MessageContentWrap[]) => void): void {
         if (items) {
+            const contentCommonHandler: ContentCommonHandler = app.appContext.getMaterial(ContentCommonHandler);
             const pb: PersonalBox = this.appContext.getMaterial(PersonalBox);
             const ownUserId = pb.getUserId();
             const list: MessageContentWrap[] = [];
@@ -84,7 +87,7 @@ export default class UserChatDataService extends AbstractMaterial {
                 contentData.timeVisible = true;
                 contentData.nameVisible = true;
                 contentData.status = 1;
-
+                contentData.timeText = contentCommonHandler.getTimeText(content.timestamp);
 
                 list.push(contentData);
             }

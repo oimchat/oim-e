@@ -8,11 +8,17 @@ import FaceValue from '@/app/com/common/chat/item/FaceValue';
 
 export default class BaseContentItemUtil {
 
-    public static handleConvert(content: Content): Content {
+    public static convert(content: Content): Content {
         const value: Content = new Content();
         if (null != content) {
             ObjectUtil.copyByTargetKey(value, content);
-            value.sections = [];
+            BaseContentItemUtil.handle(content);
+        }
+        return value;
+    }
+
+    public static handle(content: Content): Content {
+        if (null != content) {
             const oldSections = content.sections;
             if (null != oldSections) {
                 const newSections: Section[] = [];
@@ -35,10 +41,10 @@ export default class BaseContentItemUtil {
                     }
                     newSections.push(newSection);
                 }
-                value.sections = newSections;
+                content.sections = newSections;
             }
         }
-        return value;
+        return content;
     }
 
     public static convertItemValue(type: string, data: any): any {

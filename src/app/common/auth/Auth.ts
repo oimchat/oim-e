@@ -1,23 +1,34 @@
-import BaseCache from '@/app/common/cache/BaseCache';
+import SessionCache from '@/app/common/cache/SessionCache';
 
 class Auth {
     public isFirst: boolean = true;
 
-    private cache: BaseCache = new BaseCache('authCache');
+    private cache: SessionCache = new SessionCache('authCache');
     private accountKey = 'auth.account';
     private passwordKey = 'auth.password';
     private loginKey = 'auth.login';
     private tokenKey = 'auth.token';
     private userIdKey = 'auth.userId';
+    private login: boolean = false;
 
 
     public isLogin(): boolean {
-        const login: any = this.cache.get(this.loginKey);
-        return login;
+        return this.login;
+    }
+
+    public isAuth(): boolean {
+        const account = this.getAccount();
+        const password = this.getPassword();
+        const token = this.getToken();
+        let isAuth = false;
+        if (account && password && token) {
+            isAuth = true;
+        }
+        return isAuth;
     }
 
     public setLogin(isLogin: boolean): void {
-        this.cache.put(this.loginKey, isLogin);
+        this.login = isLogin;
         if (isLogin) {
             this.isFirst = false;
         }
@@ -96,6 +107,7 @@ class Auth {
 
     public clear(): void {
         // this.removeLogin();
+        this.setLogin(false);
         this.removeUserId();
         this.removeToken();
         this.removeAccount();
