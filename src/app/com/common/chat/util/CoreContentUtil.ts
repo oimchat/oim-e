@@ -1,6 +1,7 @@
 import Content from '@/app/com/common/chat/Content';
 import Item from '@/app/com/common/chat/Item';
 import DateUtil from '@/app/lib/util/DateUtil';
+import BaseUtil from '@/app/lib/util/BaseUtil';
 
 export default class CoreContentUtil {
 
@@ -80,6 +81,8 @@ export default class CoreContentUtil {
                     if (items) {
                         for (const i of items) {
                             if (type === i.type) {
+                                imageList.push(i);
+                            } else if (BaseUtil.isEmpty(type)) {
                                 imageList.push(i);
                             }
                         }

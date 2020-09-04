@@ -12,7 +12,7 @@ export default class BaseContentItemUtil {
         const value: Content = new Content();
         if (null != content) {
             ObjectUtil.copyByTargetKey(value, content);
-            BaseContentItemUtil.handle(content);
+            BaseContentItemUtil.handle(value);
         }
         return value;
     }
