@@ -1,4 +1,4 @@
-import Initializer from '@/app/base/initialize/Initializer';
+import LaunchInitializer from '@/app/base/initialize/LaunchInitializer';
 import AppContext from '@/app/base/context/AppContext';
 import Prompter from '@/app/com/client/component/Prompter';
 import WebPromptHandlerImpl from '@/platform/web/impl/WebPromptHandlerImpl';
@@ -15,10 +15,14 @@ import WebContactInfoViewImpl from '@/platform/web/view/impl/WebContactInfoViewI
 import WebGroupChatViewImpl from '@/platform/web/view/impl/WebGroupChatViewImpl';
 import WebUserChatViewImpl from '@/platform/web/view/impl/WebUserChatViewImpl';
 
-export default class WebPlatformComponentInitializer implements Initializer {
+export default class WebPlatformComponentInitializer extends LaunchInitializer {
 
     public getOrder(): number {
         return 0;
+    }
+
+    public initialize(): void {
+        this.initializeHandle(this.appContext);
     }
 
     public getKey(): string {
@@ -26,7 +30,7 @@ export default class WebPlatformComponentInitializer implements Initializer {
         return own.constructor.name;
     }
 
-    public initialize(appContext: AppContext): void {
+    public initializeHandle(appContext: AppContext): void {
         const prompter: Prompter = appContext.getMaterial(Prompter);
         prompter.setPromptHandler(new WebPromptHandlerImpl());
         this.initializeView(appContext);

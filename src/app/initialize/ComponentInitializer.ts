@@ -1,19 +1,18 @@
-import Initializer from '@/app/base/initialize/Initializer';
+import LaunchInitializer from '@/app/base/initialize/LaunchInitializer';
 import AppContext from '@/app/base/context/AppContext';
 import DataChange from '@/app/base/event/DataChange';
 import MessageAllUnreadManager from '@/app/com/client/module/information/manager/MessageAllUnreadManager';
 import AllMessageUnreadBox from '@/app/com/client/module/information/box/unread/AllMessageUnreadBox';
 
 
-export default class ComponentInitializer implements Initializer {
-
+export default class ComponentInitializer extends LaunchInitializer {
 
     public getOrder(): number {
         return 0;
     }
 
-    public initialize(appContext: AppContext): void {
-        this.initializeHandle(appContext);
+    public initialize(): void {
+        this.initializeHandle(this.appContext);
     }
 
     public getKey(): string {

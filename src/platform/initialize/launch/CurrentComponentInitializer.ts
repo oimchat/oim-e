@@ -1,4 +1,4 @@
-import Initializer from '@/app/base/initialize/Initializer';
+import LaunchInitializer from '@/app/base/initialize/LaunchInitializer';
 import app from '@/app/App';
 import VoicePromptUserSetting from '@/app/com/main/module/setting/prompt/VoicePromptUserSetting';
 import VoicePromptGroupSetting from '@/app/com/main/module/setting/prompt/VoicePromptGroupSetting';
@@ -18,10 +18,14 @@ import AppContext from '@/app/base/context/AppContext';
 import ImageItemFileConverter from '@/app/define/file/ImageItemFileConverter';
 import LoginSaveBox from '@/app/com/main/module/business/index/box/login/LoginSaveBox';
 
-export default class CurrentComponentInitializer implements Initializer {
+export default class CurrentComponentInitializer extends LaunchInitializer {
 
     public getOrder(): number {
         return 0;
+    }
+
+    public initialize(): void {
+        this.initializeHandle(this.appContext);
     }
 
     public getKey(): string {
@@ -29,7 +33,7 @@ export default class CurrentComponentInitializer implements Initializer {
         return own.constructor.name;
     }
 
-    public initialize(appContext: AppContext): void {
+    public initializeHandle(appContext: AppContext): void {
         this.initializeHttp(appContext);
     }
 

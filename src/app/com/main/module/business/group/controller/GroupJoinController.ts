@@ -24,8 +24,8 @@ export default class GroupJoinController extends AbstractMaterial {
         groupJoinSender.joinHandle(handle, back, parallel);
     }
 
-    public joinApply(apply: GroupJoinApplyData, answerList: GroupJoinVerifyAnswer[], back?: DataBackAction, parallel?: boolean): void {
+    public joinApply(apply: GroupJoinApplyData, answers: GroupJoinVerifyAnswer[], back?: DataBackAction, parallel?: boolean): void {
         const groupJoinSender: GroupJoinSender = this.appContext.getMaterial(GroupJoinSender);
-        groupJoinSender.joinApply(apply, answerList, back, parallel);
+        groupJoinSender.joinApply(apply, answers, back, parallel);
     }
 }

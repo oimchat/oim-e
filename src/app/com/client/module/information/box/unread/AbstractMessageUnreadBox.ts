@@ -1,12 +1,11 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
-import BaseInitializer from '@/app/com/main/initialize/BaseInitializer';
+import BaseInitializer from '@/app/base/initialize/BaseInitializer';
 import DataChange from '@/app/base/event/DataChange';
 import AllMessageUnreadBox from '@/app/com/client/module/information/box/unread/AllMessageUnreadBox';
 import AppContext from '@/app/base/context/AppContext';
-import EnterInitializerBox from '@/app/com/main/initialize/EnterInitializerBox';
+import EnterInitializerBox from '@/app/base/initialize/EnterInitializerBox';
 
 export default abstract class AbstractMessageUnreadBox extends AbstractMaterial implements BaseInitializer {
-
 
     private map: Map<string, number> = new Map<string, number>();
     private totalUnreadCount: number = 0;

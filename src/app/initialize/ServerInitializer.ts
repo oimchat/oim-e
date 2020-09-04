@@ -1,15 +1,16 @@
-import Initializer from '@/app/base/initialize/Initializer';
+import LaunchInitializer from '@/app/base/initialize/LaunchInitializer';
 import AppContext from '@/app/base/context/AppContext';
 import LoginController from '@/app/com/main/module/business/index/controller/LoginController';
 
 
-export default class ServerInitializer implements Initializer {
+export default class ServerInitializer extends LaunchInitializer {
+
     public getOrder(): number {
         return 0;
     }
 
-    public initialize(appContext: AppContext): void {
-        this.initializeHandle(appContext);
+    public initialize(): void {
+        this.initializeHandle(this.appContext);
     }
 
     public getKey(): string {

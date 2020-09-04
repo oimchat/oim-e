@@ -1,11 +1,11 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
-import BaseInitializer from '@/app/com/main/initialize/BaseInitializer';
+import BaseInitializer from '@/app/base/initialize/BaseInitializer';
 
-export default abstract class AbstractInitializerBox extends AbstractMaterial {
+export default abstract class AbstractInitializerBox<T extends BaseInitializer> extends AbstractMaterial {
 
-    private map: Map<any, BaseInitializer> = new Map<any, BaseInitializer>();
+    private map: Map<any, T> = new Map<any, T>();
 
-    public put(data: BaseInitializer): void {
+    public put(data: T): void {
         this.map.set(data, data);
     }
 
@@ -32,5 +32,9 @@ export default abstract class AbstractInitializerBox extends AbstractMaterial {
         for (const v of array) {
             v.initialize();
         }
+    }
+
+    public clear() {
+        this.map.clear();
     }
 }

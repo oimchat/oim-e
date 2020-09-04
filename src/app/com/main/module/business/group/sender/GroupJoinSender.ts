@@ -42,11 +42,11 @@ export default class GroupJoinSender extends AbstractSender  {
         this.send(m, back, parallel);
     }
 
-    public joinApply(apply: GroupJoinApplyData, answerList: GroupJoinVerifyAnswer[], back?: DataBackAction, parallel?: boolean): void {
+    public joinApply(apply: GroupJoinApplyData, answers: GroupJoinVerifyAnswer[], back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0006');
         m.body = {};
         m.body.apply = apply;
-        m.body.answerList = answerList;
+        m.body.answers = answers;
         this.send(m, back, parallel);
     }
 }

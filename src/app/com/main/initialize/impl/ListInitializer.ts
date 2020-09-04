@@ -1,5 +1,5 @@
-import BaseInitializer from '@/app/com/main/initialize/BaseInitializer';
-import AbstractInitializer from '@/app/com/main/initialize/AbstractInitializer';
+import BaseInitializer from '@/app/base/initialize/BaseInitializer';
+import EnterInitializer from '@/app/base/initialize/EnterInitializer';
 import RecentChatService from '@/app/com/main/module/business/chat/service/RecentChatService';
 import UserChatUnreadService from '@/app/com/main/module/business/chat/service/UserChatUnreadService';
 import PersonalBox from '@/app/com/main/module/business/personal/box/PersonalBox';
@@ -9,7 +9,7 @@ import GroupCategoryHandler from '@/app/com/main/module/business/group/handler/G
 import GroupRelationHandler from '@/app/com/main/module/business/group/handler/GroupRelationHandler';
 import GroupMemberOfOwnerHandler from '@/app/com/main/module/business/group/handler/GroupMemberOfOwnerHandler';
 
-export default class ListInitializer extends AbstractInitializer {
+export default class ListInitializer extends EnterInitializer {
 
     public getOrder(): number {
         return 1;

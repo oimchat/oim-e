@@ -1,4 +1,4 @@
-import Initializer from '@/app/base/initialize/Initializer';
+import LaunchInitializer from '@/app/base/initialize/LaunchInitializer';
 import AppContext from '@/app/base/context/AppContext';
 import {AxiosRequestConfig, AxiosResponse} from 'axios';
 import BaseUtil from '@/app/lib/util/BaseUtil';
@@ -9,13 +9,14 @@ import Info from '@/app/base/message/Info';
 import auth from '@/app/common/auth/Auth';
 import Prompter from '@/app/com/client/component/Prompter';
 
-export default class HttpInitializer implements Initializer {
+export default class HttpInitializer extends LaunchInitializer {
+
     public getOrder(): number {
         return 0;
     }
 
-    public initialize(appContext: AppContext): void {
-        this.initializeHttp(appContext);
+    public initialize(): void {
+        this.initializeHttp(this.appContext);
     }
 
     public getKey(): string {

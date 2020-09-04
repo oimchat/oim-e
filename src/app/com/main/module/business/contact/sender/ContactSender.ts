@@ -20,11 +20,11 @@ export default class ContactSender extends AbstractSender  {
         this.send(m, back, parallel);
     }
 
-    public sendAddApply(apply: ContactAddApplyData, answerList: ContactVerifyAnswer[], back?: DataBackAction, parallel?: boolean): void {
+    public sendAddApply(apply: ContactAddApplyData, answers: ContactVerifyAnswer[], back?: DataBackAction, parallel?: boolean): void {
         const m = Message.build(this.action, '1.1.0007');
         m.body = {};
         m.body.apply = apply;
-        m.body.answers = answerList;
+        m.body.answers = answers;
         this.send(m, back, parallel);
     }
 

@@ -1,4 +1,4 @@
-import Initializer from '@/app/base/initialize/Initializer';
+import LaunchInitializer from '@/app/base/initialize/LaunchInitializer';
 import AppContext from '@/app/base/context/AppContext';
 import ContactAction from '@/app/com/main/module/business/contact/action/ContactAction';
 import ContactCategoryAction from '@/app/com/main/module/business/contact/action/ContactCategoryAction';
@@ -19,13 +19,14 @@ import SystemAuthAction from '@/app/com/main/module/business/system/action/Syste
 import ActionType from '@/app/base/ActionType';
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 
-export default class ActionInitializer implements Initializer {
+export default class ActionInitializer extends LaunchInitializer {
+
     public getOrder(): number {
         return 0;
     }
 
-    public initialize(appContext: AppContext): void {
-        this.initializeAction(appContext);
+    public initialize(): void {
+        this.initializeAction(this.appContext);
     }
 
     public getKey(): string {

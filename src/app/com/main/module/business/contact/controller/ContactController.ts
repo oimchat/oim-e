@@ -15,9 +15,9 @@ export default class ContactController extends AbstractMaterial {
         contactSender.getContactAddVerifySetting(userId, back, parallel);
     }
 
-    public sendAddRequest(apply: ContactAddApplyData, answerList: ContactVerifyAnswer[], back?: DataBackAction, parallel?: boolean): void {
+    public sendAddRequest(apply: ContactAddApplyData, answers: ContactVerifyAnswer[], back?: DataBackAction, parallel?: boolean): void {
         const contactSender: ContactSender = this.appContext.getMaterial(ContactSender);
-        contactSender.sendAddApply(apply, answerList, back, parallel);
+        contactSender.sendAddApply(apply, answers, back, parallel);
     }
 
     public sendAddResponse(handle: ContactAddHandleData, back?: DataBackAction): void {

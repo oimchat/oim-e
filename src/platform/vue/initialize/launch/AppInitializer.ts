@@ -6,19 +6,19 @@ import UserChatViewImpl from '@/platform/vue/view/impl/UserChatViewImpl';
 import MessageListViewImpl from '@/platform/vue/view/impl/MessageListViewImpl';
 import GroupChatViewImpl from '@/platform/vue/view/impl/GroupChatViewImpl';
 import GroupMemberListViewImpl from '@/platform/vue/view/impl/GroupMemberListViewImpl';
-import Initializer from '@/app/base/initialize/Initializer';
+import LaunchInitializer from '@/app/base/initialize/LaunchInitializer';
 import AppContext from '@/app/base/context/AppContext';
 import ContactInfoViewImpl from '@/platform/vue/view/impl/ContactInfoViewImpl';
 import GroupInfoViewImpl from '@/platform/vue/view/impl/GroupInfoViewImpl';
 
-class AppInitializer implements Initializer {
+class AppInitializer extends LaunchInitializer {
 
     public getOrder(): number {
         return 0;
     }
 
-    public initialize(appContext: AppContext): void {
-        this.initializeView(appContext);
+    public initialize(): void {
+        this.initializeView(this.appContext);
     }
 
     public getKey(): string {

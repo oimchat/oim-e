@@ -1,8 +1,8 @@
-import AbstractInitializer from '@/app/com/main/initialize/AbstractInitializer';
+import EnterInitializer from '@/app/base/initialize/EnterInitializer';
 import MessageListView from '@/app/com/client/module/message/view/MessageListView';
 import WorkViewEnum from '@/app/com/common/view/WorkViewEnum';
 
-export default class ViewInitializer extends AbstractInitializer {
+export default class ViewInitializer extends EnterInitializer {
 
     public getOrder(): number {
         return 1;

@@ -4,10 +4,10 @@ import auth from '@/app/common/auth/Auth';
 import SystemNetController from '@/app/com/main/module/business/system/controller/SystemNetController';
 import LoginController from '@/app/com/main/module/business/index/controller/LoginController';
 import PromptHandler from '@/app/com/client/define/prompt/PromptHandler';
-import InitializerBox from '@/app/base/initialize/InitializerBox';
-import Initializer from '@/app/base/initialize/Initializer';
+import LaunchInitializerBox from '@/app/base/initialize/LaunchInitializerBox';
+import LaunchInitializer from '@/app/base/initialize/LaunchInitializer';
 import DefaultPromptHandlerImpl from '@/app/impl/default/client/prompt/DefaultPromptHandlerImpl';
-import EnterInitializerBox from '@/app/com/main/initialize/EnterInitializerBox';
+import EnterInitializerBox from '@/app/base/initialize/EnterInitializerBox';
 import InformationInitializer from '@/app/com/main/initialize/impl/InformationInitializer';
 import ViewInitializer from '@/app/com/main/initialize/impl/ViewInitializer';
 import ListInitializer from '@/app/com/main/initialize/impl/ListInitializer';
@@ -27,7 +27,6 @@ import AppLoader from '@/app/AppLoader';
 class App {
 
     public appContext: AppContext = new AppContext();
-    public launchInitializerBox: InitializerBox = new InitializerBox();
     public promptHandler: PromptHandler = new DefaultPromptHandlerImpl();
     public actionLoader: AppLoader = new AppLoader();
     public disconnection = false;
@@ -46,10 +45,6 @@ class App {
         this.initializeLaunch();
     }
 
-    public putInitializer(data: Initializer) {
-        this.launchInitializerBox.put(data);
-    }
-
     public initializeApp(): void {
         this.buildDefaultView();
         // this.actionLoader.load();
@@ -61,8 +56,8 @@ class App {
         this.initializeNetServer();
         this.buildModule();
         this.buildLaunch();
-        this.launchInitializerBox.initialize(this.appContext);
-
+        const launchInitializerBox = this.appContext.getMaterial(LaunchInitializerBox);
+        launchInitializerBox.initialize();
         const own = this;
         const connectHandler: ConnectHandler = {
             onIdle(): void {
@@ -136,11 +131,11 @@ class App {
     }
 
     private buildLaunch(): void {
-        this.putInitializer(new ActionInitializer());
-        this.putInitializer(new ComponentInitializer());
-        this.putInitializer(new HttpInitializer());
-        this.putInitializer(new ListenerInitializer());
-        this.putInitializer(new ServerInitializer());
+        this.appContext.getMaterial(ActionInitializer);
+        this.appContext.getMaterial(ComponentInitializer);
+        this.appContext.getMaterial(HttpInitializer);
+        this.appContext.getMaterial(ListenerInitializer);
+        this.appContext.getMaterial(ServerInitializer);
     }
 
     private initializeNetServer(): void {

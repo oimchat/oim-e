@@ -1,8 +1,8 @@
 import AbstractMaterial from '@/app/base/context/AbstractMaterial';
 import DataChange from '@/app/base/event/DataChange';
 import AppContext from '@/app/base/context/AppContext';
-import EnterInitializerBox from '@/app/com/main/initialize/EnterInitializerBox';
-import BaseInitializer from '@/app/com/main/initialize/BaseInitializer';
+import EnterInitializerBox from '@/app/base/initialize/EnterInitializerBox';
+import BaseInitializer from '@/app/base/initialize/BaseInitializer';
 
 export default class AllMessageUnreadBox extends AbstractMaterial implements BaseInitializer {
 

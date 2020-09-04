@@ -1,4 +1,4 @@
-import AbstractInitializer from '@/app/com/main/initialize/AbstractInitializer';
+import EnterInitializer from '@/app/base/initialize/EnterInitializer';
 import SystemInformationService from '@/app/com/client/module/message/service/SystemInformationService';
 import DataBackAction from '@/app/base/net/DataBackAction';
 import SystemInformType from '@/app/com/main/data/SystemInformType';
@@ -18,7 +18,7 @@ import UserChatUnreadService from '@/app/com/main/module/business/chat/service/U
 import GroupInformationConverge from '@/app/com/main/module/business/group/converge/GroupInformationConverge';
 import ContactInformationConverge from '@/app/com/main/module/business/contact/converge/ContactInformationConverge';
 
-export default class InformationInitializer extends AbstractInitializer {
+export default class InformationInitializer extends EnterInitializer {
 
     public getOrder(): number {
         return 2;

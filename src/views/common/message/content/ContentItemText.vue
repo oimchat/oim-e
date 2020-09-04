@@ -1,21 +1,28 @@
 <template>
-    <label v-html="data"></label>
+    <label v-html="item.data"></label>
 </template>
 
 <script lang="ts">
-    import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
+import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
+import Item from '@/app/com/common/chat/Item';
 
-    @Component({
-        components: {},
+@Component({
+    components: {},
+})
+export default class ContentItemText extends Vue {
+    @Prop({
+        type: String,
+        required: false,
+        default: () => (''),
     })
-    export default class ContentItemText extends Vue {
-        @Prop({
-            type: String,
-            required: false,
-            default: () => (''),
-        })
-        private data!: string;
-    }
+    private data!: string;
+    @Prop({
+        type: Item,
+        required: false,
+        default: () => (new Item()),
+    })
+    private item!: Item;
+}
 </script>
 
 <style scoped>

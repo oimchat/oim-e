@@ -60,20 +60,20 @@
                             <div>
                                 {{item.apply.message}}
                             </div>
-                            <div v-for="(item, index) in item.answers" :key="index">
+                            <div v-for="(data, index) in item.answers" :key="index">
                                 <div class="item">
                                     <div>
                                         <div>
                                             <span>问题:</span>
                                             <label>
-                                                {{item.question}}
+                                                {{data.question}}
                                             </label>
                                         </div>
                                     </div>
                                     <div>
                                         <div>
                                             <span>答案:</span>
-                                            <label>{{item.answer}}</label>
+                                            <label>{{data.answer}}</label>
                                         </div>
                                     </div>
                                 </div>

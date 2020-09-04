@@ -94,10 +94,6 @@ export default class ChatViewModel extends ChatMessageModel {
         const isReceive = false;
         const isOwn = true;
         const messageKey = content.key;
-        const service: ContentItemHandleService = app.appContext.getMaterial(ContentItemHandleService);
-        if (service) {
-            content = service.convertContent(content);
-        }
         this.insertLast(isReceive, isOwn, key, showName, chatUser, content);
         const wrap: ContentWrap | undefined = this.getContentWrap(key, messageKey);
         if (wrap) {

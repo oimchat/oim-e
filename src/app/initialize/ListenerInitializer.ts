@@ -1,19 +1,18 @@
-import Initializer from '@/app/base/initialize/Initializer';
+import LaunchInitializer from '@/app/base/initialize/LaunchInitializer';
 import AppContext from '@/app/base/context/AppContext';
 import DataChange from '@/app/base/event/DataChange';
 import User from '@/app/com/main/module/business/user/bean/User';
 import UserAccess from '@/app/com/main/module/business/user/access/UserAccess';
 import GroupMemberUserBox from '@/app/com/main/module/business/group/box/GroupMemberUserBox';
 
-export default class ListenerInitializer implements Initializer {
-
+export default class ListenerInitializer extends LaunchInitializer {
 
     public getOrder(): number {
         return 0;
     }
 
-    public initialize(appContext: AppContext): void {
-        this.initializeHandle(appContext);
+    public initialize(): void {
+        this.initializeHandle(this.appContext);
     }
 
     public getKey(): string {

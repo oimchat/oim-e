@@ -84,7 +84,7 @@ export default class ContentItemHandleService extends AbstractMaterial {
                     }
                 }
             }
-            item.value = text;
+            item.data = text;
         }
     }
 }

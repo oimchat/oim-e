@@ -1,8 +1,8 @@
-import AbstractInitializer from '@/app/com/main/initialize/AbstractInitializer';
+import EnterInitializer from '@/app/base/initialize/EnterInitializer';
 import PersonalSender from '@/app/com/main/module/business/personal/sender/PersonalSender';
 import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
 
-export default class PersonalInitializer extends AbstractInitializer {
+export default class PersonalInitializer extends EnterInitializer {
 
     public getOrder(): number {
         return 1;

@@ -16,7 +16,7 @@ import Client from '@/app/base/message/client/Client';
 import LoginData from '@/app/com/main/module/business/index/data/LoginData';
 import LoginUser from '@/app/com/main/module/business/index/data/LoginUser';
 import LoginSaveBox from '@/app/com/main/module/business/index/box/login/LoginSaveBox';
-import EnterInitializerBox from '@/app/com/main/initialize/EnterInitializerBox';
+import EnterInitializerBox from '@/app/base/initialize/EnterInitializerBox';
 import LoginSaveInfo from '@/app/com/main/module/business/index/box/login/LoginSaveInfo';
 import User from '@/app/com/main/module/business/user/bean/User';
 import UserInfoUtil from '@/app/com/main/common/util/UserInfoUtil';
