@@ -80,7 +80,7 @@ export default class ContentItemHandleService extends AbstractMaterial {
                     const face = faceBox.getFace('emoji', code);
                     if (face) {
                         const html = FaceImageUtil.createFaceImageHtml(face);
-                        text = text.replace(code, html);
+                        text = text.replace(new RegExp(code, 'g'), html);
                     }
                 }
             }
