@@ -649,19 +649,42 @@
     }
 
     .tool-icon-warp {
-        text-align: center;
-        display: inline-block;
-        padding: 2px;
-        margin-left: 5px;
-        margin-right: 5px;
-        cursor: pointer;
-        background: transparent;
-        border: transparent;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        word-wrap: normal;
+        //text-align: center;
+        //display: inline-block;
+        //padding: 2px;
+        //margin-left: 5px;
+        //margin-right: 5px;
+        //cursor: pointer;
+        //background: transparent;
+        //border: transparent;
+        //overflow: hidden;
+        //text-overflow: ellipsis;
+        //white-space: nowrap;
+        //word-wrap: normal;
+        //vertical-align: middle;
+
+
+        align-items: center;
+        border-radius: 4px;
+        display: inline-flex;
+        flex: 0 0 auto;
+        font-weight: 500;
+        letter-spacing: 0.0892857143em;
+        justify-content: center;
+        outline: 0;
+        position: relative;
+        text-decoration: none;
+        text-indent: 0.0892857143em;
+        text-transform: uppercase;
+        transition-duration: 0.28s;
+        transition-property: box-shadow, transform, opacity;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
         vertical-align: middle;
+        white-space: nowrap;
 
         i {
             color: #979797;

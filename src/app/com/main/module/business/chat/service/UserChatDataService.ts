@@ -82,6 +82,7 @@ export default class UserChatDataService extends AbstractMaterial {
                 contentData.id = contentId;
                 contentData.content = content;
                 contentData.name = showName;
+                contentData.avatar = chatUser.avatar;
                 contentData.user = chatUser;
                 contentData.isOwn = isOwn;
                 contentData.timeVisible = true;
