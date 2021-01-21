@@ -30,21 +30,21 @@ class WindowDecorated {
         ipcRenderer.send('flashFrame');
     }
 
-    // public min() {
-    //     ipcRenderer.send('windowMin');
-    // }
-    //
-    // public max() {
-    //     ipcRenderer.send('windowMax');
-    // }
-    //
-    // public restore() {
-    //     ipcRenderer.send('windowRestore');
-    // }
-    //
-    // public close() {
-    //     ipcRenderer.send('windowClose');
-    // }
+    public min() {
+        ipcRenderer.send('windowMin');
+    }
+
+    public max() {
+        ipcRenderer.send('windowMax');
+    }
+
+    public restore() {
+        ipcRenderer.send('windowRestore');
+    }
+
+    public close() {
+        ipcRenderer.send('windowClose');
+    }
 
     public flashIcon() {
         ipcRenderer.send('flashIcon');
@@ -54,34 +54,34 @@ class WindowDecorated {
         ipcRenderer.send('clearFlashIcon');
     }
 
-    public max() {
-        const currentWindow = remote.getCurrentWindow();
-        currentWindow.maximize();
-    }
-
-    public min() {
-        const currentWindow = remote.getCurrentWindow();
-        currentWindow.minimize();
-    }
-
-    public restore() {
-        const currentWindow = remote.getCurrentWindow();
-        if (currentWindow.isMaximized()) {
-            currentWindow.unmaximize();
-        } else if (currentWindow.isMinimized()) {
-            currentWindow.restore();
-        }
-    }
-
-    public close() {
-        const currentWindow = remote.getCurrentWindow();
-        currentWindow.close();
-    }
-
-    public bringFront(isOnTop: boolean) {
-        const currentWindow = remote.getCurrentWindow();
-        currentWindow.setAlwaysOnTop(isOnTop);
-    }
+    // public max() {
+    //     const currentWindow = remote.getCurrentWindow();
+    //     currentWindow.maximize();
+    // }
+    //
+    // public min() {
+    //     const currentWindow = remote.getCurrentWindow();
+    //     currentWindow.minimize();
+    // }
+    //
+    // public restore() {
+    //     const currentWindow = remote.getCurrentWindow();
+    //     if (currentWindow.isMaximized()) {
+    //         currentWindow.unmaximize();
+    //     } else if (currentWindow.isMinimized()) {
+    //         currentWindow.restore();
+    //     }
+    // }
+    //
+    // public close() {
+    //     const currentWindow = remote.getCurrentWindow();
+    //     currentWindow.close();
+    // }
+    //
+    // public bringFront(isOnTop: boolean) {
+    //     const currentWindow = remote.getCurrentWindow();
+    //     currentWindow.setAlwaysOnTop(isOnTop);
+    // }
 
     public focus() {
         const currentWindow = remote.getCurrentWindow();
@@ -98,10 +98,10 @@ class WindowDecorated {
         currentWindow.showInactive();
     }
 
-    public hide() {
-        const currentWindow = remote.getCurrentWindow();
-        currentWindow.hide();
-    }
+    // public hide() {
+    //     const currentWindow = remote.getCurrentWindow();
+    //     currentWindow.hide();
+    // }
 
     public show() {
         const currentWindow = remote.getCurrentWindow();

@@ -50,7 +50,7 @@
         }
 
         private close() {
-            decorated.hide();
+            decorated.close();
         }
     }
 </script>
