@@ -214,7 +214,7 @@ export default class LoginController extends AbstractMaterial {
     private connect(back: (success: boolean, message?: string) => void) {
         const serverService: ServerService = this.appContext.getMaterial(ServerService);
         const connectService: ConnectService = this.appContext.getMaterial(ConnectService);
-        const address = serverService.getAddress(ServerType.main, Protocol.WebSocket);
+        const address = serverService.getAddress(ServerType.main, Protocol.WS);
         if (!address || !address.enabled) {
             back(false, '没有可用的服务器！');
         } else {

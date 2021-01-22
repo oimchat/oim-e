@@ -20,11 +20,12 @@ export default class PersonalCall extends AbstractMaterial {
         const body = loginData;
         const m = Message.build(this.action, '1.1.0005');
         m.body = body;
-        this.post(m, back, true);
+        const path = '/' + this.action + '/' + '1.1.0005';
+        this.post(path, m, back, true);
     }
 
 
-    private post(m: any, back: (data: any) => void, prompt?: boolean) {
+    private post(path: string, m: any, back: (data: any) => void, prompt?: boolean) {
         const serverBox: ServerBox = this.appContext.getMaterial(ServerBox);
         const address = serverBox.getAddress(ServerType.main, Protocol.HTTP);
         if (!address || !address.enabled) {
@@ -35,7 +36,7 @@ export default class PersonalCall extends AbstractMaterial {
             back(message);
         } else {
             const url = ServerAddressUtil.convertHttpUrl(address);
-            http.post(url, m, back, prompt);
+            http.post(url + path, m, back, prompt);
         }
     }
 }

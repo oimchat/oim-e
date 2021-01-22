@@ -148,8 +148,19 @@ export default class AccountCall extends AbstractMaterial {
                 prompter.prompt('服务器不可用！', '错误', PromptType.error);
             }
         } else {
+            let path = '/';
+            if (m && m.head) {
+                const action = m.head.action;
+                const method = m.head.method;
+                if (action) {
+                    path = path + '/' + action;
+                }
+                if (method) {
+                    path = path + '/' + method;
+                }
+            }
             const url = ServerAddressUtil.convertHttpUrl(address);
-            http.post(url, m, back, true);
+            http.post(url + path, m, back, true);
         }
     }
 }

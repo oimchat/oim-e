@@ -1,10 +1,11 @@
 export enum Protocol {
-    TCP = 'TCP',
-    UDP = 'UDP',
-    HTTP = 'HTTP',
-    HTTPS = 'HTTPS',
-    WebSocket = 'WebSocket',
-    FTP = 'FTP',
+    TCP = 'tcp',
+    UDP = 'udp',
+    HTTP = 'http',
+    HTTPS = 'https',
+    WS = 'ws',
+    WSS = 'wss',
+    FTP = 'ftp',
 }
 
 export enum AddressType {
@@ -14,8 +15,8 @@ export enum AddressType {
 }
 
 export enum ServerType {
-    main= 'main',
-    file= 'file',
-    video= 'video',
-    voice= 'voice',
+    main = 'main',
+    file = 'file',
+    video = 'video',
+    voice = 'voice',
 }
