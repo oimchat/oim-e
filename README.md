@@ -35,7 +35,11 @@ OIM-E是基于Electron实现的PC桌面聊天软件，可支持Windows、Linux�
 
 ## 关于服务端
 整个完整项目是包含服务端的，所以本项目是需要的服务端支持。服务端是采用Java开发，同样都是开源的。
-服务端源码地址：https://gitee.com/oimchat/oim-server 分支 1.0.0 
+服务端源码地址：https://gitee.com/oimchat/oim-server
+
+## 环境
+nodejs v12.18.3
+尽量采用相同版本，避免报错
 
 ## 命令
 
