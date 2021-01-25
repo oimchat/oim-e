@@ -187,6 +187,10 @@ export default class ChatMessageModel {
             if (isOwn) {
                 const status: number = (isReceive) ? MessageStatusType.succeed : MessageStatusType.sending;
                 data.status = status;
+                const timestamp = content.timestamp;
+                data.content.timestamp = content.timestamp;
+                data.timeText = this.getTimeText(timestamp);
+                // this.sort(list);
             }
         } else {
             const lastTimestamp = this.messageData.lastTimestamp;
@@ -222,7 +226,7 @@ export default class ChatMessageModel {
             }
             map.set(messageKey, data);
             this.keepSize(key, 600);
-            this.sort(list);
+            // this.sort(list);
         }
     }
 
