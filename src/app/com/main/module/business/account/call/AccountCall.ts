@@ -148,7 +148,7 @@ export default class AccountCall extends AbstractMaterial {
                 prompter.prompt('服务器不可用！', '错误', PromptType.error);
             }
         } else {
-            let path = '/';
+            let path = '';
             if (m && m.head) {
                 const action = m.head.action;
                 const method = m.head.method;
