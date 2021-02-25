@@ -31,7 +31,7 @@ export default class HttpInitializer extends LaunchInitializer {
             handleRequest(request: AxiosRequestConfig): void {
                 // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
                 request.headers.token = auth.getToken();
-                request.headers.key = auth.getUserId();
+                request.headers.source = auth.getUserId();
             },
             handleResponse(response: AxiosResponse, back?: (data: any) => void, prompt?: boolean): void {
                 const value = response.data;

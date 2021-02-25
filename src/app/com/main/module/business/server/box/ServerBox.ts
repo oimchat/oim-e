@@ -57,7 +57,7 @@ export default class ServerBox extends AbstractMaterial {
 
     public hasAddress(code: string, protocol: string): boolean {
         let has = false;
-        const address = this.getAddress(ServerType.file, Protocol.HTTP);
+        const address = this.getAddress(code, protocol);
         has = !(!address || !address.enabled);
         return has;
     }
